@@ -297,6 +297,7 @@ def main():
 			comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
 		except:
 			print("Could not 'refresh' comment: " + str(comment))
+			to_write.append(str(comment.id))
 			continue
 		time_made = comment.created
 		if time.time() - time_made > 3 * 24 * 60 * 60:  # if this comment is more than three days old
