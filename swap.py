@@ -139,12 +139,12 @@ def set_active_comments_and_messages(reddit, comments, messages):
 	try:
 		for message in reddit.inbox.unread():
 			to_mark_as_read.append(message)
-        	        if not message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
+        	        if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
                 	        try:
                         	        comments.append(reddit.comment(message.id))
 	                        except:  # if this fails, the user deleted their account or comment so skip it
         	                        pass
-                	else:
+                	elif not message.was_comment:
                         	messages.append(message)
 	except:
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
