@@ -3,10 +3,19 @@ import json
 import praw
 import time
 import datetime
+import argparse
+
+try:
+	parser = argparse.ArgumentParser()
+	parser.add_argument('config_file_name', metavar='C', type=str)
+	args = parser.parse_args()
+	fname = 'config/' + args.config_file_name
+except: # if no cmnd line args are passed in, assume they are still using old file structure
+	fname = "config.txt"
 
 debug = False
 
-f = open("config.txt", "r")
+f = open(fname, "r")
 info = f.read().splitlines()
 f.close()
 
@@ -19,6 +28,7 @@ try:
 	flair_word = " " + info[5]
 except:
 	flair_word = " Swaps"
+
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
 FNAME_archive = 'database/archive-' + subreddit_name + '.txt'
