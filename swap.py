@@ -359,8 +359,9 @@ def main():
 			if not debug:
 				try:
 					message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, in the body of the message you just sent me. Please feel free to try again. Thanks!")
-				except:
-					print("Message has no reply option...")
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
 				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
 			continue
@@ -371,8 +372,9 @@ def main():
 			if not debug:
 				try:
 					message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
-				except:
-					print("Message has no reply option...")
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
 				print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
 			continue
@@ -391,16 +393,18 @@ def main():
 			if not debug:
 				try:
 					message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
-				except:
-					print("Message has no reply option...")
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
 				print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
 		else:
 			if not debug:
 				try:
 					message.reply("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text)
-				except:
-					print("Message has no reply option...")
+				except Exception as e:
+					print("Could not reply to message with error...")
+					print("    " + str(e))
 			else:
 				print("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text + "\n==========")
 
