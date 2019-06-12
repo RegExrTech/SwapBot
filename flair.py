@@ -8,7 +8,7 @@ import datetime
 
 debug = False
 
-f = open("config.txt", "r")
+f = open("config/pkmntcgtrades-config.txt", "r")
 info = f.read().splitlines()
 f.close()
 
@@ -100,5 +100,5 @@ def add_feedback_from_posts(reddit, sub, ids):
 reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 sub = reddit.subreddit(subreddit_name)
 
-#add_feedback_from_posts(reddit, sub, ['3hkem1'])
+add_feedback_from_posts(reddit, sub, ['8ctzxp'])
 #reassign_all_flair(sub)
