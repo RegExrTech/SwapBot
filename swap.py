@@ -179,7 +179,7 @@ def set_archived_comments(reddit, comments):
 
 def handle_comment(comment, bot_username, swap_data, sub, to_write):
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
-	if isinstance(comment.parent(), praw.models.Comment) and bot_username in comment.parent().body:
+	if isinstance(comment.parent(), praw.models.Comment) and bot_username in comment.parent().body and 'automod' not in str(comment.parent().author).lower()):
 		return
         author1 = comment.author  # Author of the top level comment
         comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]  # all words in the top level comment
