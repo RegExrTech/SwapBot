@@ -178,6 +178,9 @@ def set_archived_comments(reddit, comments):
 	comments = list(set(comments))
 
 def handle_comment(comment, bot_username, swap_data, sub, to_write):
+	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
+	if isinstance(comment.parent(), praw.models.Comment) and bot_username in comment.parent().body:
+		return
         author1 = comment.author  # Author of the top level comment
         comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]  # all words in the top level comment
 	if debug:
@@ -305,9 +308,9 @@ def main():
 	for comment in comments:
 		try:
 			comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
-		except:
+		except: # if we can't refresh a comment, archive it so we don't waste time on it.
 			print("Could not 'refresh' comment: " + str(comment))
-			to_write.append(str(comment.id))
+			to_archive.append(str(comment.id))
 			continue
 		time_made = comment.created
 		if time.time() - time_made > 3 * 24 * 60 * 60:  # if this comment is more than three days old
