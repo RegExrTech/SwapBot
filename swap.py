@@ -292,6 +292,10 @@ def inform_credit_already_give(correct_reply):
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def main():
+	# We want to give ourselves some buffer time during archive run, so we do't run for ten minutes after
+	# archive run.
+	if is_time_between(datetime.time(02,03), datetime.time(02,09)) and not debug:
+		return
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 	sub = reddit.subreddit(subreddit_name)
 
