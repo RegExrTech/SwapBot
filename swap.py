@@ -179,7 +179,7 @@ def set_archived_comments(reddit, comments):
 
 def handle_comment(comment, bot_username, swap_data, sub, to_write):
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
-	if isinstance(comment.parent(), praw.models.Comment) and bot_username in comment.parent().body and 'automod' not in str(comment.parent().author).lower()):
+	if isinstance(comment.parent(), praw.models.Comment) and bot_username in comment.parent().body and 'automod' not in str(comment.parent().author).lower():
 		return
         author1 = comment.author  # Author of the top level comment
         comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]  # all words in the top level comment
@@ -294,7 +294,7 @@ def inform_credit_already_give(correct_reply):
 def main():
 	# We want to give ourselves some buffer time during archive run, so we do't run for ten minutes after
 	# archive run.
-	if is_time_between(datetime.time(02,03), datetime.time(02,09)) and not debug:
+	if is_time_between(datetime.time(2,3), datetime.time(2,9)) and not debug:
 		return
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 	sub = reddit.subreddit(subreddit_name)
@@ -327,7 +327,7 @@ def main():
 			add_to_archive(to_archive)
 
 	# If it is between 00:00 and 00:02 UTC, check the archived comments
-	if is_time_between(datetime.time(02,00), datetime.time(02,02)) or debug:
+	if is_time_between(datetime.time(2,0), datetime.time(2,2)) or debug:
 #	if True:
 		print("Looking through archived comments...")
 		comments = []
