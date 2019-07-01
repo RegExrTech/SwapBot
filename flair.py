@@ -100,5 +100,5 @@ def add_feedback_from_posts(reddit, sub, ids):
 reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 sub = reddit.subreddit(subreddit_name)
 
-add_feedback_from_posts(reddit, sub, ['8ctzxp'])
+add_feedback_from_posts(reddit, sub, ['6dzae1'])
 #reassign_all_flair(sub)
