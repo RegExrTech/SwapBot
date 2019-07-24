@@ -1,6 +1,7 @@
 import json
 
 FNAME = 'database/swaps-funkoswap.json'
+FNAME = 'database/swaps-pkmntcgtrades.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -23,9 +24,7 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-print(db.keys())
-#print(db.keys())
-print(db['ticklesmyfancy'.lower()])
-#print(db['andys-toys'.lower()])
 
-#dump(db)
+db['arcashine'] = db['onypc']
+
+dump(db)
