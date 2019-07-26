@@ -85,7 +85,13 @@ def add_feedback_from_posts(reddit, sub, ids):
 	for id in ids:
 		submission = reddit.submission(id=str(id))
 		author1 = str(submission.author)
-		for comment in submission.comments:
+		comments = submission.comments
+#		children = []
+#		for comment in comments:
+#			for child in comment.replies:
+#				print(child)
+#				children.append(child)
+		for comment in comments:
 			message = "https://www.reddit.com" + str(urllib.quote(comment.permalink.encode('utf-8'), safe=':/'))
 			author2 = str(comment.author)
 			print(author1 + " -> " + author2)
@@ -93,6 +99,16 @@ def add_feedback_from_posts(reddit, sub, ids):
 			status = update_database(author1, author2, swap_data, message)
 			if not status:
 				print("Found duplicate post")
+
+#		for comment in children:
+#			print(comment)
+#			message = "https://www.reddit.com" + str(urllib.quote(comment.permalink.encode('utf-8'), safe=':/'))
+#			author2 = str(comment.author)
+#			print(author1 + " -> " + author2)
+#			print("    " + message)
+#			status = update_database(author1, author2, swap_data, message)
+#			if not status:
+#				print("Found duplicate post")
 	        count = str(len(swap_data[author1.lower()]))
 		update_flair(author1.lower(), count)
 	dump_json(swap_data)
@@ -100,5 +116,5 @@ def add_feedback_from_posts(reddit, sub, ids):
 reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 sub = reddit.subreddit(subreddit_name)
 
-add_feedback_from_posts(reddit, sub, ['6dzae1'])
+add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
 #reassign_all_flair(sub)
