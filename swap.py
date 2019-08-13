@@ -19,20 +19,27 @@ f = open(fname, "r")
 info = f.read().splitlines()
 f.close()
 
+# Pad out the config values in case optional options are not present
+for i in range(7 - len(info)):
+	info.append("")
+
 subreddit_name = info[0]
 client_id = info[1]
 client_secret = info[2]
 bot_username = info[3]
 bot_password = info[4]
-try:
+if info[5]:
 	flair_word = " " + info[5]
-except:
+else:
 	flair_word = " Swaps"
+if info[6]:
+	mod_flair_word = info[6] + " "
+else:
+	mod_flair_word = ""
 
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
 FNAME_archive = 'database/archive-' + subreddit_name + '.txt'
-
 check_time = datetime.datetime.utcnow().time()
 
 # Checks if the time at script start up is between two desired times
@@ -119,6 +126,7 @@ def update_database(author1, author2, swap_data, post_id):
 	return True  # If all went well, return true
 
 def update_flair(author1, author2, sub, swap_data):
+	mods = [str(x).lower() for x in sub.moderator()]
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
 
@@ -128,7 +136,10 @@ def update_flair(author1, author2, sub, swap_data):
 		print("attempting to assign flair for " + author)
 		swap_count = str(len(swap_data[author]))
 		if not debug:
-			sub.flair.set(author, swap_count + flair_word, swap_count)
+			if author in mods:
+				sub.flair.set(author, mod_flair_word + swap_count + flair_word, swap_count)
+			else:
+				sub.flair.set(author, swap_count + flair_word, swap_count)
 		else:
 			print("Assigning flair " + swap_count + " to user " + author)
 			print("length of swap_data: " + str(len(swap_data[author])))
