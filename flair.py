@@ -8,7 +8,9 @@ import datetime
 
 debug = False
 
-f = open("config/pkmntcgtrades-config.txt", "r")
+sub_name = "pkmntcgtrades"
+sub_name = "vinylcollectors"
+f = open("config/" + sub_name + "-config.txt", "r")
 info = f.read().splitlines()
 f.close()
 
@@ -113,8 +115,103 @@ def add_feedback_from_posts(reddit, sub, ids):
 		update_flair(author1.lower(), count)
 	dump_json(swap_data)
 
+
+
+def add_feedback_from_vinylcollectors_posts(reddit, sub):
+	post_ids = ['avq2s4', '9baxki', '7zeg1o', '6vmdr4', '5vzo0d', '53qleg', '4i1q6w']
+#	post_ids = ['6vmdr4', '5vzo0d', '53qleg', '4i1q6w']
+	swap_data = get_swap_data()
+	to_handle_later = []
+	for id in post_ids:
+		continue
+		submission = reddit.submission(id=str(id))
+		submission.comments.replace_more(limit=None)
+		for comment in submission.comments.list():
+			if 'All feedback'.lower() in comment.body.lower():
+				continue
+                        message = "https://www.reddit.com" + str(urllib.quote(comment.permalink.encode('utf-8'), safe=':/'))
+			body = comment.body.lower().replace(">", "").replace("<", "")
+                        author2 = str(comment.author).lower()
+			regex = re.compile('(u\/[A-Za-z0-9_-]+)')
+			matches = regex.findall(body)
+			regex = re.compile('(user\/[A-Za-z0-9_-]+)')
+			matches += regex.findall(body)
+			if 'negative' in body:
+				matches = []
+			if len(body) < 15:
+				continue
+			if 'added, thanks' in body:
+				continue
+			if not comment.parent_id == comment.link_id:
+				to_handle_later.append(comment)
+				continue
+			if not matches:
+				to_handle_later.append(comment)
+				continue
+			else:
+				if 'positive' not in body and 'succes' not in body:
+					to_handle_later.append(comment)
+					continue
+				for author1 in matches:
+					author1 = author1.lower()
+					print(author1 + " -> " + str(author2))
+                                        print("    " + message)
+                                        status = update_database(author1, author2, swap_data, message)
+                                        if not status:
+                                                print("Found duplicate post")
+			dump_json(swap_data)
+	f = open("tmp.txt", 'r')
+	comment_ids = f.read().splitlines()
+	f.close()
+	print("have to look at " + str(len(comment_ids)) + " comments")
+	count = 0
+	for id in comment_ids:
+		comment = reddit.comment(id)
+		message = "https://www.reddit.com" + str(urllib.quote(comment.permalink.encode('utf-8'), safe=':/'))
+                body = comment.body.lower().replace(">", "").replace("<", "")
+		regex = re.compile('(u\/[A-Za-z0-9_-]+)')
+		matches = regex.findall(body)
+		regex = re.compile('(user\/[A-Za-z0-9_-]+)')
+		matches += [x.replace("user/", "u/") for x in regex.findall(body)]
+		author2 = str(comment.author).lower()
+		author1 = "a"
+		print("\n========\n" + body + " -> " + message) #"https://www.reddit.com/r/vinylcollectors.com/comments/" + id + "/-/" + comment.id)
+		if len(body.split(" ")) < 3:
+			continue
+		if len(body) < 22:
+			continue
+		if matches:
+			for author1 in matches:
+				user = ""
+				if not "am satisfied with" in body and not "positive" in body:
+					user = raw_input(author1 + " >> ")
+				if user:
+					continue
+		                print(author1 + " -> " + str(author2))
+		                print("    " + message)
+                		status = update_database(author1, author2, swap_data, message)
+        			if not status:
+					print("Found duplicate post")
+		else:
+			while author1:
+				author1 = raw_input(">> ")
+				if not author1:
+					continue
+				author1 = "u/" + author1.lower()
+		                print(author1 + " -> " + str(author2))
+		                print("    " + message)
+                		status = update_database(author1, author2, swap_data, message)
+        			if not status:
+					print("Found duplicate post")
+		dump_json(swap_data)
+		count += 1
+		f = open("tmp.txt", 'w')
+		f.write("\n".join(comment_ids[count:]))
+		f.close()
+
 reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 sub = reddit.subreddit(subreddit_name)
 
-add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
+add_feedback_from_vinylcollectors_posts(reddit, sub)
+#add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
 #reassign_all_flair(sub)
