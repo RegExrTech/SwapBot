@@ -62,19 +62,17 @@ def dump_json(swap_data):
                         .replace('{u"', '{"')
                         .encode('ascii','ignore'))
 
-def reassign_all_flair(sub):
+def reassign_all_flair(sub, data):
         flairs = sub.flair(limit=None)
         # Loop over each author and change their flair
         for flair in flairs:
+		try:
+			css = str(len(data[flair['user']]))
+		except:
+			css = "0"
 		text = flair['flair_text']
 		if text and swap_word in text:
 			continue
-                css = flair['flair_css_class']
-		try:
-			css = str(int(css))
-		except:
-#			print("Found flair " + str(css) + " for user " + str(flair['user']))
-			css = "0"
                 print(str(flair['user']) + " - " + css + swap_word)
                 sub.flair.set(str(flair['user']).lower(), css + swap_word, css)
 
@@ -211,4 +209,5 @@ sub = reddit.subreddit(subreddit_name)
 
 #add_feedback_from_vinylcollectors_posts(reddit, sub)
 #add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
-add_all_flair(get_swap_data(), sub)
+#add_all_flair(get_swap_data(), sub)
+reassign_all_flair(sub, get_swap_data())

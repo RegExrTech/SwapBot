@@ -25,18 +25,5 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-new = {}
-keys = db.keys()
-print(keys[1])
-print(len(keys))
-int('s')
-for key in keys:
-	new_key = key.split("/")[1]
-	if new_key not in new:
-		new[new_key] = db[key]
-	else:
-		for val in db[key]:
-			if val not in new[new_key]:
-				new[new_key].append(val)
-
-dump(new)
+print(db['tufnut2crack'])
+#dump(db)
