@@ -66,15 +66,19 @@ def reassign_all_flair(sub, data):
         flairs = sub.flair(limit=None)
         # Loop over each author and change their flair
         for flair in flairs:
+		user = str(flair['user']).lower()
 		try:
-			css = str(len(data[flair['user']]))
+			css = str(len(data[user]))
 		except:
 			css = "0"
 		text = flair['flair_text']
-		if text and swap_word in text:
+#		if text and swap_word in text:
+#			continue
+		if not flair['flair_css_class'] == 'new':
 			continue
-                print(str(flair['user']) + " - " + css + swap_word)
-                sub.flair.set(str(flair['user']).lower(), css + swap_word, css)
+                sub.flair.set(user, css + swap_word, css)
+#                print(user + " - " + str(sub.flair.get(user)))
+		return
 
 def update_flair(user, count):
         sub.flair.set(str(user).lower(), count + swap_word, count)
