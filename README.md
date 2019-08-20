@@ -28,9 +28,25 @@
     
     * `> database/active_comments-funkoswap.txt`
 
+* Create a config file in the config directory named `funkoswap-config.txt` with the following on seperate lines:
+
+    * Subreddit name
+    
+    * Bot Client ID
+    
+    * Bot Secret ID
+    
+    * Bot Username
+    
+    * Bot Password
+    
+    * User Flair Text (defaults to Swaps)
+    
+    * Moderator Flair Text (defaults to empty string)
+
 * Add the following cronjob using `crontab -e` 
 
-    * `\* \* \* \* \* cd ~/<YOUR_DIRECTORY_NAME> & python swap.py;`
+    * `\* \* \* \* \* cd ~/<YOUR_DIRECTORY_NAME> & python swap.py funkoswap-config.txt;`
     
 ## Using Git to back up the Data Files
 
