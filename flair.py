@@ -10,6 +10,7 @@ debug = False
 
 sub_name = "pkmntcgtrades"
 sub_name = "vinylcollectors"
+sub_name = 'mousemarket'
 f = open("config/" + sub_name + "-config.txt", "r")
 info = f.read().splitlines()
 f.close()
@@ -72,12 +73,10 @@ def reassign_all_flair(sub, data):
 		except:
 			css = "0"
 		text = flair['flair_text']
-#		if text and swap_word in text:
-#			continue
-		if not flair['flair_css_class'] == 'new':
+		if text and swap_word in text:
 			continue
                 sub.flair.set(user, css + swap_word, css)
-#                print(user + " - " + str(sub.flair.get(user)))
+                print(user + " - " + str(user))
 		return
 
 def update_flair(user, count):
