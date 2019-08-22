@@ -5,23 +5,27 @@ import time
 import datetime
 import argparse
 
-try:
-	parser = argparse.ArgumentParser()
-	parser.add_argument('config_file_name', metavar='C', type=str)
-	args = parser.parse_args()
-	fname = 'config/' + args.config_file_name
-except: # if no cmnd line args are passed in, assume they are still using old file structure
-	fname = "config.txt"
+# IDK, I needed this according to stack overflow.
+def ascii_encode_dict(data):
+	ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
+	return dict(map(ascii_encode, pair) for pair in data.items())
+
+# Function to load the swap DB into memory
+def get_swap_data(fname):
+	with open(fname) as json_data: # open the funko-shop's data
+		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+	return funko_store_data
 
 debug = False
 
-f = open(fname, "r")
+parser = argparse.ArgumentParser()
+parser.add_argument('config_file_name', metavar='C', type=str)
+args = parser.parse_args()
+config_fname = 'config/' + args.config_file_name
+
+f = open(config_fname, "r")
 info = f.read().splitlines()
 f.close()
-
-# Pad out the config values in case optional options are not present
-for i in range(7 - len(info)):
-	info.append("")
 
 subreddit_name = info[0]
 client_id = info[1]
@@ -36,6 +40,14 @@ if info[6]:
 	mod_flair_word = info[6] + " "
 else:
 	mod_flair_word = ""
+if info[7]:
+	flair_templates = get_swap_data('templates/'+subreddit_name+'.json')
+else:
+	flair_templates = False
+if info[8]:
+	confirmation_text = info[8]
+else:
+	confirmation_text = "Added"
 
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
@@ -62,17 +74,6 @@ def get_archived_ids():
 	ids = f.read().splitlines()
 	f.close()
 	return ids
-
-# IDK, I needed this according to stack overflow.
-def ascii_encode_dict(data):
-	ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-	return dict(map(ascii_encode, pair) for pair in data.items())
-
-# Function to load the swap DB into memory
-def get_swap_data():
-	with open(FNAME_swaps) as json_data: # open the funko-shop's data
-		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-	return funko_store_data
 
 # Dump the comment Ids
 def dump(to_write):
@@ -125,6 +126,18 @@ def update_database(author1, author2, swap_data, post_id):
                 swap_data[author2].append(author1 + message)
 	return True  # If all went well, return true
 
+def get_flair_template(templates, count):
+	if not templates:
+		return ""
+	keys = [int(x) for x in templates.keys()]
+	keys.sort()
+	template = ""
+	for key in keys:
+		if key > count:
+			break
+		template = templates[str(key)]
+	return template
+
 def update_flair(author1, author2, sub, swap_data):
 	mods = [str(x).lower() for x in sub.moderator()]
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
@@ -135,13 +148,18 @@ def update_flair(author1, author2, sub, swap_data):
 	for author in [author1, author2]:
 		print("attempting to assign flair for " + author)
 		swap_count = str(len(swap_data[author]))
+		template = get_flair_template(flair_templates, int(swap_count))
 		if not debug:
 			if author in mods:
-				sub.flair.set(author, mod_flair_word + swap_count + flair_word, swap_count)
+				flair_text =  mod_flair_word + swap_count + flair_word
 			else:
-				sub.flair.set(author, swap_count + flair_word, swap_count)
+				flair_text = swap_count + flair_word
+			if template:
+				sub.flair.set(author, flair_text, flair_template_id=template)
+			else:
+				sub.flair.set(author, flair_text, swap_count)
 		else:
-			print("Assigning flair " + swap_count + " to user " + author)
+			print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
 			print("length of swap_data: " + str(len(swap_data[author])))
 			print(swap_data[author])
 			print("==========")
@@ -287,9 +305,9 @@ def inform_comment_deleted(comment):
 def inform_giving_credit(correct_reply):
 	try:
 		if not debug:
-			correct_reply.reply("Added")
+			correct_reply.reply(confirmation_text)
 		else:
-			print("Added" + "\n==========")
+			print(confirmation_text + "\n==========")
 	except Exception as e:  # Comment was porobably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
@@ -310,7 +328,7 @@ def main():
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 	sub = reddit.subreddit(subreddit_name)
 
-	swap_data = get_swap_data()  # Gets the swap data for all users
+	swap_data = get_swap_data(FNAME_swaps)  # Gets the swap data for all users
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying
 	to_write = []  # What we will eventually write out to the local file
