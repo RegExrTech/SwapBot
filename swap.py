@@ -437,6 +437,8 @@ def main():
 		else:
 			if not debug:
 				try:
+					if len(final_text) > 10000:
+						final_text = final_text[:9800] + "\nTruncated..."
 					message.reply("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text)
 				except Exception as e:
 					print("Could not reply to message with error...")
