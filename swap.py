@@ -27,27 +27,31 @@ f = open(config_fname, "r")
 info = f.read().splitlines()
 f.close()
 
-subreddit_name = info[0]
-client_id = info[1]
-client_secret = info[2]
-bot_username = info[3]
-bot_password = info[4]
-if info[5]:
-	flair_word = " " + info[5]
+subreddit_name = info[0].split(":")[1]
+client_id = info[1].split(":")[1]
+client_secret = info[2].split(":")[1]
+bot_username = info[3].split(":")[1]
+bot_password = info[4].split(":")[1]
+if info[5].split(":")[1]:
+	flair_word = " " + info[5].split(":")[1]
 else:
 	flair_word = " Swaps"
-if info[6]:
-	mod_flair_word = info[6] + " "
+if info[6].split(":")[1]:
+	mod_flair_word = info[6].split(":")[1] + " "
 else:
 	mod_flair_word = ""
-if info[7]:
+if info[7].split(":")[1]:
 	flair_templates = get_swap_data('templates/'+subreddit_name+'.json')
 else:
 	flair_templates = False
-if info[8]:
-	confirmation_text = info[8]
+if info[8].split(":")[1]:
+	confirmation_text = info[8].split(":")[1]
 else:
 	confirmation_text = "Added"
+if info[9].split(":")[1]:
+	flair_threshold = int(info[9].split(":")[1])
+else:
+	flair_threshold = 0
 
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
@@ -148,6 +152,9 @@ def update_flair(author1, author2, sub, swap_data):
 	for author in [author1, author2]:
 		print("attempting to assign flair for " + author)
 		swap_count = str(len(swap_data[author]))
+		if int(swap_count) < flair_threshold:
+			print(author + " has a swap count of " + swap_count + " which is below the thresold of " + str(flair_threshold))
+			continue
 		template = get_flair_template(flair_templates, int(swap_count))
 		if not debug:
 			if author in mods:

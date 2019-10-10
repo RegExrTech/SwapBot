@@ -3,6 +3,7 @@ import json
 FNAME = 'database/swaps-funkoswap.json'
 FNAME = 'database/swaps-pkmntcgtrades.json'
 FNAME = 'database/swaps-vinylcollectors.json'
+FNAME = 'database/swaps-digitalcodesell.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -25,5 +26,5 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-print(db['tufnut2crack'])
+print(db['thegreatunitor'])
 #dump(db)

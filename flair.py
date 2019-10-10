@@ -1,3 +1,4 @@
+import time
 import urllib
 import requests
 import re
@@ -11,17 +12,18 @@ debug = False
 sub_name = "pkmntcgtrades"
 sub_name = "vinylcollectors"
 sub_name = 'mousemarket'
+sub_name = 'digitalcodesell'
 f = open("config/" + sub_name + "-config.txt", "r")
 info = f.read().splitlines()
 f.close()
 
-subreddit_name = info[0]
-client_id = info[1]
-client_secret = info[2]
-bot_username = info[3]
-bot_password = info[4]
+subreddit_name = info[0].split(":")[1]
+client_id = info[1].split(":")[1]
+client_secret = info[2].split(":")[1]
+bot_username = info[3].split(":")[1]
+bot_password = info[4].split(":")[1]
 try:
-	swap_word = " " + info[5]
+	swap_word = " " + info[5].split(":")[1]
 except:
 	swap_word = " Swaps"
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
@@ -75,9 +77,12 @@ def reassign_all_flair(sub, data):
 		text = flair['flair_text']
 		if text and swap_word in text:
 			continue
+		if int(css) < 10:
+			continue
                 sub.flair.set(user, css + swap_word, css)
-                print(user + " - " + str(user))
-		return
+                print(user + " - " + str(css))
+		time.sleep(.25)
+#		return
 
 def update_flair(user, count):
         sub.flair.set(str(user).lower(), count + swap_word, count)
