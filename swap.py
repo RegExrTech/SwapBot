@@ -52,6 +52,10 @@ if info[9].split(":")[1]:
 	flair_threshold = int(info[9].split(":")[1])
 else:
 	flair_threshold = 0
+if info[10].split(":")[1]:
+	mod_flair_template = info[10].split(":")[1]
+else:
+	mod_flair_template = ""
 
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
@@ -157,10 +161,11 @@ def update_flair(author1, author2, sub, swap_data):
 			continue
 		template = get_flair_template(flair_templates, int(swap_count))
 		if not debug:
+			flair_text = swap_count + flair_word
 			if author in mods:
-				flair_text =  mod_flair_word + swap_count + flair_word
-			else:
-				flair_text = swap_count + flair_word
+				template = mod_flair_template
+				flair_text = mod_flair_word + flair_text
+
 			if template:
 				sub.flair.set(author, flair_text, flair_template_id=template)
 			else:
