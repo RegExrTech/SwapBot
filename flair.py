@@ -66,23 +66,20 @@ def dump_json(swap_data):
                         .encode('ascii','ignore'))
 
 def reassign_all_flair(sub, data):
-        flairs = sub.flair(limit=None)
-        # Loop over each author and change their flair
-        for flair in flairs:
-		user = str(flair['user']).lower()
-		try:
-			css = str(len(data[user]))
-		except:
-			css = "0"
-		text = flair['flair_text']
-		if text and swap_word in text:
+	for user in data:
+		count = len(data[user])
+		if count < 10:
 			continue
-		if int(css) < 10:
-			continue
-                sub.flair.set(user, css + swap_word, css)
-                print(user + " - " + str(css))
+                sub.flair.set(user, str(count) + swap_word, str(count))
+                print(user + " - " + str(count))
 		time.sleep(.25)
 #		return
+
+def add_legacy_trade(user, count, data):
+	for i in range(count):
+		data[user].append('LEGACY TRADE')
+	update_flair(user, str(len(data[user])))
+	dump_json(data)
 
 def update_flair(user, count):
         sub.flair.set(str(user).lower(), count + swap_word, count)
@@ -219,3 +216,4 @@ sub = reddit.subreddit(subreddit_name)
 #add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
 #add_all_flair(get_swap_data(), sub)
 reassign_all_flair(sub, get_swap_data())
+#add_legacy_trade('Hannibal_Hector'.lower(), 40, get_swap_data())

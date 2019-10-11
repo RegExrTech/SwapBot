@@ -26,5 +26,6 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-print(db['thegreatunitor'])
+print(db['phelpsboltusa87'.lower()])
+print(len(db['phelpsboltusa87'.lower()]))
 #dump(db)
