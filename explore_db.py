@@ -26,6 +26,6 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-print(db['phelpsboltusa87'.lower()])
-print(len(db['phelpsboltusa87'.lower()]))
+print(db['stetsonaw'.lower()])
+print(len(db['stetsonaw'.lower()]))
 #dump(db)

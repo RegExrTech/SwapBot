@@ -26,6 +26,11 @@ try:
 	swap_word = " " + info[5].split(":")[1]
 except:
 	swap_word = " Swaps"
+try:
+	mod_flair_word = " " + info[6].split(":")[1]
+except:
+	mod_flair_word = ""
+
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
 FNAME_archive = 'database/archive-' + subreddit_name + '.txt'
@@ -215,5 +220,6 @@ sub = reddit.subreddit(subreddit_name)
 #add_feedback_from_vinylcollectors_posts(reddit, sub)
 #add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
 #add_all_flair(get_swap_data(), sub)
-reassign_all_flair(sub, get_swap_data())
+#reassign_all_flair(sub, get_swap_data())
 #add_legacy_trade('Hannibal_Hector'.lower(), 40, get_swap_data())
+sub.flair.set('totallynotregexr', mod_flair_word + ' 9001 Swaps', flair_template_id='33eb2ccc-4cb5-11e9-8fc4-0ed4d82ea13a')
