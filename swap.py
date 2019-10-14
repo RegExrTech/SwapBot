@@ -333,10 +333,6 @@ def inform_credit_already_give(correct_reply):
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def main():
-	# We want to give ourselves some buffer time during archive run, so we do't run for ten minutes after
-	# archive run.
-	if is_time_between(datetime.time(2,3), datetime.time(2,9)) and not debug:
-		return
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 	sub = reddit.subreddit(subreddit_name)
 
@@ -367,8 +363,8 @@ def main():
 		if len(to_archive) > 0: # If we have comments to archive, dump them off
 			add_to_archive(to_archive)
 
-	# If it is between 00:00 and 00:02 UTC, check the archived comments
-	if is_time_between(datetime.time(2,0), datetime.time(2,2)) or debug:
+	# If it is between 00:00 and 00:09 UTC, check the archived comments
+	if is_time_between(datetime.time(2,0), datetime.time(2,9)) or debug:
 #	if True:
 		print("Looking through archived comments...")
 		comments = []
