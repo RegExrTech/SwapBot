@@ -7,12 +7,24 @@ import praw
 import time
 import datetime
 
+# IDK, I needed this according to stack overflow.
+def ascii_encode_dict(data):
+        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
+        return dict(map(ascii_encode, pair) for pair in data.items())
+
+# Function to load the swap DB into memory
+def get_swap_data(fname):
+        with open(fname) as json_data: # open the funko-shop's data
+                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+        return funko_store_data
+
 debug = False
 
 sub_name = "pkmntcgtrades"
 sub_name = "vinylcollectors"
 sub_name = 'mousemarket'
 sub_name = 'digitalcodesell'
+sub_name = 'uvtrade'
 f = open("config/" + sub_name + "-config.txt", "r")
 info = f.read().splitlines()
 f.close()
@@ -22,29 +34,51 @@ client_id = info[1].split(":")[1]
 client_secret = info[2].split(":")[1]
 bot_username = info[3].split(":")[1]
 bot_password = info[4].split(":")[1]
-try:
-	swap_word = " " + info[5].split(":")[1]
-except:
-	swap_word = " Swaps"
-try:
-	mod_flair_word = " " + info[6].split(":")[1]
-except:
-	mod_flair_word = ""
+if info[5].split(":")[1]:
+        flair_word = " " + info[5].split(":")[1]
+else:
+        flair_word = " Swaps"
+if info[6].split(":")[1]:
+        mod_flair_word = info[6].split(":")[1] + " "
+else:
+        mod_flair_word = ""
+if info[7].split(":")[1]:
+        flair_templates = get_swap_data('templates/'+subreddit_name+'.json')
+else:
+        flair_templates = False
+if info[8].split(":")[1]:
+        confirmation_text = info[8].split(":")[1]
+else:
+        confirmation_text = "Added"
+if info[9].split(":")[1]:
+        flair_threshold = int(info[9].split(":")[1])
+else:
+        flair_threshold = 0
+if info[10].split(":")[1]:
+        mod_flair_template = info[10].split(":")[1]
+else:
+        mod_flair_template = ""
+if info[11].split(":")[1]:
+        titles = get_swap_data('titles/'+subreddit_name+'.json')
+else:
+        titles = False
 
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
 FNAME_archive = 'database/archive-' + subreddit_name + '.txt'
 
-# IDK, I needed this according to stack overflow.
-def ascii_encode_dict(data):
-        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-        return dict(map(ascii_encode, pair) for pair in data.items())
+def get_flair_template(templates, count):
+        if not templates:
+                return ""
+        keys = [int(x) for x in templates.keys()]
+        keys.sort()
+        template = ""
+        for key in keys:
+                if key > count:
+                        break
+                template = templates[str(key)]
+        return template
 
-# Function to load the swap DB into memory
-def get_swap_data():
-        with open(FNAME_swaps) as json_data: # open the funko-shop's data
-                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-        return funko_store_data
 
 def update_database(author1, author2, swap_data, message):
         author1 = str(author1).lower()  # Create strings of the user names for keys and values
@@ -71,14 +105,28 @@ def dump_json(swap_data):
                         .encode('ascii','ignore'))
 
 def reassign_all_flair(sub, data):
+	mods = [str(x).lower() for x in sub.moderator()]
 	for user in data:
-		count = len(data[user])
-		if count < 10:
+		swap_count = str(len(data[user]))
+		template = get_flair_template(flair_templates, int(swap_count))
+		title = get_flair_template(titles, int(swap_count))
+		if int(swap_count) < flair_threshold:
 			continue
-                sub.flair.set(user, str(count) + swap_word, str(count))
-                print(user + " - " + str(count))
+		flair_text = swap_count + flair_word
+		if user in mods:
+			template = mod_flair_template
+			flair_text = mod_flair_word + flair_text
+		if title:
+			flair_text += " | " + title
+		try:
+			if template:
+		                sub.flair.set(user, flair_text, flair_template_id=template)
+			else:
+				sub.flair.set(user, flair_text, swap_count)
+		except:
+			print("Unable to set flair for user: " + str(user))
+                print(user + " - " + swap_count)
 		time.sleep(.25)
-#		return
 
 def add_legacy_trade(user, count, data):
 	for i in range(count):
@@ -110,7 +158,7 @@ def add_all_flair(data, sub):
 	print("total swaps: " + str(total_swaps))
 
 def add_feedback_from_posts(reddit, sub, ids):
-	swap_data = get_swap_data()
+	swap_data = get_swap_data(FNAME_swaps)
 	for id in ids:
 		submission = reddit.submission(id=str(id))
 		author1 = str(submission.author)
@@ -150,7 +198,7 @@ def add_feedback_from_vinylcollectors_posts(reddit, sub):
 	mods.append('u/ferricyanide')
 	post_ids = ['avq2s4', '9baxki', '7zeg1o', '6vmdr4', '5vzo0d', '53qleg', '4i1q6w']
 #	post_ids = ['6vmdr4', '5vzo0d', '53qleg', '4i1q6w']
-	swap_data = get_swap_data()
+	swap_data = get_swap_data(FNAME_swaps)
 	to_handle_later = []
 	f = open("tmp.txt", 'r')
 	comment_ids = f.read().splitlines()
@@ -219,7 +267,7 @@ sub = reddit.subreddit(subreddit_name)
 
 #add_feedback_from_vinylcollectors_posts(reddit, sub)
 #add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
-#add_all_flair(get_swap_data(), sub)
-#reassign_all_flair(sub, get_swap_data())
-#add_legacy_trade('Hannibal_Hector'.lower(), 40, get_swap_data())
-sub.flair.set('totallynotregexr', mod_flair_word + ' 9001 Swaps', flair_template_id='33eb2ccc-4cb5-11e9-8fc4-0ed4d82ea13a')
+#add_all_flair(get_swap_data(FNAME_swaps), sub)
+reassign_all_flair(sub, get_swap_data(FNAME_swaps))
+#add_legacy_trade('Hannibal_Hector'.lower(), 40, get_swap_data(FNAME_swaps))
+#sub.flair.set('totallynotregexr', mod_flair_word + ' 9001 Swaps', flair_template_id='33eb2ccc-4cb5-11e9-8fc4-0ed4d82ea13a')
