@@ -25,6 +25,7 @@ sub_name = "vinylcollectors"
 sub_name = 'mousemarket'
 sub_name = 'digitalcodesell'
 sub_name = 'uvtrade'
+sub_name = 'disneypinswap'
 f = open("config/" + sub_name + "-config.txt", "r")
 info = f.read().splitlines()
 f.close()
@@ -105,38 +106,39 @@ def dump_json(swap_data):
                         .encode('ascii','ignore'))
 
 def reassign_all_flair(sub, data):
-	mods = [str(x).lower() for x in sub.moderator()]
 	for user in data:
 		swap_count = str(len(data[user]))
-		template = get_flair_template(flair_templates, int(swap_count))
-		title = get_flair_template(titles, int(swap_count))
-		if int(swap_count) < flair_threshold:
-			continue
-		flair_text = swap_count + flair_word
-		if user in mods:
-			template = mod_flair_template
-			flair_text = mod_flair_word + flair_text
-		if title:
-			flair_text += " | " + title
-		try:
-			if template:
-		                sub.flair.set(user, flair_text, flair_template_id=template)
-			else:
-				sub.flair.set(user, flair_text, swap_count)
-		except:
-			print("Unable to set flair for user: " + str(user))
-                print(user + " - " + swap_count)
-		time.sleep(.25)
+		update_flair(user, swap_count, sub)
 
-def add_legacy_trade(user, count, data):
+def update_flair(user, swap_count, sub):
+	mods = [str(x).lower() for x in sub.moderator()]
+	template = get_flair_template(flair_templates, int(swap_count))
+	title = get_flair_template(titles, int(swap_count))
+	if int(swap_count) < flair_threshold:
+		return
+	flair_text = swap_count + flair_word
+	if user in mods:
+		template = mod_flair_template
+		flair_text = mod_flair_word + flair_text
+	if title:
+		flair_text += " | " + title
+	try:
+		if template:
+	                sub.flair.set(user, flair_text, flair_template_id=template)
+		else:
+			sub.flair.set(user, flair_text, swap_count)
+	except:
+		print("Unable to set flair for user: " + str(user))
+        print(user + " - " + swap_count)
+	time.sleep(.25)
+
+def add_legacy_trade(user, count, data, sub):
+	if user not in data:
+		data[user] = []
 	for i in range(count):
 		data[user].append('LEGACY TRADE')
-	update_flair(user, str(len(data[user])))
+	update_flair(user, str(len(data[user])), sub)
 	dump_json(data)
-
-def update_flair(user, count):
-        sub.flair.set(str(user).lower(), count + swap_word, count)
-        print(user + " - " + count)
 
 def add_all_flair(data, sub):
 	new_data = {}
@@ -268,6 +270,6 @@ sub = reddit.subreddit(subreddit_name)
 #add_feedback_from_vinylcollectors_posts(reddit, sub)
 #add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
 #add_all_flair(get_swap_data(FNAME_swaps), sub)
-reassign_all_flair(sub, get_swap_data(FNAME_swaps))
-#add_legacy_trade('Hannibal_Hector'.lower(), 40, get_swap_data(FNAME_swaps))
+#reassign_all_flair(sub, get_swap_data(FNAME_swaps))
+add_legacy_trade('solo89'.lower(), 100, get_swap_data(FNAME_swaps), sub)
 #sub.flair.set('totallynotregexr', mod_flair_word + ' 9001 Swaps', flair_template_id='33eb2ccc-4cb5-11e9-8fc4-0ed4d82ea13a')

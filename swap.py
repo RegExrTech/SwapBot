@@ -204,7 +204,8 @@ def set_active_comments_and_messages(reddit, comments, messages):
         	                        pass
                 	elif not message.was_comment:
                         	messages.append(message)
-	except:
+	except Exception as e:
+		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
 
 	if not debug:
