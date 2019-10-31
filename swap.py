@@ -392,7 +392,7 @@ def main():
 				inform_comment_deleted(comment)
 			else:
 				handle_comment(comment, bot_username, swap_data, sub, to_write)
-
+			time.sleep(.5)
 		if not debug:
 			dump_archive(to_write)
 
