@@ -229,7 +229,7 @@ def set_archived_comments(reddit, comments):
 def handle_comment(comment, bot_username, swap_data, sub, to_write):
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username in comment.parent().body and 'automod' not in str(comment.parent().author).lower():
-		return
+		return True
         author1 = comment.author  # Author of the top level comment
         comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]  # all words in the top level comment
 	if debug:
@@ -244,7 +244,7 @@ def handle_comment(comment, bot_username, swap_data, sub, to_write):
         desired_author2_string = get_desired_author2_name(comment_word_list, bot_username, str(author1))
         if not desired_author2_string:
                 handle_no_author2(comment_word_list, comment)
-                return
+                return True
         correct_reply = find_correct_reply(comment, author1, desired_author2_string)
         if correct_reply:
                 author2 = correct_reply.author
@@ -261,10 +261,11 @@ def handle_comment(comment, bot_username, swap_data, sub, to_write):
                                 update_flair(author1, author2, sub, swap_data)
                         else:
                                 inform_credit_already_give(correct_reply)
+		return True
         else:  # If we found no correct looking comments, let's come back to it later
 		if debug:
 			print("No correct looking replies were found")
-                to_write.append(str(comment.id))
+		return False
 
 def get_desired_author2_name(comment_word_list, bot_username, author_username_string):
 	for word in comment_word_list:  # We try to find the person being tagged in the top level comment
@@ -366,9 +367,13 @@ def main():
 			continue
 		time_made = comment.created
 		if time.time() - time_made > 3 * 24 * 60 * 60:  # if this comment is more than three days old
-			inform_comment_archived(comment, to_archive)
+			handeled = handle_comment(comment, bot_username, swap_data, sub, to_write)
+			if not handeled:
+				inform_comment_archived(comment, to_archive)
 		else:
-			handle_comment(comment, bot_username, swap_data, sub, to_write)
+			handeled = handle_comment(comment, bot_username, swap_data, sub, to_write)
+			if not handeled:
+				to_write.append(str(comment.id))
 	if not debug:
 		dump(to_write)  # Save off any unfinished tags
 		if len(to_archive) > 0: # If we have comments to archive, dump them off
