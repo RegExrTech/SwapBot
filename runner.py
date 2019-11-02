@@ -14,7 +14,7 @@ def main():
 		time.sleep(30)
 
 ps_output = os.popen('ps -ef | grep \&\&\ python\ runner.py\ ' + config_fname).read().splitlines()
-# If the only output we get from grep is the grep itself,
+# If the only output we get from grep is the grep itself and this instance of the runner,
 # then runner is not currently running so this instance should take over
-if len(ps_output) == 1:
+if len(ps_output) == 2:
 	main()

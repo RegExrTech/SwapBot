@@ -1,11 +1,11 @@
 import json
 
-FNAME = 'database/swaps-funkoswap.json'
 FNAME = 'database/swaps-pkmntcgtrades.json'
 FNAME = 'database/swaps-vinylcollectors.json'
-FNAME = 'database/swaps-digitalcodesell.json'
 FNAME = "database/swaps-uvtrade.json"
 FNAME = "database/swaps-disneypinswap.json"
+FNAME = 'database/swaps-funkoswap.json'
+FNAME = 'database/swaps-digitalcodesell.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -28,8 +28,11 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
-print(db.keys())
-name = "solo89"
+#print(db.keys())
+#name = "specu12"
+#name = "regexr"
+#name = "chuckles42"
+name = 'Startrek852'
 print(db[name.lower()])
 print(len(db[name.lower()]))
 #dump(db)
