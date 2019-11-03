@@ -1,0 +1,23 @@
+import praw
+import argparse
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('config_file_name', metavar='C', type=str)
+args = parser.parse_args()
+config_fname = 'config/' + args.config_file_name
+
+f = open(config_fname, "r")
+info = f.read().splitlines()
+f.close()
+
+subreddit_name = info[0].split(":")[1]
+client_id = info[1].split(":")[1]
+client_secret = info[2].split(":")[1]
+bot_username = info[3].split(":")[1]
+bot_password = info[4].split(":")[1]
+
+reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
+
+for message in reddit.inbox.all(limit=200):
+	message.mark_unread()

@@ -13,8 +13,12 @@ def main():
 		os.system('python swap.py ' + config_fname)
 		time.sleep(30)
 
+time.sleep(3)
 ps_output = os.popen('ps -ef | grep \&\&\ python\ runner.py\ ' + config_fname).read().splitlines()
 # If the only output we get from grep is the grep itself and this instance of the runner,
 # then runner is not currently running so this instance should take over
 if len(ps_output) == 2:
 	main()
+else:
+	print(ps_output)
+	print(len(ps_output))
