@@ -14,11 +14,10 @@ def main():
 		time.sleep(30)
 
 time.sleep(3)
-ps_output = os.popen('ps -ef | grep \&\&\ python\ runner.py\ ' + config_fname).read().splitlines()
+ps_output = [x for x in os.popen('ps -ef | grep \&\&\ python\ runner.py\ ' + config_fname).read().splitlines() if 'grep' not in x]
 # If the only output we get from grep is the grep itself and this instance of the runner,
 # then runner is not currently running so this instance should take over
-if len(ps_output) == 2:
+if len(ps_output) == 1:
 	main()
-else:
-	print(ps_output)
-	print(len(ps_output))
+elif len(ps_output) == 3:
+	os.system("kill $(ps aux | grep '[p]ython runner.py' | awk '{print $2}')")
