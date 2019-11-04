@@ -407,12 +407,15 @@ def main():
         	                comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
                 	except:
                         	print("Could not 'refresh' comment: " + str(comment))
+				to_write.append(str(comment.id))
 	                        continue
 			time_made = comment.created
 			if time.time() - time_made > 30 * 24 * 60 * 60:  # if this comment is more than thirty days old
 				inform_comment_deleted(comment)
 			else:
-				handle_comment(comment, bot_username, swap_data, sub, to_write)
+				handeled = handle_comment(comment, bot_username, swap_data, sub, to_write)
+				if not handeled:
+					to_write.append(str(comment.id))
 			time.sleep(.5)
 		if not debug:
 			dump_archive(to_write)
