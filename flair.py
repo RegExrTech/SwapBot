@@ -26,6 +26,7 @@ sub_name = 'uvtrade'
 sub_name = 'disneypinswap'
 sub_name = 'digitalcodesell'
 sub_name = 'mousemarket'
+sub_name = 'digitalcodeexchange'
 f = open("config/" + sub_name + "-config.txt", "r")
 info = f.read().splitlines()
 f.close()
@@ -67,6 +68,7 @@ else:
 FNAME_comments = 'database/active_comments-' + subreddit_name + '.txt'
 FNAME_swaps = 'database/swaps-' + subreddit_name + ".json"
 FNAME_archive = 'database/archive-' + subreddit_name + '.txt'
+FNAME_swaps = 'database/swaps.json'
 
 def get_flair_template(templates, count):
         if not templates:
@@ -106,8 +108,8 @@ def dump_json(swap_data):
                         .encode('ascii','ignore'))
 
 def reassign_all_flair(sub, data):
-	for user in data:
-		swap_count = str(len(data[user]))
+	for user in data['digitalcodeexchange']:
+		swap_count = str(len(data['digitalcodeexchange'][user]))
 		update_flair(user, swap_count, sub)
 
 def update_flair(user, swap_count, sub):
@@ -270,6 +272,6 @@ sub = reddit.subreddit(subreddit_name)
 #add_feedback_from_vinylcollectors_posts(reddit, sub)
 #add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
 #add_all_flair(get_swap_data(FNAME_swaps), sub)
-#reassign_all_flair(sub, get_swap_data(FNAME_swaps))
-add_legacy_trade('hanmor'.lower(), 3, get_swap_data(FNAME_swaps), sub)
+reassign_all_flair(sub, get_swap_data(FNAME_swaps))
+#add_legacy_trade('hanmor'.lower(), 3, get_swap_data(FNAME_swaps), sub)
 #sub.flair.set('totallynotregexr', mod_flair_word + ' 9001 Swaps', flair_template_id='33eb2ccc-4cb5-11e9-8fc4-0ed4d82ea13a')
