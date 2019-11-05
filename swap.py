@@ -32,7 +32,10 @@ info = f.read().splitlines()
 f.close()
 
 subreddit_name = info[0].split(":")[1]
-real_sub_name = subreddit_name
+if subreddit_name in ['digitalcodesell', 'uvtrade']:
+	database_name = 'digitalcodeexchange'
+else:
+	database_name = subreddit_name
 client_id = info[1].split(":")[1]
 client_secret = info[2].split(":")[1]
 bot_username = info[3].split(":")[1]
@@ -82,7 +85,7 @@ def update_database(author1, author2, post_id, comment_id):
 	author2 = str(author2).lower()
 
 	# Default generic value for swaps
-	return_data = requests.post(request_url + "/check-comment/", {'sub_name': subreddit_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': real_sub_name}).json()
+	return_data = requests.post(request_url + "/check-comment/", {'sub_name': database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': subreddit_name}).json()
 	is_duplicate = return_data['is_duplicate'] == 'True'
 	flair_count_1 = return_data['flair_count_1']
 	flair_count_2 = return_data['flair_count_2']
@@ -105,7 +108,6 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
 
-	flairs = sub.flair(limit=None)
 	# Loop over each author and change their flair
 	for pair in [(author1, author1_count), (author2, author2_count)]:
 		author = pair[0]
@@ -297,11 +299,8 @@ def inform_credit_already_given(correct_reply):
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def main():
-	global subreddit_name
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
-	sub = reddit.subreddit(subreddit_name)
-	if subreddit_name in ['digitalcodesell', 'uvtrade']:
-		subreddit_name = 'digitalcodeexchange'
+	sub = reddit.subreddit(database_name)
 
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying
@@ -368,7 +367,7 @@ def main():
 				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
 			continue
 		final_text = ""
-		trades = requests.post(request_url + "/get-summary/", {'sub_name': subreddit_name, 'username': username}).json()['data']
+		trades = requests.post(request_url + "/get-summary/", {'sub_name': database_name, 'username': username}).json()['data']
 		if not trades:  # if that user has not done any trades, we have no info for them.
 			if not debug:
 				try:
