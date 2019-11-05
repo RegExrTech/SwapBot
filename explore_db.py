@@ -7,6 +7,7 @@ FNAME = 'database/swaps-funkoswap.json'
 FNAME = 'database/swaps-digitalcodesell.json'
 FNAME = 'database/swaps-pkmntcgtrades.json'
 FNAME = "database/swaps-mousemarket.json"
+FNAME = 'database/comments.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -29,11 +30,13 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 db = get_db()
+db['digitalcodeexchange']['active'] = []
+db['digitalcodeexchange']['archived'] = []
 #print(db.keys())
 #name = "specu12"
 #name = "regexr"
 #name = "chuckles42"
-name = 'keepitrealjacks'
-print(db[name.lower()])
-print(len(db[name.lower()]))
-#dump(db)
+#name = 'keepitrealjacks'
+#print(db[name.lower()])
+#print(len(db[name.lower()]))
+dump(db)
