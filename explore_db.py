@@ -1,13 +1,7 @@
 import json
 
-FNAME = 'database/swaps-vinylcollectors.json'
-FNAME = "database/swaps-uvtrade.json"
-FNAME = "database/swaps-disneypinswap.json"
-FNAME = 'database/swaps-funkoswap.json'
-FNAME = 'database/swaps-digitalcodesell.json'
-FNAME = 'database/swaps-pkmntcgtrades.json'
-FNAME = "database/swaps-mousemarket.json"
-FNAME = 'database/comments.json'
+FNAME = 'database/swaps.json'
+#FNAME = 'database/comments.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -29,14 +23,41 @@ def dump(swap_data):
                         .replace('{u"', '{"')
                         .encode('ascii','ignore'))
 
+def get_common_users(db):
+	users = []
+	for sub in db:
+		if sub in ['digitalcodesell', 'uvtrade']:
+			continue
+		for user in db[sub]:
+			for sub2 in db:
+				if sub2 == sub:
+					continue
+				if user in db[sub2]:
+					users.append(user)
+	users = list(set(users))
+
+	for user in users:
+		print("=== " + user + " ===")
+		for sub in db:
+			if user in db[sub]:
+				print("  " + sub + " - " + str(len(db[sub][user])))
+	print(len(users))
+
+
+def get_highest(db):
+	for sub in db:
+		highest = 0
+		h_user = ""
+		for user in db[sub]:
+			if len(db[sub][user]) > highest and not user == 'none':
+				highest = len(db[sub][user])
+				h_user = user
+		print(sub + " - " + h_user + " - " + str(highest))
+
+
 db = get_db()
-db['digitalcodeexchange']['active'] = []
-db['digitalcodeexchange']['archived'] = []
-#print(db.keys())
-#name = "specu12"
-#name = "regexr"
-#name = "chuckles42"
-#name = 'keepitrealjacks'
-#print(db[name.lower()])
-#print(len(db[name.lower()]))
-dump(db)
+
+get_highest(db)
+
+#dump(db)
+
