@@ -110,14 +110,16 @@ def dump_json(swap_data):
 def reassign_all_flair(sub, data):
 	for user in data['digitalcodeexchange']:
 		swap_count = str(len(data['digitalcodeexchange'][user]))
-		update_flair(user, swap_count, sub)
+		updated = update_flair(user, swap_count, sub)
+		if updated:
+			break
 
 def update_flair(user, swap_count, sub):
 	mods = [str(x).lower() for x in sub.moderator()]
 	template = get_flair_template(flair_templates, int(swap_count))
 	title = get_flair_template(titles, int(swap_count))
 	if int(swap_count) < flair_threshold:
-		return
+		return False
 	flair_text = swap_count + flair_word
 	if user in mods:
 		template = mod_flair_template
@@ -133,6 +135,7 @@ def update_flair(user, swap_count, sub):
 		print("Unable to set flair for user: " + str(user))
         print(user + " - " + swap_count)
 	time.sleep(.25)
+	return True
 
 def add_legacy_trade(user, count, data, sub):
 	if user not in data:

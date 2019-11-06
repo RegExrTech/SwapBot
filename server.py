@@ -25,8 +25,11 @@ class JsonHelper:
 
 json_helper = JsonHelper()
 
-swaps_fname = 'database/swaps.json'
-comment_fname = 'database/comments.json'
+try:
+	swaps_fname = 'database/swaps.json'
+	comment_fname = 'database/comments.json'
+except: # this happens when we try to start the server sometimes
+	pass
 
 # Init DB
 swap_data = json_helper.get_db(swaps_fname)

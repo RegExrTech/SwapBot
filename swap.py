@@ -113,7 +113,7 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 		author = pair[0]
 		swap_count = str(pair[1])
 		print("attempting to assign flair for " + author)
-		if int(swap_count) < flair_threshold:
+		if int(swap_count) < flair_threshold and not author == 'totallynotregexr':
 			print(author + " has a swap count of " + swap_count + " which is below the thresold of " + str(flair_threshold))
 			continue
 		template = get_flair_template(flair_templates, int(swap_count))
@@ -300,7 +300,7 @@ def inform_credit_already_given(correct_reply):
 
 def main():
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
-	sub = reddit.subreddit(database_name)
+	sub = reddit.subreddit(subreddit_name)
 
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying

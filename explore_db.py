@@ -24,12 +24,16 @@ def dump(swap_data):
                         .encode('ascii','ignore'))
 
 def get_common_users(db):
+	all_users = {}
 	users = []
 	for sub in db:
 		if sub in ['digitalcodesell', 'uvtrade']:
 			continue
 		for user in db[sub]:
+			all_users[user] = ''
 			for sub2 in db:
+				if sub2 in ['digitalcodesell', 'uvtrade']:
+					continue
 				if sub2 == sub:
 					continue
 				if user in db[sub2]:
@@ -39,10 +43,12 @@ def get_common_users(db):
 	for user in users:
 		print("=== " + user + " ===")
 		for sub in db:
+			if sub in ['digitalcodesell', 'uvtrade']:
+				continue
 			if user in db[sub]:
 				print("  " + sub + " - " + str(len(db[sub][user])))
-	print(len(users))
-
+	print("Total cross-sub users: " + str(len(users)))
+	print("Total Users: " + str(len(all_users.keys())))
 
 def get_highest(db):
 	for sub in db:
@@ -54,10 +60,11 @@ def get_highest(db):
 				h_user = user
 		print(sub + " - " + h_user + " - " + str(highest))
 
-
 db = get_db()
 
-get_highest(db)
+print(len(db['digitalcodeexchange']['jonnycarbomb']))
+#get_common_users(db)
+#get_highest(db)
 
 #dump(db)
 
