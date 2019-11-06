@@ -107,10 +107,10 @@ def check_comment():
 		if author1 + message in sub_data[author2]:
 			return jsonify({'is_duplicate': 'True', 'flair_count_1': 0, 'flair_count_2': 0})
 		sub_data[author2].append(author1 + message)
-	if comment_id in comment_data[sub_name]['active']:
-		comment_data[sub_name]['active'].remove(comment_id)
-	if comment_id in comment_data[sub_name]['archived']:
-		comment_data[sub_name]['archived'].remove(comment_id)
+	if comment_id in comment_data[real_sub_name]['active']:
+		comment_data[real_sub_name]['active'].remove(comment_id)
+	if comment_id in comment_data[real_sub_name]['archived']:
+		comment_data[real_sub_name]['archived'].remove(comment_id)
 	json_helper.dump(swap_data, swaps_fname)
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify({'is_duplicate': 'False', 'flair_count_1': len(sub_data[author1]), 'flair_count_2': len(sub_data[author2])})
