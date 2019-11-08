@@ -383,7 +383,7 @@ def main():
 			continue
 
 		legacy_count = 0  # Use this to track the number of legacy swaps someone has
-		for trade in trades:
+		for trade in trades[::-1]:
 			if trade == "LEGACY TRADE":
 				legacy_count += 1
 			else:
