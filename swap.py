@@ -181,7 +181,7 @@ def handle_comment(comment, bot_username, sub):
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
 		return True
         author1 = comment.author  # Author of the top level comment
-        comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]  # all words in the top level comment
+        comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").replace(">", "").split(" ")]  # all words in the top level comment
 	if debug:
 		print(" ".join(comment_word_list))
         desired_author2_string = get_desired_author2_name(comment_word_list, bot_username, str(author1))
@@ -290,11 +290,11 @@ def inform_credit_already_given(correct_reply):
 	try:
 		if not debug:
 			if not silent:
-				correct_reply.reply("You already got credit for this trade. Please contact the moderators if you think this is an error.")
+				correct_reply.reply("You already got credit for this trade. This may be beacuse credit is only given once per partner per thread. Please contact the moderators if you think this is an error.")
 			else:
-				print("You already got credit for this trade. Please contact the moderators if you think this is an error." + "\n==========")
+				print("You already got credit for this trade. This may be beacuse credit is only given once per partner per thread. Please contact the moderators if you think this is an error." + "\n==========")
 		else:
-			print("You already got credit for this trade. Please contact the moderators if you think this is an error." + "\n==========")
+			print("You already got credit for this trade. This may be beacuse credit is only given once per partner per thread. Please contact the moderators if you think this is an error." + "\n==========")
 	except Exception as e:  # Comment was probably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
