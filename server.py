@@ -35,6 +35,29 @@ except: # this happens when we try to start the server sometimes
 swap_data = json_helper.get_db(swaps_fname)
 comment_data = json_helper.get_db(comment_fname)
 
+@app.route('/add-comment/', methods=['POST'])
+def add_comments():
+	"""
+	Given a comment ID and sub name, manually adds it to the
+	list of comments to check.
+
+	Requested Form Params:
+        String sub_name: The name of the current subreddit
+	String comment_id: The ID of the comment where the trade took place
+
+	return JSON {}
+	"""
+
+	sub_name = request.form["sub_name"]
+	comment_id = request.form["comment_id"]
+
+	global comment_data
+	if comment_id not in comment_data[sub_name]['active'] and comment_id not in comment_data[sub_name]['archived']:
+		comment_data[sub_name]['active'].append(comment_id)
+	json_helper.dump(comment_data, comment_fname)
+	return jsonify({})
+
+
 @app.route('/get-comments/', methods=['POST'])
 def get_comments():
 	"""

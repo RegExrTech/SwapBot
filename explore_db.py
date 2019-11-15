@@ -1,7 +1,7 @@
 import json
 
 FNAME = 'database/swaps.json'
-FNAME = 'database/comments.json'
+#FNAME = 'database/comments.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -62,7 +62,7 @@ def get_highest(db):
 
 db = get_db()
 
-db['digitalcodesell']['active'].append('f39h0es')
+print(db['disneypinswap']['MermaidGLITTERgurl'.lower()])
 
 #get_common_users(db)
 #get_highest(db)
