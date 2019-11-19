@@ -214,7 +214,7 @@ def handle_comment(comment, bot_username, sub):
 
 def get_desired_author2_name(comment_word_list, bot_username, author_username_string):
 	for word in comment_word_list:  # We try to find the person being tagged in the top level comment
-		if "u/" in word and bot_username.lower() not in word:
+		if "u/" in word and bot_username.lower() not in word and 'digitalcodesellbot' not in word and 'uvtrade_bot' not in word:
 			desired_author2_string = word
 			if desired_author2_string[0] == "/":  # Sometimes people like to add a / to the u/username
 				desired_author2_string = desired_author2_string[1:]
