@@ -205,6 +205,30 @@ def remove_comment():
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify({})
 
+@app.route('/add-swap/', methods=['POST'])
+def add_swap():
+	"""
+	Adds a swap to a user's profile, given the user and the sub
+
+	Requested Form Params:
+        String sub_name: The name of the current subreddit
+	String username: The name of the user toadd swaps for
+	String swap_text: The text to add for that user
+
+	Return JSON {}
+        """
+
+	global swap_data
+	sub_name = request.form["sub_name"]
+	username = request.form['username']
+	swap_text = request.form['swap_text']
+	if sub_name not in swap_data:
+		swap_data[sub_name] = {}
+	if username not in swap_data[sub_name]:
+		swap_data[sub_name][username] = []
+	swap_data[sub_name][username].append(swap_text)
+	json_helper.dump(swap_data, swaps_fname)
+
 class MyRequestHandler(WSGIRequestHandler):
 	# Just like WSGIRequestHandler, but without "code"
 	def log_request(self, code='-', size='-'):
