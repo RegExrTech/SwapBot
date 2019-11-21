@@ -62,7 +62,7 @@ def get_highest(db):
 
 db = get_db()
 
-print(db['disneypinswap']['MermaidGLITTERgurl'.lower()])
+print(db['digitalcodesell']['longcolddark'.lower()])
 
 #get_common_users(db)
 #get_highest(db)
