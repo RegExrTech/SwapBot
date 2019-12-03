@@ -229,6 +229,11 @@ def add_swap():
 	swap_data[sub_name][username].append(swap_text)
 	json_helper.dump(swap_data, swaps_fname)
 
+@app.route('/dump/', methods=["POST"])
+def dump():
+	json_helper.dump(swap_data, swaps_fname)
+	json_helper.dump(comment_data, comment_fname)
+
 class MyRequestHandler(WSGIRequestHandler):
 	# Just like WSGIRequestHandler, but without "code"
 	def log_request(self, code='-', size='-'):
