@@ -62,7 +62,7 @@ def get_highest(db):
 
 db = get_db()
 
-print(db['digitalcodesell']['longcolddark'.lower()])
+print(db['ecigclassifieds'][db['ecigclassifieds'].keys()[0]])
 
 #get_common_users(db)
 #get_highest(db)
