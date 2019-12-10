@@ -62,7 +62,10 @@ def get_highest(db):
 
 db = get_db()
 
-print(db['ecigclassifieds']['Vape-710'.lower()])
+db = db['ecigclassifieds']
+for user in db:
+	print(user + " - " + str(len(db[user])))
+#print(db['ecigclassifieds']['Vape-710'.lower()])
 
 #get_common_users(db)
 #get_highest(db)
