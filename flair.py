@@ -25,10 +25,10 @@ sub_name = "pkmntcgtrades"
 sub_name = "vinylcollectors"
 sub_name = 'uvtrade'
 sub_name = 'disneypinswap'
-sub_name = 'digitalcodesell'
 sub_name = 'mousemarket'
 sub_name = 'digitalcodeexchange'
 sub_name = 'ecigclassifieds'
+sub_name = 'digitalcodesell'
 f = open("config/" + sub_name + "-config.txt", "r")
 info = f.read().splitlines()
 f.close()
@@ -81,13 +81,15 @@ def add_legacy_from_flair_css(reddit, sub):
 			requests.post(request_url + "/add-swap/", {'sub_name': subreddit_name, 'username': user, 'swap_text': "LEGACY TRADE"})
 		print(user + " - " + str(count))
 
+def transfer_credit(reddit, sub, old_name, new_name):
+	old_name = old_name.lower()
+	new_name = new_name.lower()
+	old_info = requests.post(request_url + "/get-summary/", {'sub_name': subreddit_name, 'username': old_name}).json()
+	for trade in old_info['data']:
+		requests.post(request_url + "/add-swap/", {'sub_name': subreddit_name, 'username': new_name, 'swap_text': trade})
+
 reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 sub = reddit.subreddit(subreddit_name)
 
-#add_feedback_from_vinylcollectors_posts(reddit, sub)
-#add_feedback_from_posts(reddit, sub, ['9erx6e', '84hbfq', '5wqjdl', '4yj732'])
-#add_all_flair(get_swap_data(FNAME_swaps), sub)
-#reassign_all_flair(sub, get_swap_data(FNAME_swaps))
-#add_legacy_trade('hanmor'.lower(), 3, get_swap_data(FNAME_swaps), sub)
-#sub.flair.set('totallynotregexr', mod_flair_word + ' 9001 Swaps', flair_template_id='33eb2ccc-4cb5-11e9-8fc4-0ed4d82ea13a')
-add_legacy_from_flair_css(reddit, sub)
+#add_legacy_from_flair_css(reddit, sub)
+transfer_credit(reddit, sub, 'quizkidddonniesmith', 'Particular-Camel')
