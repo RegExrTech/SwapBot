@@ -63,9 +63,13 @@ def get_highest(db):
 db = get_db()
 
 #db = db['ecigclassifieds']
-db = db['digitalcodesell']
-print(len(db['Particular-Camel'.lower()]))
-
+#db = db['digitalcodesell']
+for sub in db:
+	try:
+		print(len(db[sub]['laceew45'.lower()]))
+		print(sub)
+	except:
+		pass
 #get_common_users(db)
 #get_highest(db)
 
