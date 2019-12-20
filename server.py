@@ -230,10 +230,34 @@ def add_swap():
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
 
+@app.route('/remove-user/', methods=["POST"])
+def remove_user():
+	"""
+	Removes a user and all of their feedback from a given sub
+
+	Requested Form Params:
+        String sub_name: The name of the current subreddit
+        String username: The name of the user to remove
+
+	Return JSON {status: string}
+	"""
+
+        global swap_data
+        sub_name = request.form["sub_name"]
+        username = request.form['username']
+	if sub_name not in swap_data:
+		return jsonify({'status': sub_name + ' not found'})
+	if username not in swap_data[sub_name]:
+		return jsonify({'status': username + ' not found'})
+	del swap_data[sub_name][username]
+	json_helper.dump(swap_data, swaps_fname)
+	return jsonify({'status': username + " removed from " + sub_name})
+
 @app.route('/dump/', methods=["POST"])
 def dump():
 	json_helper.dump(swap_data, swaps_fname)
 	json_helper.dump(comment_data, comment_fname)
+	return jsonify({})
 
 class MyRequestHandler(WSGIRequestHandler):
 	# Just like WSGIRequestHandler, but without "code"
