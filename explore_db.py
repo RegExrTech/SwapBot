@@ -66,7 +66,8 @@ db = get_db()
 #db = db['digitalcodesell']
 for sub in db:
 	try:
-		print(len(db[sub]['laceew45'.lower()]))
+		print(len(db[sub]['PeterDinkleberg'.lower()]))
+		print(db[sub]['PeterDinkleberg'.lower()])
 		print(sub)
 	except:
 		pass

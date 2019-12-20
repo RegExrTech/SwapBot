@@ -87,8 +87,13 @@ def transfer_credit(reddit, sub, old_name, new_name):
 	for trade in old_info['data']:
 		requests.post(request_url + "/add-swap/", {'sub_name': subreddit_name, 'username': new_name, 'swap_text': trade})
 
+def remove_user(reddit, sub, sub_name, username):
+	status = requests.post(request_url + "/remove-user/", {'sub_name': sub_name, 'username': username})
+	print(status.json())
+
 reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
 sub = reddit.subreddit(subreddit_name)
 
 #add_legacy_from_flair_css(reddit, sub)
-transfer_credit(reddit, sub, 'quizkidddonniesmith', 'Particular-Camel')
+#transfer_credit(reddit, sub, 'quizkidddonniesmith', 'Particular-Camel')
+remove_user(reddit, sub, "pkmntcgtrades", "PeterDinkleberg".lower())
