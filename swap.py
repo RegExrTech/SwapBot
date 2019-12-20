@@ -287,14 +287,15 @@ def inform_giving_credit(correct_reply):
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def inform_credit_already_given(correct_reply):
+	credit_given_message = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
 	try:
 		if not debug:
 			if not silent:
-				correct_reply.reply("You already got credit for this trade. This may be beacuse credit is only given once per partner per thread. Please contact the moderators if you think this is an error.")
+				correct_reply.reply(credit_given_message)
 			else:
-				print("You already got credit for this trade. This may be beacuse credit is only given once per partner per thread. Please contact the moderators if you think this is an error." + "\n==========")
+				print(credit_given_message + "\n==========")
 		else:
-			print("You already got credit for this trade. This may be beacuse credit is only given once per partner per thread. Please contact the moderators if you think this is an error." + "\n==========")
+			print(credit_given_message + "\n==========")
 	except Exception as e:  # Comment was probably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 
