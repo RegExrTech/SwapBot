@@ -198,7 +198,7 @@ def handle_comment(comment, bot_username, sub):
 		handle_deleted_post(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
 		return True
-	if not author1 == parent_post.author and not "u/"+str(parent_post.author) == desired_author2_string:
+	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
 		return True
