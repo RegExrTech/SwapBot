@@ -184,11 +184,24 @@ def handle_comment(comment, bot_username, sub):
         comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").replace(">", "").split(" ")]  # all words in the top level comment
 	if debug:
 		print(" ".join(comment_word_list))
+	# Determine if they properly tagged a trade partner
         desired_author2_string = get_desired_author2_name(comment_word_list, bot_username, str(author1))
         if not desired_author2_string:
                 handle_no_author2(comment_word_list, comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
                 return True
+	# Determine if either author1 or author2 are the OP of the post.
+	parent_post = comment
+	while parent_post.__class__.__name__ == "Comment":
+		parent_post = parent_post.parent()
+	if not parent_post.author:
+		handle_deleted_post(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		return True
+	if not author1 == parent_post.author and not "u/"+str(parent_post.author) == desired_author2_string:
+		handle_not_op(comment, str(parent_post.author))
+		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		return True
         correct_reply = find_correct_reply(comment, author1, desired_author2_string)
         if correct_reply:
                 author2 = correct_reply.author
@@ -196,9 +209,6 @@ def handle_comment(comment, bot_username, sub):
 			print("Author1: " + str(author1))
 			print("Author2: " + str(author2))
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
-                        parent_post = comment
-                        while parent_post.__class__.__name__ == "Comment":  # Ensures we actually get the id of the parent POST and not just a parent comment
-                                parent_post = parent_post.parent()
                         credit_given, author1_count, author2_count = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
                                 inform_giving_credit(correct_reply)
@@ -234,6 +244,32 @@ def handle_no_author2(comment_word_list, comment):
 			print("You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade." + "\n==========")
 	except Exception as e:  # Comment was probably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
+
+def handle_deleted_post(comment):
+	reply_text = "The OP of this submission has deleted the post. As such, this bot cannot verify that either you or the person you tagged are the OP of this post. No credit can be given for this trade because of this. Please do not delete posts again in the future. Thanks!"
+        try:
+                if not debug:
+                        if not silent:
+                                comment.reply(reply_text)
+                        else:
+                                print(reply_text + "\n==========")
+                else:
+                        print(reply_text + "\n==========")
+        except Exception as e:  # Comment was probably deleted
+                print("\n\n" + str(time.time()) + "\n" + str(e))
+
+def handle_not_op(comment, op_author):
+	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is " + op_author + ". If you meant to tag someone else, please make a **NEW** comment and tag the correct person. Thanks!"
+        try:
+                if not debug:
+                        if not silent:
+                                comment.reply(reply_text)
+                        else:
+                                print(reply_text + "\n==========")
+                else:
+                        print(reply_text + "\n==========")
+        except Exception as e:  # Comment was probably deleted
+                print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def find_correct_reply(comment, author1, desired_author2_string):
 	replies = comment.replies
