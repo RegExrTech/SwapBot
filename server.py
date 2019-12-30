@@ -36,7 +36,7 @@ swap_data = json_helper.get_db(swaps_fname)
 comment_data = json_helper.get_db(comment_fname)
 
 @app.route('/add-comment/', methods=['POST'])
-def add_comments():
+def add_comment():
 	"""
 	Given a comment ID and sub name, manually adds it to the
 	list of comments to check.
