@@ -259,7 +259,7 @@ def handle_deleted_post(comment):
                 print("\n\n" + str(time.time()) + "\n" + str(e))
 
 def handle_not_op(comment, op_author):
-	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is " + op_author + ". If you meant to tag someone else, please make a **NEW** comment and tag the correct person. Thanks!"
+	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is " + op_author + ". If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
         try:
                 if not debug:
                         if not silent:
