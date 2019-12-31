@@ -2,7 +2,8 @@ import requests
 
 request_url = "http://192.168.1.210:8000"
 
-id = "fc42j0e"
-sub = "mousemarket"
+sub = "digitalcodesell"
+ids = ["fc5x9pe", "fc5pmpy", "fa8d7ys"]
 
-print(requests.post(request_url + "/add-comment/", {"sub_name": sub, "comment_id": id}))
+for id in ids:
+	print(requests.post(request_url + "/add-comment/", {"sub_name": sub, "comment_id": id}))
