@@ -427,7 +427,7 @@ def main():
 				trade_partner = trade.split(" - ")[0]
 				trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': database_name, 'username': trade_partner}).json()['data'])
 				trade_url = trade.split(" - ")[1]
-				final_text += "*  " + trade_url + " - u/" + trade_partner + "(has " + str(trade_partner_count) + " " + flair_word + ")" + "\n\n"
+				final_text += "*  " + trade_url + " - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + flair_word + ")" + "\n\n"
 
 		if legacy_count > 0:
 			final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
