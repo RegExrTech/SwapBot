@@ -20,7 +20,7 @@ def get_swap_data(fname):
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
 
-request_url = "http://192.168.1.210:8000"
+request_url = "http://192.168.0.248:8000"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('config_file_name', metavar='C', type=str)
@@ -164,7 +164,8 @@ def set_active_comments_and_messages(reddit, comments, messages):
 		for message in to_mark_as_read:
 			try:
 				message.mark_read()
-			except:
+			except Exception as e:
+				print(e)
 				print("Unable to mark message as read. Leaving it as is.")
 
 

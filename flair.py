@@ -17,7 +17,7 @@ def get_swap_data(fname):
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
 
-request_url = "http://192.168.1.210:8000"
+request_url = "http://192.168.0.248:8000"
 debug = False
 
 sub_name = "pkmntcgtrades"

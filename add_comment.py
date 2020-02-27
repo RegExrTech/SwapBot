@@ -1,6 +1,6 @@
 import requests
 
-request_url = "http://192.168.1.210:8000"
+request_url = "http://192.168.0.248:8000"
 
 sub = "digitalcodesell"
 ids = ["fc5x9pe", "fc5pmpy", "fa8d7ys"]
