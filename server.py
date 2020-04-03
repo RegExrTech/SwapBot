@@ -32,8 +32,11 @@ except: # this happens when we try to start the server sometimes
 	pass
 
 # Init DB
-swap_data = json_helper.get_db(swaps_fname)
-comment_data = json_helper.get_db(comment_fname)
+try:
+	swap_data = json_helper.get_db(swaps_fname)
+	comment_data = json_helper.get_db(comment_fname)
+except:  # if we cannot open these files, the server is already in use
+	pass
 
 @app.route('/add-comment/', methods=['POST'])
 def add_comment():
