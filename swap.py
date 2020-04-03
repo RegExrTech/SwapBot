@@ -191,14 +191,21 @@ def handle_comment(comment, bot_username, sub):
                 handle_no_author2(comment_word_list, comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
                 return True
-	# Determine if either author1 or author2 are the OP of the post.
+	# Get an instance of the parent post
 	parent_post = comment
 	while parent_post.__class__.__name__ == "Comment":
 		parent_post = parent_post.parent()
+	# Remove comment if post is archived
+	if parent_post.archived:
+		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being archived.")
+		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		return True
+	# Remove comment if the author of the post has deleted the post
 	if not parent_post.author:
 		handle_deleted_post(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
 		return True
+	# Remove comment if neither the person doing thee tagging nor the person being tagged are the OP
 	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
@@ -245,6 +252,7 @@ def handle_no_author2(comment_word_list, comment):
 			print("You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade." + "\n==========")
 	except Exception as e:  # Comment was probably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
+		print("handle_no_author2 Comment: " + str(comment))
 
 def handle_deleted_post(comment):
 	reply_text = "The OP of this submission has deleted the post. As such, this bot cannot verify that either you or the person you tagged are the OP of this post. No credit can be given for this trade because of this. Please do not delete posts again in the future. Thanks!"
@@ -258,6 +266,7 @@ def handle_deleted_post(comment):
                         print(reply_text + "\n==========")
         except Exception as e:  # Comment was probably deleted
                 print("\n\n" + str(time.time()) + "\n" + str(e))
+		print("handle_deleted_post Comment: " + str(comment))
 
 def handle_not_op(comment, op_author):
 	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is " + op_author + ". If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
@@ -271,6 +280,7 @@ def handle_not_op(comment, op_author):
                         print(reply_text + "\n==========")
         except Exception as e:  # Comment was probably deleted
                 print("\n\n" + str(time.time()) + "\n" + str(e))
+		print("handle_not_op Comment: " + str(comment))
 
 def find_correct_reply(comment, author1, desired_author2_string):
 	replies = comment.replies
@@ -298,6 +308,7 @@ def inform_comment_archived(comment):
 			print("This comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance.")
 	except Exception as e:
 		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
+		print("inform_comment_archived Comment: " + str(comment))
 
 def inform_comment_deleted(comment):
 	try:
@@ -310,6 +321,7 @@ def inform_comment_deleted(comment):
 			print("This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner.")
 	except Exception as e:
 		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
+		print("Comment: " + str(comment))
 
 def inform_giving_credit(correct_reply):
 	try:
@@ -322,6 +334,7 @@ def inform_giving_credit(correct_reply):
 			print(confirmation_text + "\n==========")
 	except Exception as e:  # Comment was porobably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
+		print("inform_giving_credit Comment: " + str(correct_reply))
 
 def inform_credit_already_given(correct_reply):
 	credit_given_message = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
@@ -335,6 +348,7 @@ def inform_credit_already_given(correct_reply):
 			print(credit_given_message + "\n==========")
 	except Exception as e:  # Comment was probably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
+		print("inform_credit_already_given Comment: " + str(correct_reply))
 
 def main():
 	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
@@ -356,9 +370,9 @@ def main():
 			continue
 		handeled = handle_comment(comment, bot_username, sub)
 		time_made = comment.created
-		if time.time() - time_made > 3 * 24 * 60 * 60:  # if this comment is more than three days old
-			if not handeled:
-				inform_comment_archived(comment)
+		# if this comment is more than three days old and we didn't find a correct looking reply
+		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
+			inform_comment_archived(comment)
 
 	# If it is between 00:00 and 00:09 UTC, check the archived comments
 	if is_time_between(datetime.time(2,0), datetime.time(2,9)) or debug:
