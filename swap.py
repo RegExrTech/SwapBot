@@ -383,9 +383,13 @@ def main():
 		for comment in comments:
 	                try:
         	                comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
-                	except:
-                        	print("Could not 'refresh' comment: " + str(comment))
+			except praw.exceptions.ClientException as e:
+				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e) + "\n    Removing comment...\n")
+				requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
 	                        continue
+			except Exception as e:
+				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
+				continuee
 			time_made = comment.created
 			if time.time() - time_made > 30 * 24 * 60 * 60:  # if this comment is more than thirty days old
 				inform_comment_deleted(comment)
