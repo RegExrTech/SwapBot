@@ -230,6 +230,36 @@ def add_swap():
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
 
+@app.route('/remove-swap/', methods=['POST'])
+def remove_swap():
+	"""
+	Adds a swap to a user's profile, given the user and the sub
+
+	Requested Form Params:
+        String sub_name: The name of the current subreddit
+	String username: The name of the user toadd swaps for
+	String swap_text: The text to add for that user
+
+	Return JSON {}
+        """
+
+	global swap_data
+	sub_name = request.form["sub_name"]
+	username = request.form['username']
+	index = int(request.form['index'])
+	if sub_name not in swap_data:
+		return jsonify({})
+	if username not in swap_data[sub_name]:
+		return jsonify({})
+	if len(swap_data[sub_name][username]) <= index:
+		return jsonify({})
+	if len(swap_data[sub_name][username])-1 == index:
+		swap_data[sub_name][username] = swap_data[sub_name][username][:-1]
+	else:
+		swap_data[sub_name][username] = swap_data[sub_name][username][:index] + swap_data[sub_name][username][index+1:]
+	json_helper.dump(swap_data, swaps_fname)
+	return jsonify({})
+
 @app.route('/remove-user/', methods=["POST"])
 def remove_user():
 	"""
