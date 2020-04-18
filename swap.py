@@ -104,17 +104,18 @@ def get_flair_template(templates, count):
 	return template
 
 def update_flair(author1, author2, author1_count, author2_count, sub):
+	"""returns list of tuples of author name and (str)swap count if flair was NOT updated."""
 	mods = [str(x).lower() for x in sub.moderator()]
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
-
+	non_updated_users = []
 	# Loop over each author and change their flair
 	for pair in [(author1, author1_count), (author2, author2_count)]:
 		author = pair[0]
 		swap_count = str(pair[1])
 		print("attempting to assign flair for " + author)
 		if int(swap_count) < flair_threshold and not author == 'totallynotregexr':
-			print(author + " has a swap count of " + swap_count + " which is below the thresold of " + str(flair_threshold))
+			non_updated_users.append((author, swap_count))
 			continue
 		template = get_flair_template(flair_templates, int(swap_count))
 		title = get_flair_template(titles, int(swap_count))
@@ -133,6 +134,7 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 		else:
 			print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
 			print("==========")
+	return non_updated_users
 
 def set_active_comments_and_messages(reddit, comments, messages):
         # Get comments from username mentions
@@ -219,8 +221,8 @@ def handle_comment(comment, bot_username, sub):
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
                         credit_given, author1_count, author2_count = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
-                                inform_giving_credit(correct_reply)
-                                update_flair(author1, author2, author1_count, author2_count, sub)
+                                non_updated_users = update_flair(author1, author2, author1_count, author2_count, sub)
+                                inform_giving_credit(correct_reply, non_updated_users)
                         else:
                                 inform_credit_already_given(correct_reply)
 				requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
@@ -323,15 +325,22 @@ def inform_comment_deleted(comment):
 		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
 		print("Comment: " + str(comment))
 
-def inform_giving_credit(correct_reply):
+def inform_giving_credit(correct_reply, non_updated_users):
+	reply_text = confirmation_text
+	if non_updated_users:
+		reply_text += "\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total flair count that is below the threshold of " + str(flair_threshold) + " and have **not** had their flair updated:"
+		for user, swap_count in non_updated_users:
+			reply_text += "\n\n* " + user + " - " + swap_count + flair_word
+		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
+
 	try:
 		if not debug:
 			if not silent:
-				correct_reply.reply(confirmation_text)
+				correct_reply.reply(reply_text)
 			else:
-				print(confirmation_text + "\n==========")
+				print(reply_text + "\n==========")
 		else:
-			print(confirmation_text + "\n==========")
+			print(reply_text + "\n==========")
 	except Exception as e:  # Comment was porobably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 		print("inform_giving_credit Comment: " + str(correct_reply))
