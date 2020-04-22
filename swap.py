@@ -328,7 +328,7 @@ def inform_comment_deleted(comment):
 def inform_giving_credit(correct_reply, non_updated_users):
 	reply_text = confirmation_text
 	if non_updated_users:
-		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total flair count that is below the threshold of " + str(flair_threshold) + " and have **not** had their flair updated:"
+		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + flair_word.lower() + " that is below the threshold of " + str(flair_threshold) + " and have **not** had their flair updated:"
 		for user, swap_count in non_updated_users:
 			reply_text += "\n\n* " + user + " - " + swap_count + flair_word
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
