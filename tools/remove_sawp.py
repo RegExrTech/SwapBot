@@ -18,6 +18,7 @@ for trade in db[args.sub_name.lower()][args.username.lower()]:
 	print(str(i) + ") " + trade)
 	i += 1
 
-index = raw_input("Please select the index you wish to remove:\n>> ")
+indexes = raw_input("Please select the index you wish to remove:\n>> ")
 
-requests.post(request_url + "/remove-swap/", {'sub_name': args.sub_name.lower(), 'username': args.username.lower(), 'index': index})
+for index in indexes.split(",")[::-1]:
+	requests.post(request_url + "/remove-swap/", {'sub_name': args.sub_name.lower(), 'username': args.username.lower(), 'index': index})
