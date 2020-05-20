@@ -302,7 +302,7 @@ def find_correct_reply(comment, author1, desired_author2_string):
 	return None
 
 def inform_comment_with_filtered_user(comment):
-	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counnted as the person trying to confirm it cannot leave a public comment."
+	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counted as the person trying to confirm it cannot leave a public comment."
 	try:
 		if not debug and not silent:
 			comment.reply(reply_text)
