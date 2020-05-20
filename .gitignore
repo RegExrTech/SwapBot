@@ -3,3 +3,5 @@ config.txt
 config
 config/*
 explore_db.py
+backup
+backup/*
