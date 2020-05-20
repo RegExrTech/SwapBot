@@ -207,13 +207,18 @@ def handle_comment(comment, bot_username, sub):
 		handle_deleted_post(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
 		return True
-	# Remove comment if neither the person doing thee tagging nor the person being tagged are the OP
+	# Remove comment if neither the person doing the tagging nor the person being tagged are the OP
 	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
 		return True
         correct_reply = find_correct_reply(comment, author1, desired_author2_string)
         if correct_reply:
+		# Remove if correct reply is made by someone who cannot leave public commens on the sub
+		if correct_reply.banned_by:
+			inform_comment_with_filtered_user(comment)
+			requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+			return True
                 author2 = correct_reply.author
 		if debug:
 			print("Author1: " + str(author1))
@@ -296,6 +301,17 @@ def find_correct_reply(comment, author1, desired_author2_string):
                 return reply
 	return None
 
+def inform_comment_with_filtered_user(comment):
+	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counnted as the person trying to confirm it cannot leave a public comment."
+	try:
+		if not debug and not silent:
+			comment.reply(reply_text)
+		else:
+			print(reply_text)
+	except Exception as e:
+		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
+		print("inform_comment_archived Comment: " + str(comment))
+
 def inform_comment_archived(comment):
 	try:
 		if not debug:
@@ -313,14 +329,12 @@ def inform_comment_archived(comment):
 		print("inform_comment_archived Comment: " + str(comment))
 
 def inform_comment_deleted(comment):
+	reply_text = "This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner."
 	try:
-		if not debug:
-			if not silent:
-				comment.reply("This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner.")
-			else:
-				print("This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner.")
+		if not debug and not silent:
+			comment.reply(reply_text)
 		else:
-			print("This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner.")
+			print(reply_text)
 	except Exception as e:
 		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
 		print("Comment: " + str(comment))
@@ -348,11 +362,8 @@ def inform_giving_credit(correct_reply, non_updated_users):
 def inform_credit_already_given(correct_reply):
 	credit_given_message = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
 	try:
-		if not debug:
-			if not silent:
-				correct_reply.reply(credit_given_message)
-			else:
-				print(credit_given_message + "\n==========")
+		if not debug and not silent:
+			correct_reply.reply(credit_given_message)
 		else:
 			print(credit_given_message + "\n==========")
 	except Exception as e:  # Comment was probably deleted
@@ -398,7 +409,7 @@ def main():
 	                        continue
 			except Exception as e:
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
-				continuee
+				continue
 			time_made = comment.created
 			if time.time() - time_made > 30 * 24 * 60 * 60:  # if this comment is more than thirty days old
 				inform_comment_deleted(comment)
