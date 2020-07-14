@@ -230,6 +230,33 @@ def add_swap():
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
 
+@app.route('/add-batch-swap/', methods=['POST'])
+def add_batch_swap():
+	"""
+	Adds multiple swaps at once for a single user
+
+	Requested Form Params:
+	String sub_name: The name of the current subreddit
+	String username: The name of the user toadd swaps for
+	List[String] swap_text: Comma separated string with a list of text for each swap
+
+	Return JSON {}
+	"""
+
+	global swap_data
+	sub_name = request.form["sub_name"]
+	username = request.form['username']
+	swap_text_list = request.form['swap_text'].split(",")
+	if sub_name not in swap_data:
+		swap_data[sub_name] = {}
+	if username not in swap_data[sub_name]:
+		swap_data[sub_name][username] = []
+	for swap_text in swap_text_list:
+		if swap_text not in swap_data[sub_name][username]:
+			swap_data[sub_name][username].append(swap_text)
+	json_helper.dump(swap_data, swaps_fname)
+	return jsonify({})
+
 @app.route('/remove-swap/', methods=['POST'])
 def remove_swap():
 	"""
