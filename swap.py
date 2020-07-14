@@ -66,36 +66,38 @@ def get_flair_template(templates, count):
 
 def update_flair(author1, author2, author1_count, author2_count, sub):
 	"""returns list of tuples of author name and (str)swap count if flair was NOT updated."""
-	mods = [str(x).lower() for x in sub.moderator()]
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
 	non_updated_users = []
 	# Loop over each author and change their flair
 	for pair in [(author1, author1_count), (author2, author2_count)]:
-		author = pair[0]
-		swap_count = str(pair[1])
-		print("attempting to assign flair for " + author)
-		if int(swap_count) < sub_config.flair_threshold and not author == 'totallynotregexr':
-			non_updated_users.append((author, swap_count))
-			continue
-		template = get_flair_template(sub_config.flair_templates, int(swap_count))
-		title = get_flair_template(sub_config.titles, int(swap_count))
-		if not debug:
-			flair_text = swap_count + sub_config.flair_word
-			if author in mods:
-				template = sub_config.mod_flair_template
-				flair_text = sub_config.mod_flair_word + flair_text
-			if title:
-				flair_text += " | " + title
-
-			if template:
-				sub.flair.set(author, flair_text, flair_template_id=template)
-			else:
-				sub.flair.set(author, flair_text, swap_count)
-		else:
-			print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
-			print("==========")
+		update_single_user_flair(sub, sub_config, pair[0], str(pair[1]), non_updated_users, debug)
 	return non_updated_users
+
+def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, debug=False):
+	print("attempting to assign flair for " + author)
+	mods = [str(x).lower() for x in sub.moderator()]
+	if int(swap_count) < sub_config.flair_threshold and not author == 'totallynotregexr':
+		non_updated_users.append((author, swap_count))
+		return
+	template = get_flair_template(sub_config.flair_templates, int(swap_count))
+	title = get_flair_template(sub_config.titles, int(swap_count))
+	if not debug:
+		flair_text = swap_count + sub_config.flair_word
+		if author in mods:
+			template = sub_config.mod_flair_template
+			flair_text = sub_config.mod_flair_word + flair_text
+		if title:
+			flair_text += " | " + title
+
+		if template:
+			sub.flair.set(author, flair_text, flair_template_id=template)
+		else:
+			sub.flair.set(author, flair_text, swap_count)
+	else:
+		print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
+		print("==========")
+
 
 def set_active_comments_and_messages(reddit, comments, messages):
         # Get comments from username mentions
@@ -459,4 +461,5 @@ def main():
 			else:
 				print("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text + "\n==========")
 
-main()
+if __name__ == "__main__":
+	main()
