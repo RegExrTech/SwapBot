@@ -3,18 +3,17 @@ import time
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument('config_file_name', metavar='C', type=str)
+parser.add_argument('subreddit_name', metavar='C', type=str)
 args = parser.parse_args()
-config_fname = args.config_file_name
-subreddit_name = config_fname.split("-")[0]
+subreddit_name = args.subreddit_name.lower()
 
 def main():
 	while True:
-		os.system('python swap.py ' + config_fname)
+		os.system('python swap.py ' + subreddit_name)
 		time.sleep(30)
 
 time.sleep(3)
-ps_output = [x for x in os.popen('ps -ef | grep \&\&\ python\ runner.py\ ' + config_fname).read().splitlines() if 'grep' not in x]
+ps_output = [x for x in os.popen('ps -ef | grep \&\&\ python\ runner.py\ ' + subreddit_name).read().splitlines() if 'grep' not in x]
 # If the only output we get from grep is the grep itself and this instance of the runner,
 # then runner is not currently running so this instance should take over
 if len(ps_output) == 1:

@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '.')
+import config
 import requests
 import re
 import json
@@ -23,51 +26,9 @@ def get_swap_data(fname):
 request_url = "http://192.168.0.248:8000"
 
 parser = argparse.ArgumentParser()
-parser.add_argument('config_file_name', metavar='C', type=str)
+parser.add_argument('sub_name', metavar='C', type=str)
 args = parser.parse_args()
-config_fname = 'config/' + args.config_file_name
-
-f = open(config_fname, "r")
-info = f.read().splitlines()
-f.close()
-
-subreddit_name = info[0].split(":")[1]
-if subreddit_name in ['digitalcodesell', 'uvtrade']:
-	database_name = 'digitalcodeexchange'
-else:
-	database_name = subreddit_name
-client_id = info[1].split(":")[1]
-client_secret = info[2].split(":")[1]
-bot_username = info[3].split(":")[1]
-bot_password = info[4].split(":")[1]
-if info[5].split(":")[1]:
-	flair_word = " " + info[5].split(":")[1]
-else:
-	flair_word = " Swaps"
-if info[6].split(":")[1]:
-	mod_flair_word = info[6].split(":")[1] + " "
-else:
-	mod_flair_word = ""
-if info[7].split(":")[1]:
-	flair_templates = get_swap_data('templates/'+subreddit_name+'.json')
-else:
-	flair_templates = False
-if info[8].split(":")[1]:
-	confirmation_text = info[8].split(":")[1]
-else:
-	confirmation_text = "Added"
-if info[9].split(":")[1]:
-	flair_threshold = int(info[9].split(":")[1])
-else:
-	flair_threshold = 0
-if info[10].split(":")[1]:
-	mod_flair_template = info[10].split(":")[1]
-else:
-	mod_flair_template = ""
-if info[11].split(":")[1]:
-        titles = get_swap_data('titles/'+subreddit_name+'.json')
-else:
-        titles = False
+sub_config = config.Config(args.sub_name.lower())
 
 check_time = datetime.datetime.utcnow().time()
 
@@ -85,7 +46,7 @@ def update_database(author1, author2, post_id, comment_id):
 	author2 = str(author2).lower()
 
 	# Default generic value for swaps
-	return_data = requests.post(request_url + "/check-comment/", {'sub_name': database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': subreddit_name}).json()
+	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name}).json()
 	is_duplicate = return_data['is_duplicate'] == 'True'
 	flair_count_1 = return_data['flair_count_1']
 	flair_count_2 = return_data['flair_count_2']
@@ -114,16 +75,16 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 		author = pair[0]
 		swap_count = str(pair[1])
 		print("attempting to assign flair for " + author)
-		if int(swap_count) < flair_threshold and not author == 'totallynotregexr':
+		if int(swap_count) < sub_config.flair_threshold and not author == 'totallynotregexr':
 			non_updated_users.append((author, swap_count))
 			continue
-		template = get_flair_template(flair_templates, int(swap_count))
-		title = get_flair_template(titles, int(swap_count))
+		template = get_flair_template(sub_config.flair_templates, int(swap_count))
+		title = get_flair_template(sub_config.titles, int(swap_count))
 		if not debug:
-			flair_text = swap_count + flair_word
+			flair_text = swap_count + sub_config.flair_word
 			if author in mods:
-				template = mod_flair_template
-				flair_text = mod_flair_word + flair_text
+				template = sub_config.mod_flair_template
+				flair_text = sub_config.mod_flair_word + flair_text
 			if title:
 				flair_text += " | " + title
 
@@ -154,7 +115,7 @@ def set_active_comments_and_messages(reddit, comments, messages):
 		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
 
-	ids = requests.post(request_url + "/get-comments/", {'sub_name': subreddit_name, 'active': 'True', 'ids': ",".join(ids)}).json()['ids']
+	ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids)}).json()['ids']
         ids = list(set(ids))  # Dedupe just in case we get duplicates from the two sources
         for comment_id in ids:
                 try:
@@ -173,7 +134,7 @@ def set_active_comments_and_messages(reddit, comments, messages):
 
 def set_archived_comments(reddit, comments):
 	ids = ",".join([comment.id for comment in comments])
-	all_ids = requests.post(request_url + "/get-comments/", {'sub_name': subreddit_name, 'active': 'False', 'ids': ids}).json()['ids']
+	all_ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'False', 'ids': ids}).json()['ids']
 	for id in all_ids:
 		if id not in ids: # if this was not already passed in
 			comments.append(reddit.comment(id))
@@ -181,7 +142,7 @@ def set_archived_comments(reddit, comments):
 def handle_comment(comment, bot_username, sub):
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
-		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
         author1 = comment.author  # Author of the top level comment
         comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").replace(">", "").split(" ")]  # all words in the top level comment
@@ -191,7 +152,7 @@ def handle_comment(comment, bot_username, sub):
         desired_author2_string = get_desired_author2_name(comment_word_list, bot_username, str(author1))
         if not desired_author2_string:
                 handle_no_author2(comment_word_list, comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
                 return True
 	# Get an instance of the parent post
 	parent_post = comment
@@ -200,24 +161,24 @@ def handle_comment(comment, bot_username, sub):
 	# Remove comment if post is archived
 	if parent_post.archived:
 		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being archived.")
-		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	# Remove comment if the author of the post has deleted the post
 	if not parent_post.author:
 		handle_deleted_post(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	# Remove comment if neither the person doing the tagging nor the person being tagged are the OP
 	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		handle_not_op(comment, str(parent_post.author))
-		requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
         correct_reply = find_correct_reply(comment, author1, desired_author2_string)
         if correct_reply:
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
 		if correct_reply.banned_by:
 			inform_comment_with_filtered_user(comment)
-			requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			return True
                 author2 = correct_reply.author
 		if debug:
@@ -230,7 +191,7 @@ def handle_comment(comment, bot_username, sub):
                                 inform_giving_credit(correct_reply, non_updated_users)
                         else:
                                 inform_credit_already_given(correct_reply)
-				requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
         else:  # If we found no correct looking comments, let's come back to it later
 		if debug:
@@ -316,12 +277,12 @@ def inform_comment_archived(comment):
 	try:
 		if not debug:
 			word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]
-			author2 = get_desired_author2_name(word_list, bot_username, str(comment.author))
+			author2 = get_desired_author2_name(word_list, sub_config.bot_username, str(comment.author))
 			if not silent:
 				comment.reply(author2 + ", please reply to the comment above this to confirm with your trade partner.\n\nThis comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance.")
 			else:
 				print("This comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance.")
-			requests.post(request_url + "/archive-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		else:
 			print("This comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance.")
 	except Exception as e:
@@ -340,11 +301,11 @@ def inform_comment_deleted(comment):
 		print("Comment: " + str(comment))
 
 def inform_giving_credit(correct_reply, non_updated_users):
-	reply_text = confirmation_text
+	reply_text = sub_config.confirmation_text
 	if non_updated_users:
-		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + flair_word.lower() + " that is below the threshold of " + str(flair_threshold) + " and have **not** had their flair updated:"
+		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + sub_config.flair_word.lower() + " that is below the threshold of " + str(sub_config.flair_threshold) + " and have **not** had their flair updated:"
 		for user, swap_count in non_updated_users:
-			reply_text += "\n\n* " + user + " - " + swap_count + flair_word
+			reply_text += "\n\n* " + user + " - " + swap_count + sub_config.flair_word
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
 
 	try:
@@ -371,8 +332,8 @@ def inform_credit_already_given(correct_reply):
 		print("inform_credit_already_given Comment: " + str(correct_reply))
 
 def main():
-	reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent='UserAgent', username=bot_username, password=bot_password)
-	sub = reddit.subreddit(subreddit_name)
+	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='UserAgent', username=sub_config.bot_username, password=sub_config.bot_password)
+	sub = reddit.subreddit(sub_config.subreddit_name)
 
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying
@@ -386,9 +347,9 @@ def main():
 			comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
 		except: # if we can't refresh a comment, archive it so we don't waste time on it.
 			print("Could not 'refresh' comment: " + str(comment))
-			requests.post(request_url + "/archive-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			continue
-		handeled = handle_comment(comment, bot_username, sub)
+		handeled = handle_comment(comment, sub_config.bot_username, sub)
 		time_made = comment.created
 		# if this comment is more than three days old and we didn't find a correct looking reply
 		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
@@ -405,7 +366,7 @@ def main():
         	                comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
 			except praw.exceptions.ClientException as e:
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e) + "\n    Removing comment...\n")
-				requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 	                        continue
 			except Exception as e:
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
@@ -413,9 +374,9 @@ def main():
 			time_made = comment.created
 			if time.time() - time_made > 30 * 24 * 60 * 60:  # if this comment is more than thirty days old
 				inform_comment_deleted(comment)
-				requests.post(request_url + "/remove-comment/", {'sub_name': subreddit_name, 'comment_id': comment.id})
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			else:
-				handle_comment(comment, bot_username, sub)
+				handle_comment(comment, sub_config.bot_username, sub)
 			time.sleep(.5)
 
 	# This is for if anyone sends us a message requesting swap data
@@ -443,7 +404,7 @@ def main():
 				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
 			continue
 		final_text = ""
-		trades = requests.post(request_url + "/get-summary/", {'sub_name': database_name, 'username': username}).json()['data']
+		trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': username}).json()['data']
 		if not trades:  # if that user has not done any trades, we have no info for them.
 			if not debug:
 				try:
@@ -464,9 +425,9 @@ def main():
 				legacy_count += 1
 			else:
 				trade_partner = trade.split(" - ")[0]
-				trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': database_name, 'username': trade_partner}).json()['data'])
+				trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': trade_partner}).json()['data'])
 				trade_url = trade.split(" - ")[1]
-				final_text += "*  " + trade_url + " - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + flair_word + ")" + "\n\n"
+				final_text += "*  " + trade_url + " - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
 
 		if legacy_count > 0:
 			final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
