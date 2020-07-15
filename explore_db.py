@@ -83,48 +83,25 @@ def count_partners(db, sub, user):
 		d[partner] += 1
 	return d
 
+def get_total_count(db, user):
+	total = 0
+	for sub in db:
+		if user in db[sub]:
+			count = len(db[sub][user])
+#			print(sub + " - " + str(count))
+			total += count
+	return total
+
 db = get_db()
 
-#db = db['ecigclassifieds']
-#db = db['digitalcodesell']
 #get_common_users(db)
 #get_highest(db)
-del(db['uvtrade'])
-del(db['digitalcodesell'])
 
-print(db['mousemarket']['yaloxcsgo'])
+user = 'regexr'.lower()
+for sub in db:
+#	print(sub + " - " + str(len(db[sub])) + " users")
+	if user in db[sub]:
+		print(sub + "\n  * " + "\n  * ".join(db[sub][user]) + "\n\n")
 
-'''usernames = ['Loverblue79']
-usernames = ['AltonKastle', 'carib2g']
-usernames = ['totlivucl', 'neidolan']
-partners = []
-for username in usernames:
-	username = username.lower()
-	for sub in db:
-		if username in db[sub]:
-			print_user_in_sub(db, sub, username)
-			partners.append(count_partners(db, sub, username))
-			print_sorted_dict(partners[-1])
-for partner in partners[0]:
-	if partner in partners[1]:
-		print(partner)
-'''
-
-'''d = {}
-pairs = defaultdict(lambda:0)
-usernames = db['digitalcodeexchange'].keys()
-for username in usernames:
-	d[username] = count_partners(db, 'digitalcodeexchange', username)
-for i in range(len(usernames)):
-	if i == len(usernames)-1:
-		continue
-	for j in range(i+1, len(usernames)):
-		for partner in d[usernames[i]]:
-			if partner in d[usernames[j]]:
-				pairs[usernames[i] + " + " + usernames[j]] += 1
-for pair in pairs.keys():
-	if pairs[pair] >= 10:
-		print(pair + " - " + str(pairs[pair]))
-'''
 #dump(db)
 
