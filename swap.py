@@ -429,6 +429,10 @@ def main():
 				trade_partner = trade.split(" - ")[0]
 				trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': trade_partner}).json()['data'])
 				trade_url = trade.split(" - ")[1]
+				trade_url_parts = trade_url.split("/")
+				trade_url = "/".join(trade_url.split("/")[:7]) + "/-/"
+				if len(trade_url_parts) > 7:
+					trade_url += "/".join(trade_url_parts[8:])
 				final_text += "*  " + trade_url + " - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
 
 		if legacy_count > 0:
