@@ -7,6 +7,7 @@ import argparse
 #args = parser.parse_args()
 #config_fname = 'config/' + args.config_file_name
 sub_names = ['mousemarket', 'funkoswap', 'digitalcodesell', 'steelbookswap', 'disneypinswap', 'pkmntcgtrades', 'uvtrade', 'vinylcollectors']
+sub_names += ['ecigclassifieds', 'snackexchange', 'bluraysale', 'disneystorekeyswap', 'ygomarketplace']
 for sub_name in sub_names:
 	config_fname = 'config/' + sub_name + "-config.txt"
 
