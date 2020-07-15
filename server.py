@@ -144,7 +144,7 @@ def check_comment():
 @app.route('/get-summary/', methods=['POST'])
 def get_summary():
 	"""
-	Given a list of new IDs, returns a list of IDs to check.
+	Given a sub and a username, get their list of confirmed trades
 
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
@@ -226,7 +226,8 @@ def add_swap():
 		swap_data[sub_name] = {}
 	if username not in swap_data[sub_name]:
 		swap_data[sub_name][username] = []
-	swap_data[sub_name][username].append(swap_text)
+	if swap_text not in swap_data[sub_name][username]:
+		swap_data[sub_name][username].append(swap_text)
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
 
