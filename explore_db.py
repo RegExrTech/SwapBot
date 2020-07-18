@@ -99,9 +99,10 @@ db = get_db()
 
 user = 'regexr'.lower()
 for sub in db:
-#	print(sub + " - " + str(len(db[sub])) + " users")
-	if user in db[sub]:
-		print(sub + "\n  * " + "\n  * ".join(db[sub][user]) + "\n\n")
+	print(sub + " - " + str(len(db[sub])) + " users")
+#	if user in db[sub]:
+#		print(sub + "\n  * " + "\n  * ".join(db[sub][user]) + "\n\n")
 
 #dump(db)
+
 

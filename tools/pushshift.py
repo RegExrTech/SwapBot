@@ -138,7 +138,7 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 #pushshift_ids, authors = GetIdsFromPushshift(sub_name)
 #reddit_ids = GetIdsFromReddit(feedback_sub, authors)
 #ids = list(set(pushshift_ids + reddit_ids))
-ids = ["g0zp3b"]
+ids = ["fdpg2v", "bebc9n", "9n2jrq", "8525sw", "6yb2cm", "6zsfnc", "7e034o", "8n5oou", "a6lbj4", "elj1or"]
 users_to_confirmations = GetUserCounts(ids, sub_config)
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations)

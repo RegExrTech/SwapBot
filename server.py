@@ -28,13 +28,6 @@ json_helper = JsonHelper()
 swaps_fname = 'database/swaps.json'
 comment_fname = 'database/comments.json'
 
-# Init DB
-try:
-	swap_data = json_helper.get_db(swaps_fname)
-	comment_data = json_helper.get_db(comment_fname)
-except:  # if we cannot open these files, the server is already in use
-	pass
-
 @app.route('/add-comment/', methods=['POST'])
 def add_comment():
 	"""
@@ -52,6 +45,10 @@ def add_comment():
 	comment_id = request.form["comment_id"]
 
 	global comment_data
+
+	if sub_name not in comment_data:
+		comment_data[sub_name] = {'active': [], 'archived': []}
+
 	if comment_id not in comment_data[sub_name]['active'] and comment_id not in comment_data[sub_name]['archived']:
 		comment_data[sub_name]['active'].append(comment_id)
 	json_helper.dump(comment_data, comment_fname)
@@ -327,7 +324,8 @@ class MyRequestHandler(WSGIRequestHandler):
 
 if __name__ == "__main__":
 	try:
+		swap_data = json_helper.get_db(swaps_fname)
+		comment_data = json_helper.get_db(comment_fname)
 		app.run(host= '0.0.0.0', port=8000, request_handler=MyRequestHandler)
-
 	except:
 		pass
