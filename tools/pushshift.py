@@ -9,7 +9,7 @@ import time
 import re
 import requests
 
-request_url = "http://192.168.0.248:8000"
+request_url = "http://192.168.0.155:8000"
 
 feedback_sub_name = "ygofeedback"
 sub_name = "YGOMarketplace"
