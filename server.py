@@ -223,7 +223,7 @@ def add_swap():
 		swap_data[sub_name] = {}
 	if username not in swap_data[sub_name]:
 		swap_data[sub_name][username] = []
-	if swap_text not in swap_data[sub_name][username] and "LEGACY TRADE" not in swap_text:
+	if swap_text not in swap_data[sub_name][username] or "LEGACY TRADE" in swap_text:
 		swap_data[sub_name][username].append(swap_text)
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
@@ -250,7 +250,7 @@ def add_batch_swap():
 	if username not in swap_data[sub_name]:
 		swap_data[sub_name][username] = []
 	for swap_text in swap_text_list:
-		if swap_text not in swap_data[sub_name][username] and "LEGACY TRADE" not in swap_text:
+		if swap_text not in swap_data[sub_name][username] or "LEGACY TRADE" in swap_text:
 			swap_data[sub_name][username].append(swap_text)
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
