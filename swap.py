@@ -254,7 +254,11 @@ def handle_not_op(comment, op_author):
 
 def find_correct_reply(comment, author1, desired_author2_string):
 	replies = comment.replies
-	replies.replace_more(limit=None)
+	try:
+		replies.replace_more(limit=None)
+	except Exception as e:
+		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e))
+		return None
 	for reply in replies.list():
 		potential_author2_string = "u/"+str(reply.author).lower()
 		if not potential_author2_string == desired_author2_string:
