@@ -437,7 +437,9 @@ def main():
 				trade_url = "/".join(trade_url.split("/")[:7]) + "/-/"
 				if len(trade_url_parts) > 7:
 					trade_url += "/".join(trade_url_parts[8:])
-				final_text += "*  " + trade_url + " - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
+				trade_url_sub = trade_url.split("/")[4]
+				trade_url_id = trade_url.split("/")[6]
+				final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://redd.it/" + trade_url_id  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
 
 		if legacy_count > 0:
 			final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
