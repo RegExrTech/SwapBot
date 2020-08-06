@@ -19,13 +19,14 @@ def GetIdsFromPushshift(feedback_sub_name):
 	ids = set()
 	authors = set()
 	count = 0
-	after = time.time()
+	after = 0
 
-	r = requests.get("https://api.pushshift.io/reddit/submission/search?subreddit=" + feedback_sub_name + "&after=" + str(after) + "&before=1594612800&size=100")
+	r = requests.get("https://api.pushshift.io/reddit/submission/search?subreddit=" + feedback_sub_name + "&after=" + str(after) + "&before=" + str(int(time.time()))  + "&size=100")
 	data = r.json()['data']
 
 	while data:
 		for item in r.json()['data']:
+			authors.add(item['author'])
 			if 'retrieved_on' in item and  item['retrieved_on'] > after:
 				after = item['retrieved_on']
 			if 'id' in item:
@@ -42,7 +43,8 @@ def GetIdsFromPushshift(feedback_sub_name):
 				except:
 					pass
 			count += 1
-		r = requests.get("https://api.pushshift.io/reddit/submission/search?subreddit=" + feedback_sub_name + "&after=" + str(after) + "&before=1594612800&size=100")
+		time.sleep(1)
+		r = requests.get("https://api.pushshift.io/reddit/submission/search?subreddit=" + feedback_sub_name + "&after=" + str(after) + "&before=" + str(int(time.time()))  + "&size=100")
 		data = r.json()['data']
 
 	return ids, authors
