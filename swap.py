@@ -427,17 +427,17 @@ def main():
 
 		legacy_count = 0  # Use this to track the number of legacy swaps someone has
 		for trade in trades[::-1]:
-			if trade == "LEGACY TRADE":
+			if "LEGACY TRADE" in trade:
 				legacy_count += 1
 			else:
 				trade_partner = trade.split(" - ")[0]
 				trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': trade_partner}).json()['data'])
 				trade_url = trade.split(" - ")[1]
-				trade_url_parts = trade_url.split("/")
-				trade_url = "/".join(trade_url.split("/")[:7]) + "/-/"
-				if len(trade_url_parts) > 7:
-					trade_url += "/".join(trade_url_parts[8:])
-				trade_url_sub = trade_url.split("/")[4]
+				try:
+					trade_url_sub = trade_url.split("/")[4]
+				except:
+					print("Error getting trade sub url from " + trade_url)
+					continue
 				trade_url_id = trade_url.split("/")[6]
 				final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://redd.it/" + trade_url_id  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
 
