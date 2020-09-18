@@ -160,6 +160,12 @@ def handle_comment(comment, bot_username, sub):
 	parent_post = comment
 	while parent_post.__class__.__name__ == "Comment":
 		parent_post = parent_post.parent()
+	# Remove comments in giveaway posts
+	if "(giveaway)" in parent_post.title.lower():
+		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being a giveaway.")
+		handle_giveaway(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		return True
 	# Remove comment if post is archived
 	if parent_post.archived:
 		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being archived.")
@@ -212,14 +218,15 @@ def get_desired_author2_name(comment_word_list, bot_username, author_username_st
 
 def handle_no_author2(comment_word_list, comment):
 	print("\n\n" + str(time.time()) + "\n" + "Unable to find a username in " + str(comment_word_list) + " for post " + comment.parent().id)
+	reply_text = "You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade."
 	try:
 		if not debug:
 			if not silent:
-				comment.reply("You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade.")
+				comment.reply(reply_text)
 			else:
-				print("You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade." + "\n==========")
+				print(reply_text + "\n==========")
 		else:
-			print("You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade." + "\n==========")
+			print(reply_text + "\n==========")
 	except Exception as e:  # Comment was probably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 		print("handle_no_author2 Comment: " + str(comment))
@@ -236,6 +243,20 @@ def handle_deleted_post(comment):
                         print(reply_text + "\n==========")
         except Exception as e:  # Comment was probably deleted
                 print("\n\n" + str(time.time()) + "\n" + str(e))
+		print("handle_deleted_post Comment: " + str(comment))
+
+def handle_giveaway(comment):
+	reply_text = "This post is marked as a (giveaway). As such, it cannot be used to confirm any transactions as no transactions have occured. Giveaways are not valid for increasing your feedback score. This comment will not be tracked and no feedback will be given."
+	try:
+		if not debug:
+			if not silent:
+				comment.reply(reply_text)
+			else:
+				print(reply_text + "\n==========")
+		else:
+			print(reply_text + "\n==========")
+	except Exception as e:  # Comment was probably deleted
+		print("\n\n" + str(time.time()) + "\n" + str(e))
 		print("handle_deleted_post Comment: " + str(comment))
 
 def handle_not_op(comment, op_author):
