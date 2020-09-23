@@ -1,3 +1,5 @@
+#TODO dynamically scrape config directory for subs to run on.
+#TODO only go back to the last hour, rather than an arbitrary number of comments (i.e.50)
 import praw
 import argparse
 
@@ -7,7 +9,7 @@ import argparse
 #args = parser.parse_args()
 #config_fname = 'config/' + args.config_file_name
 sub_names = ['mousemarket', 'funkoswap', 'digitalcodesell', 'steelbookswap', 'disneypinswap', 'pkmntcgtrades', 'uvtrade', 'vinylcollectors']
-sub_names += ['ecigclassifieds', 'snackexchange', 'bluraysale', 'disneystorekeyswap', 'ygomarketplace', 'comicswap']
+sub_names += ['ecigclassifieds', 'snackexchange', 'bluraysale', 'disneystorekeyswap', 'ygomarketplace', 'comicswap', 'avexchange', 'watchexchange']
 for sub_name in sub_names:
 	config_fname = 'config/' + sub_name + "-config.txt"
 
