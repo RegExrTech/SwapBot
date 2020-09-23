@@ -160,6 +160,12 @@ def handle_comment(comment, bot_username, sub):
 	parent_post = comment
 	while parent_post.__class__.__name__ == "Comment":
 		parent_post = parent_post.parent()
+	# Remove comments that are in the wrong sub
+	if not str(parent_post.subreddit).lower() == sub_config.subreddit_name.lower():
+		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being in the wrong sub - in " + str(parent_post.subreddit).lower() + ", should be in " + sub_config.subreddit_name.lower())
+		handle_wrong_sub(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		return True
 	# Remove comments in giveaway posts
 	if "(giveaway)" in parent_post.title.lower():
 		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being a giveaway.")
@@ -243,6 +249,20 @@ def handle_deleted_post(comment):
                         print(reply_text + "\n==========")
         except Exception as e:  # Comment was probably deleted
                 print("\n\n" + str(time.time()) + "\n" + str(e))
+		print("handle_deleted_post Comment: " + str(comment))
+
+def handle_wrong_sub(comment):
+	reply_text = "Whoops! Looks like you tagged the wrong bot for this sub. Please **EDIT** this comment, remove my username, and tag the correct bot instead. Thanks!"
+	try:
+		if not debug:
+			if not silent:
+				comment.reply(reply_text)
+			else:
+				print(reply_text + "\n==========")
+		else:
+			print(reply_text + "\n==========")
+	except Exception as e:  # Comment was probably deleted
+		print("\n\n" + str(time.time()) + "\n" + str(e))
 		print("handle_deleted_post Comment: " + str(comment))
 
 def handle_giveaway(comment):
