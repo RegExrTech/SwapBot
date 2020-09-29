@@ -223,7 +223,7 @@ def get_desired_author2_name(comment_word_list, bot_username, author_username_st
 	return ""
 
 def handle_no_author2(comment_word_list, comment):
-	print("\n\n" + str(time.time()) + "\n" + "Unable to find a username in " + str(comment_word_list) + " for post " + comment.parent().id)
+	print("Unable to find a username in " + str(comment_word_list) + " for post " + comment.parent().id)
 	reply_text = "You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade."
 	try:
 		if not debug:
@@ -412,7 +412,7 @@ def main():
 	                try:
         	                comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
 			except praw.exceptions.ClientException as e:
-				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e) + "\n    Removing comment...\n")
+				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e) + "\n    Removing comment...")
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 	                        continue
 			except Exception as e:
