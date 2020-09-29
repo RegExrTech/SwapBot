@@ -402,8 +402,12 @@ def main():
 		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
 			inform_comment_archived(comment)
 
-	# If it is between 00:00 and 00:09 UTC, check the archived comments
-	if is_time_between(datetime.time(2,0), datetime.time(2,9)) or debug:
+	# Check the archived comments at least 4 times a day.
+	is_time_1 = is_time_between(datetime.time(2,0), datetime.time(2,9))
+	is_time_2 = is_time_between(datetime.time(8,0), datetime.time(8,9))
+	is_time_3 = is_time_between(datetime.time(14,0), datetime.time(14,9))
+	is_time_4 = is_time_between(datetime.time(20,0), datetime.time(20,9))
+	if is_time_1 or is_time_2 or is_time_3 or is_time_4 or debug:
 #	if True:
 		print("Looking through archived comments...")
 		comments = []
