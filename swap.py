@@ -90,10 +90,13 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 		if title:
 			flair_text += " | " + title
 
-		if template:
-			sub.flair.set(author, flair_text, flair_template_id=template)
-		else:
-			sub.flair.set(author, flair_text, swap_count)
+		try:
+			if template:
+				sub.flair.set(author, flair_text, flair_template_id=template)
+			else:
+				sub.flair.set(author, flair_text, swap_count)
+		except:
+			print("Error assigning flair to " + str(author) + ". Please update flair manually.")
 	else:
 		print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
 		print("==========")
@@ -409,7 +412,8 @@ def main():
 	is_time_4 = is_time_between(datetime.time(20,0), datetime.time(20,9))
 	if is_time_1 or is_time_2 or is_time_3 or is_time_4 or debug:
 #	if True:
-		print("Looking through archived comments...")
+		if debug:
+			print("Looking through archived comments...")
 		comments = []
 		set_archived_comments(reddit, comments)
 		for comment in comments:
