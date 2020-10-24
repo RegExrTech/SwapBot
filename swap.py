@@ -102,7 +102,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 		print("==========")
 
 
-def set_active_comments_and_messages(reddit, comments, messages):
+def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
         # Get comments from username mentions
 	ids = []
 	to_mark_as_read = []
@@ -119,6 +119,24 @@ def set_active_comments_and_messages(reddit, comments, messages):
 	except Exception as e:
 		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
+
+	# This feature is supposed to look for new comments and add them to our list of comments to check.
+	# The reason for this is because sometimes, the bot doesn't get a notification for a username tag.
+	# However, because the bot throws out comments that it was tagged in for various reasons, this means
+	# The bot might spam replies to the comment each time it is run.
+	# One helpful solution is to only take comments that were made in the last X minutes, but this is not percise.
+	# Another helpful solution is to look down the comment tree of this comment and check to make sure the bot has not
+	# already replied to the comment. If it has, throw it out.
+	if False:
+		try:
+			new_comments = sub.comments(limit=50)
+			for new_comment in new_comments:
+				created_time = new_comment.created_utc
+				if "u/"+bot_name.lower() in new_comment.body.lower():
+					ids.append(new_comment.id)
+		except Exception as e:
+			print(e)
+			print("Failed to get most recent comments.")
 
 	ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids)}).json()['ids']
         ids = list(set(ids))  # Dedupe just in case we get duplicates from the two sources
@@ -194,7 +212,7 @@ def handle_comment(comment, bot_username, sub):
         if correct_reply:
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
 		if correct_reply.banned_by:
-			inform_comment_with_filtered_user(comment)
+			handle_comment_with_filtered_user(comment)
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			return True
                 author2 = correct_reply.author
@@ -225,76 +243,66 @@ def get_desired_author2_name(comment_word_list, bot_username, author_username_st
  				return desired_author2_string
 	return ""
 
-def handle_no_author2(comment_word_list, comment):
-	print("Unable to find a username in " + str(comment_word_list) + " for post " + comment.parent().id)
-	reply_text = "You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade."
+def reply(comment, reply_text):
 	try:
 		if not debug:
 			if not silent:
-				comment.reply(reply_text)
+				reply = comment.reply(reply_text)
+				reply.mod.lock()
 			else:
 				print(reply_text + "\n==========")
 		else:
 			print(reply_text + "\n==========")
 	except Exception as e:  # Comment was probably deleted
 		print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("handle_no_author2 Comment: " + str(comment))
+		print("Comment: " + str(comment))
+
+def handle_no_author2(comment_word_list, comment):
+	reply_text = "You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade."
+	reply(comment, reply_text)
 
 def handle_deleted_post(comment):
 	reply_text = "The OP of this submission has deleted the post. As such, this bot cannot verify that either you or the person you tagged are the OP of this post. No credit can be given for this trade because of this. Please do not delete posts again in the future. Thanks!"
-        try:
-                if not debug:
-                        if not silent:
-                                comment.reply(reply_text)
-                        else:
-                                print(reply_text + "\n==========")
-                else:
-                        print(reply_text + "\n==========")
-        except Exception as e:  # Comment was probably deleted
-                print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("handle_deleted_post Comment: " + str(comment))
+	reply(comment, reply_text)
 
 def handle_wrong_sub(comment):
 	reply_text = "Whoops! Looks like you tagged the wrong bot for this sub. Please **EDIT** this comment, remove my username, and tag the correct bot instead. Thanks!"
-	try:
-		if not debug:
-			if not silent:
-				comment.reply(reply_text)
-			else:
-				print(reply_text + "\n==========")
-		else:
-			print(reply_text + "\n==========")
-	except Exception as e:  # Comment was probably deleted
-		print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("handle_deleted_post Comment: " + str(comment))
+	reply(comment, reply_text)
 
 def handle_giveaway(comment):
 	reply_text = "This post is marked as a (giveaway). As such, it cannot be used to confirm any transactions as no transactions have occured. Giveaways are not valid for increasing your feedback score. This comment will not be tracked and no feedback will be given."
-	try:
-		if not debug:
-			if not silent:
-				comment.reply(reply_text)
-			else:
-				print(reply_text + "\n==========")
-		else:
-			print(reply_text + "\n==========")
-	except Exception as e:  # Comment was probably deleted
-		print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("handle_deleted_post Comment: " + str(comment))
+	reply(comment, reply_text)
 
 def handle_not_op(comment, op_author):
 	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is " + op_author + ". If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
-        try:
-                if not debug:
-                        if not silent:
-                                comment.reply(reply_text)
-                        else:
-                                print(reply_text + "\n==========")
-                else:
-                        print(reply_text + "\n==========")
-        except Exception as e:  # Comment was probably deleted
-                print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("handle_not_op Comment: " + str(comment))
+	reply(comment, reply_text)
+
+def handle_comment_with_filtered_user(comment):
+	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counted as the person trying to confirm it cannot leave a public comment."
+	reply(comment, reply_text)
+
+def inform_credit_already_given(comment):
+	reply_text = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
+	reply(comment, reply_text)
+
+def inform_comment_archived(comment):
+	word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]
+	author2 = get_desired_author2_name(word_list, sub_config.bot_username, str(comment.author))
+	reply_text = author2 + ", please reply to the comment above this to confirm with your trade partner.\n\nThis comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance."
+	reply(comment, reply_text)
+
+def inform_comment_deleted(comment):
+	reply_text = "This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner."
+	reply(comment, reply_text)
+
+def inform_giving_credit(comment, non_updated_users):
+	reply_text = sub_config.confirmation_text
+	if non_updated_users:
+		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + sub_config.flair_word.lower() + " that is below the threshold of " + str(sub_config.flair_threshold) + " and have **not** had their flair updated:"
+		for user, swap_count in non_updated_users:
+			reply_text += "\n\n* " + user + " - " + swap_count + sub_config.flair_word
+		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
+	reply(comment, reply_text)
 
 def find_correct_reply(comment, author1, desired_author2_string):
 	replies = comment.replies
@@ -312,82 +320,13 @@ def find_correct_reply(comment, author1, desired_author2_string):
                 return reply
 	return None
 
-def inform_comment_with_filtered_user(comment):
-	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counted as the person trying to confirm it cannot leave a public comment."
-	try:
-		if not debug and not silent:
-			comment.reply(reply_text)
-		else:
-			print(reply_text)
-	except Exception as e:
-		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
-		print("inform_comment_archived Comment: " + str(comment))
-
-def inform_comment_archived(comment):
-	try:
-		if not debug:
-			word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]
-			author2 = get_desired_author2_name(word_list, sub_config.bot_username, str(comment.author))
-			if not silent:
-				comment.reply(author2 + ", please reply to the comment above this to confirm with your trade partner.\n\nThis comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance.")
-			else:
-				print("This comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance.")
-			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
-		else:
-			print("This comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance.")
-	except Exception as e:
-		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
-		print("inform_comment_archived Comment: " + str(comment))
-
-def inform_comment_deleted(comment):
-	reply_text = "This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner."
-	try:
-		if not debug and not silent:
-			comment.reply(reply_text)
-		else:
-			print(reply_text)
-	except Exception as e:
-		print("\n\n" + str(time.time()) + "\n" + str(e))  # comment was probably deleted
-		print("Comment: " + str(comment))
-
-def inform_giving_credit(correct_reply, non_updated_users):
-	reply_text = sub_config.confirmation_text
-	if non_updated_users:
-		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + sub_config.flair_word.lower() + " that is below the threshold of " + str(sub_config.flair_threshold) + " and have **not** had their flair updated:"
-		for user, swap_count in non_updated_users:
-			reply_text += "\n\n* " + user + " - " + swap_count + sub_config.flair_word
-		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
-
-	try:
-		if not debug:
-			if not silent:
-				correct_reply.reply(reply_text)
-			else:
-				print(reply_text + "\n==========")
-		else:
-			print(reply_text + "\n==========")
-	except Exception as e:  # Comment was porobably deleted
-		print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("inform_giving_credit Comment: " + str(correct_reply))
-
-def inform_credit_already_given(correct_reply):
-	credit_given_message = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
-	try:
-		if not debug and not silent:
-			correct_reply.reply(credit_given_message)
-		else:
-			print(credit_given_message + "\n==========")
-	except Exception as e:  # Comment was probably deleted
-		print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("inform_credit_already_given Comment: " + str(correct_reply))
-
 def main():
 	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='UserAgent', username=sub_config.bot_username, password=sub_config.bot_password)
 	sub = reddit.subreddit(sub_config.subreddit_name)
 
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying
-	set_active_comments_and_messages(reddit, comments, messages)
+	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages)
 
 	# Process comments
 	if debug:
@@ -404,6 +343,7 @@ def main():
 		# if this comment is more than three days old and we didn't find a correct looking reply
 		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
 			inform_comment_archived(comment)
+			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 
 	# Check the archived comments at least 4 times a day.
 	is_time_1 = is_time_between(datetime.time(2,0), datetime.time(2,9))
