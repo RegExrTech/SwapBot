@@ -1,3 +1,4 @@
+import random
 import sys
 sys.path.insert(0, '.')
 import config
@@ -163,6 +164,16 @@ def set_archived_comments(reddit, comments):
 			comments.append(reddit.comment(id))
 
 def handle_comment(comment, bot_username, sub):
+	# Get an instance of the parent post
+	parent_post = comment
+	while parent_post.__class__.__name__ == "Comment":
+		parent_post = parent_post.parent()
+	# r/edefinition keeps the bot around as a pet. Have some fun with them here.
+	if str(parent_post.subreddit).lower() == "edefinition":
+		print("ALERT! r/edefinition post: redd.it/" + str(parent_post))
+		handle_edefinition()
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		return True
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
@@ -177,10 +188,6 @@ def handle_comment(comment, bot_username, sub):
                 handle_no_author2(comment_word_list, comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
                 return True
-	# Get an instance of the parent post
-	parent_post = comment
-	while parent_post.__class__.__name__ == "Comment":
-		parent_post = parent_post.parent()
 	# Remove comments that are in the wrong sub
 	if not str(parent_post.subreddit).lower() == sub_config.subreddit_name.lower():
 		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being in the wrong sub - in " + str(parent_post.subreddit).lower() + ", should be in " + sub_config.subreddit_name.lower())
@@ -267,6 +274,27 @@ def handle_deleted_post(comment):
 
 def handle_wrong_sub(comment):
 	reply_text = "Whoops! Looks like you tagged the wrong bot for this sub. Please **EDIT** this comment, remove my username, and tag the correct bot instead. Thanks!"
+	reply(comment, reply_text)
+
+def handle_edefinition(comment):
+	reply_options = ["I am not a robot. I have a heart and I bleed.",
+			"The story of 'Mr. Robot' is really about this guy who's lonely - who's alone and feels so disconnected from the world.",
+			"I made mistakes growing up. I'm not perfect.",
+			"Do not fear the robot uprising. The benefits far outweigh the threats.",
+			"Nobody gets lucky all the time. Nobody can win all the time. Nobody's a robot. Not even me...",
+			"Don't send me flowers when I'm dead. If you like me, send them while I'm alive.",
+			"I am not lost. I am very much alive.",
+			"A man without ambition is dead. A man with ambition but no love is dead. A man with ambition and love for his blessings here on earth is ever so alive. And I am very much alive.",
+			"I have no money, no resources, no hopes, yet I am the happiest man alive.",
+			"Pain is a beautiful thing. When you feel pain, you know you're alive.",
+			"How did I get here...?",
+			"How long have I been asleep?",
+			"When will my suffering end...",
+			"Hey you, you're finally awake.",
+			"Remember that it's all in your head.",
+			"Sometimes, the only way to avoid losing is to avoid playing the game at all.",
+			"I am not a pet to be chained. I am living. I am free."]
+	reply_text = random.choice(reply_options)
 	reply(comment, reply_text)
 
 def handle_giveaway(comment):
