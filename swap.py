@@ -179,13 +179,11 @@ def handle_comment(comment, bot_username, sub):
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
         author1 = comment.author  # Author of the top level comment
-        comment_word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").replace(">", "").split(" ")]  # all words in the top level comment
-	if debug:
-		print(" ".join(comment_word_list))
+	comment_text = comment.body.lower().encode('utf-8').strip()
 	# Determine if they properly tagged a trade partner
-        desired_author2_string = get_desired_author2_name(comment_word_list, bot_username, str(author1))
+        desired_author2_string = get_desired_author2_name(comment_text, bot_username, str(author1))
         if not desired_author2_string:
-                handle_no_author2(comment_word_list, comment)
+                handle_no_author2(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
                 return True
 	# Remove comments that are in the wrong sub
@@ -240,15 +238,16 @@ def handle_comment(comment, bot_username, sub):
 			print("No correct looking replies were found")
 		return False
 
-def get_desired_author2_name(comment_word_list, bot_username, author_username_string):
-	for word in comment_word_list:  # We try to find the person being tagged in the top level comment
-		if "u/" in word and bot_username.lower() not in word and 'digitalcodesellbot' not in word and 'uvtrade_bot' not in word:
-			desired_author2_string = word
-			if desired_author2_string[0] == "/":  # Sometimes people like to add a / to the u/username
-				desired_author2_string = desired_author2_string[1:]
-			if not desired_author2_string[2:] == author_username_string.lower():
- 				return desired_author2_string
-	return ""
+def get_desired_author2_name(comment_text, bot_username, author_username_string):
+	print("cannot match: " + bot_username + " and " + author_username_string)
+	pattern = re.compile("u\/([A-Za-z0-9_-]+)")
+	found = re.findall(pattern, comment_text)
+	author2 = ""
+	for username in found:
+		if username not in [bot_username.lower(), author_username_string.lower(), 'digitalcodesellbot', 'uvtrade_bot']:
+			author2 = "u/" + username
+			break
+	return author2
 
 def reply(comment, reply_text):
 	try:
@@ -264,7 +263,7 @@ def reply(comment, reply_text):
 		print("\n\n" + str(time.time()) + "\n" + str(e))
 		print("Comment: " + str(comment))
 
-def handle_no_author2(comment_word_list, comment):
+def handle_no_author2(comment):
 	reply_text = "You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade."
 	reply(comment, reply_text)
 
@@ -314,8 +313,8 @@ def inform_credit_already_given(comment):
 	reply(comment, reply_text)
 
 def inform_comment_archived(comment):
-	word_list = [x.encode('utf-8').strip() for x in comment.body.lower().replace(",", '').replace("\n", " ").replace("\r", " ").replace(".", '').replace("?", '').replace("!", '').replace("[", '').replace("]", " ").replace("(", '').replace(")", " ").replace("*", '').replace("\\", "").split(" ")]
-	author2 = get_desired_author2_name(word_list, sub_config.bot_username, str(comment.author))
+	comment_text = comment.body.lower().encode('utf-8').strip()
+	author2 = get_desired_author2_name(comment_text, sub_config.bot_username, str(comment.author))
 	reply_text = author2 + ", please reply to the comment above this to confirm with your trade partner.\n\nThis comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance."
 	reply(comment, reply_text)
 
