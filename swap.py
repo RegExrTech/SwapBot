@@ -171,7 +171,7 @@ def handle_comment(comment, bot_username, sub):
 	# r/edefinition keeps the bot around as a pet. Have some fun with them here.
 	if str(parent_post.subreddit).lower() == "edefinition":
 		print("ALERT! r/edefinition post: redd.it/" + str(parent_post))
-		handle_edefinition()
+		handle_edefinition(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
@@ -215,7 +215,7 @@ def handle_comment(comment, bot_username, sub):
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
-        correct_reply = find_correct_reply(comment, author1, desired_author2_string)
+        correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
         if correct_reply:
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
 		if correct_reply.banned_by:
@@ -332,12 +332,12 @@ def inform_giving_credit(comment, non_updated_users):
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
 	reply(comment, reply_text)
 
-def find_correct_reply(comment, author1, desired_author2_string):
+def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 	replies = comment.replies
 	try:
 		replies.replace_more(limit=None)
 	except Exception as e:
-		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e))
+		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e) + "\n    parent post: " + str(parent_post))
 		return None
 	for reply in replies.list():
 		potential_author2_string = "u/"+str(reply.author).lower()
