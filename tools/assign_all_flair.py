@@ -6,6 +6,8 @@ from swap import update_single_user_flair
 import requests
 import argparse
 import praw
+import time
+import datetime
 
 parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)
@@ -25,7 +27,12 @@ for i in range(len(keys)):
 	user = keys[i]
 	print(str(i) + ") Updating user " + user + " to flair " + str(len(db[args.sub_name.lower()][user])))
 	try:
-		update_single_user_flair(sub, sub_config, user, str(len(db[args.sub_name.lower()][user])), unassigned_users)
+		age = datetime.timedelta(seconds=(time.time() - reddit.redditor(user).created_utc)).days / 365.0
+	except:
+		print("Unable to get age for " + user)
+		age = 0
+	try:
+		update_single_user_flair(sub, sub_config, user, str(len(db[args.sub_name.lower()][user])), unassigned_users, age)
 	except:
 		unassigned_users.append(user)
 
