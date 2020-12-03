@@ -24,31 +24,43 @@ class Config():
 		self.client_secret = info[2].split(":")[1]
 		self.bot_username = info[3].split(":")[1]
 		self.bot_password = info[4].split(":")[1]
+		# Base text for user flair
 		if info[5].split(":")[1]:
 			self.flair_word = " " + info[5].split(":")[1]
 		else:
 			self.flair_word = " Swaps"
+		# Vanity flair color only for mods
 		if info[6].split(":")[1]:
 			self.mod_flair_word = info[6].split(":")[1] + " "
 		else:
 			self.mod_flair_word = ""
+		# Vanity flair colors based on flair thresholds
 		if info[7].split(":")[1]:
 			self.flair_templates = get_json_data('templates/'+self.subreddit_name+'.json')
 		else:
 			self.flair_templates = False
+		# What the bot says when it replies
 		if info[8].split(":")[1]:
 			self.confirmation_text = info[8].split(":")[1]
 		else:
 			self.confirmation_text = "Added"
+		# Number of confirmed transactions before flair applies to a user
 		if info[9].split(":")[1]:
 			self.flair_threshold = int(info[9].split(":")[1])
 		else:
 			self.flair_threshold = 0
+		# Vanity title only for mods
 		if info[10].split(":")[1]:
 			self.mod_flair_template = info[10].split(":")[1]
 		else:
 			self.mod_flair_template = ""
+		# Vanity titles based on flair thresholds
 		if info[11].split(":")[1]:
 			self.titles = get_json_data('titles/'+self.subreddit_name+'.json')
 		else:
 			self.titles = False
+		# Number of years someone has to have been on reddit to get the corresponding title prefix
+		if info[12].split(":")[1] == "True":
+			self.age_titles = get_json_data('age_titles/'+self.subreddit_name+'.json')
+		else:
+			self.age_titles = False
