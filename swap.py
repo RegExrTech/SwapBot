@@ -65,32 +65,46 @@ def get_flair_template(templates, count):
 		template = templates[str(key)]
 	return template
 
+def get_age_title(age_titles, age):
+	if not age_titles:
+		return ""
+	keys = [int(x) for x in age_titles.keys()]
+	keys.sort()
+	age_title = ""
+	for key in keys:
+		if key > age:
+			break
+		age_title = age_titles[str(key)]
+	return age_title
+
 def update_flair(author1, author2, author1_count, author2_count, sub):
 	"""returns list of tuples of author name and (str)swap count if flair was NOT updated."""
-	author1 = str(author1).lower()  # Create strings of the user names for keys and values
-	author2 = str(author2).lower()
 	non_updated_users = []
 	# Loop over each author and change their flair
 	for pair in [(author1, author1_count), (author2, author2_count)]:
-		update_single_user_flair(sub, sub_config, pair[0], str(pair[1]), non_updated_users, debug)
+		age = datetime.timedelta(seconds=(time.time() - pair[0].created_utc)).days / 365.0
+		update_single_user_flair(sub, sub_config, str(pair[0]).lower(), str(pair[1]), non_updated_users, age, debug)
 	return non_updated_users
 
-def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, debug=False):
+def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, age, debug=False):
 	print("attempting to assign flair for " + author)
 	mods = [str(x).lower() for x in sub.moderator()]
-	if int(swap_count) < sub_config.flair_threshold and not author == 'totallynotregexr':
+	if int(swap_count) < sub_config.flair_threshold:
 		non_updated_users.append((author, swap_count))
 		return
 	template = get_flair_template(sub_config.flair_templates, int(swap_count))
 	title = get_flair_template(sub_config.titles, int(swap_count))
+	age_title = get_age_title(sub_config.age_titles, age)
 	if not debug:
 		flair_text = swap_count + sub_config.flair_word
 		if author in mods:
 			template = sub_config.mod_flair_template
 			flair_text = sub_config.mod_flair_word + flair_text
 		if title:
-			flair_text += " | " + title
-
+			if age_title:
+				flair_text += " | " + age_title + " " + title
+			else:
+				flair_text += " | " + title
 		try:
 			if template:
 				sub.flair.set(author, flair_text, flair_template_id=template)
@@ -239,7 +253,6 @@ def handle_comment(comment, bot_username, sub):
 		return False
 
 def get_desired_author2_name(comment_text, bot_username, author_username_string):
-	print("cannot match: " + bot_username + " and " + author_username_string)
 	pattern = re.compile("u\/([A-Za-z0-9_-]+)")
 	found = re.findall(pattern, comment_text)
 	author2 = ""
