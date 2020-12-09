@@ -20,6 +20,7 @@ class Config():
 			self.database_name = 'digitalcodeexchange'
 		else:
 			self.database_name = self.subreddit_name
+		self.database_name = self.database_name.lower()
 		self.client_id = info[1].split(":")[1]
 		self.client_secret = info[2].split(":")[1]
 		self.bot_username = info[3].split(":")[1]
