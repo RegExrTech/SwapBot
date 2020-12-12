@@ -33,6 +33,8 @@ sub_config = config.Config(args.sub_name.lower())
 
 check_time = datetime.datetime.utcnow().time()
 
+kofi_text = "\n\n---\n\n[^(Buy the developer a coffee)](https://www.ko-fi.com/regexr)"
+
 # Checks if the time at script start up is between two desired times
 def is_time_between(begin_time, end_time):
     if begin_time < end_time:
@@ -266,7 +268,7 @@ def reply(comment, reply_text):
 	try:
 		if not debug:
 			if not silent:
-				reply = comment.reply(reply_text)
+				reply = comment.reply(reply_text+kofi_text)
 				reply.mod.lock()
 			else:
 				print(reply_text + "\n==========")
@@ -429,7 +431,7 @@ def main():
 			if not debug:
 				try:
 					if not silent:
-						message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, in the body of the message you just sent me. Please feel free to try again. Thanks!")
+						message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, in the body of the message you just sent me. Please feel free to try again. Thanks!"+kofi_text)
 					else:
 						print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
 				except Exception as e:
@@ -444,7 +446,7 @@ def main():
 			if not debug:
 				try:
 					if not silent:
-						message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
+						message.reply("Hello,\n\nu/" + username + " has not had any swaps yet."+kofi_text)
 					else:
 						print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
 				except Exception as e:
@@ -477,7 +479,7 @@ def main():
 			if not debug:
 				try:
 					if not silent:
-						message.reply("Hello,\n\nu/" + username + " has not had any swaps yet.")
+						message.reply("Hello,\n\nu/" + username + " has not had any swaps yet."+kofi_text)
 					else:
 						print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
 				except Exception as e:
@@ -491,7 +493,7 @@ def main():
 					if len(final_text) > 10000:
 						final_text = final_text[:9800] + "\nTruncated..."
 					if not silent:
-						message.reply("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text)
+						message.reply("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text+kofi_text)
 					else:
 						print("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text + "\n==========")
 				except Exception as e:
