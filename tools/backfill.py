@@ -1,3 +1,4 @@
+import json
 import praw
 import sys
 sys.path.insert(0, '.')
@@ -11,8 +12,42 @@ import requests
 
 request_url = "http://192.168.0.155:8000"
 
-feedback_sub_name = "WatchExchangeFeedback".lower()
-sub_name = "WatchExchange".lower()
+#feedback_sub_name = "WatchExchangeFeedback".lower()
+#sub_name = "WatchExchange".lower()
+sub_name = "knife_swap"
+feedback_sub_name = "knife_swap"
+
+# required function for getting ASCII from json load
+def ascii_encode_dict(data):
+        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
+        return dict(map(ascii_encode, pair) for pair in data.items())
+
+# Function to load the DB into memory
+def get_db(database_file_name):
+        with open(database_file_name) as json_data: # open the funko-shop's data
+                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+        return funko_store_data
+
+def GetUserToCss(sub):
+	count = 0
+	d = defaultdict(lambda: [])
+	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
+	for flair in sub.flair():
+		css = flair['flair_css_class']
+		if not css:
+			print("No CSS found: " + str(flair))
+			continue
+		if 'i-god' not in css.lower():
+			continue
+		count = 100
+		username = str(flair['user']).lower()
+		for _ in range(count):
+			d[username].append("LEGACY TRADE")
+		count += 1
+		if not count % 100:
+			print("Finished adding " + str(count) + " users from the sub flair list")
+	print(d)
+	return d
 
 def GetIdsFromPushshift(feedback_sub_name):
 	print("Grabbing IDs from Pushshift")
@@ -146,13 +181,11 @@ def GetUserCounts(authors, ids, sub_config):
 
 def UpdateDatabase(sub_name, users_to_confirmations):
 	print("Updatind Database for all users...")
-	count = 0
+	user_data = {}
 	for user in users_to_confirmations:
 		confirmation_text_list = ",".join(users_to_confirmations[user])
-		requests.post(request_url + "/add-batch-swap/", {'sub_name': sub_name, 'username': user, 'swap_text': confirmation_text_list})
-		count += 1
-		if count % 10 == 0:
-			print("Finished updating database for " + str(count) + " users out of " + str(len(users_to_confirmations)) + " users.")
+		user_data[user] = confirmation_text_list
+	requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'user_data': user_data})
 
 def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")
@@ -161,7 +194,7 @@ def UpdateFlairs(sub, sub_config, users):
 		r = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'username': user.lower()})
                 swap_count = str(len(r.json()['data']))
                 try:
-                        swap.update_single_user_flair(sub, sub_config, user, swap_count, [])
+                        swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
                 except Exception as e:
                         print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
                         time.sleep(20)
@@ -179,10 +212,17 @@ reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.cl
 sub = reddit.subreddit(sub_config.subreddit_name)
 feedback_sub = reddit.subreddit(feedback_sub_name)
 
-#ids, authors = GetIdsFromPushshift(feedback_sub_name)
-ids = set([])
-authors = set(["doublecheezluva".lower()])
-GetIdsFromReddit(feedback_sub, authors, ids)
-users_to_confirmations = GetUserCounts(authors, ids, sub_config)
+## Use this for backfilling from feedback subs
+##ids, authors = GetIdsFromPushshift(feedback_sub_name)
+#ids = set([])
+#authors = set(["JasonTsay".lower()])
+#GetIdsFromReddit(feedback_sub, authors, ids)
+#users_to_confirmations = GetUserCounts(authors, ids, sub_config)
+
+## User this for backfilling based on flair
+#users_to_confirmations = GetUserToCss(sub)
+
+users_to_confirmations = {"Juicy_Soup".lower(): ["LEGACY TRADE"] * 213}
+
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
