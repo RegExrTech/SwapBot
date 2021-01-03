@@ -24,7 +24,7 @@ def get_swap_data(fname):
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
 
-request_url = "http://192.168.0.155:8000"
+request_url = "http://0.0.0.0:8000"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)

@@ -10,7 +10,7 @@ import time
 import re
 import requests
 
-request_url = "http://192.168.0.155:8000"
+request_url = "http://0.0.0.0:8000"
 
 #feedback_sub_name = "WatchExchangeFeedback".lower()
 #sub_name = "WatchExchange".lower()
