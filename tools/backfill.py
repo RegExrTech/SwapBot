@@ -114,7 +114,7 @@ def GetIdsFromReddit(sub, authors, ids):
 		if author_count % 10 == 0:
 			print("Finished checking " + str(author_count) + " out of " + str(len(authors))  + " authors from reddit.")
 	print("Found a total of " + str(len(ids)) + " post ids.")
-
+	print(ids)
 
 def GetUserCounts(authors, ids, sub_config):
 	print("Getting user counts from Reddit")
@@ -180,7 +180,7 @@ def GetUserCounts(authors, ids, sub_config):
 	return d
 
 def UpdateDatabase(sub_name, users_to_confirmations):
-	print("Updatind Database for all users...")
+	print("Updating Database for all users...")
 	user_data = {}
 	for user in users_to_confirmations:
 		confirmation_text_list = ",".join(users_to_confirmations[user])
@@ -214,15 +214,15 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 
 ## Use this for backfilling from feedback subs
 ##ids, authors = GetIdsFromPushshift(feedback_sub_name)
-#ids = set([])
-#authors = set(["JasonTsay".lower()])
-#GetIdsFromReddit(feedback_sub, authors, ids)
-#users_to_confirmations = GetUserCounts(authors, ids, sub_config)
+ids = set([])
+authors = set(["T214145".lower()])
+GetIdsFromReddit(feedback_sub, authors, ids)
+users_to_confirmations = GetUserCounts(authors, ids, sub_config)
 
 ## User this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
-users_to_confirmations = {"Juicy_Soup".lower(): ["LEGACY TRADE"] * 213}
+#users_to_confirmations = {"jackal139".lower(): ["LEGACY TRADE"] * 1}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())

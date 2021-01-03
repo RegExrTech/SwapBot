@@ -1,3 +1,4 @@
+
 from collections import defaultdict
 import json
 
@@ -10,13 +11,13 @@ def ascii_encode_dict(data):
         return dict(map(ascii_encode, pair) for pair in data.items())
 
 # Function to load the DB into memory
-def get_db():
-        with open(FNAME) as json_data: # open the funko-shop's data
+def get_db(database_file_name=FNAME):
+        with open(database_file_name) as json_data: # open the funko-shop's data
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
 
-def dump(swap_data):
-        with open(FNAME, 'w') as outfile:  # Write out new data
+def dump(swap_data, database_file_name=FNAME):
+        with open(database_file_name, 'w') as outfile:  # Write out new data
                 outfile.write(str(json.dumps(swap_data))
                         .replace("'", '"')
                         .replace(', u"', ', "')
@@ -73,7 +74,7 @@ def get_highest(db):
 		print(sub + " - " + h_user + " - " + str(highest))
 
 def print_user_in_sub(db, sub, user):
-	print("=== " + sub + " ===")
+	print("=== " + sub + " - " + user + " ===")
 	print("    " + "\n    ".join(db[sub][user]))
 
 def count_partners(db, sub, user):
@@ -97,12 +98,22 @@ db = get_db()
 #get_common_users(db)
 #get_highest(db)
 
-user = 'regexr'.lower()
+print(len(db['knife_swap']))
+for user in ["LibWithSig"]:
+	user = user.lower()
+	for sub in db:
+#		print(sub + " - " + str(len(db[sub])) + " users")
+		if user in db[sub]:
+			print(user + " - " + sub + "\n  * " + "\n  * ".join(db[sub][user]) + "\n\n")
+
 for sub in db:
-	print(sub + " - " + str(len(db[sub])) + " users")
-#	if user in db[sub]:
-#		print(sub + "\n  * " + "\n  * ".join(db[sub][user]) + "\n\n")
+	max = 0
+	max_user = ""
+	for user in db[sub]:
+		count = len(db[sub][user])
+		if count > max:
+			max = count
+			max_user = user
+	print(sub + " - u/" + max_user + " - " + str(max))
 
 #dump(db)
-
-
