@@ -235,9 +235,9 @@ def add_batch_swap():
 
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
-	Dict user_data:
-		String username:  The name of the user toadd swaps for
-		List[String] swap_text: Comma separated string with a list of text for each swap
+	Dict user_data {username: swap_text}:
+		String username: Username for a reddit user to update
+		String swap_text: comma separated string representing transactions to add for the corresponding user
 
 	Return JSON {}
 	"""

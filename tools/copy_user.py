@@ -13,5 +13,5 @@ args = parser.parse_args()
 request_url = "http://0.0.0.0:8000"
 json_helper = JsonHelper()
 db = json_helper.get_db('database/swaps.json')
-for swap in db[args.sub_name.lower()][args.old_username.lower()]:
-	requests.post(request_url + "/add-swap/", {'sub_name': args.sub_name.lower(), 'username': args.new_username.lower(), 'swap_text': swap})
+swap_text = ",".join(db[args.sub_name.lower()][args.old_username.lower()])
+requests.post(request_url + "/add-batch-swap/", json={'sub_name': args.sub_name.lower(), 'user_data': {args.new_username.lower(): swap_text}})
