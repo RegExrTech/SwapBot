@@ -195,9 +195,9 @@ def remove_comment():
 	global comment_data
 	sub_name = request.form["sub_name"]
 	comment_id = request.form['comment_id']
-	if comment_id in comment_data[sub_name]['active']:
+	while comment_id in comment_data[sub_name]['active']:
 		comment_data[sub_name]['active'].remove(comment_id)
-	if comment_id in comment_data[sub_name]['archived']:
+	while comment_id in comment_data[sub_name]['archived']:
 		comment_data[sub_name]['archived'].remove(comment_id)
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify({})
