@@ -287,7 +287,7 @@ def handle_deleted_post(comment):
 	reply(comment, reply_text)
 
 def handle_wrong_sub(comment):
-	reply_text = "Whoops! Looks like you tagged the wrong bot for this sub. Please **EDIT** this comment, remove my username, and tag the correct bot instead. Thanks!"
+	reply_text = "Whoops! Looks like you tagged me in the wrong subreddit. If you meant to tag a different bot, pelase Please **EDIT** this comment, remove my username, and tag the correct bot instead. If you meant to tag me, please make a new comment in the sub where I operate. Thanks!"
 	reply(comment, reply_text)
 
 def handle_edefinition(comment):
