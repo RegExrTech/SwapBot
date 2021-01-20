@@ -98,22 +98,11 @@ db = get_db()
 #get_common_users(db)
 #get_highest(db)
 
-print(len(db['knife_swap']))
-for user in ["LibWithSig"]:
+for user in ["regexr"]:
 	user = user.lower()
 	for sub in db:
 #		print(sub + " - " + str(len(db[sub])) + " users")
 		if user in db[sub]:
 			print(user + " - " + sub + "\n  * " + "\n  * ".join(db[sub][user]) + "\n\n")
-
-for sub in db:
-	max = 0
-	max_user = ""
-	for user in db[sub]:
-		count = len(db[sub][user])
-		if count > max:
-			max = count
-			max_user = user
-	print(sub + " - u/" + max_user + " - " + str(max))
 
 #dump(db)

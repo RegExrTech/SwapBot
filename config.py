@@ -65,3 +65,9 @@ class Config():
 			self.age_titles = get_json_data('age_titles/'+self.subreddit_name+'.json')
 		else:
 			self.age_titles = False
+		# Comma seperated list of users to not assign flair to (but still track in the database)
+		if info[13].split(":")[1]:
+			self.blacklisted_users = info[13].lower().split(":")[1].split(",")
+		else:
+			self.blacklisted_users = []
+

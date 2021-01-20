@@ -91,6 +91,8 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, age, debug=False):
 	print("attempting to assign flair for " + author)
 	mods = [str(x).lower() for x in sub.moderator()]
+	if author in sub_config.blacklisted_users:
+		return # Silently return
 	if int(swap_count) < sub_config.flair_threshold:
 		non_updated_users.append((author, swap_count))
 		return

@@ -213,16 +213,17 @@ sub = reddit.subreddit(sub_config.subreddit_name)
 feedback_sub = reddit.subreddit(feedback_sub_name)
 
 ## Use this for backfilling from feedback subs
-##ids, authors = GetIdsFromPushshift(feedback_sub_name)
+#ids, authors = GetIdsFromPushshift(feedback_sub_name)
 #ids = set([])
-#authors = set(["T214145".lower()])
+#authors = set(["lasttogetthejoke".lower()])
 #GetIdsFromReddit(feedback_sub, authors, ids)
 #users_to_confirmations = GetUserCounts(authors, ids, sub_config)
 
-## User this for backfilling based on flair
+## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
-users_to_confirmations = {"Fiorano05".lower(): ["LEGACY TRADE"] * 68}
+## Use this for manual count assignment
+users_to_confirmations = {"Daych315h3r3".lower(): ["LEGACY TRADE"] * 14}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
