@@ -139,23 +139,22 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
 		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
 
-	# This feature is supposed to look for new comments and add them to our list of comments to check.
-	# The reason for this is because sometimes, the bot doesn't get a notification for a username tag.
-	# However, because the bot throws out comments that it was tagged in for various reasons, this means
-	# The bot might spam replies to the comment each time it is run.
-	# One helpful solution is to only take comments that were made in the last X minutes, but this is not percise.
-	# Another helpful solution is to look down the comment tree of this comment and check to make sure the bot has not
-	# already replied to the comment. If it has, throw it out.
-	if False:
-		try:
-			new_comments = sub.comments(limit=50)
-			for new_comment in new_comments:
-				created_time = new_comment.created_utc
-				if "u/"+bot_name.lower() in new_comment.body.lower():
+	# Get comments by parsing the most recent comments on the sub.
+	try:
+		new_comments = sub.comments(limit=20)
+		for new_comment in new_comments:
+			try:
+				new_comment.refresh()
+			except: # if we can't refresh a comment, ignore it.
+				continue
+			# If this comment is tagging the bot, we haven't seen it yet, and the bot has not already replied to it, we want to track it.
+			if "u/"+bot_name.lower() in new_comment.body.lower() and new_comment.id not in ids:
+				bot_reply = find_correct_reply(new_comment, str(new_comment.author), "u/"+bot_name.lower(), None)
+				if not bot_reply:
 					ids.append(new_comment.id)
-		except Exception as e:
-			print(e)
-			print("Failed to get most recent comments.")
+	except Exception as e:
+		print(e)
+		print("Failed to get most recent comments.")
 
 	ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids)}).json()['ids']
         ids = list(set(ids))  # Dedupe just in case we get duplicates from the two sources
@@ -277,8 +276,8 @@ def reply(comment, reply_text):
 		else:
 			print(reply_text + "\n==========")
 	except Exception as e:  # Comment was probably deleted
-		print("\n\n" + str(time.time()) + "\n" + str(e))
-		print("Comment: " + str(comment))
+		print(e)
+		print("    Comment: " + str(comment))
 
 def handle_no_author2(comment):
 	reply_text = "You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade."
