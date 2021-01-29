@@ -12,10 +12,10 @@ import requests
 
 request_url = "http://0.0.0.0:8000"
 
-#feedback_sub_name = "WatchExchangeFeedback".lower()
-#sub_name = "WatchExchange".lower()
-sub_name = "knife_swap"
-feedback_sub_name = "knife_swap"
+feedback_sub_name = "WatchExchangeFeedback".lower()
+sub_name = "WatchExchange".lower()
+#sub_name = "knife_swap"
+#feedback_sub_name = "knife_swap"
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -214,16 +214,16 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-#ids = set([])
-#authors = set(["lasttogetthejoke".lower()])
-#GetIdsFromReddit(feedback_sub, authors, ids)
-#users_to_confirmations = GetUserCounts(authors, ids, sub_config)
+ids = set([])
+authors = set(["GagNasty".lower()])
+GetIdsFromReddit(feedback_sub, authors, ids)
+users_to_confirmations = GetUserCounts(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-users_to_confirmations = {"Daych315h3r3".lower(): ["LEGACY TRADE"] * 14}
+#users_to_confirmations = {"Daych315h3r3".lower(): ["LEGACY TRADE"] * 14}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
