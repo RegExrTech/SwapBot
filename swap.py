@@ -39,6 +39,7 @@ def get_comment_text(comment):
 	body = comment.body.lower().encode('utf-8').strip()
 	while("\\" in body):
 		body = body.replace("\\", "")
+	body = body.replace("www.reddit.com/user/", "www.reddit.com/u/")
 	return body
 
 # Checks if the time at script start up is between two desired times
