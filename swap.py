@@ -155,7 +155,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
 			except: # if we can't refresh a comment, ignore it.
 				continue
 			# If this comment is tagging the bot, we haven't seen it yet, and the bot has not already replied to it, we want to track it.
-			if "u/"+bot_name.lower() in new_comment.body.lower() and new_comment.id not in ids:
+			if "u/"+bot_name.lower() in new_comment.body.lower() and new_comment.id not in ids and not str(new_comment.author).lower() == "automoderator":
 				bot_reply = find_correct_reply(new_comment, str(new_comment.author), "u/"+bot_name.lower(), None)
 				if not bot_reply:
 					ids.append(new_comment.id)
