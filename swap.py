@@ -129,6 +129,8 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 
 
 def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
+	# Cache the comment objects so we can reuse them later.
+	ids_to_comments = {}
         # Get comments from username mentions
 	ids = []
 	to_mark_as_read = []
@@ -138,6 +140,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
         	        if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
                 	        try:
 					ids.append(message.id)
+					ids_to_comments[id] = message
 	                        except:  # if this fails, the user deleted their account or comment so skip it
         	                        pass
                 	elif not message.was_comment:
@@ -159,6 +162,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
 				bot_reply = find_correct_reply(new_comment, str(new_comment.author), "u/"+bot_name.lower(), None)
 				if not bot_reply:
 					ids.append(new_comment.id)
+					ids_to_comments[new_comment.id] = new_comment
 	except Exception as e:
 		print(e)
 		print("Failed to get most recent comments.")
@@ -167,7 +171,11 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
         ids = list(set(ids))  # Dedupe just in case we get duplicates from the two sources
         for comment_id in ids:
                 try:
-                        comments.append(reddit.comment(comment_id))
+			if comment_id in ids_to_comments:
+				comment = ids_to_comments[comment_id]
+			else:
+				comment = reddit.comment(comment_id)
+                        comments.append(comment)
                 except:  # If we fail, the user deleted their comment or account, so skip
                         pass
 
@@ -179,13 +187,20 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
 				print(e)
 				print("Unable to mark message as read. Leaving it as is.")
 
-
 def set_archived_comments(reddit, comments):
 	ids = ",".join([comment.id for comment in comments])
+	# Cache the comment objects so we can reuse them later.
+	ids_to_comments = {}
+	for comment in comments:
+		ids_to_comments[comment.id] = comment
 	all_ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'False', 'ids': ids}).json()['ids']
 	for id in all_ids:
 		if id not in ids: # if this was not already passed in
-			comments.append(reddit.comment(id))
+			if id in ids_to_comments:
+				comment = ids_to_comments[id]
+			else:
+				comment = reddit.comment(id)
+			comments.append(comment)
 
 def handle_comment(comment, bot_username, sub):
 	# Get an instance of the parent post
