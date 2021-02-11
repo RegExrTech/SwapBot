@@ -220,7 +220,7 @@ def handle_comment(comment, bot_username, sub):
         author1 = comment.author  # Author of the top level comment
 	comment_text = get_comment_text(comment)
 	# Determine if they properly tagged a trade partner
-        desired_author2_string = get_desired_author2_name(comment_text, bot_username, str(author1))
+        desired_author2_string = get_username_from_text(comment_text, [bot_username, str(author1)])
         if not desired_author2_string:
                 handle_no_author2(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
@@ -277,15 +277,15 @@ def handle_comment(comment, bot_username, sub):
 			print("No correct looking replies were found")
 		return False
 
-def get_desired_author2_name(comment_text, bot_username, author_username_string):
+def get_username_from_text(text, usernames_to_ignore=[]):
 	pattern = re.compile("u\/([A-Za-z0-9_-]+)")
-	found = re.findall(pattern, comment_text)
-	author2 = ""
-	for username in found:
-		if username not in [bot_username.lower(), author_username_string.lower(), 'digitalcodesellbot', 'uvtrade_bot']:
-			author2 = "u/" + username
+	found = re.findall(pattern, text)
+	username = ""
+	for found_username in found:
+		if found_username not in [x.lower() for x in usernames_to_ignore] + ['digitalcodesellbot', 'uvtrade_bot']:
+			username = "u/" + found_username
 			break
-	return author2
+	return username
 
 def reply(comment, reply_text):
 	try:
@@ -352,7 +352,7 @@ def inform_credit_already_given(comment):
 
 def inform_comment_archived(comment):
 	comment_text = get_comment_text(comment)
-	author2 = get_desired_author2_name(comment_text, sub_config.bot_username, str(comment.author))
+	author2 = get_username_from_text(comment_text, [sub_config.bot_username, str(comment.author)])
 	reply_text = author2 + ", please reply to the comment above this to confirm with your trade partner.\n\nThis comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance."
 	reply(comment, reply_text)
 
@@ -368,6 +368,42 @@ def inform_giving_credit(comment, non_updated_users):
 			reply_text += "\n\n* " + user + " - " + swap_count + sub_config.flair_word
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
 	reply(comment, reply_text)
+
+def reply_to_message(message, text, sub_config):
+	if not debug:
+		try:
+			if not silent:
+				message.reply(text + kofi_text)
+			else:
+				print(text + "\n==========")
+		except Exception as e:
+			print(sub_config.bot_username + " could not reply to " + str(message.author) + " with error...")
+			print("    " + str(e))
+	else:
+		print(text + "\n==========")
+
+def format_swap_count(trades, sub_config):
+	legacy_count = 0  # Use this to track the number of legacy swaps someone has
+	for trade in trades[::-1]:
+		if "LEGACY TRADE" in trade:
+			legacy_count += 1
+		else:
+			trade_partner = trade.split(" - ")[0]
+			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': trade_partner}).json()['data'])
+			trade_url = trade.split(" - ")[1]
+			try:
+				trade_url_sub = trade_url.split("/")[4]
+			except:
+				print("Error getting trade sub url from " + trade_url)
+				continue
+			trade_url_id = trade_url.split("/")[6]
+			final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://redd.it/" + trade_url_id  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
+
+	if legacy_count > 0:
+		final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
+
+	return final_text
+
 
 def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 	replies = comment.replies
@@ -441,89 +477,28 @@ def main():
 
 	# This is for if anyone sends us a message requesting swap data
 	for message in messages:
-		text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ").split(" ")  # get each unique word
-		username = ""  # This will hold the username in question
-		for word in text:
-			if '/u/' in word.lower():  # Same as above but if they start with a leading /u/ instead of u/
-				username = word.lower()[3:]
-				break
-			if 'u/' in word.lower():  # if we have a username
-				username = word.lower()[2:]  # Save the username and break early
-				break
+		text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ")
+		username = get_username_from_text(text)
 		if not username:  # If we didn't find a username, let them know and continue
-			if not debug:
-				try:
-					if not silent:
-						message.reply("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name, in the body of the message you just sent me. Please feel free to try again. Thanks!"+kofi_text)
-					else:
-						print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
-				except Exception as e:
-					print("Could not reply to message with error...")
-					print("    " + str(e))
-			else:
-				print("Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!" + "\n==========")
+			reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
+			reply_to_message(message, reply_text, sub_config)
 			continue
 		final_text = ""
 		trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': username}).json()['data']
 		if not trades:  # if that user has not done any trades, we have no info for them.
-			if not debug:
-				try:
-					if not silent:
-						message.reply("Hello,\n\nu/" + username + " has not had any swaps yet."+kofi_text)
-					else:
-						print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
-				except Exception as e:
-					print("Could not reply to message with error...")
-					print("    " + str(e))
-			else:
-				print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
+			reply_text = "Hello,\n\nu/" + username + " has not had any swaps yet."
+			reply_to_message(message, reply_text, sub_config)
 			continue
 
-		legacy_count = 0  # Use this to track the number of legacy swaps someone has
-		for trade in trades[::-1]:
-			if "LEGACY TRADE" in trade:
-				legacy_count += 1
-			else:
-				trade_partner = trade.split(" - ")[0]
-				trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': trade_partner}).json()['data'])
-				trade_url = trade.split(" - ")[1]
-				try:
-					trade_url_sub = trade_url.split("/")[4]
-				except:
-					print("Error getting trade sub url from " + trade_url)
-					continue
-				trade_url_id = trade_url.split("/")[6]
-				final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://redd.it/" + trade_url_id  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
-
-		if legacy_count > 0:
-			final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
-
 		if len(trades) == 0:
-			if not debug:
-				try:
-					if not silent:
-						message.reply("Hello,\n\nu/" + username + " has not had any swaps yet."+kofi_text)
-					else:
-						print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
-				except Exception as e:
-					print("Could not reply to message with error...")
-					print("    " + str(e))
-			else:
-				print("Hello,\n\nu/" + username + " has not had any swaps yet." + "\n==========")
+			reply_text = "Hello,\n\nu/" + username + " has not had any swaps yet."
+			reply_to_message(message, reply_text, sub_config)
 		else:
-			if not debug:
-				try:
-					if len(final_text) > 10000:
-						final_text = final_text[:9800] + "\nTruncated..."
-					if not silent:
-						message.reply("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text+kofi_text)
-					else:
-						print("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text + "\n==========")
-				except Exception as e:
-					print("Could not reply to message with error...")
-					print("    " + str(e))
-			else:
-				print("Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text + "\n==========")
+			final_text = format_swap_count(trades, sub_config)
+			if len(final_text) > 10000:
+				final_text = final_text[:9800] + "\nTruncated..."
+			reply_text = "Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text
+			reply_to_message(message, reply_text, sub_config)
 
 if __name__ == "__main__":
 	main()
