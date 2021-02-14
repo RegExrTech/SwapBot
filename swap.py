@@ -285,7 +285,7 @@ def get_username_from_text(text, usernames_to_ignore=[]):
 		if found_username not in [x.lower() for x in usernames_to_ignore] + ['digitalcodesellbot', 'uvtrade_bot']:
 			username = "u/" + found_username
 			break
-	return username
+	return username.lower()
 
 def reply(comment, reply_text):
 	try:
@@ -383,6 +383,7 @@ def reply_to_message(message, text, sub_config):
 		print(text + "\n==========")
 
 def format_swap_count(trades, sub_config):
+	final_text = ""
 	legacy_count = 0  # Use this to track the number of legacy swaps someone has
 	for trade in trades[::-1]:
 		if "LEGACY TRADE" in trade:
@@ -478,7 +479,7 @@ def main():
 	# This is for if anyone sends us a message requesting swap data
 	for message in messages:
 		text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ")
-		username = get_username_from_text(text)
+		username = get_username_from_text(text)[2:]  # remove the leading u/ in the username
 		if not username:  # If we didn't find a username, let them know and continue
 			reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
 			reply_to_message(message, reply_text, sub_config)
