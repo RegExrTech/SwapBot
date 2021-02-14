@@ -56,7 +56,7 @@ class Config():
 		else:
 			self.mod_flair_template = ""
 		# Vanity titles based on flair thresholds
-		if info[11].split(":")[1]:
+		if info[11].split(":")[1].lower() == "true":
 			self.titles = get_json_data('titles/'+self.subreddit_name+'.json')
 		else:
 			self.titles = False
