@@ -14,8 +14,8 @@ request_url = "http://0.0.0.0:8000"
 
 feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
-#sub_name = "knife_swap"
-#feedback_sub_name = "knife_swap"
+#sub_name = "snackexchange"
+#feedback_sub_name = "snackexchange"
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -29,19 +29,25 @@ def get_db(database_file_name):
         return funko_store_data
 
 def GetUserToCss(sub):
+	db = get_db("database/swaps.json")["comicswap"]
 	count = 0
 	d = defaultdict(lambda: [])
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
 	for flair in sub.flair():
-		css = flair['flair_css_class']
-		if not css:
-			print("No CSS found: " + str(flair))
-			continue
-		if 'i-god' not in css.lower():
-			continue
-		count = 100
 		username = str(flair['user']).lower()
-		for _ in range(count):
+		if username in db:
+			continue
+		css = flair['flair_css_class']
+		flair_text = flair['flair_text']
+		if not flair_text:
+			continue
+		try:
+			flair_count = int(css)
+			continue
+		except:
+			flair_count = 1
+		print(flair_text)
+		for _ in range(flair_count):
 			d[username].append("LEGACY TRADE")
 		count += 1
 		if not count % 100:
@@ -214,16 +220,17 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-ids = set([])
-authors = set(["GagNasty".lower()])
-GetIdsFromReddit(feedback_sub, authors, ids)
-users_to_confirmations = GetUserCounts(authors, ids, sub_config)
+#ids = set([])
+#authors = set(["watchsasquatch".lower(), "NYCphotographer".lower()])
+#GetIdsFromReddit(feedback_sub, authors, ids)
+#users_to_confirmations = GetUserCounts(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-#users_to_confirmations = {"Daych315h3r3".lower(): ["LEGACY TRADE"] * 14}
+users_to_confirmations = {"wu_tza".lower(): ["LEGACY TRADE"] * 1}
+#users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())

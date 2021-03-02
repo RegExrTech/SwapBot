@@ -98,7 +98,7 @@ db = get_db()
 #get_common_users(db)
 #get_highest(db)
 
-for user in ["regexr"]:
+for user in ["HerbyVershmales".lower()]:
 	user = user.lower()
 	for sub in db:
 #		print(sub + " - " + str(len(db[sub])) + " users")
