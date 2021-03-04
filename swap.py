@@ -282,7 +282,7 @@ def get_username_from_text(text, usernames_to_ignore=[]):
 	found = re.findall(pattern, text)
 	username = ""
 	for found_username in found:
-		if found_username not in [x.lower() for x in usernames_to_ignore] + ['digitalcodesellbot', 'uvtrade_bot']:
+		if found_username not in [x.lower() for x in usernames_to_ignore] + ['digitalcodesellbot', 'uvtrade_bot', 'airsoftmarketbot', 'airsoftswapbot']:
 			username = "u/" + found_username
 			break
 	return username.lower()
