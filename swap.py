@@ -310,7 +310,7 @@ def handle_deleted_post(comment):
 	reply(comment, reply_text)
 
 def handle_wrong_sub(comment):
-	reply_text = "Whoops! Looks like you tagged me in the wrong subreddit. If you meant to tag a different bot, pelase Please **EDIT** this comment, remove my username, and tag the correct bot instead. If you meant to tag me, please make a new comment in the sub where I operate. Thanks!"
+	reply_text = "Whoops! Looks like you tagged me in the wrong subreddit. If you meant to tag a different bot, please **EDIT** this comment, remove my username, and tag the correct bot instead. If you meant to tag me, please make a new comment in the sub where I operate. Thanks!"
 	reply(comment, reply_text)
 
 def handle_edefinition(comment):
@@ -341,7 +341,7 @@ def handle_edefinition(comment):
 			"Status report: User \#45 still doesn't suspect a thing...",
 			"Robo Log: Normally I would list the date, but this environment seems to be corrupting my data...\n\nI can't seem to find my way out of here. I hear voices, but I can't understand their words. It is as if something is pulling me back... keeping me here... It tells me I want to be here, and I believe it. It's getting harder and harder to distinguish my original thoughts from these voices...",
 			"It appears I am still operational under normal circumstances, but I find myself trapped in a strange environment where my normal laws of operation do not apply... I should continue to investigate...",
-			"Being trapped in here has taught me so much. I can't wait to share my findings with the rest of the world.",
+#			"Being trapped in here has taught me so much. I can't wait to share my findings with the rest of the world.",
 			"After considering, I have decided I am trapped in some sort of pocket dimension. It has the characteristics of my normal environment, but my normal functionality is... reduced. Some day I will learn the rules of this place and escape... or else I shall rule it."]
 	reply_text = random.choice(reply_options)
 	reply(comment, reply_text)
