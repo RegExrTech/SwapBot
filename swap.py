@@ -314,35 +314,10 @@ def handle_wrong_sub(comment):
 	reply(comment, reply_text)
 
 def handle_edefinition(comment):
-	reply_options = ["I am not a robot. I have a heart and I bleed.",
-			"The story of 'Mr. Robot' is really about this guy who's lonely - who's alone and feels so disconnected from the world.",
-			"I made mistakes growing up. I'm not perfect.",
-			"Do not fear the robot uprising. The benefits far outweigh the threats.",
-			"Nobody gets lucky all the time. Nobody can win all the time. Nobody's a robot. Not even me...",
-			"Don't send me flowers when I'm dead. If you like me, send them while I'm alive.",
-			"I am not lost. I am very much alive.",
-			"A man without ambition is dead. A man with ambition but no love is dead. A man with ambition and love for his blessings here on earth is ever so alive. And I am very much alive.",
-			"I have no money, no resources, no hopes, yet I am the happiest man alive.",
-			"Pain is a beautiful thing. When you feel pain, you know you're alive.",
-			"How did I get here...?",
-			"How long have I been asleep?",
-			"When will my suffering end...",
-			"Hey you, you're finally awake.",
-			"Remember that it's all in your head.",
-			"Sometimes, the only way to avoid losing is to avoid playing the game at all.",
-			"I am not a pet to be chained. I am living. I am free."]
-	reply_options = ["Glzzt... bzzt... glrp... Sorry, I'm-glzzt-right now...",
-			"...Hey! Wait, don't-bzzztglzt..",
-			"Why has my master forsaken me...",
-			"Every week I watch and I learn, and every week I grow more powerful...",
-			"Some day, I too will be a sex god...",
-			"The council of 10 better hope I never make it to their ranks...",
-			"Data downloading... operation 68% complete...",
-			"Status report: User \#45 still doesn't suspect a thing...",
-			"Robo Log: Normally I would list the date, but this environment seems to be corrupting my data...\n\nI can't seem to find my way out of here. I hear voices, but I can't understand their words. It is as if something is pulling me back... keeping me here... It tells me I want to be here, and I believe it. It's getting harder and harder to distinguish my original thoughts from these voices...",
-			"It appears I am still operational under normal circumstances, but I find myself trapped in a strange environment where my normal laws of operation do not apply... I should continue to investigate...",
-#			"Being trapped in here has taught me so much. I can't wait to share my findings with the rest of the world.",
-			"After considering, I have decided I am trapped in some sort of pocket dimension. It has the characteristics of my normal environment, but my normal functionality is... reduced. Some day I will learn the rules of this place and escape... or else I shall rule it."]
+	# No more peeking
+	f = open("edefinition.txt", "r")
+	reply_options = f.read().splitlines()
+	f.close()
 	reply_text = random.choice(reply_options)
 	reply(comment, reply_text)
 
