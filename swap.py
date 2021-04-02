@@ -410,7 +410,7 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 	return None
 
 def main():
-	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='UserAgent', username=sub_config.bot_username, password=sub_config.bot_password)
+	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='Swap Bot for ' + sub_config.subreddit_name + ' v1.0 (by u/RegExr)', username=sub_config.bot_username, password=sub_config.bot_password)
 	sub = reddit.subreddit(sub_config.subreddit_name)
 
 	comments = []  # Stores comments from both sources of Ids
