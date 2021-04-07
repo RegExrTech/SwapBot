@@ -36,7 +36,7 @@ class Config():
 		else:
 			self.mod_flair_word = ""
 		# Vanity flair colors based on flair thresholds
-		if info[7].split(":")[1]:
+		if info[7].split(":")[1].lower() == "true":
 			self.flair_templates = get_json_data('templates/'+self.subreddit_name+'.json')
 		else:
 			self.flair_templates = False
@@ -61,7 +61,7 @@ class Config():
 		else:
 			self.titles = False
 		# Number of years someone has to have been on reddit to get the corresponding title prefix
-		if info[12].split(":")[1] == "True":
+		if info[12].split(":")[1].lower() == "true":
 			self.age_titles = get_json_data('age_titles/'+self.subreddit_name+'.json')
 		else:
 			self.age_titles = False
