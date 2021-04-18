@@ -354,7 +354,7 @@ def handle_comment_with_filtered_user(comment):
 	reply(comment, reply_text)
 
 def handle_no_redditor(comment):
-	reply_text = "The person you tagged is not a real redditor. You can verify this by clicking the tag in your comment. This most likely means you misspelled your partner's name. Please make a **NEW** comment with the correct spelling. *Editing* this comment will do nothing.")
+	reply_text = "The person you tagged is not a real redditor. You can verify this by clicking the tag in your comment. This most likely means you misspelled your partner's name **OR** they deleted their account. If you made a spelling mistake, please make a **NEW** comment with the correct spelling. *Editing* this comment will do nothing. If your partner has deleted their account, you will NOT be able to confirm your transaction. Sorry for the inconvenience."
 	reply(comment, reply_text)
 
 def handle_suspended_redditor(comment):
