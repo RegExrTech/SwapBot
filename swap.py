@@ -25,6 +25,10 @@ def get_swap_data(fname):
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
 
+def log(comment, post, reason):
+	url = "reddit.com/comments/"+str(post)+"/-/"+str(comment)
+	print("Removing comment " + url + " because: " + reason)
+
 request_url = "http://0.0.0.0:8000"
 
 parser = argparse.ArgumentParser()
@@ -230,27 +234,32 @@ def handle_comment(comment, bot_username, sub, reddit):
 	try:
 		reddit.redditor(desired_author2_string.split("/")[1]).id
 	except NotFound:
-		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " having a tagged user " + desired_author2_string + " who is not a real redditor username, meaning the OP misspelled the username.")
+		log(parent_post, comment, "Tagged user " + desired_author2_string + " is not a real username.")
 		handle_no_redditor(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
-	except:
-		print("Found weird redditor without an ID attribute: " + desired_author2_string)
+	except AttributeError:
+		log(parent_post, comment, "Tagged user " + desired_author2_string + " is a suspended account.")
+		handle_suspended_redditor(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		return True
+	except Exception as e:
+		print("Could not make a reddit instance with an ID for reddit account: " + desired_author2_string + " with error: " + str(e))
 	# Remove comments that are in the wrong sub
 	if not str(parent_post.subreddit).lower() == sub_config.subreddit_name.lower():
-		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being in the wrong sub - in " + str(parent_post.subreddit).lower() + ", should be in " + sub_config.subreddit_name.lower())
+		log(parent_post, comment, "Wrong sub - in " + str(parent_post.subreddit).lower() + ", should be in " + sub_config.subreddit_name.lower())
 		handle_wrong_sub(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	# Remove comments in giveaway posts
 	if "(giveaway)" in parent_post.title.lower():
-		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being a giveaway.")
+		log(parent_post, comment, "Post is a giveaway")
 		handle_giveaway(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	# Remove comment if post is archived
 	if parent_post.archived:
-		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being archived.")
+		log(parent_post, comment, "Post is archived")
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	# Remove comment if the author of the post has deleted the post
@@ -345,7 +354,11 @@ def handle_comment_with_filtered_user(comment):
 	reply(comment, reply_text)
 
 def handle_no_redditor(comment):
-	reply_text = "The person you tagged is not a real redditor. You can verify this by clicking the tag in your comment. This means you either\n\n* Misspelled your partner's name\n\n* Your partner deleted their account\n\n* Your partner was banned from Reddit.\n\nIf you misspelled your partner's name, please make a **NEW** comment with the correct spelling. *Editing* this comment will do nothing. If your partner deleted their account or they were banned, you will be unable to confirm this transaction. Sorry for the inconvenience."
+	reply_text = "The person you tagged is not a real redditor. You can verify this by clicking the tag in your comment. This most likely means you misspelled your partner's name. Please make a **NEW** comment with the correct spelling. *Editing* this comment will do nothing.")
+	reply(comment, reply_text)
+
+def handle_suspended_redditor(comment):
+	reply_text = "The person you tagged has had their reddit account suspended by the Reddit site-wide Admins. As such, this person will not be able to confirm a transaction with you. If their account is unsuspended, you will need to make a new comment to confirm a transaction with them as **this comment will no longer be tracked**."
 	reply(comment, reply_text)
 
 def inform_credit_already_given(comment):
