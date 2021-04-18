@@ -234,6 +234,8 @@ def handle_comment(comment, bot_username, sub, reddit):
 		handle_no_redditor(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
+	except:
+		print("Found weird redditor without an ID attribute: " + desired_author2_string)
 	# Remove comments that are in the wrong sub
 	if not str(parent_post.subreddit).lower() == sub_config.subreddit_name.lower():
 		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being in the wrong sub - in " + str(parent_post.subreddit).lower() + ", should be in " + sub_config.subreddit_name.lower())
