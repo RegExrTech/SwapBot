@@ -228,9 +228,9 @@ def handle_comment(comment, bot_username, sub, reddit):
                 return True
 	# Remove comment if author2 is not a real reddit account
 	try:
-		reddit.redditor(desired_author2_string).id
+		reddit.redditor(desired_author2_string.split("/")[1]).id
 	except NotFound:
-		print("Tagged user " + desired_author2_string + " is not a real redditor username, meaning the OP misspelled the username.")
+		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " having a tagged user " + desired_author2_string + " who is not a real redditor username, meaning the OP misspelled the username.")
 		handle_no_redditor(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
