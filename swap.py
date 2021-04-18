@@ -203,7 +203,7 @@ def set_archived_comments(reddit, comments):
 				comment = reddit.comment(id)
 			comments.append(comment)
 
-def handle_comment(comment, bot_username, sub):
+def handle_comment(comment, bot_username, sub, reddit):
 	# Get an instance of the parent post
 	parent_post = comment
 	while parent_post.__class__.__name__ == "Comment":
@@ -440,7 +440,7 @@ def main():
 			print("Could not 'refresh' comment: " + str(comment))
 			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			continue
-		handeled = handle_comment(comment, sub_config.bot_username, sub)
+		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit)
 		time_made = comment.created
 		# if this comment is more than three days old and we didn't find a correct looking reply
 		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
@@ -473,7 +473,7 @@ def main():
 				inform_comment_deleted(comment)
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			else:
-				handle_comment(comment, sub_config.bot_username, sub)
+				handle_comment(comment, sub_config.bot_username, sub, reddit)
 			time.sleep(.5)
 
 	# This is for if anyone sends us a message requesting swap data
