@@ -6,6 +6,7 @@ import requests
 import re
 import json
 import praw
+from prawcore.exceptions import NotFound
 import time
 import datetime
 import argparse
@@ -225,6 +226,14 @@ def handle_comment(comment, bot_username, sub):
                 handle_no_author2(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
                 return True
+	# Remove comment if author2 is not a real reddit account
+	try:
+		reddit.redditor(desired_author2_string).id
+	except NotFound:
+		print("Tagged user " + desired_author2_string + " is not a real redditor username, meaning the OP misspelled the username.")
+		handle_no_redditor(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		return True
 	# Remove comments that are in the wrong sub
 	if not str(parent_post.subreddit).lower() == sub_config.subreddit_name.lower():
 		print("Removing comment " + str(comment) + " due to parent " + str(parent_post) + " being in the wrong sub - in " + str(parent_post.subreddit).lower() + ", should be in " + sub_config.subreddit_name.lower())
@@ -331,6 +340,10 @@ def handle_not_op(comment, op_author):
 
 def handle_comment_with_filtered_user(comment):
 	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counted as the person trying to confirm it cannot leave a public comment."
+	reply(comment, reply_text)
+
+def handle_no_redditor(comment):
+	reply_text = "The person you tagged is not a real redditor. You can verify this by clicking the tag in your comment. This means you either\n\n* Misspelled your partner's name\n\n* Your partner deleted their account\n\n* Your partner was banned from Reddit.\n\nIf you misspelled your partner's name, please make a **NEW** comment with the correct spelling. *Editing* this comment will do nothing. If your partner deleted their account or they were banned, you will be unable to confirm this transaction. Sorry for the inconvenience."
 	reply(comment, reply_text)
 
 def inform_credit_already_given(comment):
