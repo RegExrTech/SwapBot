@@ -25,7 +25,7 @@ def get_swap_data(fname):
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
 
-def log(comment, post, reason):
+def log(post, comment, reason):
 	url = "reddit.com/comments/"+str(post)+"/-/"+str(comment)
 	print("Removing comment " + url + " because: " + reason)
 
