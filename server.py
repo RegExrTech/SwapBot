@@ -58,16 +58,16 @@ def add_comment():
 @app.route('/get-comments/', methods=['POST'])
 def get_comments():
 	"""
-	Given a list of new IDs, returns a list of IDs to check.
+	Given a list of new IDs, returns a list of unique IDs to check and a list of unique IDs which are new to the system
 
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
 	String active: Denotes either active or archived ('True' or 'False')
 	List(String) ids: List of strings of ids to include with active comments
 
-	Return JSON {'ids': List(String)}
+	Return JSON {'ids': List(String), 'new_ids': List(String)}
 	"""
-
+	new_ids = []
 	sub_name = request.form["sub_name"]
 	active = request.form['active'] == 'True'
 	ids = request.form['ids'].split(",")
@@ -86,8 +86,9 @@ def get_comments():
 	for id in ids:
 		if id not in prev_ids:
 			prev_ids.append(id)
+			new_ids.append(id)
 	json_helper.dump(comment_data, comment_fname)
-	return jsonify({'ids': prev_ids})
+	return jsonify({'ids': list(set(prev_ids)), 'new_ids': list(set(new_ids))})
 
 @app.route('/check-comment/', methods=['POST'])
 def check_comment():

@@ -133,7 +133,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 		print("==========")
 
 
-def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
+def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, new_ids):
 	# Cache the comment objects so we can reuse them later.
 	ids_to_comments = {}
         # Get comments from username mentions
@@ -172,8 +172,9 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages):
 		print(e)
 		print("Failed to get most recent comments.")
 
-	ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids)}).json()['ids']
-        ids = list(set(ids))  # Dedupe just in case we get duplicates from the two sources
+	return_data = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids)}).json()
+	ids = return_data['ids']
+	new_ids += return_data['new_ids']
         for comment_id in ids:
                 try:
 			if comment_id in ids_to_comments:
@@ -207,7 +208,7 @@ def set_archived_comments(reddit, comments):
 				comment = reddit.comment(id)
 			comments.append(comment)
 
-def handle_comment(comment, bot_username, sub, reddit):
+def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 	# Get an instance of the parent post
 	parent_post = comment
 	while parent_post.__class__.__name__ == "Comment":
@@ -222,7 +223,7 @@ def handle_comment(comment, bot_username, sub, reddit):
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
-        author1 = comment.author  # Author of the top level comment
+	author1 = comment.author  # Author of the top level comment
 	comment_text = get_comment_text(comment)
 	# Determine if they properly tagged a trade partner
         desired_author2_string = get_username_from_text(comment_text, [bot_username, str(author1)])
@@ -272,6 +273,10 @@ def handle_comment(comment, bot_username, sub, reddit):
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
+	# New comments get auto response so users know they've been heard
+	if is_new_comment:
+		inform_comment_tracked(comment, desired_author2_string)
+
         correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
         if correct_reply:
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
@@ -361,6 +366,10 @@ def handle_suspended_redditor(comment):
 	reply_text = "The person you tagged has had their reddit account suspended by the Reddit site-wide Admins. As such, this person will not be able to confirm a transaction with you. If their account is unsuspended, you will need to make a new comment to confirm a transaction with them as **this comment will no longer be tracked**."
 	reply(comment, reply_text)
 
+def inform_comment_tracked(comment, desired_author2_string):
+	reply_text = "Thank you for tagging the Confirmation Bot. This comment is now being tracked. Your flair will update once your partner replies to your comment.\n\n" + desired_author2_string + ", please reply to the above comment with your feedback for your transaction partner. Once you do so, you will both get credit for this transaction and your flair scores will increase. Thank you!"
+	reply(comment, reply_text)
+
 def inform_credit_already_given(comment):
 	reply_text = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
 	reply(comment, reply_text)
@@ -443,7 +452,8 @@ def main():
 
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying
-	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages)
+	new_ids = []  # Want to know which IDs are from comments we're just finding for the first time
+	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages, new_ids)
 
 	# Process comments
 	if debug:
@@ -455,7 +465,7 @@ def main():
 			print("Could not 'refresh' comment: " + str(comment))
 			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			continue
-		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit)
+		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit, comment.id in new_ids)
 		time_made = comment.created
 		# if this comment is more than three days old and we didn't find a correct looking reply
 		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
@@ -488,7 +498,7 @@ def main():
 				inform_comment_deleted(comment)
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			else:
-				handle_comment(comment, sub_config.bot_username, sub, reddit)
+				handle_comment(comment, sub_config.bot_username, sub, reddit, False)
 			time.sleep(.5)
 
 	# This is for if anyone sends us a message requesting swap data
