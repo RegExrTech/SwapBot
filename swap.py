@@ -273,9 +273,6 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
-	# New comments get auto response so users know they've been heard
-	if is_new_comment:
-		inform_comment_tracked(comment, desired_author2_string)
 
         correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
         if correct_reply:
@@ -298,6 +295,9 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
         else:  # If we found no correct looking comments, let's come back to it later
+		# New comments get auto response so users know they've been heard
+		if is_new_comment:
+			inform_comment_tracked(comment, desired_author2_string)
 		if debug:
 			print("No correct looking replies were found")
 		return False
