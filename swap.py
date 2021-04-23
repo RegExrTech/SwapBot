@@ -223,6 +223,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	if comment.banned_by:
+		log(parent_post, comment, "Comment was made by a shadow banned user")
 		handle_comment_by_filtered_user(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
@@ -268,11 +269,13 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 		return True
 	# Remove comment if the author of the post has deleted the post
 	if not parent_post.author:
+		log(parent_post, comment, "Post is deleted")
 		handle_deleted_post(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
 	# Remove comment if neither the person doing the tagging nor the person being tagged are the OP
 	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
+		log(parent_post, comment, "Neither participant is OP")
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
@@ -281,6 +284,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
         if correct_reply:
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
 		if correct_reply.banned_by:
+			log(parent_post, comment, "Replying user is shadow banned")
 			handle_reply_by_filtered_user(comment)
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			return True
@@ -291,10 +295,11 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
                         credit_given, author1_count, author2_count = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
-				print("Updated " + str(author1) + " to flair " + str(author1_count) + " and " + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/"+str(parent_post)+"/-/"+str(comment))
+				print("Updated u/" + str(author1) + " to flair " + str(author1_count) + " and u/" + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/"+str(parent_post)+"/-/"+str(comment))
                                 non_updated_users = update_flair(author1, author2, author1_count, author2_count, sub)
                                 inform_giving_credit(correct_reply, non_updated_users)
                         else:
+				log(parent_post, comment, "Credit already given")
                                 inform_credit_already_given(correct_reply)
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
