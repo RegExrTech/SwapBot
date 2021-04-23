@@ -101,7 +101,6 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 	return non_updated_users
 
 def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, age, debug=False):
-	print("attempting to assign flair for " + author)
 	mods = [str(x).lower() for x in sub.moderator()]
 	if author in sub_config.blacklisted_users:
 		return # Silently return
@@ -223,6 +222,10 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 		return True
+	if comment.banned_by:
+		handle_comment_by_filtered_user(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		return True
 	author1 = comment.author  # Author of the top level comment
 	comment_text = get_comment_text(comment)
 	# Determine if they properly tagged a trade partner
@@ -278,7 +281,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
         if correct_reply:
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
 		if correct_reply.banned_by:
-			handle_comment_with_filtered_user(comment)
+			handle_reply_by_filtered_user(comment)
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
 			return True
                 author2 = correct_reply.author
@@ -288,6 +291,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
                         credit_given, author1_count, author2_count = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
+				print("Updated " + str(author1) + " to flair " + str(author1_count) + " and " + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/"+str(parent_post)+"/-/"+str(comment))
                                 non_updated_users = update_flair(author1, author2, author1_count, author2_count, sub)
                                 inform_giving_credit(correct_reply, non_updated_users)
                         else:
@@ -354,7 +358,11 @@ def handle_not_op(comment, op_author):
 	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is " + op_author + ". If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
 	reply(comment, reply_text)
 
-def handle_comment_with_filtered_user(comment):
+def handle_comment_by_filtered_user(comment):
+	reply_text = "Thank you for tagging the Confirmation Bot. Unfortunately, you are not allowed to participate in the sub at this time. As such, we cannot confirm transactions between you and your partner. Please try participating again once you meet this sub's participation requirements."
+	reply(comment, reply_text)
+
+def handle_reply_by_filtered_user(comment):
 	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counted as the person trying to confirm it cannot leave a public comment."
 	reply(comment, reply_text)
 
