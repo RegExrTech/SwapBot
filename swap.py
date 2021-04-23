@@ -295,7 +295,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
                         credit_given, author1_count, author2_count = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
-				print("Updated u/" + str(author1) + " to flair " + str(author1_count) + " and u/" + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/"+str(parent_post)+"/-/"+str(comment))
+				print("Updated u/" + str(author1) + " to flair " + str(author1_count) + " and u/" + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/" + str(parent_post) + "/" + sub.display_name + "/" + str(comment))
                                 non_updated_users = update_flair(author1, author2, author1_count, author2_count, sub)
                                 inform_giving_credit(correct_reply, non_updated_users)
                         else:
