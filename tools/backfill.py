@@ -14,8 +14,8 @@ request_url = "http://0.0.0.0:8000"
 
 feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
-#sub_name = "snackexchange"
-#feedback_sub_name = "snackexchange"
+#sub_name = "comicswap"
+#feedback_sub_name = "comicswap"
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -29,7 +29,7 @@ def get_db(database_file_name):
         return funko_store_data
 
 def GetUserToCss(sub):
-	db = get_db("database/swaps.json")["comicswap"]
+	db = get_db("database/swaps.json")[sub_name]
 	count = 0
 	d = defaultdict(lambda: [])
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
@@ -42,11 +42,10 @@ def GetUserToCss(sub):
 		if not flair_text:
 			continue
 		try:
-			flair_count = int(css)
-			continue
+			flair_count = int(flair_text.split(" ")[0])
 		except:
-			flair_count = 1
-		print(flair_text)
+			print("unable to parse count for user " + username + " with flair text " + flair_text)
+			continue
 		for _ in range(flair_count):
 			d[username].append("LEGACY TRADE")
 		count += 1
@@ -221,7 +220,7 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 #ids = set([])
-#authors = set(["watchsasquatch".lower(), "NYCphotographer".lower()])
+#authors = set(["lostpilot".lower()])
 #GetIdsFromReddit(feedback_sub, authors, ids)
 #users_to_confirmations = GetUserCounts(authors, ids, sub_config)
 
@@ -229,7 +228,7 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-users_to_confirmations = {"wu_tza".lower(): ["LEGACY TRADE"] * 1}
+users_to_confirmations = {"vival".lower(): ["LEGACY TRADE"] * 3}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)

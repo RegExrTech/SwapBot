@@ -31,8 +31,9 @@ for i in range(len(keys)):
 	except:
 		print("Unable to get age for " + user)
 		age = 0
+	count_int = len(db[args.sub_name.lower()][user])
 	try:
-		update_single_user_flair(sub, sub_config, user, str(len(db[args.sub_name.lower()][user])), unassigned_users, age)
+		update_single_user_flair(sub, sub_config, user, str(count_int), unassigned_users, age)
 	except:
 		unassigned_users.append(user)
 

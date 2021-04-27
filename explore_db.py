@@ -40,13 +40,9 @@ def get_common_users(db):
 	all_users = {}
 	users = []
 	for sub in db:
-		if sub in ['digitalcodesell', 'uvtrade']:
-			continue
 		for user in db[sub]:
 			all_users[user] = ''
 			for sub2 in db:
-				if sub2 in ['digitalcodesell', 'uvtrade']:
-					continue
 				if sub2 == sub:
 					continue
 				if user in db[sub2]:
@@ -56,8 +52,6 @@ def get_common_users(db):
 	for user in users:
 		print("=== " + user + " ===")
 		for sub in db:
-			if sub in ['digitalcodesell', 'uvtrade']:
-				continue
 			if user in db[sub]:
 				print("  " + sub + " - " + str(len(db[sub][user])))
 	print("Total cross-sub users: " + str(len(users)))
@@ -72,6 +66,11 @@ def get_highest(db):
 				highest = len(db[sub][user])
 				h_user = user
 		print(sub + " - " + h_user + " - " + str(highest))
+
+def print_user_in_all_subs(db, user):
+	for sub in db:
+		if user in db[sub]:
+			print_user_in_sub(db, sub, user)
 
 def print_user_in_sub(db, sub, user):
 	print("=== " + sub + " - " + user + " ===")
@@ -95,14 +94,9 @@ def get_total_count(db, user):
 
 db = get_db()
 
-#get_common_users(db)
-#get_highest(db)
+for user in ["Nighthawk4you"]:
+	print_user_in_all_subs(db, user.lower())
 
-for user in ["HerbyVershmales".lower()]:
-	user = user.lower()
-	for sub in db:
-#		print(sub + " - " + str(len(db[sub])) + " users")
-		if user in db[sub]:
-			print(user + " - " + sub + "\n  * " + "\n  * ".join(db[sub][user]) + "\n\n")
+
 
 #dump(db)
