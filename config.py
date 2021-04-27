@@ -24,8 +24,6 @@ class Config():
 
 		self.subreddit_name = config['subreddit_name']
 		self.database_name = self.subreddit_name.lower()
-		if self.database_name in ['digitalcodesell', 'uvtrade']:
-			self.database_name = 'digitalcodeexchange'
 		self.client_id = config['client_id']
 		self.client_secret = config['client_secret']
 		self.bot_username = config['bot_username']
