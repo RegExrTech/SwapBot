@@ -29,6 +29,12 @@ def log(post, comment, reason):
 	url = "reddit.com/comments/"+str(post)+"/-/"+str(comment)
 	print("Removing comment " + url + " because: " + reason)
 
+def create_reddit_and_sub(sub_name):
+	sub_config = config.Config(sub_name.lower())
+	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='Swap Bot for ' + sub_config.subreddit_name + ' v1.0 (by u/RegExr)', username=sub_config.bot_username, password=sub_config.bot_password)
+	sub = reddit.subreddit(sub_config.subreddit_name)
+	return sub_config, reddit, sub
+
 request_url = "http://0.0.0.0:8000"
 
 parser = argparse.ArgumentParser()
@@ -91,13 +97,23 @@ def get_age_title(age_titles, age):
 		age_title = age_titles[str(key)]
 	return age_title
 
+def get_sister_sub_count(author_name, sister_subs):
+	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(sister_subs), 'author': author_name.lower()}).json()
+	return int(return_data['count'])
+
 def update_flair(author1, author2, author1_count, author2_count, sub):
 	"""returns list of tuples of author name and (str)swap count if flair was NOT updated."""
 	non_updated_users = []
 	# Loop over each author and change their flair
 	for pair in [(author1, author1_count), (author2, author2_count)]:
 		age = datetime.timedelta(seconds=(time.time() - pair[0].created_utc)).days / 365.0
-		update_single_user_flair(sub, sub_config, str(pair[0]).lower(), str(pair[1]), non_updated_users, age, debug)
+		author_string = str(pair[0]).lower()
+		author_count = str(int(pair[1]) + get_sister_sub_count(author_string, sub_config.gets_flair_from))
+		for sub_name in [sub_config.subreddit_name] + sub_config.gives_flair_to:
+			if sub_name not in sub_config.sister_subs:
+				sister_sub_config, sister_reddit, sister_sub = create_reddit_and_sub(sub_name)
+				sub_config.sister_subs[sub_name] = {'reddit': sister_reddit, 'sub': sister_sub, 'config': sister_sub_config}
+			update_single_user_flair(sub_config.sister_subs[sub_name]['sub'], sub_config.sister_subs[sub_name]['config'], author_string, author_count, non_updated_users, age, debug)
 	return non_updated_users
 
 def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, age, debug=False):
@@ -295,7 +311,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
                         credit_given, author1_count, author2_count = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
-				print("Updated u/" + str(author1) + " to flair " + str(author1_count) + " and u/" + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/" + str(parent_post) + "/" + sub.display_name + "/" + str(comment))
+				print("Updated u/" + str(author1) + " to swap count " + str(author1_count) + " and u/" + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/" + str(parent_post) + "/" + sub.display_name + "/" + str(comment))
                                 non_updated_users = update_flair(author1, author2, author1_count, author2_count, sub)
                                 inform_giving_credit(correct_reply, non_updated_users)
                         else:
@@ -462,6 +478,7 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 def main():
 	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='Swap Bot for ' + sub_config.subreddit_name + ' v1.0 (by u/RegExr)', username=sub_config.bot_username, password=sub_config.bot_password)
 	sub = reddit.subreddit(sub_config.subreddit_name)
+	sub_config.sister_subs[sub_config.subreddit_name] = {'reddit': reddit, 'sub': sub, 'config': sub_config}
 
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying

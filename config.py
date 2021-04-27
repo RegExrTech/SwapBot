@@ -52,4 +52,6 @@ class Config():
 		else:
 			self.age_titles = False
 		self.blacklisted_users = [x for x in config['black_list'].split(",") if x]
-
+		self.gets_flair_from = [x.lower() for x in config['gets_flair_from'].split(",") if x]
+		self.gives_flair_to = [x.lower() for x in config['gives_flair_to'].split(",") if x]
+		self.sister_subs = {}

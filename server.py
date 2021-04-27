@@ -313,6 +313,25 @@ def remove_user():
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({'status': username + " removed from " + sub_name})
 
+@app.route('/get-user-count-from-subs/', methods=["GET"])
+def get_user_count_from_subs():
+	"""Gets flair count for a given user from given subs
+
+	Requested Form Params:
+	List(String) sub_names: comma seperated list of sub_names
+	String author: username in question
+
+	Return JSON {count: int}
+	"""
+
+	author = request.form["author"]
+	sub_names = request.form["sub_names"].split(",")
+	count = 0
+	for sub_name in sub_names:
+		if sub_name in swap_data and author in swap_data[sub_name]:
+			count += len(swap_data[sub_name][author])
+	return jsonify({'count': count})
+
 @app.route('/dump/', methods=["POST"])
 def dump():
 	json_helper.dump(swap_data, swaps_fname)
