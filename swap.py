@@ -112,7 +112,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	age_title = get_age_title(sub_config.age_titles, age)
 	if not debug:
 		flair_text = swap_count + sub_config.flair_word
-		if author in mods:
+		if author in mods and sub_config.mod_flair_word:
 			template = sub_config.mod_flair_template
 			flair_text = sub_config.mod_flair_word + " | " + flair_text
 		if title:
