@@ -1,3 +1,4 @@
+import os
 import json
 
 def ascii_encode_dict(data):
@@ -51,5 +52,21 @@ class Config():
 			self.age_titles = False
 		self.blacklisted_users = [x for x in config['black_list'].split(",") if x]
 		self.gets_flair_from = [x.lower() for x in config['gets_flair_from'].split(",") if x]
-		self.gives_flair_to = [x.lower() for x in config['gives_flair_to'].split(",") if x]
+		self.gives_flair_to = get_gives_flair_to(self.subreddit_name)
 		self.sister_subs = {}
+
+	def get_gives_flair_to(self, sub_name):
+		gives_flair_to = []
+		sub_names = []
+		for fname in os.listdir('config'):
+			f = open("config/"+fname, "r")
+			lines = f.read().splitlines()
+			f.close()
+			d = {}
+			for line in lines:
+				d[line.split(":")[0]] = line.split(":")[1]
+			sub_names.append(d['subreddit_name'])
+			d['gets_flair_from'] = d['gets_flair_from'].split(",")
+			if d['gets_flair_from'][0] == "*" or sub_name in d['gets_flair_from']:
+				gives_flair_to.append(sub_names[-1])
+		return gives_flair_to
