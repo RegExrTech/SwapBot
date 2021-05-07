@@ -52,7 +52,7 @@ class Config():
 			self.age_titles = False
 		self.blacklisted_users = [x for x in config['black_list'].split(",") if x]
 		self.gets_flair_from = [x.lower() for x in config['gets_flair_from'].split(",") if x]
-		self.gives_flair_to = get_gives_flair_to(self.subreddit_name)
+		self.gives_flair_to = self.get_gives_flair_to(self.subreddit_name)
 		self.sister_subs = {}
 
 	def get_gives_flair_to(self, sub_name):
@@ -67,6 +67,9 @@ class Config():
 				d[line.split(":")[0]] = line.split(":")[1]
 			sub_names.append(d['subreddit_name'])
 			d['gets_flair_from'] = d['gets_flair_from'].split(",")
-			if d['gets_flair_from'][0] == "*" or sub_name in d['gets_flair_from']:
+			# If the sub has a wildcard, and sub names following the wild card are excluded.
+			# If a sub does not have a wildcard, any sub explicitly listed is included.
+			# If a sub ONLY has a wildcard, ALL subs are included.
+			if (d['gets_flair_from'][0] == "*" and sub_name not in d['gets_flair_from']) or (sub_name in d['gets_flair_from'] and not d['gets_flair_from'][0] == "*"):
 				gives_flair_to.append(sub_names[-1])
 		return gives_flair_to
