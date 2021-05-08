@@ -14,6 +14,7 @@ TOKENS = json_helper.get_db("tokens.json")
 reddit = praw.Reddit(client_id=TOKENS['Reddit']['client_id'], client_secret=TOKENS['Reddit']['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', username=TOKENS['Reddit']['username'], password=TOKENS['Reddit']['password'])
 
 baseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["channel"])
+roleURL = "https://discordapp.com/api/guilds/" + TOKENS['server_id'] + "/members/{}/roles/{}"
 headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
 	"User-Agent":"SwapBot (https://www.regexr.tech, v0.1)",
 	"Content-Type":"application/json"}
@@ -59,6 +60,7 @@ paired_usernames = json_helper.get_db("paired_usernames.json")
 # Check Discord for messages
 for message in messages:
 	discord_username = message['author']['username'] + "#" + message['author']['discriminator']
+	discord_user_id = message['author']['id']
 	# If the message is from the bot, skip
 	if discord_username == bot_username:
 		continue
@@ -72,11 +74,11 @@ for message in messages:
 	if reddit_username:
 		# Try to send a PM via reddit
 		try:
-			reddit.redditor(reddit_username.split("/")[-1]).message("Please Confirm Your Identity", "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message. If you did **NOT** authorize this request, please ignore this message. Thanks!")
+			reddit.redditor(reddit_username.split("/")[-1]).message("Please Confirm Your Identity", "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
 			reddit_message = reddit.inbox.sent(limit=1).next()
 			reddit_message_id = reddit_message.id
 			reply_text = "Sending a message to " + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
-			pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id}
+			pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, "discord_user_id": discord_user_id}
 		# If we fail, tell them to try again later
 		except:
 			reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
@@ -97,11 +99,12 @@ for reddit_message in reddit_messages:
 			continue
 		paired_usernames['discord'][discord_username] = data['reddit_username']
 		paired_usernames['reddit'][data['reddit_username']] = discord_username
-		del(pending_requests[discord_username])
 		try:
 			reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
 		except:
 			pass
+		requests.put(roleURL.format(data['discord_user_id'], TOKENS['role_id']), headers=headers)
+		del(pending_requests[discord_username])
 
 # Dump the relevant databases
 json_helper.dump(pending_requests, "pending_requests.json")
