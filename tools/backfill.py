@@ -18,6 +18,8 @@ feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
 feedback_sub_name = "gcxrep"
 sub_name = "giftcardexchange"
+feedback_sub_name = "c4crep"
+sub_name = "cash4cash"
 #feedback_sub_name = "comicswap"
 #sub_name = "comicswap"
 
@@ -31,6 +33,20 @@ def get_db(database_file_name):
         with open(database_file_name) as json_data: # open the funko-shop's data
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
+
+def temp(sub, db):
+	to_return = []
+	for flair in sub.flair():
+		username = str(flair['user']).lower()
+		if username == 'none':
+			continue
+		if username == "automoderator":
+			continue
+		flair_text = flair['flair_text']
+		if not flair_text or  "|" not in flair_text or username not in db:
+			to_return.append(username)
+			print(username + " - " + str(flair_text))
+	return to_return
 
 def GetUserToCss(sub):
 	db = get_db("database/swaps.json")[sub_name][PLATFORM]
@@ -163,6 +179,8 @@ def GetUserCountsGCXRep(authors, ids, sub_config):
 				print("unable to get body from a comment on " + str(submission.permalink))
 				continue
 			potential_author_two = swap.get_username_from_text(body, [author])
+			if id == "jbrno1":
+				print(potential_author_two) # = "u/AlpineOpera".lower()
 			if potential_author_two:
 				potential_author_two = potential_author_two.split("/")[1]
 			else:
@@ -260,8 +278,8 @@ def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")
 	count = 0
         for user in users:
-		r = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'username': user.lower()})
-                swap_count = str(len(r.json()['data']))
+		r = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'current_platform': PLATFORM, 'username': user.lower()})
+                swap_count = str(len(r.json()['data']) + swap.get_sister_sub_count(user, sub_config.gets_flair_from))
                 try:
                         swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
                 except Exception as e:
@@ -281,10 +299,27 @@ reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.cl
 sub = reddit.subreddit(sub_config.subreddit_name)
 feedback_sub = reddit.subreddit(feedback_sub_name)
 
+
+FNAME = 'database/swaps.json'
+#FNAME = 'database/comments.json'
+
+# required function for getting ASCII from json load
+def ascii_encode_dict(data):
+        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
+        return dict(map(ascii_encode, pair) for pair in data.items())
+
+# Function to load the DB into memory
+def get_db(database_file_name=FNAME):
+        with open(database_file_name) as json_data: # open the funko-shop's data
+                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+        return funko_store_data
+
+
+
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 ids = set([])
-authors = set(["Haogin".lower()])
+authors = set(["".lower()])
 GetIdsFromReddit(feedback_sub, authors, ids)
 users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 
