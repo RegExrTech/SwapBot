@@ -12,6 +12,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)
 args = parser.parse_args()
 
+platform = 'reddit'
+
 sub_config = config.Config(args.sub_name.lower())
 
 reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='UserAgent', username=sub_config.bot_username, password=sub_config.bot_password)
@@ -21,8 +23,8 @@ json_helper = JsonHelper()
 db = json_helper.get_db('database/swaps.json')
 
 unassigned_users = []
-keys = db[args.sub_name.lower()].keys()
-keys = mods = [str(x).lower() for x in sub.moderator()]
+keys = db[args.sub_name.lower()][platform].keys()
+mods = [str(x).lower() for x in sub.moderator()]
 for i in range(len(keys)):
 	user = keys[i]
 	try:
@@ -34,7 +36,7 @@ for i in range(len(keys)):
 	except:
 		print("Unable to get age for " + user)
 		age = 0
-	count_int = len(db[args.sub_name.lower()][user]) + get_sister_sub_count(user, sub_config.gets_flair_from)
+	count_int = len(db[args.sub_name.lower()][platform][user]) + get_sister_sub_count(user, sub_config.gets_flair_from)
 	try:
 		update_single_user_flair(sub, sub_config, user, str(count_int), unassigned_users, age)
 	except:
