@@ -294,7 +294,7 @@ def add_batch_swap():
 
 	global swap_data
 	sub_name = request.get_json()["sub_name"]
-	platform = request.form["platform"]
+	platform = request.get_json()["platform"]
 	if sub_name not in swap_data:
 		swap_data[sub_name] = {platform: {}}
 	if platform not in swap_data[sub_name]:
