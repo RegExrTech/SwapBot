@@ -12,10 +12,14 @@ import requests
 
 request_url = "http://0.0.0.0:8000"
 
+PLATFORM = "reddit"
+
 feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
-#sub_name = "comicswap"
+feedback_sub_name = "gcxrep"
+sub_name = "giftcardexchange"
 #feedback_sub_name = "comicswap"
+#sub_name = "comicswap"
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -29,7 +33,7 @@ def get_db(database_file_name):
         return funko_store_data
 
 def GetUserToCss(sub):
-	db = get_db("database/swaps.json")[sub_name]
+	db = get_db("database/swaps.json")[sub_name][PLATFORM]
 	count = 0
 	d = defaultdict(lambda: [])
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
@@ -79,11 +83,11 @@ def GetIdsFromPushshift(feedback_sub_name):
 			if 'id' in item:
 				ids.add(item['id'])
 
-#			if 'selftext' in item:
-#				match = re.compile("r/" + feedback_sub_name + "/comments/(.*?)/")
-#				found = match.findall(item['selftext'].lower())
-#				for id_found in found:
-#					ids.add(id_found)
+			if 'selftext' in item:
+				match = re.compile("r/" + feedback_sub_name + "/comments/(.*?)/")
+				found = match.findall(item['selftext'].lower())
+				for id_found in found:
+					ids.add(id_found)
 
 			if (count % 50 == 0):
 				print("Total IDs Found: " + str(len(ids)))
@@ -100,10 +104,11 @@ def GetIdsFromReddit(sub, authors, ids):
 	for submission in sub.new(limit=1):
 		ids.add(submission.id)
 		authors.add(str(submission.author).lower())
-		match = re.compile("\/*u\/([A-Za-z0-9_-]+)")
-		found = match.findall(submission.title)
-		if found:
-			authors.add(str(found[0]).lower())
+		if sub.display_name.lower() == 'watchexchangefeedback':
+			match = re.compile("\/*u\/([A-Za-z0-9_-]+)")
+			found = match.findall(submission.title)
+			if found:
+				authors.add(str(found[0]).lower())
 		submission_count += 1
 		if submission_count % 50 == 0:
 			print("Finished checking " + str(submission_count) + " search results from reddit.")
@@ -114,14 +119,73 @@ def GetIdsFromReddit(sub, authors, ids):
 		time.sleep(0.5)
 		for submission in sub.search("author:"+author):
 			ids.add(submission.id)
-		for submission in sub.search(author):
-			ids.add(submission.id)
+		if sub.display_name.lower() == 'watchexchangefeedback':
+			for submission in sub.search(author):
+				ids.add(submission.id)
 		if author_count % 10 == 0:
 			print("Finished checking " + str(author_count) + " out of " + str(len(authors))  + " authors from reddit.")
 	print("Found a total of " + str(len(ids)) + " post ids.")
 	print(ids)
 
-def GetUserCounts(authors, ids, sub_config):
+def GetUserCountsGCXRep(authors, ids, sub_config):
+	print("Getting user counts from Reddit")
+	d = defaultdict(lambda: [])
+
+	count = 0
+	ids_length = len(ids)
+	for id in ids:
+		count += 1
+		if count%100==0:
+			print(json.dumps(d))
+			print("Checking " + str(count) + "/" + str(ids_length))
+		time.sleep(0.5)
+		try:
+			submission = reddit.submission(id=id)
+		except Exception as e:
+			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
+			time.sleep(20)
+			submission = reddit.submission(id=id)
+		try:
+			author = str(submission.author).lower()
+		except:
+			print("Unable to get author from: " + str(id))
+			continue
+		comment_list = submission.comments
+		try:
+			comment_list.replace_more(limit=None)
+		except:
+			continue
+		for comment in comment_list:
+			correct_reply = None
+			try:
+				body = comment.body
+			except:
+				print("unable to get body from a comment on " + str(submission.permalink))
+				continue
+			potential_author_two = swap.get_username_from_text(body, [author])
+			if potential_author_two:
+				potential_author_two = potential_author_two.split("/")[1]
+			else:
+				continue
+			replies = comment.replies
+			try:
+				replies.replace_more(limit=None)
+			except:
+				continue
+			for reply in replies:
+				try:
+					found_author_name = str(reply.author).lower()
+				except:
+					found_author_name = ""
+					print(str(submission.permalink) + " found a comment without an author, so skipping it...")
+				if str(reply.author).lower() == potential_author_two:
+					correct_reply = reply
+			if correct_reply:
+				d[author.lower()].append(potential_author_two.lower() + " - https://www.reddit.com" + str(submission.permalink)+str(comment.id))
+	return d
+
+
+def GetUserCountsWatchExchangeFeedback(authors, ids, sub_config):
 	print("Getting user counts from Reddit")
 	d = defaultdict(lambda: [])
 
@@ -190,7 +254,7 @@ def UpdateDatabase(sub_name, users_to_confirmations):
 	for user in users_to_confirmations:
 		confirmation_text_list = ",".join(users_to_confirmations[user])
 		user_data[user] = confirmation_text_list
-	requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'user_data': user_data})
+	requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'platform': PLATFORM, 'user_data': user_data})
 
 def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")
@@ -219,16 +283,16 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-#ids = set([])
-#authors = set(["lostpilot".lower()])
-#GetIdsFromReddit(feedback_sub, authors, ids)
-#users_to_confirmations = GetUserCounts(authors, ids, sub_config)
+ids = set([])
+authors = set(["Haogin".lower()])
+GetIdsFromReddit(feedback_sub, authors, ids)
+users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-users_to_confirmations = {"vival".lower(): ["LEGACY TRADE"] * 3}
+#users_to_confirmations = {"vival".lower(): ["LEGACY TRADE"] * 3}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)

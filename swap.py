@@ -14,6 +14,8 @@ import argparse
 debug = False
 silent = False
 
+PLATFORM = "reddit"
+
 # IDK, I needed this according to stack overflow.
 def ascii_encode_dict(data):
         ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
@@ -67,7 +69,7 @@ def update_database(author1, author2, post_id, comment_id):
 	author2 = str(author2).lower()
 
 	# Default generic value for swaps
-	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name}).json()
+	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
 	is_duplicate = return_data['is_duplicate'] == 'True'
 	flair_count_1 = return_data['flair_count_1']
 	flair_count_2 = return_data['flair_count_2']
@@ -98,7 +100,7 @@ def get_age_title(age_titles, age):
 	return age_title
 
 def get_sister_sub_count(author_name, sister_subs):
-	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(sister_subs), 'author': author_name.lower()}).json()
+	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(sister_subs), 'current_platform': PLATFORM, 'author': author_name.lower()}).json()
 	return int(return_data['count'])
 
 def update_flair(author1, author2, author1_count, author2_count, sub):
@@ -187,7 +189,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 		print(e)
 		print("Failed to get most recent comments.")
 
-	return_data = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids)}).json()
+	return_data = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids), 'platform': PLATFORM}).json()
 	ids = return_data['ids']
 	new_ids += return_data['new_ids']
         for comment_id in ids:
@@ -214,7 +216,7 @@ def set_archived_comments(reddit, comments):
 	ids_to_comments = {}
 	for comment in comments:
 		ids_to_comments[comment.id] = comment
-	all_ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'False', 'ids': ids}).json()['ids']
+	all_ids = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'False', 'ids': ids, 'platform': PLATFORM}).json()['ids']
 	for id in all_ids:
 		if id not in ids: # if this was not already passed in
 			if id in ids_to_comments:
@@ -232,16 +234,16 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 	if str(parent_post.subreddit).lower() == "edefinition":
 		print("ALERT! r/edefinition post: redd.it/" + str(parent_post))
 		handle_edefinition(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	if comment.banned_by:
 		log(parent_post, comment, "Comment was made by a shadow banned user")
 		handle_comment_by_filtered_user(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	author1 = comment.author  # Author of the top level comment
 	comment_text = get_comment_text(comment)
@@ -249,7 +251,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
         desired_author2_string = get_username_from_text(comment_text, [bot_username, str(author1)])
         if not desired_author2_string:
                 handle_no_author2(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
                 return True
 	# Remove comment if author2 is not a real reddit account
 	try:
@@ -257,12 +259,12 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 	except NotFound:
 		log(parent_post, comment, "Tagged user " + desired_author2_string + " is not a real username.")
 		handle_no_redditor(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	except AttributeError:
 		log(parent_post, comment, "Tagged user " + desired_author2_string + " is a suspended account.")
 		handle_suspended_redditor(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	except Exception as e:
 		print("Could not make a reddit instance with an ID for reddit account: " + desired_author2_string + " with error: " + str(e))
@@ -270,30 +272,30 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 	if not str(parent_post.subreddit).lower() == sub_config.subreddit_name.lower():
 		log(parent_post, comment, "Wrong sub - in " + str(parent_post.subreddit).lower() + ", should be in " + sub_config.subreddit_name.lower())
 		handle_wrong_sub(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comments in giveaway posts
 	if "(giveaway)" in parent_post.title.lower():
 		log(parent_post, comment, "Post is a giveaway")
 		handle_giveaway(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comment if post is archived
 	if parent_post.archived:
 		log(parent_post, comment, "Post is archived")
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comment if the author of the post has deleted the post
 	if not parent_post.author:
 		log(parent_post, comment, "Post is deleted")
 		handle_deleted_post(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comment if neither the person doing the tagging nor the person being tagged are the OP
 	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		log(parent_post, comment, "Neither participant is OP")
 		handle_not_op(comment, str(parent_post.author))
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 
         correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
@@ -302,7 +304,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 		if correct_reply.banned_by:
 			log(parent_post, comment, "Replying user is shadow banned")
 			handle_reply_by_filtered_user(comment)
-			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			return True
                 author2 = correct_reply.author
 		if debug:
@@ -317,7 +319,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
                         else:
 				log(parent_post, comment, "Credit already given")
                                 inform_credit_already_given(correct_reply)
-				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
         else:  # If we found no correct looking comments, let's come back to it later
 		# New comments get auto response so users know they've been heard
@@ -443,7 +445,7 @@ def format_swap_count(trades, sub_config):
 			legacy_count += 1
 		else:
 			trade_partner = trade.split(" - ")[0]
-			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': trade_partner}).json()['data'])
+			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': trade_partner}).json()['data'])
 			trade_url = trade.split(" - ")[1]
 			try:
 				trade_url_sub = trade_url.split("/")[4]
@@ -493,14 +495,14 @@ def main():
 			comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
 		except: # if we can't refresh a comment, archive it so we don't waste time on it.
 			print("Could not 'refresh' comment: " + str(comment))
-			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			continue
 		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit, comment.id in new_ids)
 		time_made = comment.created
 		# if this comment is more than three days old and we didn't find a correct looking reply
 		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
 			inform_comment_archived(comment)
-			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 
 	# Check the archived comments at least 4 times a day.
 	is_time_1 = is_time_between(datetime.time(2,0), datetime.time(2,9))
@@ -518,7 +520,7 @@ def main():
         	                comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
 			except praw.exceptions.ClientException as e:
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e) + "\n    Removing comment...")
-				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 	                        continue
 			except Exception as e:
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
@@ -526,7 +528,7 @@ def main():
 			time_made = comment.created
 			if time.time() - time_made > 30 * 24 * 60 * 60:  # if this comment is more than thirty days old
 				inform_comment_deleted(comment)
-				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id})
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			else:
 				handle_comment(comment, sub_config.bot_username, sub, reddit, False)
 			time.sleep(.5)
@@ -540,7 +542,7 @@ def main():
 			reply_to_message(message, reply_text, sub_config)
 			continue
 		final_text = ""
-		trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'username': username}).json()['data']
+		trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
 		if not trades:  # if that user has not done any trades, we have no info for them.
 			reply_text = "Hello,\n\nu/" + username + " has not had any swaps yet."
 			reply_to_message(message, reply_text, sub_config)

@@ -5,6 +5,8 @@ from collections import defaultdict
 from flask import jsonify
 from werkzeug.serving import WSGIRequestHandler, _log
 
+import constants
+
 #import json_helper
 
 app = Flask(__name__)
@@ -14,9 +16,12 @@ class JsonHelper:
 		ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
 		return dict(map(ascii_encode, pair) for pair in data.items())
 
-	def get_db(self, fname):
+	def get_db(self, fname, encode_ascii=True):
 		with open(fname) as json_data:
-			data = json.load(json_data, object_hook=self.ascii_encode_dict)
+			if encode_ascii:
+				data = json.load(json_data, object_hook=self.ascii_encode_dict)
+			else:
+				data = json.load(json_data)
 		return data
 
 	def dump(self, db, fname):
@@ -27,6 +32,24 @@ json_helper = JsonHelper()
 
 swaps_fname = 'database/swaps.json'
 comment_fname = 'database/comments.json'
+username_lookup_fname = 'Discord/paired_usernames.json'
+
+def get_user_summary(sub_data, author, current_platform):
+	summary = []
+	usernames_on_platforms = username_lookup[current_platform]
+	for platform in sub_data:
+		print("Checking platform " + platform + " against current platform " + current_platform)
+		print(platform == current_platform)
+		if author in usernames_on_platforms:
+			platforms_to_username = usernames_on_platforms[author]
+			if platform in platforms_to_username:
+				platform_author_name = platforms_to_username[platform]
+				if platform_author_name in sub_data[platform]:
+					summary += sub_data[platform][platform_author_name]
+		if platform == current_platform:
+			if author in sub_data[platform]:
+				summary += sub_data[platform][author]
+	return summary
 
 @app.route('/add-comment/', methods=['POST'])
 def add_comment():
@@ -37,20 +60,24 @@ def add_comment():
 	Requested Form Params:
         String sub_name: The name of the current subreddit
 	String comment_id: The ID of the comment where the trade took place
+	String platform: The platform the comment is coming from
 
 	return JSON {}
 	"""
 
 	sub_name = request.form["sub_name"]
 	comment_id = request.form["comment_id"]
+	platform = request.form["platform"]
 
 	global comment_data
 
 	if sub_name not in comment_data:
-		comment_data[sub_name] = {'active': [], 'archived': []}
+		comment_data[sub_name] = {platform: {'active': [], 'archived': []}}
+	if platform not in comment_data[sub_name]:
+		comment_data[sub_name][platform] = {'active': [], 'archived': []}
 
-	if comment_id not in comment_data[sub_name]['active'] and comment_id not in comment_data[sub_name]['archived']:
-		comment_data[sub_name]['active'].append(comment_id)
+	if comment_id not in comment_data[sub_name][platform]['active'] and comment_id not in comment_data[sub_name][platform]['archived']:
+		comment_data[sub_name][platform]['active'].append(comment_id)
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify({})
 
@@ -64,6 +91,7 @@ def get_comments():
 	String sub_name: The name of the current subreddit
 	String active: Denotes either active or archived ('True' or 'False')
 	List(String) ids: List of strings of ids to include with active comments
+	String platform: The platform to get comments from
 
 	Return JSON {'ids': List(String), 'new_ids': List(String)}
 	"""
@@ -71,17 +99,21 @@ def get_comments():
 	sub_name = request.form["sub_name"]
 	active = request.form['active'] == 'True'
 	ids = request.form['ids'].split(",")
+	platform = request.form["platform"]
+
 	if not ids[0]:
 		ids = []
 
 	global comment_data
 	if sub_name not in comment_data:
-		comment_data[sub_name] = {'active': [], 'archived': []}
+		comment_data[sub_name] = {platform: {'active': [], 'archived': []}}
+	if platform not in comment_data[sub_name]:
+		comment_data[sub_name][platform] = {'active': [], 'archived': []}
 
 	if active:
-		prev_ids = comment_data[sub_name]['active']
+		prev_ids = comment_data[sub_name][platform]['active']
 	else:
-		prev_ids = comment_data[sub_name]['archived']
+		prev_ids = comment_data[sub_name][platform]['archived']
 
 	for id in ids:
 		if id not in prev_ids:
@@ -101,6 +133,7 @@ def check_comment():
 	String author2: The second trade partner's name
 	String post_id: The ID of the post where the trade took place
 	String comment_id: The ID of the comment where the trade took place
+	String platform: The platform the comment is coming from
 
 	Return JSON {'is_duplicate': String, 'flair_count_1': String, 'flair_count_2': String}
 	"""
@@ -108,9 +141,13 @@ def check_comment():
 	global swap_data
 	global comment_data
 	sub_name = request.form["sub_name"]
+	platform = request.form["platform"]
 	if sub_name not in swap_data:
-		swap_data[sub_name] = {}
-	sub_data = swap_data[sub_name]
+		swap_data[sub_name] = {platform: {}}
+	if platform not in swap_data[sub_name]:
+		swap_data[sub_name][platform] = {}
+
+	sub_data = swap_data[sub_name][platform]
 
 	author1 = request.form['author1']
 	author2 = request.form['author2']
@@ -131,13 +168,15 @@ def check_comment():
 		if author1 + message in sub_data[author2]:
 			return jsonify({'is_duplicate': 'True', 'flair_count_1': 0, 'flair_count_2': 0})
 		sub_data[author2].append(author1 + message)
-	if comment_id in comment_data[real_sub_name]['active']:
-		comment_data[real_sub_name]['active'].remove(comment_id)
-	if comment_id in comment_data[real_sub_name]['archived']:
-		comment_data[real_sub_name]['archived'].remove(comment_id)
+	if comment_id in comment_data[real_sub_name][platform]['active']:
+		comment_data[real_sub_name][platform]['active'].remove(comment_id)
+	if comment_id in comment_data[real_sub_name][platform]['archived']:
+		comment_data[real_sub_name][platform]['archived'].remove(comment_id)
 	json_helper.dump(swap_data, swaps_fname)
 	json_helper.dump(comment_data, comment_fname)
-	return jsonify({'is_duplicate': 'False', 'flair_count_1': len(sub_data[author1]), 'flair_count_2': len(sub_data[author2])})
+	flair_count_1 = len(get_user_summary(swap_data[sub_name], author1, platform))
+	flair_count_2 = len(get_user_summary(swap_data[sub_name], author2, platform))
+	return jsonify({'is_duplicate': 'False', 'flair_count_1': flair_count_1, 'flair_count_2': flair_count_2})
 
 @app.route('/get-summary/', methods=['POST'])
 def get_summary():
@@ -147,18 +186,19 @@ def get_summary():
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
 	String username: The name of the user to check feedback for
+	String current_platform: The name of the platform making the request
 
 	Return JSON {'data': List(String)}
 	"""
 
 	sub_name = request.form["sub_name"]
+	current_platform = request.form["current_platform"]
 	if sub_name not in swap_data:
 		return jsonify({'data': []})
 	sub_data = swap_data[sub_name]
 	username = request.form['username']
-	if username not in sub_data:
-		return jsonify({'data': []})
-	return jsonify({'data': sub_data[username]})
+	data = get_user_summary(swap_data[sub_name], username, current_platform)
+	return jsonify({'data': data})
 
 @app.route('/archive-comment/', methods=['POST'])
 def archive_comment():
@@ -168,16 +208,18 @@ def archive_comment():
 	Requested Form Parms:
 	String sub_name: The name of the current subreddit
 	String comment_id: The ID of the comment to archive
+	String platform: The platform the comment is coming from
 
 	Return JSON {}
 	"""
 
 	global comment_data
 	sub_name = request.form["sub_name"]
+	platform = request.form["platform"]
 	comment_id = request.form['comment_id']
-	if comment_id in comment_data[sub_name]['active']:
-		comment_data[sub_name]['active'].remove(comment_id)
-	comment_data[sub_name]['archived'].append(comment_id)
+	if comment_id in comment_data[sub_name][platform]['active']:
+		comment_data[sub_name][platform]['active'].remove(comment_id)
+	comment_data[sub_name][platform]['archived'].append(comment_id)
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify({})
 
@@ -189,17 +231,19 @@ def remove_comment():
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
 	String comment_id: The ID of the comment to remove
+	String platform: The platform the comment is coming from
 
 	Return JSON {}
 	"""
 
 	global comment_data
 	sub_name = request.form["sub_name"]
+	platform = request.form["platform"]
 	comment_id = request.form['comment_id']
-	while comment_id in comment_data[sub_name]['active']:
-		comment_data[sub_name]['active'].remove(comment_id)
-	while comment_id in comment_data[sub_name]['archived']:
-		comment_data[sub_name]['archived'].remove(comment_id)
+	while comment_id in comment_data[sub_name][platform]['active']:
+		comment_data[sub_name][platform]['active'].remove(comment_id)
+	while comment_id in comment_data[sub_name][platform]['archived']:
+		comment_data[sub_name][platform]['archived'].remove(comment_id)
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify({})
 
@@ -212,20 +256,24 @@ def add_swap():
         String sub_name: The name of the current subreddit
 	String username: The name of the user toadd swaps for
 	String swap_text: The text to add for that user
+	String platform: The platform the swap is coming from
 
 	Return JSON {}
         """
 
 	global swap_data
 	sub_name = request.form["sub_name"]
+	platform = request.form["platform"]
 	username = request.form['username']
 	swap_text = request.form['swap_text']
 	if sub_name not in swap_data:
-		swap_data[sub_name] = {}
-	if username not in swap_data[sub_name]:
-		swap_data[sub_name][username] = []
-	if swap_text not in swap_data[sub_name][username] or "LEGACY TRADE" in swap_text:
-		swap_data[sub_name][username].append(swap_text)
+		swap_data[sub_name] = {platform: {}}
+	if platform not in swap_data[sub_name]:
+		swap_data[sub_name][platform] = {}
+	if username not in swap_data[sub_name][platform]:
+		swap_data[sub_name][platform][username] = []
+	if swap_text not in swap_data[sub_name][platform][username] or "LEGACY TRADE" in swap_text:
+		swap_data[sub_name][platform][username].append(swap_text)
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
 
@@ -236,6 +284,7 @@ def add_batch_swap():
 
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
+	String platform: The platform the swaps are coming from
 	Dict user_data {username: swap_text}:
 		String username: Username for a reddit user to update
 		String swap_text: comma separated string representing transactions to add for the corresponding user
@@ -245,16 +294,19 @@ def add_batch_swap():
 
 	global swap_data
 	sub_name = request.get_json()["sub_name"]
+	platform = request.form["platform"]
 	if sub_name not in swap_data:
-		swap_data[sub_name] = {}
+		swap_data[sub_name] = {platform: {}}
+	if platform not in swap_data[sub_name]:
+		swap_data[sub_name][platform] = {}
 	user_data = request.get_json()["user_data"]
 	for username in user_data:
 		swap_text_list = user_data[username].split(",")
-		if username not in swap_data[sub_name]:
-			swap_data[sub_name][username] = []
+		if username not in swap_data[sub_name][platform]:
+			swap_data[sub_name][platform][username] = []
 		for swap_text in swap_text_list:
-			if swap_text not in swap_data[sub_name][username] or "LEGACY TRADE" in swap_text:
-				swap_data[sub_name][username].append(swap_text)
+			if swap_text not in swap_data[sub_name][platform][username] or "LEGACY TRADE" in swap_text:
+				swap_data[sub_name][platform][username].append(swap_text)
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
 
@@ -269,24 +321,28 @@ def remove_swap():
         String sub_name: The name of the current subreddit
 	String username: The name of the user toadd swaps for
 	String swap_text: The text to add for that user
+	String platform: The platform the swaps are being removed from
 
 	Return JSON {}
         """
 
 	global swap_data
 	sub_name = request.form["sub_name"]
+	platform = request.form["platform"]
 	username = request.form['username']
 	index = int(request.form['index'])
 	if sub_name not in swap_data:
 		return jsonify({})
-	if username not in swap_data[sub_name]:
+	if platform not in swap_data[sub_name]:
 		return jsonify({})
-	if len(swap_data[sub_name][username]) <= index:
+	if username not in swap_data[sub_name][platform]:
 		return jsonify({})
-	if len(swap_data[sub_name][username])-1 == index:
-		swap_data[sub_name][username] = swap_data[sub_name][username][:-1]
+	if len(swap_data[sub_name][platform][username]) <= index:
+		return jsonify({})
+	if len(swap_data[sub_name][platform][username])-1 == index:
+		swap_data[sub_name][platform][username] = swap_data[sub_name][username][:-1]
 	else:
-		swap_data[sub_name][username] = swap_data[sub_name][username][:index] + swap_data[sub_name][username][index+1:]
+		swap_data[sub_name][platform][username] = swap_data[sub_name][platform][username][:index] + swap_data[sub_name][platform][username][index+1:]
 	json_helper.dump(swap_data, swaps_fname)
 	return jsonify({})
 
@@ -297,6 +353,7 @@ def remove_user():
 
 	Requested Form Params:
         String sub_name: The name of the current subreddit
+	String platform: The platform from which to remove the user
         String username: The name of the user to remove
 
 	Return JSON {status: string}
@@ -307,11 +364,14 @@ def remove_user():
         username = request.form['username']
 	if sub_name not in swap_data:
 		return jsonify({'status': sub_name + ' not found'})
-	if username not in swap_data[sub_name]:
+	if platform not in swap_data[sub_name]:
+		return jsonify({'status': sub_name + ' - ' + platform + ' not found'})
+	if username in swap_data[sub_name][platform]:
+		del swap_data[sub_name][platform][username]
+	else:
 		return jsonify({'status': username + ' not found'})
-	del swap_data[sub_name][username]
 	json_helper.dump(swap_data, swaps_fname)
-	return jsonify({'status': username + " removed from " + sub_name})
+	return jsonify({'status': username + " removed from " + sub_name + " at the following platforms: " + ",".join(removed_platforms)})
 
 @app.route('/get-user-count-from-subs/', methods=["GET"])
 def get_user_count_from_subs():
@@ -319,23 +379,65 @@ def get_user_count_from_subs():
 
 	Requested Form Params:
 	List(String) sub_names: comma seperated list of sub_names
+	String current_platform: The current platform the username name is tied to
 	String author: username in question
 
 	Return JSON {count: int}
 	"""
 
 	author = request.form["author"]
+	current_platform = request.form["current_platform"]
 	sub_names = request.form["sub_names"].split(",")
 	count = 0
 	for sub_name in sub_names:
-		if sub_name in swap_data and author in swap_data[sub_name]:
-			count += len(swap_data[sub_name][author])
+		if sub_name not in swap_data:
+			continue
+		count += len(get_user_summary(swap_data[sub_name], author, current_platform))
 	return jsonify({'count': count})
+
+@app.route('/get-paired-usernames/', methods=["GET"])
+def get_paired_usernames():
+	"""Returns the current paired username lookup table
+
+	Return JSON username_lookup
+	"""
+	return jsonify(username_lookup)
+
+@app.route('/add-username-pairing/', methods=["POST"])
+def add_username_pairing():
+	"""Updates the paired username lookup table
+
+	Requested Form Params:
+	String platform1: The first platform for pairing
+	String platform2: The second platform for pairing
+	String username1: The corresponding first username for pairing
+	String username2: The corresonding second username for pairing
+
+	Return JSON {}
+	"""
+	global username_lookup
+	platform1 = request.form["platform1"]
+	platform2 = request.form["platform2"]
+	username1 = request.form["username1"]
+	username2 = request.form["username2"]
+
+	if platform1 not in username_lookup:
+		username_lookup[platform1] = {}
+	if username1 not in username_lookup[platform1]:
+		username_lookup[platform1][username1] = {platform2: username2}
+	if platform2 not in username_lookup:
+		username_lookup[platform2] = {}
+	if username2 not in username_lookup[platform2]:
+		username_lookup[platform2][username2] = {platform1: username1}
+
+	json_helper.dump(username_lookup, username_lookup_fname)
+	return jsonify({})
 
 @app.route('/dump/', methods=["POST"])
 def dump():
 	json_helper.dump(swap_data, swaps_fname)
 	json_helper.dump(comment_data, comment_fname)
+	json_helper.dump(username_lookup, username_lookup_fname)
 	return jsonify({})
 
 class MyRequestHandler(WSGIRequestHandler):
@@ -350,6 +452,7 @@ if __name__ == "__main__":
 	try:
 		swap_data = json_helper.get_db(swaps_fname)
 		comment_data = json_helper.get_db(comment_fname)
+		username_lookup = json_helper.get_db(username_lookup_fname, False)
 		app.run(host= '0.0.0.0', port=8000, request_handler=MyRequestHandler)
-	except:
+	except Exception as e:
 		pass

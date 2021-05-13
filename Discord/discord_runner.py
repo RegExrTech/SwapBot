@@ -3,7 +3,7 @@ import os
 
 def main():
 	while True:
-		os.system('python swap.py')
+		os.system('python pair_discord.py')
 		time.sleep(10)
 
 time.sleep(3)

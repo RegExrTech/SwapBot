@@ -8,6 +8,8 @@ import praw
 time_limit_minutes = 30
 time_limit = time_limit_minutes * 60 # Seconds
 
+request_url = "http://0.0.0.0:8000"
+
 bot_username = "Swap Bot#0749"
 TOKENS = json_helper.get_db("tokens.json")
 
@@ -21,10 +23,11 @@ headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
 
 
 def get_username_from_text(text, usernames_to_ignore=[]):
-	pattern = re.compile("(u\/[A-Za-z0-9_-]+)")
+	pattern = re.compile("u\/([A-Za-z0-9_-]+)")
 	found = re.findall(pattern, text)
 	username = ""
 	for found_username in found:
+		found_username = found_username.lower()
 		if found_username not in [x.lower() for x in usernames_to_ignore]:
 			username = found_username
 			break
@@ -55,14 +58,15 @@ r = requests.get(baseURL, headers = headers)
 messages = r.json()
 
 pending_requests = json_helper.get_db("pending_requests.json")
-paired_usernames = json_helper.get_db("paired_usernames.json")
+paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 
 # Check Discord for messages
 for message in messages:
 	discord_username = message['author']['username'] + "#" + message['author']['discriminator']
+	discord_username = discord_username.lower()
 	discord_user_id = message['author']['id']
 	# If the message is from the bot, skip
-	if discord_username == bot_username:
+	if discord_username == bot_username.lower():
 		continue
 	# If the message is from a user with a completed or pending request, skip
 	if discord_username in pending_requests or discord_username in paired_usernames['discord']:
@@ -74,13 +78,19 @@ for message in messages:
 	if reddit_username:
 		# Try to send a PM via reddit
 		try:
-			reddit.redditor(reddit_username.split("/")[-1]).message("Please Confirm Your Identity", "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
+			reddit.redditor(reddit_username).message("Please Confirm Your Identity", "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
+			print("here1")
 			reddit_message = reddit.inbox.sent(limit=1).next()
+			print("here2")
 			reddit_message_id = reddit_message.id
-			reply_text = "Sending a message to " + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
+			print("here3")
+			reply_text = "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
+			print("here4")
 			pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, "discord_user_id": discord_user_id}
+			print("here5")
 		# If we fail, tell them to try again later
-		except:
+		except Exception as e:
+			print(e)
 			reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		r = requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
@@ -97,8 +107,7 @@ for reddit_message in reddit_messages:
 	for discord_username, data in pending_requests.items():
 		if not reddit_message_id == data['reddit_message_id']:
 			continue
-		paired_usernames['discord'][discord_username] = data['reddit_username']
-		paired_usernames['reddit'][data['reddit_username']] = discord_username
+		requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_username.lower(), 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
 		try:
 			reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
 		except:
@@ -108,4 +117,3 @@ for reddit_message in reddit_messages:
 
 # Dump the relevant databases
 json_helper.dump(pending_requests, "pending_requests.json")
-json_helper.dump(paired_usernames, "paired_usernames.json")

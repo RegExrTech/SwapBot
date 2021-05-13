@@ -94,9 +94,20 @@ def get_total_count(db, user):
 
 db = get_db()
 
-for user in ["Nighthawk4you"]:
+#dump(db)
+
+for user in ["RoyalRedditor_1".lower()]:
 	print_user_in_all_subs(db, user.lower())
 
 
+d = defaultdict(lambda: [])
+for user in db['pkmntcgtrades']:
+	count = len(db['pkmntcgtrades'][user])
+	if count >= 100:
+		d[count].append(user)
 
-#dump(db)
+keys = d.keys()
+keys.sort()
+for key in keys:
+	for user in d[key]:
+		print(str(key) + " - " + user)
