@@ -17,6 +17,7 @@ reddit = praw.Reddit(client_id=TOKENS['Reddit']['client_id'], client_secret=TOKE
 
 baseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["channel"])
 roleURL = "https://discordapp.com/api/guilds/" + TOKENS['server_id'] + "/members/{}/roles/{}"
+deleteMessageURL = "https://discordapp.com/api/channels/{}/messages/{}"
 headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
 	"User-Agent":"SwapBot (https://www.regexr.tech, v0.1)",
 	"Content-Type":"application/json"}
@@ -76,28 +77,32 @@ for message in messages:
 	discord_message_id = message['id']
 	# If we were able to find a reddit username in the message
 	if reddit_username:
+		should_delete_message = False
 		# Try to send a PM via reddit
 		try:
 			reddit.redditor(reddit_username).message("Please Confirm Your Identity", "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
-			print("here1")
 			reddit_message = reddit.inbox.sent(limit=1).next()
-			print("here2")
 			reddit_message_id = reddit_message.id
-			print("here3")
 			reply_text = "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
-			print("here4")
-			pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, "discord_user_id": discord_user_id}
-			print("here5")
+			pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, "discord_user_id": discord_user_id, 'discord_message_id': discord_message_id}
 		# If we fail, tell them to try again later
 		except Exception as e:
 			print(e)
 			reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
+			should_delete_message = True
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		r = requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
+		if should_delete_message:
+			requests.delete(deleteMessageURL.format(TOKENS["channel"], discord_message_id), headers=headers)
 
 # Delete any stale requests
 for discord_username, data in pending_requests.items():
 	if data['request_timestamp'] + time_limit < time.time():
+		reply_text = "You have taken too long to complete this process. Please feel free to make a new message and restart the process at any time."
+		discord_message_id = pending_requests[discord_username]['discord_message_id']
+		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
+		requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
+		requests.delete(deleteMessageURL.format(TOKENS["channel"], discord_message_id), headers=headers)
 		del(pending_requests[discord_username])
 
 # Check Reddit for unread replies
