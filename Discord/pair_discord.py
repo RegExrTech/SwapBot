@@ -16,6 +16,7 @@ TOKENS = json_helper.get_db("tokens.json")
 reddit = praw.Reddit(client_id=TOKENS['Reddit']['client_id'], client_secret=TOKENS['Reddit']['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', username=TOKENS['Reddit']['username'], password=TOKENS['Reddit']['password'])
 
 baseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["channel"])
+logBaseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["log_channel"])
 roleURL = "https://discordapp.com/api/guilds/" + TOKENS['server_id'] + "/members/{}/roles/{}"
 deleteMessageURL = "https://discordapp.com/api/channels/{}/messages/{}"
 headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
@@ -118,6 +119,8 @@ for reddit_message in reddit_messages:
 		except:
 			pass
 		requests.put(roleURL.format(data['discord_user_id'], TOKENS['role_id']), headers=headers)
+		message_data = {'content': discord_username+" -> "+data['reddit_username']}
+		requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
 		del(pending_requests[discord_username])
 
 # Dump the relevant databases
