@@ -51,9 +51,30 @@ class Config():
 		else:
 			self.age_titles = False
 		self.blacklisted_users = [x for x in config['black_list'].split(",") if x]
-		self.gets_flair_from = [x.lower() for x in config['gets_flair_from'].split(",") if x]
+		self.gets_flair_from = self.get_gets_flair_from([x.lower() for x in config['gets_flair_from'].split(",") if x])
 		self.gives_flair_to = self.get_gives_flair_to(self.subreddit_name)
 		self.sister_subs = {}
+
+	def get_gets_flair_from(self, initial_list):
+		gets_flair_from = []
+		if not initial_list:
+			return gets_flair_from
+		if initial_list[0] == "*":
+			for fname in os.listdir('config'):
+				f = open("config/"+fname, "r")
+				lines = f.read().splitlines()
+				f.close()
+				d = {}
+				for line in lines:
+					d[line.split(":")[0]] = line.split(":")[1]
+				if d["subreddit_name"] in initial_list:
+					continue
+				if d["subreddit_name"] == self.subreddit_name:
+					continue
+				gets_flair_from.append(d['subreddit_name'])
+		else:
+			gets_flair_from = initial_list
+		return gets_flair_from
 
 	def get_gives_flair_to(self, sub_name):
 		gives_flair_to = []
