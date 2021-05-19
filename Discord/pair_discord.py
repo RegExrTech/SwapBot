@@ -55,6 +55,14 @@ def get_reddit_messages(reddit):
 			print("Unable to mark message as read. Leaving it as is.")
 	return messages
 
+def send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id):
+	reddit.redditor(reddit_username).message("Please Confirm Your Identity", "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
+	reddit_message = reddit.inbox.sent(limit=1).next()
+	reddit_message_id = reddit_message.id
+	reply_text = "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
+	pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, "discord_user_id": discord_user_id, 'discord_message_id': discord_message_id}
+	return reply_text
+
 
 r = requests.get(baseURL, headers = headers)
 messages = r.json()
@@ -81,16 +89,26 @@ for message in messages:
 		should_delete_message = False
 		# Try to send a PM via reddit
 		try:
-			reddit.redditor(reddit_username).message("Please Confirm Your Identity", "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
-			reddit_message = reddit.inbox.sent(limit=1).next()
-			reddit_message_id = reddit_message.id
-			reply_text = "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
-			pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, "discord_user_id": discord_user_id, 'discord_message_id': discord_message_id}
+			reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
 		# If we fail, tell them to try again later
 		except Exception as e:
-			print(e)
-			reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
-			should_delete_message = True
+			error_text = str(e)
+			if "RATELIMIT" in error_text:
+				if 'minute' in error_text:
+					time_to_sleep = int(error_text.split("Take a break for ")[1].split(" minute")[0]) * 60
+				else:
+					time_to_sleep = int(error_text.split("Take a break for ")[1].split(" second")[0])
+				time.sleep(time_to_sleep + 2)
+				try:
+					reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requestsdiscord_user_id, discord_message_id)
+				except Exception as e:
+					print(e)
+					reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
+					should_delete_message = True
+			else:
+				print(e)
+				reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
+				should_delete_message = True
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		r = requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
 		if should_delete_message:
@@ -109,7 +127,11 @@ for discord_username, data in pending_requests.items():
 # Check Reddit for unread replies
 reddit_messages = get_reddit_messages(reddit)
 for reddit_message in reddit_messages:
-	reddit_message_id = reddit_message.parent_id.split("_")[-1]
+	try:
+		reddit_message_id = reddit_message.parent_id.split("_")[-1]
+	except:
+		print("Unable to parse reddit message. Skipping...")
+		continue
 	for discord_username, data in pending_requests.items():
 		if not reddit_message_id == data['reddit_message_id']:
 			continue
