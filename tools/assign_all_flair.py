@@ -28,7 +28,7 @@ mods = [str(x).lower() for x in sub.moderator()]
 for i in range(len(keys)):
 	user = keys[i]
 	try:
-		print(str(i) + ") Updating user " + user + " to flair " + str(len(db[args.sub_name.lower()][user])))
+		print(str(i) + ") Updating user " + user + " to flair " + str(len(db[args.sub_name.lower()][platform][user])))
 	except:
 		continue
 	try:
