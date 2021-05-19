@@ -541,22 +541,36 @@ def main():
 			reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
 			reply_to_message(message, reply_text, sub_config)
 			continue
-		final_text = ""
 		trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
 		if not trades:  # if that user has not done any trades, we have no info for them.
-			reply_text = "Hello,\n\nu/" + username + " has not had any swaps yet."
+			reply_text = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " yet."
 			reply_to_message(message, reply_text, sub_config)
 			continue
-
+		# Text based on swaps for this sub
 		if len(trades) == 0:
-			reply_text = "Hello,\n\nu/" + username + " has not had any swaps yet."
-			reply_to_message(message, reply_text, sub_config)
+			reply_header = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " in this sub yet."
+			swap_count_text = ""
 		else:
-			final_text = format_swap_count(trades, sub_config)
-			if len(final_text) > 10000:
-				final_text = final_text[:9800] + "\nTruncated..."
-			reply_text = "Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " swaps:\n\n" + final_text
-			reply_to_message(message, reply_text, sub_config)
+			reply_header = "Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " " + sub_config.flair_word + ":\n\n"
+			swap_count_text = format_swap_count(trades, sub_config)
+		# Get a summary of other subs at the bottom of the message
+		sister_sub_text = ""
+		for sister_sub in sub_config.gets_flair_from:
+			sister_sub_count = get_sister_sub_count(username, [sister_sub])
+			if sister_sub_count > 0:
+				sister_sub_text += "\n\nThis user also has " + str(sister_sub_count) + " " + sub_config.flair_word + " on r/" + sister_sub
+		# Truncate if too large
+		if len(reply_header+swap_count_text+sister_sub_text+kofi_text) > 10000:
+			truncated_text = "* And more..."
+			amount_to_truncate = len(reply_header+swap_count_text+sister_sub_text+kofi_text+truncated_text) + 1 - 10000
+			swap_count_text = swap_count_text[:len(swap_count_text) - amount_to_truncate]
+			swap_count_text = "*".join(swap_count_text.split("*")[:-1])
+		else:
+			truncated_text = ""
+
+		reply_text = reply_header + swap_count_text + truncated_text + sister_sub_text
+
+		reply_to_message(message, reply_text, sub_config)
 
 if __name__ == "__main__":
 	main()
