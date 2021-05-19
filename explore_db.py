@@ -69,12 +69,13 @@ def get_highest(db):
 
 def print_user_in_all_subs(db, user):
 	for sub in db:
-		if user in db[sub]:
-			print_user_in_sub(db, sub, user)
+		for platform in db[sub]:
+			if user in db[sub][platform]:
+				print_user_in_sub(db, sub, platform, user)
 
-def print_user_in_sub(db, sub, user):
-	print("=== " + sub + " - " + user + " ===")
-	print("    " + "\n    ".join(db[sub][user]))
+def print_user_in_sub(db, sub, platform, user):
+	print("=== " + sub + " - " + platform + " - " + user + " ===")
+	print("    " + "\n    ".join(db[sub][platform][user]))
 
 def count_partners(db, sub, user):
 	d = defaultdict(lambda:0)
@@ -96,18 +97,5 @@ db = get_db()
 
 #dump(db)
 
-for user in ["RoyalRedditor_1".lower()]:
+for user in ["Whitestride".lower()]:
 	print_user_in_all_subs(db, user.lower())
-
-
-d = defaultdict(lambda: [])
-for user in db['pkmntcgtrades']:
-	count = len(db['pkmntcgtrades'][user])
-	if count >= 100:
-		d[count].append(user)
-
-keys = d.keys()
-keys.sort()
-for key in keys:
-	for user in d[key]:
-		print(str(key) + " - " + user)
