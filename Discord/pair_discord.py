@@ -24,9 +24,18 @@ headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
 	"Content-Type":"application/json"}
 
 
+def decode(text):
+	try:
+		return text.encode('utf-8').decode('utf-8').encode('ascii', 'ignore').replace("\u002F", "/")
+	except:
+		try:
+			return text.decode('utf-8').encode('ascii', 'ignore').replace("\u002F", "/")
+		except Exception as e:
+			return text.decode('cp1252').encode('ascii', 'ignore').replace("\u002F", "/")
+
 def get_username_from_text(text, usernames_to_ignore=[]):
 	pattern = re.compile("u\/([A-Za-z0-9_-]+)")
-	found = re.findall(pattern, text)
+	found = re.findall(pattern, text.lower())
 	username = ""
 	for found_username in found:
 		found_username = found_username.lower()
@@ -73,7 +82,7 @@ paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 # Check Discord for messages
 for message in messages:
 	discord_username = message['author']['username'] + "#" + message['author']['discriminator']
-	discord_username = discord_username.lower()
+	discord_username = decode(discord_username.lower())
 	discord_user_id = message['author']['id']
 	# If the message is from the bot, skip
 	if discord_username == bot_username.lower():
@@ -100,14 +109,14 @@ for message in messages:
 					time_to_sleep = int(error_text.split("Take a break for ")[1].split(" second")[0])
 				time.sleep(time_to_sleep + 2)
 				try:
-					reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requestsdiscord_user_id, discord_message_id)
+					reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
 				except Exception as e:
 					print(e)
 					reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
 					should_delete_message = True
 			else:
 				print(e)
-				reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
+				reply_text = "Sorry, <@" + str(discord_user_id) + ">, I was unable to send a message to that username. Please check your spelling and try again."
 				should_delete_message = True
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		r = requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
@@ -117,7 +126,7 @@ for message in messages:
 # Delete any stale requests
 for discord_username, data in pending_requests.items():
 	if data['request_timestamp'] + time_limit < time.time():
-		reply_text = "You have taken too long to complete this process. Please feel free to make a new message and restart the process at any time."
+		reply_text = "<@" + str(pending_requests[discord_username]['discord_user_id']) + ">, you have taken too long to complete this process. Please feel free to make a new message and restart the process at any time."
 		discord_message_id = pending_requests[discord_username]['discord_message_id']
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
