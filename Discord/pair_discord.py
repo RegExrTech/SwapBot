@@ -69,7 +69,7 @@ def send_reddit_message(reddit_username, discord_username, reddit, time_limit_mi
 	reddit_message = reddit.inbox.sent(limit=1).next()
 	reddit_message_id = reddit_message.id
 	reply_text = "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
-	pending_requests[discord_username] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, "discord_user_id": discord_user_id, 'discord_message_id': discord_message_id}
+	pending_requests[discord_user_id] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, 'discord_message_id': discord_message_id}
 	return reply_text
 
 
@@ -88,7 +88,7 @@ for message in messages:
 	if discord_username == bot_username.lower():
 		continue
 	# If the message is from a user with a completed or pending request, skip
-	if discord_username in pending_requests or discord_username in paired_usernames['discord']:
+	if discord_user_id in pending_requests or discord_user_id in paired_usernames['discord']:
 		continue
 	body = message['content']
 	reddit_username = get_username_from_text(body)
@@ -124,14 +124,14 @@ for message in messages:
 			requests.delete(deleteMessageURL.format(TOKENS["channel"], discord_message_id), headers=headers)
 
 # Delete any stale requests
-for discord_username, data in pending_requests.items():
+for discord_user_id, data in pending_requests.items():
 	if data['request_timestamp'] + time_limit < time.time():
-		reply_text = "<@" + str(pending_requests[discord_username]['discord_user_id']) + ">, you have taken too long to complete this process. Please feel free to make a new message and restart the process at any time."
-		discord_message_id = pending_requests[discord_username]['discord_message_id']
+		reply_text = "<@" + str(discord_user_id) + ">, you have taken too long to complete this process. Please feel free to make a new message and restart the process at any time."
+		discord_message_id = discord_user_id
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
 		requests.delete(deleteMessageURL.format(TOKENS["channel"], discord_message_id), headers=headers)
-		del(pending_requests[discord_username])
+		del(pending_requests[discord_user_id])
 
 # Check Reddit for unread replies
 reddit_messages = get_reddit_messages(reddit)
@@ -141,18 +141,18 @@ for reddit_message in reddit_messages:
 	except:
 		print("Unable to parse reddit message. Skipping...")
 		continue
-	for discord_username, data in pending_requests.items():
+	for discord_user_id, data in pending_requests.items():
 		if not reddit_message_id == data['reddit_message_id']:
 			continue
-		requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_username.lower(), 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
+		requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_user_id, 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
 		try:
 			reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
 		except:
 			pass
-		requests.put(roleURL.format(data['discord_user_id'], TOKENS['role_id']), headers=headers)
-		message_data = {'content': discord_username+" -> "+data['reddit_username']}
+		requests.put(roleURL.format(discord_user_id, TOKENS['role_id']), headers=headers)
+		message_data = {'content': "<@"+discord_user_id+"> -> "+data['reddit_username']}
 		requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
-		del(pending_requests[discord_username])
+		del(pending_requests[discord_user_id])
 
 # Dump the relevant databases
 json_helper.dump(pending_requests, "pending_requests.json")
