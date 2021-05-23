@@ -1,6 +1,8 @@
 import random
 import sys
 sys.path.insert(0, '.')
+sys.path.insert(0, 'Discord')
+from assign_role import assign_role
 import config
 import requests
 import re
@@ -99,6 +101,18 @@ def get_age_title(age_titles, age):
 		age_title = age_titles[str(key)]
 	return age_title
 
+def get_discord_role(roles, count):
+	if not roles:
+		return ""
+	keys = [int(x) for x in roles.keys()]
+	keys.sort()
+	role_id = ""
+	for key in keys:
+		if key > count:
+			break
+		role_id = roles[str(key)]
+	return role_id
+
 def get_sister_sub_count(author_name, sister_subs):
 	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(sister_subs), 'current_platform': PLATFORM, 'author': author_name.lower()}).json()
 	return int(return_data['count'])
@@ -128,6 +142,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	template = get_flair_template(sub_config.flair_templates, int(swap_count))
 	title = get_flair_template(sub_config.titles, int(swap_count))
 	age_title = get_age_title(sub_config.age_titles, age)
+	discord_role_id = get_discord_role(sub_config.discord_roles, int(swap_count))
 	if not debug:
 		flair_text = swap_count + sub_config.flair_word
 		if author in mods and sub_config.mod_flair_word:
@@ -145,6 +160,11 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 				sub.flair.set(author, flair_text, swap_count)
 		except:
 			print("Error assigning flair to " + str(author) + ". Please update flair manually.")
+		if discord_role_id:
+			paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
+			if author in paired_usernames['reddit']:
+				discord_user_id = paired_usernames['reddit'][author]['discord']
+				assign_role(sub_config.discord_server_id, discord_user_id, discord_role_id)
 	else:
 		print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
 		print("==========")
