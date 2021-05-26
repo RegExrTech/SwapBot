@@ -18,10 +18,10 @@ feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
 feedback_sub_name = "gcxrep"
 sub_name = "giftcardexchange"
-#feedback_sub_name = "c4crep"
-#sub_name = "cash4cash"
-#feedback_sub_name = "comicswap"
-#sub_name = "comicswap"
+feedback_sub_name = "c4crep"
+sub_name = "cash4cash"
+#feedback_sub_name = "snackexchange"
+#sub_name = "snackexchange"
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -316,56 +316,17 @@ def get_db(database_file_name=FNAME):
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-#ids = set([])
-#authors = set(["IsMyNameBrian".lower(), "Luxniom".lower()])
-#GetIdsFromReddit(feedback_sub, authors, ids)
-#users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
+ids = set([])
+authors = set(["dgollert101".lower()])
+GetIdsFromReddit(feedback_sub, authors, ids)
+users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-#users_to_confirmations = {"vival".lower(): ["LEGACY TRADE"] * 3}
+#users_to_confirmations = {"bitterbuggyred".lower(): ["LEGACY TRADE"] * 1}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
-
-users_to_confirmations = defaultdict(lambda: [])
-
-for id in ["2ca8so", "1wqwb9", "1tz0pg"]:
-	submission = reddit.submission(id=id)
-	comment_list = submission.comments
-	try:
-		comment_list.replace_more(limit=None)
-	except:
-		continue
-	for comment in comment_list:
-		author = str(comment.author)
-		correct_reply = None
-		try:
-			body = comment.body
-		except:
-			print("unable to get body from a comment on " + str(submission.permalink))
-			continue
-		potential_author_two = swap.get_username_from_text(body, [author])
-		if potential_author_two:
-			potential_author_two = potential_author_two.split("/")[1]
-		else:
-			continue
-		replies = comment.replies
-		try:
-			replies.replace_more(limit=None)
-		except:
-			continue
-		for reply in replies:
-			try:
-				found_author_name = str(reply.author).lower()
-			except:
-				found_author_name = ""
-				print(str(submission.permalink) + " found a comment without an author, so skipping it...")
-			if str(reply.author).lower() == potential_author_two:
-				correct_reply = reply
-		if correct_reply:
-			users_to_confirmations[potential_author_two.lower()].append(author.lower() + " - https://www.reddit.com" + str(submission.permalink)+str(comment.id))
-print(users_to_confirmations)
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())

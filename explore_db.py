@@ -97,5 +97,5 @@ db = get_db()
 
 #dump(db)
 
-for user in ["Whitestride".lower()]:
+for user in ["astronomical_bark".lower()]:
 	print_user_in_all_subs(db, user.lower())
