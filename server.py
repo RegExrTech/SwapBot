@@ -340,7 +340,7 @@ def remove_swap():
 	if len(swap_data[sub_name][platform][username]) <= index:
 		return jsonify({})
 	if len(swap_data[sub_name][platform][username])-1 == index:
-		swap_data[sub_name][platform][username] = swap_data[sub_name][username][:-1]
+		swap_data[sub_name][platform][username] = swap_data[sub_name][platform][username][:-1]
 	else:
 		swap_data[sub_name][platform][username] = swap_data[sub_name][platform][username][:index] + swap_data[sub_name][platform][username][index+1:]
 	json_helper.dump(swap_data, swaps_fname)
