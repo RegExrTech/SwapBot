@@ -124,11 +124,11 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 	for pair in [(author1, author1_count), (author2, author2_count)]:
 		age = datetime.timedelta(seconds=(time.time() - pair[0].created_utc)).days / 365.0
 		author_string = str(pair[0]).lower()
-		author_count = str(int(pair[1]) + get_sister_sub_count(author_string, sub_config.gets_flair_from))
 		for sub_name in [sub_config.subreddit_name] + sub_config.gives_flair_to:
 			if sub_name not in sub_config.sister_subs:
 				sister_sub_config, sister_reddit, sister_sub = create_reddit_and_sub(sub_name)
 				sub_config.sister_subs[sub_name] = {'reddit': sister_reddit, 'sub': sister_sub, 'config': sister_sub_config}
+			author_count = str(get_sister_sub_count(author_string, [sub_name] + sub_config.sister_subs[sub_name]['config'].gets_flair_from))
 			update_single_user_flair(sub_config.sister_subs[sub_name]['sub'], sub_config.sister_subs[sub_name]['config'], author_string, author_count, non_updated_users, age, debug)
 	return non_updated_users
 
