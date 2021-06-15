@@ -18,8 +18,8 @@ feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
 feedback_sub_name = "gcxrep"
 sub_name = "giftcardexchange"
-feedback_sub_name = "c4crep"
-sub_name = "cash4cash"
+#feedback_sub_name = "c4crep"
+#sub_name = "cash4cash"
 #feedback_sub_name = "snackexchange"
 #sub_name = "snackexchange"
 
@@ -317,9 +317,10 @@ def get_db(database_file_name=FNAME):
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 ids = set([])
-authors = set(["dgollert101".lower()])
+authors = set(["indonemesis".lower()])
 GetIdsFromReddit(feedback_sub, authors, ids)
 users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
+#users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)

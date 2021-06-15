@@ -97,5 +97,9 @@ db = get_db()
 
 #dump(db)
 
-for user in ["astronomical_bark".lower()]:
+for user in ["mrspibbman"]:
 	print_user_in_all_subs(db, user.lower())
+
+#print("\n".join(db['knife_swap']['reddit']['active']))
+
+
