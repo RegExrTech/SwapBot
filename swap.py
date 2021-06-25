@@ -388,8 +388,9 @@ def handle_wrong_sub(comment):
 def handle_edefinition(comment):
 	# No more peeking
 	f = open("edefinition.txt", "r")
-	reply_options = f.read().splitlines()
+	reply_options = [x for x in f.read().splitlines() if x[0] != "#"]
 	f.close()
+	random.seed()
 	reply_text = random.choice(reply_options)
 	reply(comment, reply_text)
 
