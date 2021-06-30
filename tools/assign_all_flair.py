@@ -22,13 +22,21 @@ sub = reddit.subreddit(sub_config.subreddit_name)
 json_helper = JsonHelper()
 db = json_helper.get_db('database/swaps.json')
 
+if sub_config.subreddit_name not in db:
+	db[sub_config.subreddit_name] = {}
+if platform not in db[sub_config.subreddit_name]:
+	db[sub_config.subreddit_name][platform] = {}
+
 unassigned_users = []
-keys = db[args.sub_name.lower()][platform].keys()
+keys = db[sub_config.subreddit_name][platform].keys()
 mods = [str(x).lower() for x in sub.moderator()]
+
 for i in range(len(keys)):
 	user = keys[i]
+	if user not in db[sub_config.subreddit_name][platform]:
+		db[sub_config.subreddit_name][platform][user] = []
 	try:
-		print(str(i) + ") Updating user " + user + " to flair " + str(len(db[args.sub_name.lower()][platform][user])))
+		print(str(i) + ") Updating user " + user + " to flair " + str(len(db[sub_config.subreddit_name][platform][user])))
 	except:
 		continue
 	try:
@@ -36,7 +44,7 @@ for i in range(len(keys)):
 	except:
 		print("Unable to get age for " + user)
 		age = 0
-	count_int = len(db[args.sub_name.lower()][platform][user]) + get_sister_sub_count(user, sub_config.gets_flair_from)
+	count_int = len(db[sub_config.subreddit_name][platform][user]) + get_sister_sub_count(user, sub_config.gets_flair_from)
 	try:
 		update_single_user_flair(sub, sub_config, user, str(count_int), unassigned_users, age)
 	except:
