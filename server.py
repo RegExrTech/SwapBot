@@ -34,12 +34,19 @@ swaps_fname = 'database/swaps.json'
 comment_fname = 'database/comments.json'
 username_lookup_fname = 'Discord/paired_usernames.json'
 
+def get_alias(user_id, current_platform, desired_platform):
+	if current_platform not in username_lookup:
+		return
+	if desired_platform not in username_lookup:
+		return
+	if user_id not in username_lookup[current_platform]:
+		return
+	return username_lookup[current_platform][user_id]
+
 def get_user_summary(sub_data, author, current_platform):
 	summary = []
 	usernames_on_platforms = username_lookup[current_platform]
 	for platform in sub_data:
-		print("Checking platform " + platform + " against current platform " + current_platform)
-		print(platform == current_platform)
 		if author in usernames_on_platforms:
 			platforms_to_username = usernames_on_platforms[author]
 			if platform in platforms_to_username:
@@ -58,7 +65,7 @@ def add_comment():
 	list of comments to check.
 
 	Requested Form Params:
-        String sub_name: The name of the current subreddit
+	String sub_name: The name of the current subreddit
 	String comment_id: The ID of the comment where the trade took place
 	String platform: The platform the comment is coming from
 
@@ -141,7 +148,7 @@ def check_comment():
 	global swap_data
 	global comment_data
 	sub_name = request.form["sub_name"]
-	platform = request.form["platform"]
+	platform = request.form["platform"].lower()
 	if sub_name not in swap_data:
 		swap_data[sub_name] = {platform: {}}
 	if platform not in swap_data[sub_name]:
@@ -153,9 +160,14 @@ def check_comment():
 	author2 = request.form['author2']
 	post_id = request.form['post_id']
 	comment_id = request.form['comment_id']
-	real_sub_name = request.form['real_sub_name']
 
-	message = " - https://www.reddit.com/r/" + real_sub_name + "/comments/" + post_id
+	if platform == 'reddit':
+		message = " - https://www.reddit.com/r/" + request.form['real_sub_name'] + "/comments/" + post_id
+	elif platform == 'discord':
+		message = " - " + post_id
+	else:
+		message = " - " + post_id
+
 	if author1 not in sub_data:
 		sub_data[author1] = [author2 + message]
 	else:
@@ -168,10 +180,19 @@ def check_comment():
 		if author1 + message in sub_data[author2]:
 			return jsonify({'is_duplicate': 'True', 'flair_count_1': 0, 'flair_count_2': 0})
 		sub_data[author2].append(author1 + message)
-	if comment_id in comment_data[real_sub_name][platform]['active']:
-		comment_data[real_sub_name][platform]['active'].remove(comment_id)
-	if comment_id in comment_data[real_sub_name][platform]['archived']:
-		comment_data[real_sub_name][platform]['archived'].remove(comment_id)
+
+	if sub_name not in comment_data:
+		comment_data[sub_name] = {}
+	if platform not in comment_data[sub_name]:
+		comment_data[sub_name][platform] = {}
+	if 'active' not in comment_data[sub_name][platform]:
+		comment_data[sub_name][platform]['active'] = []
+	if 'archived' not in comment_data[sub_name][platform]:
+		comment_data[sub_name][platform]['archived'] = []
+	if comment_id in comment_data[sub_name][platform]['active']:
+		comment_data[sub_name][platform]['active'].remove(comment_id)
+	if comment_id in comment_data[sub_name][platform]['archived']:
+		comment_data[sub_name][platform]['archived'].remove(comment_id)
 	json_helper.dump(swap_data, swaps_fname)
 	json_helper.dump(comment_data, comment_fname)
 	flair_count_1 = len(get_user_summary(swap_data[sub_name], author1, platform))
@@ -253,13 +274,13 @@ def add_swap():
 	Adds a swap to a user's profile, given the user and the sub
 
 	Requested Form Params:
-        String sub_name: The name of the current subreddit
+	String sub_name: The name of the current subreddit
 	String username: The name of the user toadd swaps for
 	String swap_text: The text to add for that user
 	String platform: The platform the swap is coming from
 
 	Return JSON {}
-        """
+	"""
 
 	global swap_data
 	sub_name = request.form["sub_name"]
@@ -318,13 +339,13 @@ def remove_swap():
 	Adds a swap to a user's profile, given the user and the sub
 
 	Requested Form Params:
-        String sub_name: The name of the current subreddit
+	String sub_name: The name of the current subreddit
 	String username: The name of the user toadd swaps for
 	String swap_text: The text to add for that user
 	String platform: The platform the swaps are being removed from
 
 	Return JSON {}
-        """
+	"""
 
 	global swap_data
 	sub_name = request.form["sub_name"]
@@ -352,16 +373,16 @@ def remove_user():
 	Removes a user and all of their feedback from a given sub
 
 	Requested Form Params:
-        String sub_name: The name of the current subreddit
+	String sub_name: The name of the current subreddit
 	String platform: The platform from which to remove the user
-        String username: The name of the user to remove
+	String username: The name of the user to remove
 
 	Return JSON {status: string}
 	"""
 
-        global swap_data
-        sub_name = request.form["sub_name"]
-        username = request.form['username']
+	global swap_data
+	sub_name = request.form["sub_name"]
+	username = request.form['username']
 	if sub_name not in swap_data:
 		return jsonify({'status': sub_name + ' not found'})
 	if platform not in swap_data[sub_name]:
