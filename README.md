@@ -1,3 +1,7 @@
+If you would like to use this as a free of charge service, please fill out the following form. RegExr will be in touch shortly:
+
+https://docs.google.com/forms/d/e/1FAIpQLSeonF2luQipQL29yL1j7jiE89XwypeBR3CW4mEJyzH0AjzzUg/viewform?usp=sf_link
+
 ## Features
 
 * Users can tag the name of the bot and the name of the person they traded with in their trade thread to invoke the bot. When the tagged user replies to the comment with "confirmed" the bot will reply with "added" and give them credit.
@@ -8,64 +12,73 @@
 
 * Clone this repository using `git clone`
 
-* Replace subreddit_name with the name of your subreddit at the top of swap.py
-
-* Create a `config.txt` file with these four attributes, in this order, each on their own line (the .gitignore will prevent you from uploading this file to the repo):
-
-    * The name of the subreddit you want to run on e.g. `funkoswap`
-
-    * Reddit API client ID
-
-    * Reddit API client secret
-
-    * Reddit Bot Username
-
-    * Reddit Bot Password
-    
-* Create the data files using 
-
-    * `> database/swaps-funkoswap.json`
-    
-    * `> database/active_comments-funkoswap.txt`
-
 * Create a config file in the config directory named `funkoswap-config.txt` with the following on seperate lines:
 
-    * Subreddit name
+    * subreddit_name:<subreddit_name (no r/)>
     
-    * Bot Client ID
+    * client_id:<bot_client_id>
     
-    * Bot Secret ID
+    * client_secret:<bot_client_secret>
     
-    * Bot Username
+    * bot_username:<bot_username (no u/)>
     
-    * Bot Password
+    * bot_password:<bot_password>
     
-    * User Flair Text (defaults to Swaps)
+    * flair_word:<The default flair word>
     
-    * Moderator Flair Text (defaults to empty string)
+    * mod_flair_word:<The Mod flair word (empty if no flair word)>
+
+    * flair_templates:<Boolean (capital True or False)>
+
+    * confirmation_text:<Optional text for the bot to say>
+
+    * flair_threshold:<int>
+
+    * mod_flair_template:<Reddit flair template ID>
+
+    * titles:<Boolean (capital True or False)>
+
+    * age_titles:<Boolean (capital True or False)>
+
+    * black_list:<comma seperated list of reddit usernames, no spaces, no u/>
+
+    * gets_flair_from:<comma seperated list of subreddit names, no spaces, no r/> (optionally, * for all subreddits, or * followed by a comma seperated list of subreddits to exclude)
+
+    * discord_roles:<Boolean (capital True or False)>
+
+    * discord_server_id:<int, optional>
+
+* Add the relevant files in `age_titles/`, `roles/`, `templates/`, and 'titles/' if you elected to use them in the above configuration.
 
 * Add the following cronjob using `crontab -e` 
 
-    * `\* \* \* \* \* cd ~/<YOUR_DIRECTORY_NAME> & python swap.py funkoswap-config.txt;`
+    * `* * * * * cd ~/SwapBot && python runner.py <your_subreddit_name>-config.txt;`
+
+    * `* * * * * cd ~/SwapBot && python server.py`
+
+* If you want to keep local hourly backups of the database, run the following command:
+
+    * `cd ~/SwapBot && mkdir backup`
+
+* Then add the following lines to the crontab:
+
+    * `0 * * * * cd ~/SwapBot && cp database/comments.json "backup/comments-"`date +"\%H"`".json"`
+
+    * `0 * * * * cd ~/SwapBot && cp database/swaps.json "backup/swaps-"`date +"\%H"`".json"`
     
-## Using Git to back up the Data Files
+## Tools
 
-Because this script uses json files to store the data, it can be useful to have a backup of the data somewhere. Git is convenient for this. By creating your own github repository, you can push your data files to the remote server once an hour to ensure proper back up and be able to recover should anything go wrong. Follow these steps to do so:
+* If you wish to increase someone's score on the back end, you can use `tools/add_batch_swap.py`. Please note that this does NOT change their flair.
 
-* Create your own directory for your version of the script and move all visible files (files that do not start with a `.`) and the .gitignore to the new directory.
+* If you wish to add a comment ID that the bot missed for some reason, you can do so with `tools/add_comment.py
 
-* Initialize the directory as a new git repository (this assumes you are already signed in to git on your machine).
+* If you wish to make an announcement to all of the subs in your config folder, you can edit the announcement text in `tools/announcement.py` and send it out by running that script
 
-* Add the following cronjob to your server with `crontab -e` to enable creating hourly backups of the data files:
+* If you wish to re-assign all flair to every user in your subreddit based on the database (if sub flair gets out of sync with the database, for any reason) you can do so with `tools/assign_all_flair.py`. Please note that this is a slow process, especially for subs with many members.
 
-    * `0 * * * * cd ~/<YOUR_DIRECTORY_NAME> && git pull; git add *; git commit -m "hourly upload"; git push;`
+* If you wish to copy the swaps from one user to another (for example, if a user is switching to a new reddit account), you can do so with `tools/copy_user.py`. Please note that this does not update their flair.
 
-## Legacy Trades
+* If you wish to remove a transaction from a user, you can do so with `tools/remove_swap.py`. Please note that this does not update their flair.
 
-The code references Legacy Trades. These are confirmed trades from before you bring the bot online. 
-It recognizes a legacy trade only if it appears in the database file. 
-If you have no record of trades before bringing this bot online, you can ignore legacy trades. 
-If you wish to give credit to your users from their legacy trades, you will have to write your own script to do so. 
-The general idea is to write entries in the json file for username: ["LEGACY TRADE", "LEGACY TRADE"] for as many legacy trades as that person had. 
-Once you have the backfilled json file in the database folder, the script will use those legacy trades when showcasing the user reputation
+* If you wish to mark the last X number of tags and messages as unread in your bot account, you can do so with `tools/unread.py`
 
