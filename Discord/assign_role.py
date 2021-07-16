@@ -1,7 +1,7 @@
 import requests
 import json_helper
 
-TOKENS = json_helper.get_db("Discord/tokens.json")
+TOKENS = json_helper.get_db("Discord/config/pkmntcgtrades.json")
 
 headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
         "User-Agent":"SwapBot (https://www.regexr.tech, v0.1)",
