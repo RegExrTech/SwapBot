@@ -16,12 +16,17 @@ PLATFORM = "reddit"
 
 feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
-feedback_sub_name = "gcxrep"
-sub_name = "giftcardexchange"
-#feedback_sub_name = "c4crep"
-#sub_name = "cash4cash"
+#feedback_sub_name = "gcxrep"
+#sub_name = "giftcardexchange"
+feedback_sub_name = "c4crep"
+sub_name = "cash4cash"
 #feedback_sub_name = "snackexchange"
 #sub_name = "snackexchange"
+#feedback_sub_name = "ygomarketplace"
+#sub_name = "ygomarketplace"
+#feedback_sub_name = "thinkpadsforsale"
+#sub_name = "thinkpadsforsale"
+
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
@@ -317,7 +322,7 @@ def get_db(database_file_name=FNAME):
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 ids = set([])
-authors = set(["indonemesis".lower()])
+authors = set(["AchwaqKhalid".lower()])
 GetIdsFromReddit(feedback_sub, authors, ids)
 users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 #users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
@@ -326,7 +331,7 @@ users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-#users_to_confirmations = {"bitterbuggyred".lower(): ["LEGACY TRADE"] * 1}
+#users_to_confirmations = {"BerryBerrySneaky".lower(): ["LEGACY TRADE"] * 2}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
