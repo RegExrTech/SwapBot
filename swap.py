@@ -18,17 +18,6 @@ silent = False
 
 PLATFORM = "reddit"
 
-# IDK, I needed this according to stack overflow.
-def ascii_encode_dict(data):
-        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-        return dict(map(ascii_encode, pair) for pair in data.items())
-
-# Function to load the swap DB into memory
-def get_swap_data(fname):
-        with open(fname) as json_data: # open the funko-shop's data
-                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-        return funko_store_data
-
 def log(post, comment, reason):
 	url = "reddit.com/comments/"+str(post)+"/-/"+str(comment)
 	print("Removing comment " + url + " because: " + reason)
