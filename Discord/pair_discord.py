@@ -15,7 +15,7 @@ TOKENS = json_helper.get_db("tokens.json")
 
 reddit = praw.Reddit(client_id=TOKENS['Reddit']['client_id'], client_secret=TOKENS['Reddit']['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', username=TOKENS['Reddit']['username'], password=TOKENS['Reddit']['password'])
 
-baseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["channel"])
+baseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["pairing_channel"])
 logBaseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["log_channel"])
 roleURL = "https://discordapp.com/api/guilds/" + TOKENS['server_id'] + "/members/{}/roles/{}"
 deleteMessageURL = "https://discordapp.com/api/channels/{}/messages/{}"
@@ -121,7 +121,7 @@ for message in messages:
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		r = requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
 		if should_delete_message:
-			requests.delete(deleteMessageURL.format(TOKENS["channel"], discord_message_id), headers=headers)
+			requests.delete(deleteMessageURL.format(TOKENS["pairing_channel"], discord_message_id), headers=headers)
 
 # Delete any stale requests
 for discord_user_id, data in pending_requests.items():
@@ -130,7 +130,7 @@ for discord_user_id, data in pending_requests.items():
 		discord_message_id = discord_user_id
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
-		requests.delete(deleteMessageURL.format(TOKENS["channel"], discord_message_id), headers=headers)
+		requests.delete(deleteMessageURL.format(TOKENS["pairing_channel"], discord_message_id), headers=headers)
 		del(pending_requests[discord_user_id])
 
 # Check Reddit for unread replies
