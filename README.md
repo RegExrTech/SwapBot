@@ -82,3 +82,4 @@ https://docs.google.com/forms/d/e/1FAIpQLSeonF2luQipQL29yL1j7jiE89XwypeBR3CW4mEJ
 
 * If you wish to mark the last X number of tags and messages as unread in your bot account, you can do so with `tools/unread.py`
 
+* If you wish to check if any of your bots are shadowbanned, modify `tools/shadow_ban_detector.py` to take in the name of your config file, then run the script.
