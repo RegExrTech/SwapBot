@@ -453,7 +453,7 @@ def format_swap_count(trades, sub_config):
 	for trade in trades[::-1]:
 		if "LEGACY TRADE" in trade:
 			legacy_count += 1
-		else:
+		elif 'reddit.com' in trade:
 			trade_partner = trade.split(" - ")[0]
 			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': trade_partner}).json()['data'])
 			trade_url = trade.split(" - ")[1]
@@ -464,6 +464,10 @@ def format_swap_count(trades, sub_config):
 				continue
 			trade_url_id = trade_url.split("/")[6]
 			final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://redd.it/" + trade_url_id  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
+		elif 'discord.com' in trade:
+			final_text += "* [Discord " + sub_config.flair_word[:-1] + "](" +  trade.split(" - ")[1] + ")\n\n"
+		else:
+			final_text += "* " + trade.split(" - ")[1] + "\n\n"
 
 	if legacy_count > 0:
 		final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
