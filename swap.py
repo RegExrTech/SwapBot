@@ -102,8 +102,8 @@ def get_discord_role(roles, count):
 		role_id = roles[str(key)]
 	return role_id
 
-def get_sister_sub_count(author_name, sister_subs):
-	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(sister_subs), 'current_platform': PLATFORM, 'author': author_name.lower()}).json()
+def get_swap_count(author_name, subs, platform):
+	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(subs), 'current_platform': platform, 'author': author_name.lower()}).json()
 	return int(return_data['count'])
 
 def update_flair(author1, author2, author1_count, author2_count, sub):
@@ -117,7 +117,7 @@ def update_flair(author1, author2, author1_count, author2_count, sub):
 			if sub_name not in sub_config.sister_subs:
 				sister_sub_config, sister_reddit, sister_sub = create_reddit_and_sub(sub_name)
 				sub_config.sister_subs[sub_name] = {'reddit': sister_reddit, 'sub': sister_sub, 'config': sister_sub_config}
-			author_count = str(get_sister_sub_count(author_string, [sub_name] + sub_config.sister_subs[sub_name]['config'].gets_flair_from))
+			author_count = str(get_swap_count(author_string, [sub_name] + sub_config.sister_subs[sub_name]['config'].gets_flair_from, PLATFORM))
 			update_single_user_flair(sub_config.sister_subs[sub_name]['sub'], sub_config.sister_subs[sub_name]['config'], author_string, author_count, non_updated_users, age, debug)
 	return non_updated_users
 
@@ -149,11 +149,11 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 				sub.flair.set(author, flair_text, swap_count)
 		except:
 			print("Error assigning flair to " + str(author) + ". Please update flair manually.")
-		if discord_role_id:
+		if sub_config.discord_config and discord_role_id:
 			paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 			if author in paired_usernames['reddit']:
 				discord_user_id = paired_usernames['reddit'][author]['discord']
-				assign_role(sub_config.discord_server_id, discord_user_id, discord_role_id)
+				assign_role(sub_config.discord_config.server_id, discord_user_id, discord_role_id)
 	else:
 		print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
 		print("==========")
@@ -570,7 +570,7 @@ def main():
 		# Get a summary of other subs at the bottom of the message
 		sister_sub_text = ""
 		for sister_sub in sub_config.gets_flair_from:
-			sister_sub_count = get_sister_sub_count(username, [sister_sub])
+			sister_sub_count = get_swap_count(username, [sister_sub], PLATFORM)
 			if sister_sub_count > 0:
 				sister_sub_text += "\n\nThis user also has " + str(sister_sub_count) + " " + sub_config.flair_word + " on r/" + sister_sub
 		# Truncate if too large
