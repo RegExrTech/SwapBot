@@ -104,7 +104,7 @@ def get_swap_count(author_name, subs, platform):
 	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(subs), 'current_platform': platform, 'author': author_name.lower()}).json()
 	return int(return_data['count'])
 
-def update_flair(author1, author2, sub):
+def update_flair(author1, author2, sub_config):
 	"""returns list of tuples of author name and (str)swap count if flair was NOT updated."""
 	non_updated_users = []
 	# Loop over each author and change their flair
@@ -323,7 +323,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
                         credit_given = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
-                                non_updated_users = update_flair(author1, author2, sub)
+                                non_updated_users = update_flair(author1, author2, sub_config)
                                 inform_giving_credit(correct_reply, non_updated_users)
                         else:
 				log(parent_post, comment, "Credit already given")
