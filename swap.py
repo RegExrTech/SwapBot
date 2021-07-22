@@ -62,9 +62,7 @@ def update_database(author1, author2, post_id, comment_id):
 	# Default generic value for swaps
 	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
 	is_duplicate = return_data['is_duplicate'] == 'True'
-	flair_count_1 = return_data['flair_count_1']
-	flair_count_2 = return_data['flair_count_2']
-	return not is_duplicate, flair_count_1, flair_count_2
+	return not is_duplicate
 
 def get_flair_template(templates, count):
 	if not templates:
@@ -106,19 +104,22 @@ def get_swap_count(author_name, subs, platform):
 	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(subs), 'current_platform': platform, 'author': author_name.lower()}).json()
 	return int(return_data['count'])
 
-def update_flair(author1, author2, author1_count, author2_count, sub):
+def update_flair(author1, author2, sub):
 	"""returns list of tuples of author name and (str)swap count if flair was NOT updated."""
 	non_updated_users = []
 	# Loop over each author and change their flair
-	for pair in [(author1, author1_count), (author2, author2_count)]:
-		age = datetime.timedelta(seconds=(time.time() - pair[0].created_utc)).days / 365.0
-		author_string = str(pair[0]).lower()
+	for author in [author1, author2]:
+		age = datetime.timedelta(seconds=(time.time() - author.created_utc)).days / 365.0
+		author_string = str(author).lower()
+		updates = []
 		for sub_name in [sub_config.subreddit_name] + sub_config.gives_flair_to:
 			if sub_name not in sub_config.sister_subs:
 				sister_sub_config, sister_reddit, sister_sub = create_reddit_and_sub(sub_name)
 				sub_config.sister_subs[sub_name] = {'reddit': sister_reddit, 'sub': sister_sub, 'config': sister_sub_config}
 			author_count = str(get_swap_count(author_string, [sub_name] + sub_config.sister_subs[sub_name]['config'].gets_flair_from, PLATFORM))
 			update_single_user_flair(sub_config.sister_subs[sub_name]['sub'], sub_config.sister_subs[sub_name]['config'], author_string, author_count, non_updated_users, age, debug)
+			updates.append([sub_name, author_count])
+		print("u/" + author_string + " was updated at the following subreddits with the following flair: \n" + "\n".join(["  * r/"+x[0]+" - "+str(x[1]) for x in updates]))
 	return non_updated_users
 
 def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, age, debug=False):
@@ -320,10 +321,9 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 			print("Author1: " + str(author1))
 			print("Author2: " + str(author2))
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
-                        credit_given, author1_count, author2_count = update_database(author1, author2, parent_post.id, comment.id)
+                        credit_given = update_database(author1, author2, parent_post.id, comment.id)
                         if credit_given:
-				print("Updated u/" + str(author1) + " to swap count " + str(author1_count) + " and u/" + str(author2) + " to " + str(author2_count) + " at " + "reddit.com/comments/" + str(parent_post) + "/" + sub.display_name + "/" + str(comment))
-                                non_updated_users = update_flair(author1, author2, author1_count, author2_count, sub)
+                                non_updated_users = update_flair(author1, author2, sub)
                                 inform_giving_credit(correct_reply, non_updated_users)
                         else:
 				log(parent_post, comment, "Credit already given")
