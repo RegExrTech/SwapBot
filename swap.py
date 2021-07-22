@@ -109,6 +109,8 @@ def update_flair(author1, author2, sub_config):
 	non_updated_users = []
 	# Loop over each author and change their flair
 	for author in [author1, author2]:
+		if not author:
+			continue
 		age = datetime.timedelta(seconds=(time.time() - author.created_utc)).days / 365.0
 		author_string = str(author).lower()
 		updates = []
