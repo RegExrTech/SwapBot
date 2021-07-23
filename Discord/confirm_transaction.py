@@ -175,4 +175,4 @@ for message in confirmation_replies:
 				reddit_user = tmp_reddit.redditor(reddit_username_string)
 				swap.update_flair(reddit_user, None, sub_config)
 
-	reply("This transaction has been recoreded for <@!" + author2_id + "> and <@!" + author1_id + ">.", message['id'])
+	reply("This transaction has been recorded for <@!" + author2_id + "> and <@!" + author1_id + ">.", message['id'])
