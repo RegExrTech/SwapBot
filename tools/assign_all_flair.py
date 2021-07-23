@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, '.')
 import config
 from server import JsonHelper
-from swap import update_single_user_flair, get_sister_sub_count
+from swap import update_single_user_flair, get_swap_count
 import argparse
 import praw
 import time
@@ -44,7 +44,7 @@ for i in range(len(keys)):
 	except:
 		print("Unable to get age for " + user)
 		age = 0
-	count_int = len(db[sub_config.subreddit_name][platform][user]) + get_sister_sub_count(user, sub_config.gets_flair_from)
+	count_int = len(db[sub_config.subreddit_name][platform][user]) + get_swap_count(user, sub_config.gets_flair_from, platform)
 	try:
 		update_single_user_flair(sub, sub_config, user, str(count_int), unassigned_users, age)
 	except:

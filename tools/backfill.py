@@ -16,16 +16,18 @@ PLATFORM = "reddit"
 
 feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
-#feedback_sub_name = "gcxrep"
-#sub_name = "giftcardexchange"
-feedback_sub_name = "c4crep"
-sub_name = "cash4cash"
+feedback_sub_name = "gcxrep"
+sub_name = "giftcardexchange"
+#feedback_sub_name = "c4crep"
+#sub_name = "cash4cash"
 #feedback_sub_name = "snackexchange"
 #sub_name = "snackexchange"
 #feedback_sub_name = "ygomarketplace"
 #sub_name = "ygomarketplace"
 #feedback_sub_name = "thinkpadsforsale"
 #sub_name = "thinkpadsforsale"
+feedback_sub_name = "knife_swap"
+sub_name = "knife_swap"
 
 
 # required function for getting ASCII from json load
@@ -282,7 +284,7 @@ def UpdateFlairs(sub, sub_config, users):
 	count = 0
         for user in users:
 		r = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'current_platform': PLATFORM, 'username': user.lower()})
-                swap_count = str(len(r.json()['data']) + swap.get_sister_sub_count(user, sub_config.gets_flair_from))
+                swap_count = str(len(r.json()['data']) + swap.get_swap_count(user, sub_config.gets_flair_from, PLATFORM))
                 try:
                         swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
                 except Exception as e:
@@ -321,17 +323,17 @@ def get_db(database_file_name=FNAME):
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-ids = set([])
-authors = set(["AchwaqKhalid".lower()])
-GetIdsFromReddit(feedback_sub, authors, ids)
-users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
+#ids = set([])
+#authors = set(["".lower()])
+#GetIdsFromReddit(feedback_sub, authors, ids)
+#users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 #users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-#users_to_confirmations = {"BerryBerrySneaky".lower(): ["LEGACY TRADE"] * 2}
+users_to_confirmations = {"Kurt369".lower(): ["LEGACY TRADE"] * 1}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
