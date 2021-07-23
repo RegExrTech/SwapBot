@@ -155,4 +155,4 @@ for reddit_message in reddit_messages:
 		del(pending_requests[discord_user_id])
 
 # Dump the relevant databases
-json_helper.dump(pending_requests, "pending_requests.json")
+json_helper.dump(pending_requests, "Discord/pending_requests.json")
