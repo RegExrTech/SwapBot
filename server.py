@@ -454,6 +454,37 @@ def add_username_pairing():
 	json_helper.dump(username_lookup, username_lookup_fname)
 	return jsonify({})
 
+@app.route('/remove-username-pairing/', methods=["POST"])
+def remove_username_pairing():
+	"""Removes a paired selection of usernames
+
+	Requested Form Params:
+	String platform1: The first platform for pairing
+	String platform2: The second platform for pairing
+	String username1: The corresponding first username for pairing
+	String username2: The corresonding second username for pairing
+
+	Return JSON {}
+	"""
+	global username_lookup
+	platform1 = request.form["platform1"]
+	platform2 = request.form["platform2"]
+	username1 = request.form["username1"]
+	username2 = request.form["username2"]
+
+	removed = {}
+	if platform1 in username_lookup and username1 in username_lookup[platform1]:
+		del(username_lookup[platform1][username1])
+		removed[platform1] = username1
+	if platform2 in username_lookup and username2 in username_lookup[platform2]:
+		del(username_lookup[platform2][username2])
+		removed[platform2] = username2
+
+	json_helper.dump(username_lookup, username_lookup_fname)
+	return jsonify(removed)
+
+
+
 @app.route('/dump/', methods=["POST"])
 def dump():
 	json_helper.dump(swap_data, swaps_fname)
