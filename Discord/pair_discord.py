@@ -79,20 +79,28 @@ messages = r.json()
 pending_requests = json_helper.get_db("Discord/pending_requests.json")
 paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 
+to_skip = []
+
 # Check Discord for messages
 for message in messages:
 	discord_username = message['author']['username'] + "#" + message['author']['discriminator']
 	discord_username = decode(discord_username.lower())
 	discord_user_id = message['author']['id']
+	discord_message_id = message['id']
+	# If we find a message from the bot and the bot was replying to someone, add that reply to a list of messages to skip over
+	if 'message_reference' in message and message['message_reference'] and discord_username == bot_username.lower():
+		to_skip.append(message['message_reference']['message_id'])
 	# If the message is from the bot, skip
 	if discord_username == bot_username.lower():
 		continue
 	# If the message is from a user with a completed or pending request, skip
 	if discord_user_id in pending_requests or discord_user_id in paired_usernames['discord']:
 		continue
+	# If we already replied to this message, no more work needs to be done
+	if discord_message_id in to_skip:
+		continue
 	body = message['content']
 	reddit_username = get_username_from_text(body)
-	discord_message_id = message['id']
 	# If we were able to find a reddit username in the message
 	if reddit_username:
 		should_delete_message = False
