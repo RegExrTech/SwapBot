@@ -10,7 +10,6 @@ time.sleep(3)
 ps_output = [x for x in os.popen('ps -ef | grep \&\&\ python\ Discord/pair_discord_runner.py').read().splitlines() if 'grep' not in x]
 # If the only output we get from grep is the grep itself and this instance of the runner,
 # then runner is not currently running so this instance should take over
-print(ps_output)
 if len(ps_output) == 1:
 	main()
 elif len(ps_output) == 3:
