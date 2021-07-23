@@ -11,7 +11,7 @@ time_limit = time_limit_minutes * 60 # Seconds
 request_url = "http://0.0.0.0:8000"
 
 bot_username = "Swap Bot#0749"
-TOKENS = json_helper.get_db("config/pkmntcgtrades.json")
+TOKENS = json_helper.get_db("Discord/config/pkmntcgtrades.json")
 
 reddit = praw.Reddit(client_id=TOKENS['reddit_pairing_config']['client_id'], client_secret=TOKENS['reddit_pairing_config']['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', username=TOKENS['reddit_pairing_config']['username'], password=TOKENS['reddit_pairing_config']['password'])
 
@@ -76,7 +76,7 @@ def send_reddit_message(reddit_username, discord_username, reddit, time_limit_mi
 r = requests.get(baseURL, headers = headers)
 messages = r.json()
 
-pending_requests = json_helper.get_db("pending_requests.json")
+pending_requests = json_helper.get_db("Discord/pending_requests.json")
 paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 
 # Check Discord for messages
