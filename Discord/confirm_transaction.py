@@ -34,7 +34,7 @@ headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
 debug = False
 silent = False
 PLATFORM = "discord"
-kofi_text = "\n\n---\n\n[^(Buy the developer a coffee)](https://kofi.regexr.tech)"
+kofi_text = "\n\n---\nBuy the developer a coffee: <https://kofi.regexr.tech>"
 
 def get_mentioned_users(text, invalids):
 	pattern = re.compile("<@!([0-9]{18})>")
@@ -66,6 +66,7 @@ def get_correct_channel_id(post_id):
 	return None, {}
 
 def reply(message, reply_id):
+	message += kofi_text
 	message_data = {'content': message, 'message_reference': {'message_id': reply_id}}
 	requests.post(baseURL, headers=headers, data=json.dumps(message_data))
 
@@ -91,6 +92,8 @@ for message in messages:
 		messages_to_ignore.append(message["referenced_message"])
 
 for message in messages_to_ignore:
+	if not message:
+		continue
 	confirmation_invocations = [x for x in confirmation_invocations if x['id'] != message['id']]
 	confirmation_replies = [x for x in confirmation_replies if x['id'] != message['id']]
 
@@ -129,8 +132,8 @@ for message in confirmation_invocations:
 		continue
 
 	full_original_post_url = "https://www.discord.com/channels/" + server_id + "/" + channel_id + "/" + original_post_id
-	message_data = {'content': "<@"+author2_id+">, if you have **COMPLETED** a transaction with <@"+author1_id+"> from the following post, please **REPLY** to this message indicating as such:\n\n" + full_original_post_url + "\n\nIf you did NOT complete such a transaction, please DO NOT REPLY to this message and instead inform the Officers right away.", 'message_reference': {'message_id': confirmation_message_id}}
-	requests.post(baseURL, headers=headers, data=json.dumps(message_data))
+	reply_message = "<@"+author2_id+">, if you have **COMPLETED** a transaction with <@"+author1_id+"> from the following post, please **REPLY** to this message indicating as such:\n\n" + full_original_post_url + "\n\nIf you did NOT complete such a transaction, please DO NOT REPLY to this message and instead inform the Officers right away."
+	reply(reply_message, confirmation_message_id)
 
 paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 
