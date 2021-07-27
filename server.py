@@ -464,7 +464,7 @@ def remove_username_pairing():
 	String username1: The corresponding first username for pairing
 	String username2: The corresonding second username for pairing
 
-	Return JSON {}
+	Return JSON {'platform': 'removed_username', ...}
 	"""
 	global username_lookup
 	platform1 = request.form["platform1"]
