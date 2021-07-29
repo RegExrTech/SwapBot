@@ -11,6 +11,7 @@ sys.path.insert(0, "Discord")
 from assign_role import assign_role
 from config import Config
 import swap
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)
@@ -36,14 +37,42 @@ silent = False
 PLATFORM = "discord"
 kofi_text = "\n\n---\nBuy the developer a coffee: <https://kofi.regexr.tech>"
 
-def get_mentioned_users(text, invalids):
-	pattern = re.compile("<@!([0-9]{18})>")
-	found = re.findall(pattern, text)
-	return list(set([x for x in found if x not in invalids]))
+POST = "post"
+PUT = "put"
+GET = "get"
+PATCH = "patch"
 
-def get_mentioned_roles(text):
-	pattern = re.compile("<@&([0-9]{18})>")
-	return list(set(re.findall(pattern, text)))
+def send_request(type, url, headers, data="{}", should_retry=True):
+	valid_status_codes = [200, 204]
+
+	if type == POST:
+		r = requests.post(url, headers=headers, data=data)
+	elif type == PUT:
+		r = requests.put(url, headers=headers)
+	elif type == GET:
+		r = requests.get(url, headers=headers)
+	elif type == PATCH:
+		r = requests.patch(url, headers=headers, data=data)
+	else:
+		return
+
+	if r.status_code not in valid_status_codes:
+		if len(data) > 1993:
+			print("Discord data too big: \n" + data)
+			return r
+		status_data = r.json()
+		if 'retry_after' in status_data and should_retry:
+			time.sleep((status_data['retry_after']/1000.0) + 0.1) # Add some buffer to the sleep
+			return send_request(type, url, headers, data, False)
+		else:
+			print("Discord Failure - status: " + str(r.status_code) + " - text: " + r.text + "\nData: " + str(data))
+	return r
+
+def get_mentioned_users(message, invalids):
+	return list(set([x['id'] for x in message['mentions'] if x not in invalids]))
+
+def get_mentioned_roles(message):
+	return list(set(x['id'] for x in message['mention_roles']))
 
 def get_mentioned_posts(text, invalids):
 	pattern = re.compile("([0-9]{18})")
@@ -60,7 +89,7 @@ def get_url(text):
 def get_correct_channel_id(post_id):
 	bst_channel_ids = TOKENS['bst_channels']
 	for bst_channel_id in bst_channel_ids:
-		r = requests.get(bst_channel_url.format(bst_channel_id, post_id), headers = headers)
+		r = send_request(GET, bst_channel_url.format(bst_channel_id, post_id), headers)
 		if r.ok:
 			return bst_channel_id, r.json()
 	return None, {}
@@ -68,14 +97,17 @@ def get_correct_channel_id(post_id):
 def reply(message, reply_id):
 	message += kofi_text
 	message_data = {'content': message, 'message_reference': {'message_id': reply_id}}
-	requests.post(baseURL, headers=headers, data=json.dumps(message_data))
+	if not debug:
+		send_request(POST, baseURL, headers, json.dumps(message_data))
+	else:
+		print("Would have sent message: " + message)
 
 def update_database(author1, author2, listing_url):
 	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': listing_url, 'comment_id': "", 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
 	is_duplicate = return_data['is_duplicate'] == 'True'
 	return is_duplicate
 
-messages = requests.get(baseURL, headers = headers).json()
+messages = send_request(GET, baseURL, headers).json()
 
 confirmation_invocations = []
 confirmation_replies = []
@@ -107,12 +139,12 @@ for message in confirmation_invocations:
 	if bot_user_id == author1_id:
 		continue
 
-	mentioned_users = get_mentioned_users(body, invalids)
+	mentioned_users = get_mentioned_users(message, invalids)
 	if not mentioned_users:
 		reply("You did not mention any users in your message. Please try again.", confirmation_message_id)
 		continue
 
-	mentioned_roles = get_mentioned_roles(body)
+	mentioned_roles = get_mentioned_roles(message)
 
 	mentioned_posts = get_mentioned_posts(body, mentioned_users+mentioned_roles+invalids)
 	if not mentioned_posts:
@@ -140,7 +172,7 @@ paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 for message in confirmation_replies:
 	author1_id = message['author']['id']
 	bot_reply_id = message['referenced_message']['id']
-	bot_message = requests.get(baseURL+"/"+bot_reply_id, headers = headers).json()
+	bot_message = send_request(GET, baseURL+"/"+bot_reply_id, headers).json()
 	author2_message = bot_message['referenced_message']
 	author2_id = author2_message['author']['id']
 	if author1_id not in [x['id'] for x in author2_message['mentions']]:
