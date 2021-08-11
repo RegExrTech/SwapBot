@@ -50,7 +50,7 @@ def is_time_between(begin_time, end_time):
 
 # Method for giving credit to users when they do a trade.
 # Returns True if credit was given, False otherwise
-def update_database(author1, author2, post_id, comment_id), sub_config:
+def update_database(author1, author2, post_id, comment_id, sub_config):
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
 
