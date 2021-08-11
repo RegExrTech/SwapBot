@@ -285,7 +285,7 @@ def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")
 	count = 0
         for user in users:
-                swap_count = swap.get_swap_count(user, sub_config.gets_flair_from+[sub_config.database_name], PLATFORM)
+                swap_count = str(swap.get_swap_count(user, sub_config.gets_flair_from+[sub_config.database_name], PLATFORM))
                 try:
                         swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
                 except Exception as e:
