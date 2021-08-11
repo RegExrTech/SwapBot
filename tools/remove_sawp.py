@@ -26,5 +26,5 @@ indexes = raw_input("Please select the index you wish to remove:\n>> ")
 for index in indexes.split(",")[::-1]:
 	requests.post(request_url + "/remove-swap/", {'sub_name': args.sub_name.lower(), 'platform': args.platform.lower(), 'username': args.username.lower(), 'index': index})
 
-swap_count = swap.get_swap_count(args.username.lower(), sub_config.gets_flair_from+[sub_config.database_name], args.platform.$
+swap_count = swap.get_swap_count(args.username.lower(), sub_config.gets_flair_from+[sub_config.database_name], args.platform.lower())
 swap.update_single_user_flair(sub, sub_config, args.username.lower(), swap_count, [], 0)
