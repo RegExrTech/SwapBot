@@ -30,11 +30,6 @@ def create_reddit_and_sub(sub_name):
 
 request_url = "http://0.0.0.0:8000"
 
-parser = argparse.ArgumentParser()
-parser.add_argument('sub_name', metavar='C', type=str)
-args = parser.parse_args()
-sub_config = config.Config(args.sub_name.lower())
-
 check_time = datetime.datetime.utcnow().time()
 
 kofi_text = "\n\n---\n\n[^(Buy the developer a coffee)](https://kofi.regexr.tech)"
@@ -55,7 +50,7 @@ def is_time_between(begin_time, end_time):
 
 # Method for giving credit to users when they do a trade.
 # Returns True if credit was given, False otherwise
-def update_database(author1, author2, post_id, comment_id):
+def update_database(author1, author2, post_id, comment_id), sub_config:
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
 
@@ -162,7 +157,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 		print("==========")
 
 
-def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, new_ids):
+def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, new_ids, sub_config):
 	# Cache the comment objects so we can reuse them later.
 	ids_to_comments = {}
         # Get comments from username mentions
@@ -222,7 +217,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 				print(e)
 				print("Unable to mark message as read. Leaving it as is.")
 
-def set_archived_comments(reddit, comments):
+def set_archived_comments(reddit, comments, sub_config):
 	ids = ",".join([comment.id for comment in comments])
 	# Cache the comment objects so we can reuse them later.
 	ids_to_comments = {}
@@ -237,7 +232,7 @@ def set_archived_comments(reddit, comments):
 				comment = reddit.comment(id)
 			comments.append(comment)
 
-def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
+def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_config):
 	# Get an instance of the parent post
 	parent_post = comment
 	while parent_post.__class__.__name__ == "Comment":
@@ -323,10 +318,10 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment):
 			print("Author1: " + str(author1))
 			print("Author2: " + str(author2))
                 if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
-                        credit_given = update_database(author1, author2, parent_post.id, comment.id)
+                        credit_given = update_database(author1, author2, parent_post.id, comment.id, sub_config)
                         if credit_given:
                                 non_updated_users = update_flair(author1, author2, sub_config)
-                                inform_giving_credit(correct_reply, non_updated_users)
+                                inform_giving_credit(correct_reply, non_updated_users, sub_config)
                         else:
 				log(parent_post, comment, "Credit already given")
                                 inform_credit_already_given(correct_reply)
@@ -417,7 +412,7 @@ def inform_credit_already_given(comment):
 	reply_text = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
 	reply(comment, reply_text)
 
-def inform_comment_archived(comment):
+def inform_comment_archived(comment, sub_config):
 	comment_text = get_comment_text(comment)
 	author2 = get_username_from_text(comment_text, [sub_config.bot_username, str(comment.author)])
 	reply_text = author2 + ", please reply to the comment above this to confirm with your trade partner.\n\nThis comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance."
@@ -427,7 +422,7 @@ def inform_comment_deleted(comment):
 	reply_text = "This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner."
 	reply(comment, reply_text)
 
-def inform_giving_credit(comment, non_updated_users):
+def inform_giving_credit(comment, non_updated_users, sub_config):
 	reply_text = sub_config.confirmation_text
 	if non_updated_users:
 		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + sub_config.flair_word.lower() + " that is below the threshold of " + str(sub_config.flair_threshold) + " and have **not** had their flair updated:"
@@ -494,14 +489,17 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 	return None
 
 def main():
-	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='Swap Bot for ' + sub_config.subreddit_name + ' v1.0 (by u/RegExr)', username=sub_config.bot_username, password=sub_config.bot_password)
-	sub = reddit.subreddit(sub_config.subreddit_name)
+	parser = argparse.ArgumentParser()
+	parser.add_argument('sub_name', metavar='C', type=str)
+	args = parser.parse_args()
+
+	sub_config, reddit, sub = create_reddit_and_sub(args.sub_name.lower())
 	sub_config.sister_subs[sub_config.subreddit_name] = {'reddit': reddit, 'sub': sub, 'config': sub_config}
 
 	comments = []  # Stores comments from both sources of Ids
         messages = []  # Want to catch everything else for replying
 	new_ids = []  # Want to know which IDs are from comments we're just finding for the first time
-	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages, new_ids)
+	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages, new_ids, sub_config)
 
 	# Process comments
 	if debug:
@@ -513,11 +511,11 @@ def main():
 			print("Could not 'refresh' comment: " + str(comment))
 			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			continue
-		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit, comment.id in new_ids)
+		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit, comment.id in new_ids, sub_config)
 		time_made = comment.created
 		# if this comment is more than three days old and we didn't find a correct looking reply
 		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
-			inform_comment_archived(comment)
+			inform_comment_archived(comment, sub_config)
 			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 
 	# Check the archived comments at least 4 times a day.
@@ -530,7 +528,7 @@ def main():
 		if debug:
 			print("Looking through archived comments...")
 		comments = []
-		set_archived_comments(reddit, comments)
+		set_archived_comments(reddit, comments, sub_config)
 		for comment in comments:
 	                try:
         	                comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
@@ -546,7 +544,7 @@ def main():
 				inform_comment_deleted(comment)
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			else:
-				handle_comment(comment, sub_config.bot_username, sub, reddit, False)
+				handle_comment(comment, sub_config.bot_username, sub, reddit, False, sub_config)
 			time.sleep(.5)
 
 	# This is for if anyone sends us a message requesting swap data
