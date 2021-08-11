@@ -26,8 +26,10 @@ sub_name = "giftcardexchange"
 #sub_name = "ygomarketplace"
 #feedback_sub_name = "thinkpadsforsale"
 #sub_name = "thinkpadsforsale"
-feedback_sub_name = "knife_swap"
-sub_name = "knife_swap"
+#feedback_sub_name = "knife_swap"
+#sub_name = "knife_swap"
+#feedback_sub_name = "pkmntcgtrades"
+#sub_name = "pkmntcgtrades"
 
 
 # required function for getting ASCII from json load
@@ -283,8 +285,7 @@ def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")
 	count = 0
         for user in users:
-		r = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'current_platform': PLATFORM, 'username': user.lower()})
-                swap_count = str(len(r.json()['data']) + swap.get_swap_count(user, sub_config.gets_flair_from, PLATFORM))
+                swap_count = swap.get_swap_count(user, sub_config.gets_flair_from+[sub_config.database_name], PLATFORM)
                 try:
                         swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
                 except Exception as e:
@@ -323,17 +324,17 @@ def get_db(database_file_name=FNAME):
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-#ids = set([])
-#authors = set(["".lower()])
-#GetIdsFromReddit(feedback_sub, authors, ids)
-#users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
+ids = set([])
+authors = set(["chewy_ube".lower()])
+GetIdsFromReddit(feedback_sub, authors, ids)
+users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 #users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
 #users_to_confirmations = GetUserToCss(sub)
 
 ## Use this for manual count assignment
-users_to_confirmations = {"Kurt369".lower(): ["LEGACY TRADE"] * 1}
+#users_to_confirmations = {"zcheryl".lower(): ["LEGACY TRADE"] * 1}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
