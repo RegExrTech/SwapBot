@@ -95,12 +95,9 @@ def get_total_count(db, user):
 
 db = get_db()
 
-for user in ["AchwaqKhalid"]:
+for user in ["845025461758328882"]:
 	print_user_in_all_subs(db, user.lower())
 
-for sub in db:
-	if sub.lower() != sub:
-		print(sub)
 
 #print("\n".join(db['knife_swap']['reddit']['active']))
 

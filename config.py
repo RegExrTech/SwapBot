@@ -36,6 +36,10 @@ class Config():
 		self.mod_flair_word = config['mod_flair_word'] + " "
 		if not self.mod_flair_word.strip():
 			self.mod_flair_word = ""
+		if config['display_mod_count'].lower() == "true":
+			self.display_mod_count = True
+		else:
+			self.display_mod_count = False
 		if config['flair_templates'].lower() == "true":
 			self.flair_templates = get_json_data('templates/'+self.subreddit_name+'.json')
 		else:

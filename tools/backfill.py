@@ -30,6 +30,10 @@ sub_name = "giftcardexchange"
 #sub_name = "knife_swap"
 #feedback_sub_name = "pkmntcgtrades"
 #sub_name = "pkmntcgtrades"
+#feedback_sub_name = "edcexchange"
+#sub_name = "edcexchange"
+feedback_sub_name = "canadianknifeswap"
+sub_name = "canadianknifeswap"
 
 
 # required function for getting ASCII from json load
@@ -57,24 +61,29 @@ def temp(sub, db):
 			print(username + " - " + str(flair_text))
 	return to_return
 
-def GetUserToCss(sub):
-	db = get_db("database/swaps.json")[sub_name][PLATFORM]
+def GetUsersFromCss(sub):
+#	db = get_db("database/swaps.json")[sub_name][PLATFORM]
 	count = 0
 	d = defaultdict(lambda: [])
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
+	print(sub)
 	for flair in sub.flair():
 		username = str(flair['user']).lower()
-		if username in db:
-			continue
+#		if username in db:
+#			continue
 		css = flair['flair_css_class']
 		flair_text = flair['flair_text']
-		if not flair_text:
-			continue
-		try:
-			flair_count = int(flair_text.split(" ")[0])
-		except:
-			print("unable to parse count for user " + username + " with flair text " + flair_text)
-			continue
+#		if not flair_text:
+#			continue
+#		try:
+#			flair_count = int(flair_text.split(" ")[0])
+#		except:
+#			print("unable to parse count for user " + username + " with flair text " + flair_text)
+#			continue
+#		if css or flair_text:
+		flair_count = 1
+#		else:
+#			continue
 		for _ in range(flair_count):
 			d[username].append("LEGACY TRADE")
 		count += 1
@@ -324,14 +333,14 @@ def get_db(database_file_name=FNAME):
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-ids = set([])
-authors = set(["chewy_ube".lower()])
-GetIdsFromReddit(feedback_sub, authors, ids)
-users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
+#ids = set([])
+#authors = set(["chewy_ube".lower()])
+#GetIdsFromReddit(feedback_sub, authors, ids)
+#users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 #users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
 
 ## Use this for backfilling based on flair
-#users_to_confirmations = GetUserToCss(sub)
+users_to_confirmations = GetUsersFromCss(sub)
 
 ## Use this for manual count assignment
 #users_to_confirmations = {"zcheryl".lower(): ["LEGACY TRADE"] * 1}
