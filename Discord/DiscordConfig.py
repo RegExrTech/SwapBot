@@ -13,4 +13,3 @@ class Config():
 		self.bot_id = data["bot_id"]
 		self.bst_channels = data["bst_channels"]
 		self.reddit_pairing_config = data["reddit_pairing_config"]
-		self.reddit_sub_config = data["reddit_sub_config"]
