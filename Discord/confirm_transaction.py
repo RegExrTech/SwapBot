@@ -22,7 +22,7 @@ sub_config = Config(args.sub_name.lower())
 bot_username = "Swap Bot#0749"
 request_url = "http://0.0.0.0:8000"
 
-TOKENS = json_helper.get_db("Discord/config/pkmntcgtrades.json")
+TOKENS = json_helper.get_db("Discord/config/" + args.sub_name.lower() + ".json")
 confirmation_channel = TOKENS["confirmation_channel"]
 server_id = TOKENS["server_id"]
 
