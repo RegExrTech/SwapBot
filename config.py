@@ -48,6 +48,7 @@ class Config():
 		if not self.confirmation_text:
 			self.confirmation_text = "Added"
 		self.flair_threshold = int(config['flair_threshold'])
+		self.post_age_threshold = float(config['post_age_threshold'])
 		self.mod_flair_template = config['mod_flair_template']
 		if config['titles'].lower() == "true":
 			self.titles = get_json_data('titles/'+self.subreddit_name+'.json')

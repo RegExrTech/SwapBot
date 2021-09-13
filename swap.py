@@ -238,6 +238,15 @@ def set_archived_comments(reddit, comments, sub_config):
 				comment = reddit.comment(id)
 			comments.append(comment)
 
+def comment_is_too_early(comment, post, sub_config):
+	# post_age_threshold is measured in days
+	threshold_seconds = sub_config.post_age_threshold * 24 * 60 * 60
+	comment_time = comment.created_utc
+	post_time = post.created_utc
+	if (comment_time - post_time) < threshold_seconds:
+		return True
+	return False
+
 def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_config):
 	# Get an instance of the parent post
 	parent_post = comment
@@ -247,6 +256,12 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	if str(parent_post.subreddit).lower() == "edefinition":
 		print("ALERT! r/edefinition post: redd.it/" + str(parent_post))
 		handle_edefinition(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+		return True
+	# Remove comment if the difference between the post time of the submission and comment are less than the post_age_threshold
+	if comment_is_too_early(comment, parent_post, sub_config):
+		log(parent_post, comment, "Comment was made too early")
+		handle_comment_made_too_early(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
@@ -384,6 +399,10 @@ def handle_edefinition(comment):
 	f.close()
 	random.seed()
 	reply_text = random.choice(reply_options)
+	reply(comment, reply_text)
+
+def handle_comment_made_too_early(comment):
+	reply_text = "You tried to confirm a transaction too quickly! Please make sure that all transactions are confirmed **AFTER** *both* parties have received their end of the deal. **NOT BEFORE**. Please feel free to try confirming again at a later date. Thanks!"
 	reply(comment, reply_text)
 
 def handle_giveaway(comment):
