@@ -116,7 +116,7 @@ messages_to_ignore = []
 for message in messages:
 	author1_id = message['author']['id']
 	bot_user_id = TOKENS["bot_id"]
-	if "referenced_message" in message and bot_user_id != author1_id and message['referenced_message']['author']['id'] == bot_user_id:
+	if "referenced_message" in message and message["referenced_message"] is not None and bot_user_id != author1_id and message['referenced_message']['author']['id'] == bot_user_id:
 		confirmation_replies.append(message)
 	elif bot_user_id != author1_id and "referenced_message" not in message:
 		confirmation_invocations.append(message)
