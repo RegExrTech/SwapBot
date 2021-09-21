@@ -402,7 +402,7 @@ def handle_edefinition(comment):
 	reply(comment, reply_text)
 
 def handle_comment_made_too_early(comment):
-	reply_text = "You tried to confirm a transaction too quickly! Please make sure that all transactions are confirmed **AFTER** *both* parties have received their end of the deal. **NOT BEFORE**. Please feel free to try confirming again at a later date. Thanks!"
+	reply_text = "You tried to confirm a transaction too quickly! Please make sure that all transactions are confirmed **AFTER** *both* parties have received their end of the deal. **NOT BEFORE**. Please feel free to try confirming again at a later date. This comment will no longer be tracked. Thanks!"
 	reply(comment, reply_text)
 
 def handle_giveaway(comment):
