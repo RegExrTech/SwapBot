@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '.')
 from server import JsonHelper
-from swap import update_single_user_flair, get_swap_count, create_reddit_and_sub
+from swap import update_single_user_flair, get_swap_count, create_reddit_and_sub, update_flair
 import argparse
 import praw
 import time
@@ -36,14 +36,18 @@ for i in range(len(keys)):
 	except:
 		continue
 	try:
-		age = datetime.timedelta(seconds=(time.time() - reddit.redditor(user).created_utc)).days / 365.0
+		redditor = reddit.redditor(user)
+		update_flair(redditor, None, sub_config)
+		time.sleep(0.5)
 	except:
-		print("Unable to get age for " + user)
-		age = 0
-	count_int = len(db[sub_config.subreddit_name][platform][user]) + get_swap_count(user, sub_config.gets_flair_from, platform)
-	try:
-		update_single_user_flair(sub, sub_config, user, str(count_int), unassigned_users, age)
-	except:
-		unassigned_users.append(user)
+		time.sleep(20)
+		try:
+			redditor = reddit.redditor(user)
+			update_flair(redditor, None, sub_config)
+			time.sleep(0.5)
+		except:
+			print("    Unable to update flair for " + user)
+			unassigned_users.append(user)
+
 
 print("The following users did not get their flair updated:\n  " + "\n  ".join(unassigned_users))
