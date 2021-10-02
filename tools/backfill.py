@@ -18,6 +18,8 @@ feedback_sub_name = "WatchExchangeFeedback".lower()
 sub_name = "WatchExchange".lower()
 feedback_sub_name = "gcxrep"
 sub_name = "giftcardexchange"
+feedback_sub_name = "mushroomkingdom"
+sub_name = "gamesale"
 #feedback_sub_name = "c4crep"
 #sub_name = "cash4cash"
 #feedback_sub_name = "snackexchange"
@@ -32,8 +34,10 @@ sub_name = "giftcardexchange"
 #sub_name = "pkmntcgtrades"
 #feedback_sub_name = "edcexchange"
 #sub_name = "edcexchange"
-feedback_sub_name = "canadianknifeswap"
-sub_name = "canadianknifeswap"
+#feedback_sub_name = "canadianknifeswap"
+#sub_name = "canadianknifeswap"
+#feedback_sub_name = "letstradepedals"
+#sub_name = "letstradepedals"
 
 
 # required function for getting ASCII from json load
@@ -47,44 +51,33 @@ def get_db(database_file_name):
                 funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
         return funko_store_data
 
-def temp(sub, db):
-	to_return = []
-	for flair in sub.flair():
-		username = str(flair['user']).lower()
-		if username == 'none':
-			continue
-		if username == "automoderator":
-			continue
-		flair_text = flair['flair_text']
-		if not flair_text or  "|" not in flair_text or username not in db:
-			to_return.append(username)
-			print(username + " - " + str(flair_text))
-	return to_return
-
 def GetUsersFromCss(sub):
 #	db = get_db("database/swaps.json")[sub_name][PLATFORM]
 	count = 0
 	d = defaultdict(lambda: [])
+	mapping = {'oredshroom': 10, '5oblueshroom': 5, '5oredshroom': 10, 'complicatedorc': 5, '5oblueshroom': 5, 'oredshroom': 10, 'ogreenshroom': 25, '5blueshroom': 5, 'redshroom': 10, 'greenshroom': 25, 'superstar': 100, 'silvershroom': 50, 'goldshroom': 75, 'osilvershroom': 50, 'ogoldshroom': 75, 'osuperstar': 100, 'rainbow': 200}
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
-	print(sub)
 	for flair in sub.flair():
 		username = str(flair['user']).lower()
 #		if username in db:
 #			continue
 		css = flair['flair_css_class']
 		flair_text = flair['flair_text']
-#		if not flair_text:
-#			continue
-#		try:
-#			flair_count = int(flair_text.split(" ")[0])
-#		except:
-#			print("unable to parse count for user " + username + " with flair text " + flair_text)
-#			continue
-#		if css or flair_text:
-		flair_count = 1
-#		else:
-#			continue
-		for _ in range(flair_count):
+		if not css and not flair_text:
+			print(username + " -  - ")
+		elif not css:
+			print(username + " -  - " + flair_text)
+		elif not flair_text:
+			print(username + " - " + css + " - ")
+		else:
+			print(username + " - " + css + " - " + flair_text)
+		if not css:
+			continue
+		css = css.strip()
+		if css not in mapping:
+			print("Found weird CSS: " + username + " - " + css)
+			continue
+		for _ in range(mapping[css]):
 			d[username].append("LEGACY TRADE")
 		count += 1
 		if not count % 100:
@@ -132,10 +125,16 @@ def GetIdsFromPushshift(feedback_sub_name):
 		data = r.json()['data']
 	return ids, authors
 
+def GetIdsFromUsername(author_name, reddit, ids):
+	user = reddit.redditor(author_name)
+	submissions = user.submissions.new(limit=None)
+	for submission in submissions:
+	    ids.add(submission.id)
+
 def GetIdsFromReddit(sub, authors, ids):
 	print("Grabbing IDs from Reddit")
 	submission_count = 0
-	for submission in sub.new(limit=1):
+	for submission in sub.new(limit=0):
 		ids.add(submission.id)
 		authors.add(str(submission.author).lower())
 		if sub.display_name.lower() == 'watchexchangefeedback':
@@ -216,6 +215,32 @@ def GetUserCountsGCXRep(authors, ids, sub_config):
 					correct_reply = reply
 			if correct_reply:
 				d[author.lower()].append(potential_author_two.lower() + " - https://www.reddit.com" + str(submission.permalink)+str(comment.id))
+	return d
+
+
+def GetUserCountsFromMegaThreads(ids, sub_config):
+	d = defaultdict(lambda: [])
+	count = 0
+	for id in ids:
+		count += 1
+		print("Parsing thread number " + str(count) + " out of " + str(len(ids)))
+		time.sleep(0.5)
+		try:
+			submission = reddit.submission(id=id)
+		except Exception as e:
+			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
+			time.sleep(20)
+			submission = reddit.submission(id=id)
+		submission.comments.replace_more(limit=None)
+		for top_level_comment in submission.comments:
+			text = swap.get_comment_text(top_level_comment)
+			partner = swap.get_username_from_text(text, [str(top_level_comment.author).lower()])[2:]
+			reply = swap.find_correct_reply(top_level_comment, top_level_comment.author, "u/"+partner, submission)
+			if reply:
+				author1 = str(top_level_comment.author).lower()
+				author2 = partner
+				d[author1].append(author2 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
+				d[author2].append(author1 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
 	return d
 
 
@@ -330,21 +355,36 @@ def get_db(database_file_name=FNAME):
         return funko_store_data
 
 
-
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-#ids = set([])
-#authors = set(["chewy_ube".lower()])
-#GetIdsFromReddit(feedback_sub, authors, ids)
+ids = set([])
+authors = set([''.lower()])
+GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
+#GetIdsFromReddit(_sub, authors, ids)
 #users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 #users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
 
+## Use this for backfilling from mega threads
+users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
+print(users_to_confirmations)
+flair_users_to_confirmations = GetUsersFromCss(sub)
+for user in flair_users_to_confirmations:
+	if user in users_to_confirmations:
+		if len(flair_users_to_confirmations[user]) > len(users_to_confirmations[user]):
+			users_to_confirmations[user] = flair_users_to_confirmations[user][:len(flair_users_to_confirmations[user])-len(users_to_confirmations[user])] + users_to_confirmations[user]
+	else:
+		users_to_confirmations[user] = flair_users_to_confirmations[user]
+
 ## Use this for backfilling based on flair
-users_to_confirmations = GetUsersFromCss(sub)
+#users_to_confirmations = GetUsersFromCss(sub)
+
+
 
 ## Use this for manual count assignment
-#users_to_confirmations = {"zcheryl".lower(): ["LEGACY TRADE"] * 1}
+#users_to_confirmations = {"hobbyistimpulsebuyer".lower(): ["LEGACY TRADE"] * 1}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
+
+print(users_to_confirmations)
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
