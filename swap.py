@@ -258,16 +258,17 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		handle_edefinition(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
+	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
+	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+		return True
 	# Remove comment if the difference between the post time of the submission and comment are less than the post_age_threshold
 	if comment_is_too_early(comment, parent_post, sub_config):
 		log(parent_post, comment, "Comment was made too early")
 		handle_comment_made_too_early(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
-	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
-	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
-		return True
+	# Remove comments made by shadowbanned users.
 	if comment.banned_by:
 		log(parent_post, comment, "Comment was made by a shadow banned user")
 		handle_comment_by_filtered_user(comment)
