@@ -582,10 +582,6 @@ def main():
 			reply_to_message(message, reply_text, sub_config)
 			continue
 		trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
-		if not trades:  # if that user has not done any trades, we have no info for them.
-			reply_text = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " yet."
-			reply_to_message(message, reply_text, sub_config)
-			continue
 		# Text based on swaps for this sub
 		if len(trades) == 0:
 			reply_header = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " in this sub yet."
