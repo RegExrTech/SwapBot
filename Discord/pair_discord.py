@@ -120,26 +120,30 @@ for message in messages:
 	reply_text = ""
 	# If we were able to find a reddit username in the message
 	if reddit_username is not None and reddit_username:
-		# Try to send a PM via reddit
-		try:
-			reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
-		# If we fail, tell them to try again later
-		except Exception as e:
-			error_text = str(e)
-			if "RATELIMIT" in error_text:
-				if 'minute' in error_text:
-					time_to_sleep = int(error_text.split("Take a break for ")[1].split(" minute")[0]) * 60
+		# If the reddit username in question has already been paired:
+		if reddit_username in paired_usernames['reddit']:
+			reply_text = "Sorry, this Reddit account was already used to pair with a different discord account. Specifically, it is paired to <@" + str(paired_usernames['reddit'][reddit_username]['discord'] + ">.")
+		else:
+			# Try to send a PM via reddit
+			try:
+				reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
+			# If we fail, tell them to try again later
+			except Exception as e:
+				error_text = str(e)
+				if "RATELIMIT" in error_text:
+					if 'minute' in error_text:
+						time_to_sleep = int(error_text.split("Take a break for ")[1].split(" minute")[0]) * 60
+					else:
+						time_to_sleep = int(error_text.split("Take a break for ")[1].split(" second")[0])
+					time.sleep(time_to_sleep + 2)
+					try:
+						reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
+					except Exception as e:
+						print(e)
+						reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
 				else:
-					time_to_sleep = int(error_text.split("Take a break for ")[1].split(" second")[0])
-				time.sleep(time_to_sleep + 2)
-				try:
-					reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
-				except Exception as e:
 					print(e)
-					reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
-			else:
-				print(e)
-				reply_text = "Sorry, <@" + str(discord_user_id) + ">, I was unable to send a message to that username. Please check your spelling and try again."
+					reply_text = "Sorry, <@" + str(discord_user_id) + ">, I was unable to send a message to that username. Please check your spelling and try again."
 	elif reddit_username is not None and not reddit_username:
 		reply_text = "Sorry, I was unable to detect a reddit username in your message. Please send another message, ensuring that the reddit usernames begin with u/. Thanks!"
 	else:
