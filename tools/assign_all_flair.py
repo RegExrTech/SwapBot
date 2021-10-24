@@ -28,7 +28,7 @@ keys = db[sub_config.subreddit_name][platform].keys()
 mods = [str(x).lower() for x in sub.moderator()]
 
 for i in range(len(keys)):
-	user = keys[i]
+	user = keys[i].lower()
 	if user not in db[sub_config.subreddit_name][platform]:
 		db[sub_config.subreddit_name][platform][user] = []
 	try:
