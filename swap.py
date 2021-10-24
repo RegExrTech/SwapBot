@@ -151,8 +151,8 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 				sub.flair.set(author, flair_text, flair_template_id=template)
 			else:
 				sub.flair.set(author, flair_text, swap_count)
-		except:
-			print("Error assigning flair to " + str(author) + ". Please update flair manually.")
+		except Exception as e:
+			print("Error assigning flair to " + str(author) + " on sub " + sub_config.subreddit_name + " with error " + str(e) + ". Please update flair manually.")
 		if sub_config.discord_config and discord_role_id:
 			paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 			if author in paired_usernames['reddit']:
