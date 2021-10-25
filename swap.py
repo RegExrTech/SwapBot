@@ -320,6 +320,12 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		handle_deleted_post(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
+	# Remove comment if post has been removed by a moderator
+	if not parent_post.is_robot_indexable:
+		log(parent_post, comment, "Post was removed by a moderator.")
+		handle_comment_on_removed_post(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+		return True
 	# Remove comment if neither the person doing the tagging nor the person being tagged are the OP
 	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		log(parent_post, comment, "Neither participant is OP")
@@ -383,6 +389,10 @@ def reply(comment, reply_text):
 
 def handle_no_author2(comment):
 	reply_text = "You did not tag anyone other than this bot in your comment. Please post a new top level comment tagging this bot and the person you traded with to get credit for the trade."
+	reply(comment, reply_text)
+
+def handle_comment_on_removed_post(comment):
+	reply_text = "Sorry, but the post you just commented on was removed by a moderator. Removed posts cannot be used to confirm transactions. If you believe this post was removed in error, please reach out to the mods via mod mail to get it approved. Otherwise, please try again on a post that has not been removed. Thanks!"
 	reply(comment, reply_text)
 
 def handle_deleted_post(comment):
