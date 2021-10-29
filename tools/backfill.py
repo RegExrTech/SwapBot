@@ -5,6 +5,7 @@ sys.path.insert(0, '.')
 import config
 import swap
 
+import argparse
 from collections import defaultdict
 import time
 import re
@@ -14,42 +15,34 @@ request_url = "http://0.0.0.0:8000"
 
 PLATFORM = "reddit"
 
-feedback_sub_name = "WatchExchangeFeedback".lower()
-sub_name = "WatchExchange".lower()
-feedback_sub_name = "gcxrep"
-sub_name = "giftcardexchange"
-feedback_sub_name = "mushroomkingdom"
-sub_name = "gamesale"
-#feedback_sub_name = "c4crep"
-#sub_name = "cash4cash"
-#feedback_sub_name = "snackexchange"
-#sub_name = "snackexchange"
-#feedback_sub_name = "ygomarketplace"
-#sub_name = "ygomarketplace"
-#feedback_sub_name = "thinkpadsforsale"
-#sub_name = "thinkpadsforsale"
-#feedback_sub_name = "knife_swap"
-#sub_name = "knife_swap"
-#feedback_sub_name = "pkmntcgtrades"
-#sub_name = "pkmntcgtrades"
-#feedback_sub_name = "edcexchange"
-#sub_name = "edcexchange"
-#feedback_sub_name = "canadianknifeswap"
-#sub_name = "canadianknifeswap"
-#feedback_sub_name = "letstradepedals"
-#sub_name = "letstradepedals"
+parser = argparse.ArgumentParser()
+parser.add_argument('sub_name', metavar='C', type=str)
+args = parser.parse_args()
+sub_name = args.sub_name.lower()
 
+if sub_name == "WatchExchange".lower():
+	feedback_sub_name = "WatchExchangeFeedback".lower()
+elif sub_name == "giftcardexchange":
+	feedback_sub_name = "gcxrep"
+elif sub_name == "gamesale":
+	feedback_sub_name = "mushroomkingdom"
+elif sub_name == "cash4cash":
+	feedback_sub_name = "c4crep"
+elif sub_name == "ygomarketplace":
+	feedback_sub_name = "ygofeedback"
+else:
+	feedback_sub_name = sub_name
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
-        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-        return dict(map(ascii_encode, pair) for pair in data.items())
+	ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
+	return dict(map(ascii_encode, pair) for pair in data.items())
 
 # Function to load the DB into memory
 def get_db(database_file_name):
-        with open(database_file_name) as json_data: # open the funko-shop's data
-                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-        return funko_store_data
+	with open(database_file_name) as json_data: # open the funko-shop's data
+		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+	return funko_store_data
 
 def GetUsersFromCss(sub):
 #	db = get_db("database/swaps.json")[sub_name][PLATFORM]
@@ -124,6 +117,7 @@ def GetIdsFromPushshift(feedback_sub_name):
 		r = requests.get("https://api.pushshift.io/reddit/submission/search?subreddit=" + feedback_sub_name + "&after=" + str(after) + "&before=" + str(int(time.time()))  + "&size=100")
 		data = r.json()['data']
 	return ids, authors
+
 
 def GetIdsFromUsername(author_name, reddit, ids):
 	user = reddit.redditor(author_name)
@@ -249,7 +243,6 @@ def GetUserCountsWatchExchangeFeedback(authors, ids, sub_config):
 	d = defaultdict(lambda: [])
 
 	count = 0
-
 	for id in ids:
 		time.sleep(0.5)
 		try:
@@ -260,7 +253,7 @@ def GetUserCountsWatchExchangeFeedback(authors, ids, sub_config):
 			submission = reddit.submission(id=id)
 		author = str(submission.author).lower()
 		author2 = ""
-                match = re.compile("\/*u\/([A-Za-z0-9_-]+)")
+		match = re.compile("\/*u\/([A-Za-z0-9_-]+)")
 		found = match.findall(submission.title.lower())
 		if found:
 			author2 = found[0]
@@ -318,18 +311,21 @@ def UpdateDatabase(sub_name, users_to_confirmations):
 def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")
 	count = 0
-        for user in users:
-                swap_count = str(swap.get_swap_count(user, sub_config.gets_flair_from+[sub_config.database_name], PLATFORM))
-                try:
-                        swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
-                except Exception as e:
-                        print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
-                        time.sleep(20)
+	for user in users:
+		user = reddit.redditor(user)
+#		swap_count = str(swap.get_swap_count(user, sub_config.gets_flair_from+[sub_config.database_name], PLATFORM))
+		try:
+			swap.update_flair(user, None, sub_config)
+#			swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
+		except Exception as e:
+			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
+			time.sleep(20)
 			try:
-	                        swap.update_single_user_flair(sub, sub_config, user, swap_count, [])
+				swap.update_flair(user, None, sub_config)
+#				swap.update_single_user_flair(sub, sub_config, user, swap_count, [])
 			except Exception as e:
-				print("Unable to assign flair to " + user + ":\n    " + str(e))
-                time.sleep(0.5)
+				print("Unable to assign flair to " + str(user) + ":\n    " + str(e))
+		time.sleep(0.5)
 		count += 1
 		if count % 25 == 0:
 			print("Finished assigning flair for " + str(count) + " users out of " + str(len(users)) + " users.")
@@ -339,52 +335,48 @@ reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.cl
 sub = reddit.subreddit(sub_config.subreddit_name)
 feedback_sub = reddit.subreddit(feedback_sub_name)
 
+print("sub_name: " + sub_name)
+print("feedback_sub_name: " + feedback_sub_name)
 
 FNAME = 'database/swaps.json'
 #FNAME = 'database/comments.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
-        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-        return dict(map(ascii_encode, pair) for pair in data.items())
+	ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
+	return dict(map(ascii_encode, pair) for pair in data.items())
 
 # Function to load the DB into memory
 def get_db(database_file_name=FNAME):
-        with open(database_file_name) as json_data: # open the funko-shop's data
-                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-        return funko_store_data
+	with open(database_file_name) as json_data: # open the funko-shop's data
+		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
+	return funko_store_data
 
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 ids = set([])
-authors = set([''.lower()])
-GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
-#GetIdsFromReddit(_sub, authors, ids)
-#users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
-#users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
+authors = set(['specu12'.lower()])
 
-## Use this for backfilling from mega threads
-users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
+if sub_name == "gamesale":
+	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
+elif sub_name in ["giftcardexchange"]:
+	GetIdsFromReddit(feedback_sub, authors, ids)
+
+if sub_name == "watchexchange":
+	users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
+elif sub_name == "giftcardexchange":
+	users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
+elif sub_name == "":
+	users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
+elif sub_name == "":
+	users_to_confirmations = GetUsersFromCss(sub)
+
 print(users_to_confirmations)
-flair_users_to_confirmations = GetUsersFromCss(sub)
-for user in flair_users_to_confirmations:
-	if user in users_to_confirmations:
-		if len(flair_users_to_confirmations[user]) > len(users_to_confirmations[user]):
-			users_to_confirmations[user] = flair_users_to_confirmations[user][:len(flair_users_to_confirmations[user])-len(users_to_confirmations[user])] + users_to_confirmations[user]
-	else:
-		users_to_confirmations[user] = flair_users_to_confirmations[user]
-
-## Use this for backfilling based on flair
-#users_to_confirmations = GetUsersFromCss(sub)
-
-
 
 ## Use this for manual count assignment
 #users_to_confirmations = {"hobbyistimpulsebuyer".lower(): ["LEGACY TRADE"] * 1}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
-
-print(users_to_confirmations)
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
