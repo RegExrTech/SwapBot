@@ -139,6 +139,7 @@ def check_comment():
 	String author1: The first trade partner's name
 	String author2: The second trade partner's name
 	String post_id: The ID of the post where the trade took place
+	Optional(String) top_level_comment_id: The ID of the top most comment in the comment chain
 	String comment_id: The ID of the comment where the trade took place
 	String platform: The platform the comment is coming from
 
@@ -160,9 +161,15 @@ def check_comment():
 	author2 = request.form['author2']
 	post_id = request.form['post_id']
 	comment_id = request.form['comment_id']
+	if 'top_level_comment_id' in request.form:
+		top_level_comment_id = request.form['top_level_comment_id']
+	else:
+		top_level_comment_id = ""
 
 	if platform == 'reddit':
 		message = " - https://www.reddit.com/r/" + request.form['real_sub_name'] + "/comments/" + post_id
+		if top_level_comment_id:
+			message += "/-/" + top_level_comment_id
 	elif platform == 'discord':
 		message = " - " + post_id
 	else:

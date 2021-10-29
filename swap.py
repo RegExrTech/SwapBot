@@ -44,18 +44,18 @@ def get_comment_text(comment):
 # Checks if the time at script start up is between two desired times
 def is_time_between(begin_time, end_time):
     if begin_time < end_time:
-        return check_time >= begin_time and check_time <= end_time
+	return check_time >= begin_time and check_time <= end_time
     else: # crosses midnight
-        return check_time >= begin_time or check_time <= end_time
+	return check_time >= begin_time or check_time <= end_time
 
 # Method for giving credit to users when they do a trade.
 # Returns True if credit was given, False otherwise
-def update_database(author1, author2, post_id, comment_id, sub_config):
+def update_database(author1, author2, post_id, comment_id, sub_config, top_level_comment_id=""):
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
 
 	# Default generic value for swaps
-	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
+	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id,'top_level_comment_id': top_level_comment_id,  'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
 	is_duplicate = return_data['is_duplicate'] == 'True'
 	return not is_duplicate
 
@@ -166,20 +166,20 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, new_ids, sub_config):
 	# Cache the comment objects so we can reuse them later.
 	ids_to_comments = {}
-        # Get comments from username mentions
+	# Get comments from username mentions
 	ids = []
 	to_mark_as_read = []
 	try:
 		for message in reddit.inbox.unread():
 			to_mark_as_read.append(message)
-        	        if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
-                	        try:
+			if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
+				try:
 					ids.append(message.id)
 					ids_to_comments[id] = message
-	                        except:  # if this fails, the user deleted their account or comment so skip it
-        	                        pass
-                	elif not message.was_comment:
-                        	messages.append(message)
+				except:  # if this fails, the user deleted their account or comment so skip it
+					pass
+			elif not message.was_comment:
+				messages.append(message)
 	except Exception as e:
 		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
@@ -205,15 +205,15 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 	return_data = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids), 'platform': PLATFORM}).json()
 	ids = return_data['ids']
 	new_ids += return_data['new_ids']
-        for comment_id in ids:
-                try:
+	for comment_id in ids:
+		try:
 			if comment_id in ids_to_comments:
 				comment = ids_to_comments[comment_id]
 			else:
 				comment = reddit.comment(comment_id)
-                        comments.append(comment)
-                except:  # If we fail, the user deleted their comment or account, so skip
-                        pass
+			comments.append(comment)
+		except:  # If we fail, the user deleted their comment or account, so skip
+			pass
 
 	if not debug:
 		for message in to_mark_as_read:
@@ -238,11 +238,14 @@ def set_archived_comments(reddit, comments, sub_config):
 				comment = reddit.comment(id)
 			comments.append(comment)
 
-def comment_is_too_early(comment, post, sub_config):
+def comment_is_too_early(comment, post, top_level_comment, sub_config):
+	if str(post.author).lower() == "automoderator":
+		post_time = top_level_comment.created_utc
+	else:
+		post_time = post.created_utc
 	# post_age_threshold is measured in days
 	threshold_seconds = sub_config.post_age_threshold * 24 * 60 * 60
 	comment_time = comment.created_utc
-	post_time = post.created_utc
 	if (comment_time - post_time) < threshold_seconds:
 		return True
 	return False
@@ -250,7 +253,9 @@ def comment_is_too_early(comment, post, sub_config):
 def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_config):
 	# Get an instance of the parent post
 	parent_post = comment
+	top_level_comment = comment
 	while parent_post.__class__.__name__ == "Comment":
+		top_level_comment = parent_post
 		parent_post = parent_post.parent()
 	# r/edefinition keeps the bot around as a pet. Have some fun with them here.
 	if str(parent_post.subreddit).lower() == "edefinition":
@@ -262,12 +267,6 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
-	# Remove comment if the difference between the post time of the submission and comment are less than the post_age_threshold
-	if comment_is_too_early(comment, parent_post, sub_config):
-		log(parent_post, comment, "Comment was made too early")
-		handle_comment_made_too_early(comment)
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
-		return True
 	# Remove comments made by shadowbanned users.
 	if comment.banned_by:
 		log(parent_post, comment, "Comment was made by a shadow banned user")
@@ -277,11 +276,11 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	author1 = comment.author  # Author of the top level comment
 	comment_text = get_comment_text(comment)
 	# Determine if they properly tagged a trade partner
-        desired_author2_string = get_username_from_text(comment_text, [bot_username, str(author1)])
-        if not desired_author2_string:
-                handle_no_author2(comment)
+	desired_author2_string = get_username_from_text(comment_text, [bot_username, str(author1)])
+	if not desired_author2_string:
+		handle_no_author2(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
-                return True
+		return True
 	# Remove comment if author2 is not a real reddit account
 	try:
 		reddit.redditor(desired_author2_string.split("/")[1]).id
@@ -326,36 +325,61 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		handle_comment_on_removed_post(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
+	# Handle confirmations in automod threads
+	if str(parent_post.author).lower() == "automoderator":
+		# Confirmations in Automod threads must not be done at the top level.
+		if comment == top_level_comment:
+			handle_top_level_in_automod(comment)
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+			return True
+		# Remove comment if neither the person doing the tagging nor the person being tagged are the OP of the top level comment
+		if not str(author1).lower() == str(top_level_comment.author).lower() and not "u/"+str(top_level_comment.author).lower() == desired_author2_string.lower():
+			log(parent_post, comment, "Neither participant is OP")
+			handle_not_op(comment, str(top_level_comment.author))
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+			return True
 	# Remove comment if neither the person doing the tagging nor the person being tagged are the OP
-	if not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
+	elif not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		log(parent_post, comment, "Neither participant is OP")
 		handle_not_op(comment, str(parent_post.author))
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
+	# Remove comment if the difference between the post time of the submission and comment are less than the post_age_threshold
+	if comment_is_too_early(comment, parent_post, top_level_comment, sub_config):
+		log(parent_post, comment, "Comment was made too early")
+		handle_comment_made_too_early(comment)
+		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+		return True
 
-        correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
-        if correct_reply:
+	correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
+	if correct_reply:
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
 		if correct_reply.banned_by:
 			log(parent_post, comment, "Replying user is shadow banned")
 			handle_reply_by_filtered_user(comment)
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			return True
-                author2 = correct_reply.author
+		author2 = correct_reply.author
 		if debug:
 			print("Author1: " + str(author1))
 			print("Author2: " + str(author2))
-                if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
-                        credit_given = update_database(author1, author2, parent_post.id, comment.id, sub_config)
-                        if credit_given:
-                                non_updated_users = update_flair(author1, author2, sub_config)
-                                inform_giving_credit(correct_reply, non_updated_users, sub_config)
-                        else:
-				log(parent_post, comment, "Credit already given")
-                                inform_credit_already_given(correct_reply)
-				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+
+		if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
+			credit_given = update_database(author1, author2, parent_post.id, comment.id, sub_config)
+		elif str(parent_post.author).lower() == "automoderator":
+			credit_given = update_database(author1, author2, parent_post.id, comment.id, sub_config, top_level_comment.id)
+		else:
+			credit_given = False
+
+		if credit_given:
+			non_updated_users = update_flair(author1, author2, sub_config)
+			inform_giving_credit(correct_reply, non_updated_users, sub_config)
+		else:
+			log(parent_post, comment, "Credit already given")
+			inform_credit_already_given(correct_reply)
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
-        else:  # If we found no correct looking comments, let's come back to it later
+	else:  # If we found no correct looking comments, let's come back to it later
 		# New comments get auto response so users know they've been heard
 		if is_new_comment:
 			inform_comment_tracked(comment, desired_author2_string)
@@ -418,6 +442,10 @@ def handle_comment_made_too_early(comment):
 
 def handle_giveaway(comment):
 	reply_text = "This post is marked as a (giveaway). As such, it cannot be used to confirm any transactions as no transactions have occured. Giveaways are not valid for increasing your feedback score. This comment will not be tracked and no feedback will be given."
+	reply(comment, reply_text)
+
+def handle_top_level_in_automod(comment):
+	reply_text = "Confirmations done in a thread authored by Automoderator should be done as replies to the comment where the transaction originated, **NOT** as top level replies to the post. Please make a new comment replying to the original comment in this thread that initiated the transaction. Thank you!"
 	reply(comment, reply_text)
 
 def handle_not_op(comment, op_author):
@@ -519,9 +547,9 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 		potential_author2_string = "u/"+str(reply.author).lower()
 		if not potential_author2_string == desired_author2_string:
 			continue
-                if str(author1).lower() == potential_author2_string:  # They can't get credit for swapping with themselves
-                        continue
-                return reply
+		if str(author1).lower() == potential_author2_string:  # They can't get credit for swapping with themselves
+			continue
+		return reply
 	return None
 
 def main():
@@ -533,7 +561,7 @@ def main():
 	sub_config.sister_subs[sub_config.subreddit_name] = {'reddit': reddit, 'sub': sub, 'config': sub_config}
 
 	comments = []  # Stores comments from both sources of Ids
-        messages = []  # Want to catch everything else for replying
+	messages = []  # Want to catch everything else for replying
 	new_ids = []  # Want to know which IDs are from comments we're just finding for the first time
 	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages, new_ids, sub_config)
 
@@ -566,12 +594,12 @@ def main():
 		comments = []
 		set_archived_comments(reddit, comments, sub_config)
 		for comment in comments:
-	                try:
-        	                comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
+			try:
+				comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
 			except praw.exceptions.ClientException as e:
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e) + "\n    Removing comment...")
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
-	                        continue
+				continue
 			except Exception as e:
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
 				continue
