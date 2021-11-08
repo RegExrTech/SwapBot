@@ -134,7 +134,10 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 		if author in mods and not sub_config.display_mod_count:
 			flair_text = ""
 		else:
-			flair_text = swap_count + sub_config.flair_word
+			if swap_count == "1":
+				flair_text = swap_count + sub_config.flair_word[:-1]
+			else:
+				flair_text = swap_count + sub_config.flair_word
 		if author in mods and sub_config.mod_flair_word:
 			template = sub_config.mod_flair_template
 			if flair_text:
