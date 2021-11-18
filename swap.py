@@ -391,6 +391,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		return False
 
 def get_username_from_text(text, usernames_to_ignore=[]):
+	text = text.replace("/user/", "/u/")
 	pattern = re.compile("u\/([A-Za-z0-9_-]+)")
 	found = re.findall(pattern, text)
 	username = ""
