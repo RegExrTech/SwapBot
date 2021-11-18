@@ -31,8 +31,9 @@ for i in range(len(keys)):
 	user = keys[i].lower()
 	if user not in db[sub_config.subreddit_name][platform]:
 		db[sub_config.subreddit_name][platform][user] = []
+	count = len(db[sub_config.subreddit_name][platform][user])
 	try:
-		print(str(i) + ") Updating user " + user + " to flair " + str(len(db[sub_config.subreddit_name][platform][user])))
+		print(str(i) + ") Updating user " + user + " to flair " + str(count))
 	except:
 		continue
 	try:

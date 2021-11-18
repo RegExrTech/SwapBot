@@ -95,9 +95,7 @@ def get_total_count(db, user):
 
 db = get_db()
 
-for user in ["ebudd08"]:
+for user in ["luizguilhermeg"]:
 	print_user_in_all_subs(db, user.lower())
 
-
 #dump(db)
-
