@@ -20,8 +20,8 @@ parser.add_argument('sub_name', metavar='C', type=str)
 args = parser.parse_args()
 sub_name = args.sub_name.lower()
 
-if sub_name == "WatchExchange".lower():
-	feedback_sub_name = "WatchExchangeFeedback".lower()
+if sub_name == "watchexchange":
+	feedback_sub_name = "watchexchangefeedback"
 elif sub_name == "giftcardexchange":
 	feedback_sub_name = "gcxrep"
 elif sub_name == "gamesale":
@@ -50,27 +50,38 @@ def GetUsersFromCss(sub):
 	d = defaultdict(lambda: [])
 	mapping = {'oredshroom': 10, '5oblueshroom': 5, '5oredshroom': 10, 'complicatedorc': 5, '5oblueshroom': 5, 'oredshroom': 10, 'ogreenshroom': 25, '5blueshroom': 5, 'redshroom': 10, 'greenshroom': 25, 'superstar': 100, 'silvershroom': 50, 'goldshroom': 75, 'osilvershroom': 50, 'ogoldshroom': 75, 'osuperstar': 100, 'rainbow': 200}
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
+	to_review = []
 	for flair in sub.flair():
 		username = str(flair['user']).lower()
 #		if username in db:
 #			continue
 		css = flair['flair_css_class']
 		flair_text = flair['flair_text']
-		if not css and not flair_text:
-			print(username + " -  - ")
-		elif not css:
-			print(username + " -  - " + flair_text)
-		elif not flair_text:
-			print(username + " - " + css + " - ")
-		else:
-			print(username + " - " + css + " - " + flair_text)
-		if not css:
+#		if not css and not flair_text:
+#			print(username + " -  - ")
+#		elif not css:
+#			print(username + " -  - " + flair_text)
+#		elif not flair_text:
+#			print(username + " - " + css + " - ")
+#		else:
+#			print(username + " - " + css + " - " + flair_text)
+		if not flair_text:
 			continue
-		css = css.strip()
-		if css not in mapping:
-			print("Found weird CSS: " + username + " - " + css)
-			continue
-		for _ in range(mapping[css]):
+		flair_text = flair_text.strip()
+		if '1Trades' in flair_text:
+			flair_text = '1 Trades'
+#		if not css:
+#			continue
+#		css = css.strip()
+#		if css not in mapping:
+#			print("Found weird CSS: " + username + " - " + css)
+#			continue
+		try:
+			user_count = int(flair_text.split(" ")[0])
+		except:
+			user_count = 0
+			to_review.append(username + " - " + str(flair_text))
+		for _ in range(user_count):
 			d[username].append("LEGACY TRADE")
 		count += 1
 		if not count % 100:
@@ -153,6 +164,47 @@ def GetIdsFromReddit(sub, authors, ids):
 			print("Finished checking " + str(author_count) + " out of " + str(len(authors))  + " authors from reddit.")
 	print("Found a total of " + str(len(ids)) + " post ids.")
 	print(ids)
+
+def GetUserCountsYGOFeedback(authors, ids, sub_config):
+	print("Getting user counts from Reddit")
+	d = defaultdict(lambda: [])
+
+	count = 0
+	ids_length = len(ids)
+	for id in ids:
+		count += 1
+		if count%100==0:
+			print(json.dumps(d))
+			print("Checking " + str(count) + "/" + str(ids_length))
+		time.sleep(0.5)
+		try:
+			submission = reddit.submission(id=id)
+		except Exception as e:
+			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
+			time.sleep(20)
+			submission = reddit.submission(id=id)
+		try:
+			author = str(submission.author).lower()
+		except:
+			print("Unable to get author from: " + str(id))
+			continue
+		comment_list = submission.comments
+		try:
+			comment_list.replace_more(limit=None)
+		except:
+			print("Unable to replace comments in the comment list.")
+			continue
+		for comment in comment_list:
+			try:
+				body = comment.body
+			except:
+				print("unable to get body from a comment on " + str(submission.permalink))
+				continue
+			potential_author_two = comment.author.name.lower()
+
+#			if "+1" in body or "+2" in body:
+			d[author.lower()].append(potential_author_two.lower() + " - https://www.reddit.com" + str(submission.permalink)+str(comment.id) + "/")
+	return d
 
 def GetUserCountsGCXRep(authors, ids, sub_config):
 	print("Getting user counts from Reddit")
@@ -313,16 +365,13 @@ def UpdateFlairs(sub, sub_config, users):
 	count = 0
 	for user in users:
 		user = reddit.redditor(user)
-#		swap_count = str(swap.get_swap_count(user, sub_config.gets_flair_from+[sub_config.database_name], PLATFORM))
 		try:
 			swap.update_flair(user, None, sub_config)
-#			swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
 		except Exception as e:
 			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
 			time.sleep(20)
 			try:
 				swap.update_flair(user, None, sub_config)
-#				swap.update_single_user_flair(sub, sub_config, user, swap_count, [])
 			except Exception as e:
 				print("Unable to assign flair to " + str(user) + ":\n    " + str(e))
 		time.sleep(0.5)
@@ -356,18 +405,20 @@ def get_db(database_file_name=FNAME):
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 ids = set([])
-authors = set(['specu12'.lower()])
+authors = set(['luizguilhermeg'.lower()])
 
 if sub_name == "gamesale":
 	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
-elif sub_name in ["giftcardexchange"]:
+elif sub_name in ["giftcardexchange", "watchexchange", "ygomarketplace"]:
 	GetIdsFromReddit(feedback_sub, authors, ids)
 
 if sub_name == "watchexchange":
 	users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
 elif sub_name == "giftcardexchange":
 	users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
-elif sub_name == "":
+elif sub_name == "ygomarketplace":
+	users_to_confirmations = GetUserCountsYGOFeedback(authors, ids, sub_config)
+elif sub_name in ["appleswap"]:
 	users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
 elif sub_name == "":
 	users_to_confirmations = GetUsersFromCss(sub)
