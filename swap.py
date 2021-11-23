@@ -100,8 +100,12 @@ def get_swap_count(author_name, subs, platform):
 	return int(return_data['count'])
 
 def update_flair(author1, author2, sub_config):
-	"""returns list of tuples of author name and (str)swap count if flair was NOT updated."""
+	"""
+	returns list of tuples of author name and (str)swap count if flair was NOT updated.
+	also returns a dict of usernames to flair text
+	"""
 	non_updated_users = []
+	user_flair_text = {}
 	# Loop over each author and change their flair
 	for author in [author1, author2]:
 		if not author:
@@ -114,18 +118,26 @@ def update_flair(author1, author2, sub_config):
 				sister_sub_config, sister_reddit, sister_sub = create_reddit_and_sub(sub_name)
 				sub_config.sister_subs[sub_name] = {'reddit': sister_reddit, 'sub': sister_sub, 'config': sister_sub_config}
 			author_count = str(get_swap_count(author_string, [sub_name] + sub_config.sister_subs[sub_name]['config'].gets_flair_from, PLATFORM))
-			update_single_user_flair(sub_config.sister_subs[sub_name]['sub'], sub_config.sister_subs[sub_name]['config'], author_string, author_count, non_updated_users, age, debug)
-			updates.append([sub_name, author_count])
-		print("u/" + author_string + " was updated at the following subreddits with the following flair: \n" + "\n".join(["  * r/"+x[0]+" - "+str(x[1]) for x in updates]))
-	return non_updated_users
+			flair_text = update_single_user_flair(sub_config.sister_subs[sub_name]['sub'], sub_config.sister_subs[sub_name]['config'], author_string, author_count, non_updated_users, age, debug)
+			if flair_text:
+				updates.append([sub_name, flair_text])
+				if sub_name == sub_config.subreddit_name:
+					user_flair_text[author_string] = flair_text
+		if updates:
+			print("u/" + author_string + " was updated at the following subreddits with the following flair: \n" + "\n".join(["  * r/"+x[0]+" - "+str(x[1]) for x in updates]))
+	return non_updated_users, user_flair_text
 
 def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, age, debug=False):
+	"""
+	Updates a user's flair.
+	Returns the flair text of the user.
+	"""
 	mods = [str(x).lower() for x in sub.moderator()]
 	if author in sub_config.blacklisted_users:
-		return # Silently return
+		return "" # Silently return
 	if int(swap_count) < sub_config.flair_threshold:
 		non_updated_users.append((author, swap_count))
-		return
+		return ""
 	template = get_flair_template(sub_config.flair_templates, int(swap_count))
 	title = get_flair_template(sub_config.titles, int(swap_count))
 	age_title = get_age_title(sub_config.age_titles, age)
@@ -164,7 +176,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	else:
 		print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
 		print("==========")
-
+	return flair_text
 
 def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, new_ids, sub_config):
 	# Cache the comment objects so we can reuse them later.
@@ -375,8 +387,8 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 			credit_given = False
 
 		if credit_given:
-			non_updated_users = update_flair(author1, author2, sub_config)
-			inform_giving_credit(correct_reply, non_updated_users, sub_config)
+			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config)
+			inform_giving_credit(correct_reply, non_updated_users, sub_config, user_flair_text)
 		else:
 			log(parent_post, comment, "Credit already given")
 			inform_credit_already_given(correct_reply)
@@ -490,13 +502,15 @@ def inform_comment_deleted(comment):
 	reply_text = "This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner."
 	reply(comment, reply_text)
 
-def inform_giving_credit(comment, non_updated_users, sub_config):
+def inform_giving_credit(comment, non_updated_users, sub_config, user_flair_text):
 	reply_text = sub_config.confirmation_text
 	if non_updated_users:
 		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + sub_config.flair_word.lower() + " that is below the threshold of " + str(sub_config.flair_threshold) + " and have **not** had their flair updated:"
 		for user, swap_count in non_updated_users:
 			reply_text += "\n\n* " + user + " - " + swap_count + sub_config.flair_word
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
+	if user_flair_text:
+		reply_text += "\n\n---\n\n" + "\n".join(["* u/" + user + " -> " + flair_text for user, flair_text in user_flair_text.items()])
 	reply(comment, reply_text)
 
 def reply_to_message(message, text, sub_config):
