@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 import sys
 sys.path.insert(0, '.')
@@ -510,7 +511,7 @@ def inform_giving_credit(comment, non_updated_users, sub_config, user_flair_text
 			reply_text += "\n\n* " + user + " - " + swap_count + sub_config.flair_word
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
 	if user_flair_text:
-		reply_text += "\n\n---\n\n" + "\n".join(["* u/" + user + " -> " + flair_text for user, flair_text in user_flair_text.items()])
+		reply_text += "\n\n---\n\n" + "\n".join(["* u/" + user + " → " + flair_text for user, flair_text in user_flair_text.items()])
 	reply(comment, reply_text)
 
 def reply_to_message(message, text, sub_config):
