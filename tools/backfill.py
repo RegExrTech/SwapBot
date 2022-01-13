@@ -11,6 +11,12 @@ import time
 import re
 import requests
 
+from temp import ll
+
+# modify here
+ids = set([])
+authors = set([x.lower() for x in ll])
+
 request_url = "http://0.0.0.0:8000"
 
 PLATFORM = "reddit"
@@ -57,6 +63,9 @@ def GetUsersFromCss(sub):
 #			continue
 		css = flair['flair_css_class']
 		flair_text = flair['flair_text']
+		if css:
+			d[username].append(0)
+		continue
 #		if not css and not flair_text:
 #			print(username + " -  - ")
 #		elif not css:
@@ -86,7 +95,7 @@ def GetUsersFromCss(sub):
 		count += 1
 		if not count % 100:
 			print("Finished adding " + str(count) + " users from the sub flair list")
-	print(d)
+	print(d.keys())
 	return d
 
 def GetIdsFromPushshift(feedback_sub_name):
@@ -281,12 +290,12 @@ def GetUserCountsFromMegaThreads(ids, sub_config):
 		for top_level_comment in submission.comments:
 			text = swap.get_comment_text(top_level_comment)
 			partner = swap.get_username_from_text(text, [str(top_level_comment.author).lower()])[2:]
-			reply = swap.find_correct_reply(top_level_comment, top_level_comment.author, "u/"+partner, submission)
-			if reply:
-				author1 = str(top_level_comment.author).lower()
-				author2 = partner
-				d[author1].append(author2 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
-				d[author2].append(author1 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
+#			reply = swap.find_correct_reply(top_level_comment, top_level_comment.author, "u/"+partner, submission)
+#			if reply:
+			author1 = str(top_level_comment.author).lower()
+			author2 = partner
+#			d[author1].append(author2 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
+			d[author2].append(author1 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
 	return d
 
 
@@ -364,6 +373,8 @@ def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")
 	count = 0
 	for user in users:
+		if not user:
+			continue
 		user = reddit.redditor(user)
 		try:
 			swap.update_flair(user, None, sub_config)
@@ -401,11 +412,8 @@ def get_db(database_file_name=FNAME):
 		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
 	return funko_store_data
 
-
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
-ids = set([])
-authors = set(['FollowKick'.lower()])
 
 if sub_name == "gamesale":
 	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
@@ -418,7 +426,7 @@ elif sub_name == "giftcardexchange":
 	users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 elif sub_name == "ygomarketplace":
 	users_to_confirmations = GetUserCountsYGOFeedback(authors, ids, sub_config)
-elif sub_name in ["appleswap"]:
+elif sub_name in ["appleswap", "animalcrossingamiibos"]:
 	users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
 elif sub_name == "":
 	users_to_confirmations = GetUsersFromCss(sub)

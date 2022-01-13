@@ -1,6 +1,7 @@
 
 from collections import defaultdict
 import json
+import server
 
 FNAME = 'database/swaps.json'
 #FNAME = 'database/comments.json'
@@ -68,10 +69,16 @@ def get_highest(db):
 		print(sub + " - " + h_user + " - " + str(highest))
 
 def print_user_in_all_subs(db, user):
+	username_lookup = server.json_helper.get_db(server.username_lookup_fname, False)
+	usernames = [user]
+	for platform in username_lookup:
+		if user in username_lookup[platform]:
+			usernames += username_lookup[platform][user].values()
 	for sub in db:
 		for platform in db[sub]:
-			if user in db[sub][platform]:
-				print_user_in_sub(db, sub, platform, user)
+			for user in usernames:
+				if user in db[sub][platform]:
+					print_user_in_sub(db, sub, platform, user)
 
 def print_user_in_sub(db, sub, platform, user):
 	print("=== " + sub + " - " + platform + " - " + user + " ===")
@@ -95,7 +102,8 @@ def get_total_count(db, user):
 
 db = get_db()
 
-for user in ["luizguilhermeg"]:
+
+for user in [x.lower() for x in ['Radial_Engine']]:
 	print_user_in_all_subs(db, user.lower())
 
 #dump(db)
