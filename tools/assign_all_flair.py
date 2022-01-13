@@ -31,24 +31,29 @@ for i in range(len(keys)):
 	user = keys[i].lower()
 	if user not in db[sub_config.subreddit_name][platform]:
 		db[sub_config.subreddit_name][platform][user] = []
-	count = len(db[sub_config.subreddit_name][platform][user])
+	count = str(get_swap_count(user, [sub_config.subreddit_name] + sub_config.gets_flair_from, platform))
 	try:
-		print(str(i) + ") Updating user " + user + " to flair " + str(count))
-	except:
+		print(str(i) + ") Updating user " + user + " to flair " + count)
+	except Exception as e:
 		continue
 	try:
 		redditor = reddit.redditor(user)
-		update_flair(redditor, None, sub_config)
+#		update_flair(redditor, None, sub_config)
+		age = datetime.timedelta(seconds=(time.time() - redditor.created_utc)).days / 365.0
+		update_single_user_flair(sub, sub_config, redditor, count, unassigned_users, age)
 		time.sleep(0.5)
 	except:
 		time.sleep(20)
 		try:
 			redditor = reddit.redditor(user)
-			update_flair(redditor, None, sub_config)
+#			update_flair(redditor, None, sub_config)
+			age = datetime.timedelta(seconds=(time.time() - redditor.created_utc)).days / 365.0
+			update_single_user_flair(sub, sub_config, redditor, count, unassigned_users, age)
 			time.sleep(0.5)
 		except:
 			print("    Unable to update flair for " + user)
 			unassigned_users.append(user)
 
 
-print("The following users did not get their flair updated:\n  " + "\n  ".join(unassigned_users))
+if unassigned_users:
+	print("The following users did not get their flair updated:\n  " + "\n  ".join(unassigned_users))
