@@ -98,8 +98,7 @@ def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmati
 		data = get_embedded_messaged_template(content=content, title=title, url=image_url)
 		data['embed']['fields'].append({
 			"name": "Detailed Feedback List",
-			"value": "",
-			"inline": True
+			"value": ""
 		})
 		return data
 
@@ -115,17 +114,23 @@ def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmati
 	data['message_reference'] = {'message_id': reply_id}
 	replies = []
 	string_length = len(json.dumps(data))
+	first_reply_in_field = True
 	for confirmation in confirmations:
 		if "LEGACY TRADE" in confirmation:
-			next_confirmation_string = confirmation
+			next_item_string = confirmation
 		else:
 			partner = confirmation.split(" - ")[0]
 			url = confirmation.split(" - ")[1]
-			next_item_string = "* [" + partner + "](" + url + ")\n\n"
+			next_item_string = "[" + partner + "](" + url + ")"
+		if first_reply_in_field:
+			first_reply_in_field = False
+		else:
+			next_item_string = " | " + next_item_string
 		if string_length + len(next_item_string) < 6000:
 			string_length += len(next_item_string)
 			if len(data['embed']['fields'][-1]['value']) + len(next_item_string) > 1024:
-				data['embed']['fields'].append({"name": "-", "value": "", "inline": True})
+				first_reply_in_field = True
+				data['embed']['fields'].append({"name": "-", "value": ""})
 				string_length = len(json.dumps(data)) + len(next_item_string)
 				if string_length >= 6000:
 					data['embed']['fields'] = data['embed']['fields'][:-1]
@@ -134,8 +139,12 @@ def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmati
 					string_length = len(json.dumps(data)) + len(next_item_string)
 		else:
 			replies.append(json.dumps(data))
+			first_reply_in_field = True
 			data = _get_next_embed()
 			string_length = len(json.dumps(data)) + len(next_item_string)
+		if first_reply_in_field:
+			next_item_string = next_item_string[3:]
+			first_reply_in_field = False
 		data['embed']['fields'][-1]['value'] += next_item_string
 
 	if data['embed']['fields'][-1]['value']:
