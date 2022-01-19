@@ -111,7 +111,7 @@ def update_flair(author1, author2, sub_config):
 	for author in [author1, author2]:
 		if not author:
 			continue
-		age = datetime.timedelta(seconds=(time.time() - author.created_utc)).days / 365.0
+		age = datetime.timedelta(seconds=(time.time() - author.created_utc)).days
 		author_string = str(author).lower()
 		updates = []
 		for sub_name in [sub_config.subreddit_name] + sub_config.gives_flair_to:
