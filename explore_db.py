@@ -103,7 +103,7 @@ def get_total_count(db, user):
 db = get_db()
 
 
-for user in [x.lower() for x in ['Radial_Engine']]:
+for user in [x.lower() for x in ['chazoid']]:
 	print_user_in_all_subs(db, user.lower())
 
 #dump(db)

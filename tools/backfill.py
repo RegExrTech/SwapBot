@@ -11,11 +11,9 @@ import time
 import re
 import requests
 
-from temp import ll
-
 # modify here
 ids = set([])
-authors = set([x.lower() for x in ll])
+authors = set([x.lower() for x in []])
 
 request_url = "http://0.0.0.0:8000"
 
@@ -62,10 +60,28 @@ def GetUsersFromCss(sub):
 #		if username in db:
 #			continue
 		css = flair['flair_css_class']
-		flair_text = flair['flair_text']
 		if css:
-			d[username].append(0)
+			css = css.strip()
+		flair_text = flair['flair_text']
+		if flair_text:
+			flair_text = flair_text.strip()
+
+		# TODO delete me
+		if not css:
+			if flair_text:
+				print(username + " text: " + flair_text)
+			else:
+				print(username)
+		else:
+			try:
+				int(css)
+			except:
+				if flair_text:
+					print(username + " text: " + flair_text + " css: " + css)
+				else:
+					print(username + " css: " + css)
 		continue
+
 #		if not css and not flair_text:
 #			print(username + " -  - ")
 #		elif not css:
@@ -74,22 +90,15 @@ def GetUsersFromCss(sub):
 #			print(username + " - " + css + " - ")
 #		else:
 #			print(username + " - " + css + " - " + flair_text)
-		if not flair_text:
-			continue
-		flair_text = flair_text.strip()
-		if '1Trades' in flair_text:
-			flair_text = '1 Trades'
 #		if not css:
 #			continue
 #		css = css.strip()
 #		if css not in mapping:
 #			print("Found weird CSS: " + username + " - " + css)
 #			continue
-		try:
-			user_count = int(flair_text.split(" ")[0])
-		except:
-			user_count = 0
-			to_review.append(username + " - " + str(flair_text))
+		user_count = 0
+		if css == 'ak47':
+			user_count += 1
 		for _ in range(user_count):
 			d[username].append("LEGACY TRADE")
 		count += 1
@@ -415,6 +424,9 @@ def get_db(database_file_name=FNAME):
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 
+GetUsersFromCss(sub)
+int('s')
+
 if sub_name == "gamesale":
 	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
 elif sub_name in ["giftcardexchange", "watchexchange", "ygomarketplace"]:
@@ -428,7 +440,7 @@ elif sub_name == "ygomarketplace":
 	users_to_confirmations = GetUserCountsYGOFeedback(authors, ids, sub_config)
 elif sub_name in ["appleswap", "animalcrossingamiibos"]:
 	users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
-elif sub_name == "":
+elif sub_name in ["snackexchange"]:
 	users_to_confirmations = GetUsersFromCss(sub)
 
 print(users_to_confirmations)
@@ -437,5 +449,5 @@ print(users_to_confirmations)
 #users_to_confirmations = {"hobbyistimpulsebuyer".lower(): ["LEGACY TRADE"] * 1}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
-UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
+#UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
