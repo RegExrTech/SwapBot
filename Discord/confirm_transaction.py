@@ -28,7 +28,7 @@ confirmation_channel = TOKENS["confirmation_channel"]
 server_id = TOKENS["server_id"]
 
 bareUrl = "https://discordapp.com/api/channels/{}/messages"
-baseURL = bareUrl.format(TOKENS["confirmation_channel"])
+baseUrl = bareUrl.format(TOKENS["confirmation_channel"])
 feedbackUrl = bareUrl.format(TOKENS["feedback_check_channel"])
 bst_channel_url = "https://discordapp.com/api/channels/{}/messages/{}"
 headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
@@ -195,7 +195,7 @@ def update_database(author1, author2, listing_url):
 	is_duplicate = return_data['is_duplicate'] == 'True'
 	return is_duplicate
 
-messages = send_request(GET, baseURL, headers).json()
+messages = send_request(GET, baseUrl, headers).json()
 
 confirmation_invocations = []
 confirmation_replies = []
@@ -260,7 +260,7 @@ paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 for message in confirmation_replies:
 	author1_id = message['author']['id']
 	bot_reply_id = message['referenced_message']['id']
-	bot_message = send_request(GET, baseURL+"/"+bot_reply_id, headers).json()
+	bot_message = send_request(GET, baseUrl+"/"+bot_reply_id, headers).json()
 	author2_message = bot_message['referenced_message']
 	author2_id = author2_message['author']['id']
 	if author1_id not in [x['id'] for x in author2_message['mentions']]:
