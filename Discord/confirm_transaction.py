@@ -309,7 +309,7 @@ messages_to_ignore = []
 for message in messages:
 	author_id = message['author']['id']
 	bot_user_id = TOKENS["bot_id"]
-	if bot_user_id != author1_id and "referenced_message" not in message:
+	if bot_user_id != author_id and "referenced_message" not in message:
 		invocations.append(message)
 	elif "referenced_message" in message and bot_user_id == author_id:
 		messages_to_ignore.append(message["referenced_message"])
