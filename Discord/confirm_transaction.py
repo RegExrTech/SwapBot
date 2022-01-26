@@ -252,7 +252,7 @@ for message in confirmation_invocations:
 		continue
 
 	full_original_post_url = "https://www.discord.com/channels/" + server_id + "/" + channel_id + "/" + original_post_id
-	reply_message = "<@"+author2_id+">, if you have **COMPLETED** a transaction with <@"+author1_id+"> from the following post, please **REPLY** to this message indicating as such:\n\n" + full_original_post_url + "\n\nIf you did NOT complete such a transaction, please DO NOT REPLY to this message and instead send a DM to <@698942482716688445> right away."
+	reply_message = "<@"+author2_id+">, if you have **COMPLETED** a transaction with <@"+author1_id+"> from the following post, please **REPLY TO THIS MESSAGE** indicating as such:\n\n" + full_original_post_url + "\n\nIf you did NOT complete such a transaction, please DO NOT REPLY to this message and instead send a DM to <@698942482716688445> right away."
 	reply(reply_message, confirmation_message_id, baseUrl)
 
 paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
