@@ -5,8 +5,6 @@ from collections import defaultdict
 from flask import jsonify
 from werkzeug.serving import WSGIRequestHandler, _log
 
-import constants
-
 #import json_helper
 
 app = Flask(__name__)
@@ -33,6 +31,7 @@ json_helper = JsonHelper()
 swaps_fname = 'database/swaps.json'
 comment_fname = 'database/comments.json'
 username_lookup_fname = 'Discord/paired_usernames.json'
+pending_requests_fname = "Discord/pending_requests.json"
 
 def get_alias(user_id, current_platform, desired_platform):
 	if current_platform not in username_lookup:
@@ -490,6 +489,54 @@ def remove_username_pairing():
 	json_helper.dump(username_lookup, username_lookup_fname)
 	return jsonify(removed)
 
+@app.route('/get-pending-account-pairing-requests/', methods=["GET"])
+def get_pending_account_pairing_requests():
+	"""Returns the current mapping of account pairing requests
+
+	Return JSON pending_requests
+	"""
+	return jsonify(pending_requests)
+
+@app.route('/add-account-pairing-request/', methods=["POST"])
+def add_account_pairing_request():
+	"""Updates the pending_requests mapping. This is only for discord->reddit
+
+	Requested Form Params:
+	String discord_user_id
+	String reddit_username
+	float request_timestamp
+	String reddit_message_id
+	String discord_message_id
+
+	Return JSON {}
+	"""
+	global pending_requests
+	discord_user_id = request.form["discord_user_id"]
+	reddit_username = request.form["reddit_username"]
+	request_timestamp = request.form["request_timestamp"]
+	reddit_message_id = request.form["reddit_message_id"]
+	discord_message_id = request.form["discord_message_id"]
+
+	pending_requests[discord_user_id] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, 'discord_message_id': discord_message_id}
+
+	json_helper.dump(pending_requests, pending_requests_fname)
+	return jsonify({})
+
+@app.route('/remove-account-pairing-request/', methods=["POST"])
+def remove_account_pairing_request():
+	"""Removes a paired selection of usernames
+
+	Requested Form Params:
+	String discord_user_id
+
+	Return JSON {}
+	"""
+	global pending_requests
+	discord_user_id = request.form["discord_user_id"]
+
+	del(pending_requests[discord_user_id])
+	json_helper.dump(pending_requests, pending_requests_fname)
+	return jsonify({})
 
 
 @app.route('/dump/', methods=["POST"])
@@ -497,6 +544,7 @@ def dump():
 	json_helper.dump(swap_data, swaps_fname)
 	json_helper.dump(comment_data, comment_fname)
 	json_helper.dump(username_lookup, username_lookup_fname)
+	json_helper.dump(pending_requests, pending_requests_fname)
 	return jsonify({})
 
 class MyRequestHandler(WSGIRequestHandler):
@@ -512,6 +560,7 @@ if __name__ == "__main__":
 		swap_data = json_helper.get_db(swaps_fname)
 		comment_data = json_helper.get_db(comment_fname)
 		username_lookup = json_helper.get_db(username_lookup_fname, False)
+		pending_requests = json_helper.get_db(pending_requests_fname)
 		app.run(host= '0.0.0.0', port=8000, request_handler=MyRequestHandler)
 	except Exception as e:
 		pass

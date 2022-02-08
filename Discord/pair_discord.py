@@ -81,14 +81,14 @@ def send_reddit_message(reddit_username, discord_username, reddit, time_limit_mi
 		if str(reddit_message.subject) == reddit_message_subject:
 			reddit_message_id = reddit_message.id
 	reply_text = "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
-	pending_requests[discord_user_id] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, 'discord_message_id': discord_message_id}
+	requests.post(request_url + "/add-account-pairing-request/", data={"discord_user_id": discord_user_id, "reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, 'discord_message_id': discord_message_id})
 	return reply_text
 
 
 r = requests.get(baseURL, headers = headers)
 messages = r.json()
 
-pending_requests = json_helper.get_db("Discord/pending_requests.json")
+pending_requests = requests.get(request_url + "/get-pending-account-pairing-requests/").json()
 paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 
 to_skip = []
@@ -161,7 +161,7 @@ for discord_user_id, data in pending_requests.items():
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
 		requests.delete(deleteMessageURL.format(TOKENS["pairing_channel"], discord_message_id), headers=headers)
-		del(pending_requests[discord_user_id])
+		requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
 
 # Check Reddit for unread replies
 reddit_messages = get_reddit_messages(reddit)
@@ -182,7 +182,7 @@ for reddit_message in reddit_messages:
 		requests.put(roleURL.format(discord_user_id, TOKENS['role_id']), headers=headers)
 		message_data = {'content': "<@"+discord_user_id+"> -> "+data['reddit_username']}
 		requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
-		del(pending_requests[discord_user_id])
+		requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
 
 # Dump the relevant databases
 json_helper.dump(pending_requests, "Discord/pending_requests.json")
