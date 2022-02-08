@@ -13,7 +13,7 @@ import requests
 
 # modify here
 ids = set([])
-authors = set([x.lower() for x in []])
+authors = set([x.lower() for x in ['ASScension']])
 
 request_url = "http://0.0.0.0:8000"
 
@@ -424,9 +424,6 @@ def get_db(database_file_name=FNAME):
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 
-GetUsersFromCss(sub)
-int('s')
-
 if sub_name == "gamesale":
 	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
 elif sub_name in ["giftcardexchange", "watchexchange", "ygomarketplace"]:
@@ -449,5 +446,5 @@ print(users_to_confirmations)
 #users_to_confirmations = {"hobbyistimpulsebuyer".lower(): ["LEGACY TRADE"] * 1}
 #users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
-#UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
+UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
