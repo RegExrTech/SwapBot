@@ -216,7 +216,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 					ids_to_comments[new_comment.id] = new_comment
 	except Exception as e:
 		print(e)
-		print("Failed to get most recent comments.")
+		print(bot_name + " failed to get most recent comments.")
 
 	return_data = requests.post(request_url + "/get-comments/", {'sub_name': sub_config.subreddit_name, 'active': 'True', 'ids': ",".join(ids), 'platform': PLATFORM}).json()
 	ids = return_data['ids']
