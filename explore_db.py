@@ -2,20 +2,31 @@
 from collections import defaultdict
 import json
 import server
+import os
 
-FNAME = 'database/swaps.json'
-#FNAME = 'database/comments.json'
+FNAME = 'database/comments.json'
 
 # required function for getting ASCII from json load
 def ascii_encode_dict(data):
         ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
         return dict(map(ascii_encode, pair) for pair in data.items())
 
+def get_db(fname, encode_ascii=True):
+	with open(fname) as json_data:
+		if encode_ascii:
+			data = json.load(json_data, object_hook=ascii_encode_dict)
+		else:
+			data = json.load(json_data)
+	return data
+
 # Function to load the DB into memory
-def get_db(database_file_name=FNAME):
-        with open(database_file_name) as json_data: # open the funko-shop's data
-                funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-        return funko_store_data
+def make_db():
+	swap_data = {}
+	for fname in os.listdir('database'):
+		if '-swaps.json' in fname:
+			_db = get_db('database/'+fname)
+			swap_data[fname.split("-")[0]] = _db
+	return swap_data
 
 def dump(swap_data, database_file_name=FNAME):
         with open(database_file_name, 'w') as outfile:  # Write out new data
@@ -100,10 +111,12 @@ def get_total_count(db, user):
 			total += count
 	return total
 
-db = get_db()
 
+db = make_db()
 
-for user in [x.lower() for x in ['izwald88', 'Daiato']]:
+for user in [x.lower() for x in ['IConspiracyI']]:
 	print_user_in_all_subs(db, user.lower())
+
+
 
 #dump(db)

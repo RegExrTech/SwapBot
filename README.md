@@ -56,16 +56,6 @@ https://docs.google.com/forms/d/e/1FAIpQLSeonF2luQipQL29yL1j7jiE89XwypeBR3CW4mEJ
 
     * `* * * * * cd ~/SwapBot && python server.py`
 
-* If you want to keep local hourly backups of the database, run the following command:
-
-    * `cd ~/SwapBot && mkdir backup`
-
-* Then add the following lines to the crontab:
-
-    * `0 * * * * cd ~/SwapBot && cp database/comments.json "backup/comments-"`date +"\%H"`".json"`
-
-    * `0 * * * * cd ~/SwapBot && cp database/swaps.json "backup/swaps-"`date +"\%H"`".json"`
-    
 ## Tools
 
 * If you wish to increase someone's score on the back end, you can use `tools/add_batch_swap.py`. Please note that this does NOT change their flair.

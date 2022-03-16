@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, render_template, redirect
 import json
 import time
@@ -28,7 +29,7 @@ class JsonHelper:
 
 json_helper = JsonHelper()
 
-swaps_fname = 'database/swaps.json'
+swaps_fname = 'database/{sub_name}-swaps.json'
 comment_fname = 'database/comments.json'
 username_lookup_fname = 'Discord/paired_usernames.json'
 pending_requests_fname = "Discord/pending_requests.json"
@@ -199,7 +200,7 @@ def check_comment():
 		comment_data[sub_name][platform]['active'].remove(comment_id)
 	if comment_id in comment_data[sub_name][platform]['archived']:
 		comment_data[sub_name][platform]['archived'].remove(comment_id)
-	json_helper.dump(swap_data, swaps_fname)
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	json_helper.dump(comment_data, comment_fname)
 	flair_count_1 = len(get_user_summary(swap_data[sub_name], author1, platform))
 	flair_count_2 = len(get_user_summary(swap_data[sub_name], author2, platform))
@@ -301,7 +302,7 @@ def add_swap():
 		swap_data[sub_name][platform][username] = []
 	if swap_text not in swap_data[sub_name][platform][username] or "LEGACY TRADE" in swap_text:
 		swap_data[sub_name][platform][username].append(swap_text)
-	json_helper.dump(swap_data, swaps_fname)
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	return jsonify({})
 
 @app.route('/add-batch-swap/', methods=['POST'])
@@ -334,7 +335,7 @@ def add_batch_swap():
 		for swap_text in swap_text_list:
 			if swap_text not in swap_data[sub_name][platform][username] or "LEGACY TRADE" in swap_text:
 				swap_data[sub_name][platform][username].append(swap_text)
-	json_helper.dump(swap_data, swaps_fname)
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	return jsonify({})
 
 
@@ -370,7 +371,7 @@ def remove_swap():
 		swap_data[sub_name][platform][username] = swap_data[sub_name][platform][username][:-1]
 	else:
 		swap_data[sub_name][platform][username] = swap_data[sub_name][platform][username][:index] + swap_data[sub_name][platform][username][index+1:]
-	json_helper.dump(swap_data, swaps_fname)
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	return jsonify({})
 
 @app.route('/remove-user/', methods=["POST"])
@@ -397,7 +398,7 @@ def remove_user():
 		del swap_data[sub_name][platform][username]
 	else:
 		return jsonify({'status': username + ' not found'})
-	json_helper.dump(swap_data, swaps_fname)
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	return jsonify({'status': username + " removed from " + sub_name + " at the following platforms: " + ",".join(removed_platforms)})
 
 @app.route('/get-user-count-from-subs/', methods=["GET"])
@@ -541,11 +542,16 @@ def remove_account_pairing_request():
 
 @app.route('/dump/', methods=["POST"])
 def dump():
-	json_helper.dump(swap_data, swaps_fname)
+	for sub_name in swap_data:
+		json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	json_helper.dump(comment_data, comment_fname)
 	json_helper.dump(username_lookup, username_lookup_fname)
 	json_helper.dump(pending_requests, pending_requests_fname)
 	return jsonify({})
+
+@app.route('/get-db/', methods=["GET"])
+def get_db():
+	return jsonify(swap_data)
 
 class MyRequestHandler(WSGIRequestHandler):
 	# Just like WSGIRequestHandler, but without "code"
@@ -557,10 +563,15 @@ class MyRequestHandler(WSGIRequestHandler):
 
 if __name__ == "__main__":
 	try:
-		swap_data = json_helper.get_db(swaps_fname)
+		swap_data = {}
+		for fname in os.listdir('database'):
+			if '-swaps.json' in fname:
+				_db = json_helper.get_db('database/'+fname)
+				swap_data[fname.split("-")[0]] = _db
 		comment_data = json_helper.get_db(comment_fname)
 		username_lookup = json_helper.get_db(username_lookup_fname, False)
 		pending_requests = json_helper.get_db(pending_requests_fname)
 		app.run(host= '0.0.0.0', port=8000, request_handler=MyRequestHandler)
 	except Exception as e:
+		print(e)
 		pass
