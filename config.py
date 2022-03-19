@@ -32,8 +32,8 @@ class Config():
 		self.client_secret = config['client_secret']
 		self.bot_username = config['bot_username']
 		self.bot_password = config['bot_password']
-		self.flair_word = " " + config['flair_word']
-		self.mod_flair_word = config['mod_flair_word'] + " "
+		self.flair_word = config['flair_word']
+		self.mod_flair_word = config['mod_flair_word']
 		if not self.mod_flair_word.strip():
 			self.mod_flair_word = ""
 		if config['display_mod_count'].lower() == "true":

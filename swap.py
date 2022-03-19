@@ -148,9 +148,9 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 			flair_text = ""
 		else:
 			if swap_count == "1":
-				flair_text = swap_count + sub_config.flair_word[:-1]
+				flair_text = swap_count + " " + sub_config.flair_word[:-1]
 			else:
-				flair_text = swap_count + sub_config.flair_word
+				flair_text = swap_count + " " + sub_config.flair_word
 		if author in mods and sub_config.mod_flair_word:
 			template = sub_config.mod_flair_template
 			if flair_text:
@@ -506,9 +506,9 @@ def inform_comment_deleted(comment):
 def inform_giving_credit(comment, non_updated_users, sub_config, user_flair_text):
 	reply_text = sub_config.confirmation_text
 	if non_updated_users:
-		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of" + sub_config.flair_word.lower() + " that is below the threshold of " + str(sub_config.flair_threshold) + " and have **not** had their flair updated:"
+		reply_text += "\n\n---\n\nThis trade **has** been recorded for **both** users in the database. However, the following user(s) have a total number of " + sub_config.flair_word.lower() + " that is below the threshold of " + str(sub_config.flair_threshold) + " and have **not** had their flair updated:"
 		for user, swap_count in non_updated_users:
-			reply_text += "\n\n* " + user + " - " + swap_count + sub_config.flair_word
+			reply_text += "\n\n* " + user + " - " + swap_count + " " + sub_config.flair_word
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
 	if user_flair_text:
 		reply_text += "\n\n---\n\n" + "\n".join(["* u/" + user + " → " + flair_text for user, flair_text in user_flair_text.items()])
