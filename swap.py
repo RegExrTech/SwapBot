@@ -474,7 +474,7 @@ def handle_comment_by_filtered_user(comment):
 	reply(comment, reply_text)
 
 def handle_reply_by_filtered_user(comment):
-	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. The rules state that you should not make a deal with someone who cannot leave a public comment. As such, this trade cannot be counted as the person trying to confirm it cannot leave a public comment."
+	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. As such, this trade cannot be counted. Sorry for the inconvenience."
 	reply(comment, reply_text)
 
 def handle_no_redditor(comment):
