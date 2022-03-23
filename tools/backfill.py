@@ -13,7 +13,7 @@ import requests
 
 # modify here
 ids = set([])
-authors = set([x.lower() for x in ['ASScension']])
+authors = set([x.lower() for x in ['mrt638']])
 
 request_url = "http://0.0.0.0:8000"
 
@@ -37,19 +37,7 @@ elif sub_name == "ygomarketplace":
 else:
 	feedback_sub_name = sub_name
 
-# required function for getting ASCII from json load
-def ascii_encode_dict(data):
-	ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-	return dict(map(ascii_encode, pair) for pair in data.items())
-
-# Function to load the DB into memory
-def get_db(database_file_name):
-	with open(database_file_name) as json_data: # open the funko-shop's data
-		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-	return funko_store_data
-
 def GetUsersFromCss(sub):
-#	db = get_db("database/swaps.json")[sub_name][PLATFORM]
 	count = 0
 	d = defaultdict(lambda: [])
 	mapping = {'oredshroom': 10, '5oblueshroom': 5, '5oredshroom': 10, 'complicatedorc': 5, '5oblueshroom': 5, 'oredshroom': 10, 'ogreenshroom': 25, '5blueshroom': 5, 'redshroom': 10, 'greenshroom': 25, 'superstar': 100, 'silvershroom': 50, 'goldshroom': 75, 'osilvershroom': 50, 'ogoldshroom': 75, 'osuperstar': 100, 'rainbow': 200}
@@ -406,20 +394,6 @@ feedback_sub = reddit.subreddit(feedback_sub_name)
 
 print("sub_name: " + sub_name)
 print("feedback_sub_name: " + feedback_sub_name)
-
-FNAME = 'database/swaps.json'
-#FNAME = 'database/comments.json'
-
-# required function for getting ASCII from json load
-def ascii_encode_dict(data):
-	ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-	return dict(map(ascii_encode, pair) for pair in data.items())
-
-# Function to load the DB into memory
-def get_db(database_file_name=FNAME):
-	with open(database_file_name) as json_data: # open the funko-shop's data
-		funko_store_data = json.load(json_data, object_hook=ascii_encode_dict)
-	return funko_store_data
 
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)

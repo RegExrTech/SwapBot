@@ -1,41 +1,10 @@
-
+import requests
 from collections import defaultdict
 import json
 import server
 import os
 
 FNAME = 'database/comments.json'
-
-# required function for getting ASCII from json load
-def ascii_encode_dict(data):
-        ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-        return dict(map(ascii_encode, pair) for pair in data.items())
-
-def get_db(fname, encode_ascii=True):
-	with open(fname) as json_data:
-		if encode_ascii:
-			data = json.load(json_data, object_hook=ascii_encode_dict)
-		else:
-			data = json.load(json_data)
-	return data
-
-# Function to load the DB into memory
-def make_db():
-	swap_data = {}
-	for fname in os.listdir('database'):
-		if '-swaps.json' in fname:
-			_db = get_db('database/'+fname)
-			swap_data[fname.split("-")[0]] = _db
-	return swap_data
-
-def dump(swap_data, database_file_name=FNAME):
-        with open(database_file_name, 'w') as outfile:  # Write out new data
-                outfile.write(str(json.dumps(swap_data))
-                        .replace("'", '"')
-                        .replace(', u"', ', "')
-                        .replace('[u"', '["')
-                        .replace('{u"', '{"')
-                        .encode('ascii','ignore'))
 
 def print_sorted_dict(d):
 	sorted_d = defaultdict(lambda: [])
@@ -112,9 +81,10 @@ def get_total_count(db, user):
 	return total
 
 
-db = make_db()
+request_url = "http://0.0.0.0:8000"
+db = requests.get(request_url+"/get-db/").json()
 
-for user in [x.lower() for x in ['IConspiracyI']]:
+for user in [x.lower() for x in ['EmericTheRed']]:
 	print_user_in_all_subs(db, user.lower())
 
 
