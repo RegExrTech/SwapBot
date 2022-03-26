@@ -8,54 +8,6 @@ https://docs.google.com/forms/d/e/1FAIpQLSeonF2luQipQL29yL1j7jiE89XwypeBR3CW4mEJ
 
 * Users can send a message to the bot with u/<some_username> in the body of the message to get the feedback score for that person.
 
-## Basic Run Instructions
-
-* Clone this repository using `git clone`
-
-* Create a config file in the config directory named `funkoswap-config.txt` with the following on seperate lines:
-
-    * subreddit_name:<subreddit_name (no r/)>
-    
-    * client_id:<bot_client_id>
-    
-    * client_secret:<bot_client_secret>
-    
-    * bot_username:<bot_username (no u/)>
-    
-    * bot_password:<bot_password>
-    
-    * flair_word:<The default flair word>
-    
-    * mod_flair_word:<The Mod flair word (empty if no flair word)>
-
-    * flair_templates:<Boolean (capital True or False)>
-
-    * confirmation_text:<Optional text for the bot to say>
-
-    * flair_threshold:<int>
-
-    * mod_flair_template:<Reddit flair template ID>
-
-    * titles:<Boolean (capital True or False)>
-
-    * age_titles:<Boolean (capital True or False)>
-
-    * black_list:<comma seperated list of reddit usernames, no spaces, no u/>
-
-    * gets_flair_from:<comma seperated list of subreddit names, no spaces, no r/> (optionally, * for all subreddits, or * followed by a comma seperated list of subreddits to exclude)
-
-    * discord_roles:<Boolean (capital True or False)>
-
-    * discord_server_id:<int, optional>
-
-* Add the relevant files in `age_titles/`, `roles/`, `templates/`, and 'titles/' if you elected to use them in the above configuration.
-
-* Add the following cronjob using `crontab -e` 
-
-    * `* * * * * cd ~/SwapBot && python runner.py <your_subreddit_name>-config.txt;`
-
-    * `* * * * * cd ~/SwapBot && python server.py`
-
 ## Tools
 
 * If you wish to increase someone's score on the back end, you can use `tools/add_batch_swap.py`. Please note that this does NOT change their flair.
