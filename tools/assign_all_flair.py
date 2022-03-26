@@ -16,7 +16,7 @@ platform = 'reddit'
 sub_config, reddit, sub = create_reddit_and_sub(args.sub_name.lower())
 
 json_helper = JsonHelper()
-db = json_helper.get_db('database/swaps.json')
+db = json_helper.get_db('database/'+sub_config.subreddit_name+'-swaps.json')
 
 if sub_config.subreddit_name not in db:
 	db[sub_config.subreddit_name] = {}
