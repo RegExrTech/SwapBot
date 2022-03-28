@@ -70,6 +70,7 @@ class Config():
 			self.discord_roles = get_json_data('roles/'+self.subreddit_name+'.json')
 		else:
 			self.discord_roles = False
+		self.discord_mod_contact_text = config['discord_mod_contact_text']
 
 	def get_gets_flair_from(self, initial_list):
 		gets_flair_from = []
