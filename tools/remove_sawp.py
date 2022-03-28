@@ -1,6 +1,5 @@
 import sys
 sys.path.insert(0, '.')
-from server import JsonHelper
 import requests
 import argparse
 import swap
@@ -11,8 +10,7 @@ parser.add_argument('platform', metavar='C', type=str)
 parser.add_argument('username', metavar='C', type=str)
 args = parser.parse_args()
 request_url = "http://0.0.0.0:8000"
-json_helper = JsonHelper()
-db = json_helper.get_db('database/swaps.json')
+db = requests.get(request_url+"/get-db/").json()
 
 sub_config, reddit, sub = swap.create_reddit_and_sub(args.sub_name.lower())
 
