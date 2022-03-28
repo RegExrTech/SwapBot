@@ -84,7 +84,7 @@ def get_total_count(db, user):
 request_url = "http://0.0.0.0:8000"
 db = requests.get(request_url+"/get-db/").json()
 
-for user in [x.lower() for x in ['EmericTheRed']]:
+for user in [x.lower() for x in ['marvintaylor12']]:
 	print_user_in_all_subs(db, user.lower())
 
 

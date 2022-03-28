@@ -6,8 +6,6 @@ from collections import defaultdict
 from flask import jsonify
 from werkzeug.serving import WSGIRequestHandler, _log
 
-#import json_helper
-
 app = Flask(__name__)
 
 class JsonHelper:

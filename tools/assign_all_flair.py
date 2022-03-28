@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '.')
-from server import JsonHelper
 from swap import update_single_user_flair, get_swap_count, create_reddit_and_sub, update_flair
+import requests
 import argparse
 import praw
 import time
@@ -15,8 +15,8 @@ platform = 'reddit'
 
 sub_config, reddit, sub = create_reddit_and_sub(args.sub_name.lower())
 
-json_helper = JsonHelper()
-db = json_helper.get_db('database/'+sub_config.subreddit_name+'-swaps.json')
+request_url = "http://0.0.0.0:8000"
+db = requests.get(request_url+"/get-db/").json()
 
 if sub_config.subreddit_name not in db:
 	db[sub_config.subreddit_name] = {}
@@ -38,7 +38,6 @@ for i in range(len(keys)):
 		continue
 	try:
 		redditor = reddit.redditor(user)
-#		update_flair(redditor, None, sub_config)
 		age = datetime.timedelta(seconds=(time.time() - redditor.created_utc)).days / 365.0
 		update_single_user_flair(sub, sub_config, redditor, count, unassigned_users, age)
 		time.sleep(0.5)
@@ -46,7 +45,6 @@ for i in range(len(keys)):
 		time.sleep(20)
 		try:
 			redditor = reddit.redditor(user)
-#			update_flair(redditor, None, sub_config)
 			age = datetime.timedelta(seconds=(time.time() - redditor.created_utc)).days / 365.0
 			update_single_user_flair(sub, sub_config, redditor, count, unassigned_users, age)
 			time.sleep(0.5)

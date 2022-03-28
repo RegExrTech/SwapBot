@@ -1,6 +1,5 @@
 import sys
 sys.path.insert(0, '.')
-from server import JsonHelper
 import requests
 import swap
 import argparse
@@ -13,11 +12,10 @@ parser.add_argument('new_username', metavar='C', type=str)
 args = parser.parse_args()
 
 request_url = "http://0.0.0.0:8000"
-json_helper = JsonHelper()
 
 
 def main():
-	db = json_helper.get_db('database/swaps.json')
+	db = requests.get(request_url+"/get-db/").json()
 	if args.sub_name.lower() not in db:
 		print(args.sub_name.lower() + " was not found as a community in the database.")
 	elif args.platform.lower() not in db[args.sub_name.lower()]:
