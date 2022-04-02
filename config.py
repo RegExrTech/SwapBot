@@ -103,6 +103,8 @@ class Config():
 			d = {}
 			for line in lines:
 				d[line.split(":")[0]] = line.split(":")[1]
+			if d['subreddit_name'] == self.subreddit_name:
+				continue
 			sub_names.append(d['subreddit_name'])
 			d['gets_flair_from'] = d['gets_flair_from'].split(",")
 			# If the sub has a wildcard, and sub names following the wild card are excluded.
