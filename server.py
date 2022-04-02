@@ -5,6 +5,12 @@ import time
 from collections import defaultdict
 from flask import jsonify
 from werkzeug.serving import WSGIRequestHandler, _log
+import traceback
+import sys
+
+#https://stackoverflow.com/questions/54141751/how-to-disable-flask-app-run-s-default-message
+cli = sys.modules['flask.cli']
+cli.show_server_banner = lambda *x: None
 
 app = Flask(__name__)
 
@@ -31,6 +37,11 @@ swaps_fname = 'database/{sub_name}-swaps.json'
 comment_fname = 'database/comments.json'
 username_lookup_fname = 'Discord/paired_usernames.json'
 pending_requests_fname = "Discord/pending_requests.json"
+
+swap_data = {}
+comment_data = {}
+username_lookup = {}
+pending_requests = {}
 
 def get_alias(user_id, current_platform, desired_platform):
 	if current_platform not in username_lookup:
@@ -559,17 +570,24 @@ class MyRequestHandler(WSGIRequestHandler):
 		else:
 			self.log('info', '"%s" %s %s', self.requestline, code, size)
 
+@app.before_first_request
+def launch():
+	global swap_data
+	global comment_data
+	global username_lookup
+	global pending_requests
+	for fname in os.listdir('database'):
+		if '-swaps.json' in fname:
+			_db = json_helper.get_db('database/'+fname)
+			swap_data[fname.split("-")[0]] = _db
+	comment_data = json_helper.get_db(comment_fname)
+	username_lookup = json_helper.get_db(username_lookup_fname, False)
+	pending_requests = json_helper.get_db(pending_requests_fname)
+
 if __name__ == "__main__":
 	try:
-		swap_data = {}
-		for fname in os.listdir('database'):
-			if '-swaps.json' in fname:
-				_db = json_helper.get_db('database/'+fname)
-				swap_data[fname.split("-")[0]] = _db
-		comment_data = json_helper.get_db(comment_fname)
-		username_lookup = json_helper.get_db(username_lookup_fname, False)
-		pending_requests = json_helper.get_db(pending_requests_fname)
 		app.run(host= '0.0.0.0', port=8000, request_handler=MyRequestHandler)
 	except Exception as e:
-		print(e)
-		pass
+		if str(e).lower() != '[Errno 98] Address already in use'.lower():
+			print(e)
+			print(traceback.format_exc())
