@@ -302,7 +302,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		reddit.redditor(desired_author2_string.split("/")[1]).id
 	except NotFound:
 		log(parent_post, comment, "Tagged user " + desired_author2_string + " is not a real username.")
-		handle_no_redditor(comment)
+		handle_no_redditor(comment, desired_author2_string)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	except AttributeError:
@@ -351,13 +351,13 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		# Remove comment if neither the person doing the tagging nor the person being tagged are the OP of the top level comment
 		if not str(author1).lower() == str(top_level_comment.author).lower() and not "u/"+str(top_level_comment.author).lower() == desired_author2_string.lower():
 			log(parent_post, comment, "Neither participant is OP")
-			handle_not_op(comment, str(top_level_comment.author))
+			handle_not_op(comment, str(top_level_comment.author), desired_author2_string.split("/")[-1])
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			return True
 	# Remove comment if neither the person doing the tagging nor the person being tagged are the OP
 	elif not str(author1).lower() == str(parent_post.author).lower() and not "u/"+str(parent_post.author).lower() == desired_author2_string.lower():
 		log(parent_post, comment, "Neither participant is OP")
-		handle_not_op(comment, str(parent_post.author))
+		handle_not_op(comment, str(parent_post.author), desired_author2_string.split("/")[-1])
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comment if the difference between the post time of the submission and comment are less than the post_age_threshold
@@ -465,8 +465,8 @@ def handle_top_level_in_automod(comment):
 	reply_text = "Confirmations done in a thread authored by Automoderator should be done as replies to the comment where the transaction originated, **NOT** as top level replies to the post. Please make a new comment replying to the original comment in this thread that initiated the transaction. Thank you!"
 	reply(comment, reply_text)
 
-def handle_not_op(comment, op_author):
-	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is " + op_author + ". If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
+def handle_not_op(comment, op_author, incorrect_name):
+	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is `" + op_author + "` but you tagged `" + incorrect_name + "`. If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
 	reply(comment, reply_text)
 
 def handle_comment_by_filtered_user(comment):
@@ -477,8 +477,8 @@ def handle_reply_by_filtered_user(comment):
 	reply_text = "The person you are attempting to confirm a trade with is unable to leave public comments on this sub. As such, this trade cannot be counted. Sorry for the inconvenience."
 	reply(comment, reply_text)
 
-def handle_no_redditor(comment):
-	reply_text = "The person you tagged is not a real redditor. You can verify this by clicking the tag in your comment. This most likely means you misspelled your partner's name **OR** they deleted their account. If you made a spelling mistake, please make a **NEW** comment with the correct spelling. *Editing* this comment will do nothing. If your partner has deleted their account, you will NOT be able to confirm your transaction. Sorry for the inconvenience."
+def handle_no_redditor(comment, tagged_username):
+	reply_text = "The person you tagged, " + tagged_username + ", is not a real redditor. You can verify this by clicking the tag. This most likely means you misspelled your partner's name **OR** they deleted their account. If you made a spelling mistake, please make a **NEW** comment with the correct spelling. *Editing* this comment will do nothing. If your partner has deleted their account, you will NOT be able to confirm your transaction. Sorry for the inconvenience."
 	reply(comment, reply_text)
 
 def handle_suspended_redditor(comment):
