@@ -392,6 +392,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 			inform_giving_credit(correct_reply, non_updated_users, sub_config, user_flair_text)
 		else:
 			log(parent_post, comment, "Credit already given")
+			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config)
 			inform_credit_already_given(correct_reply)
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
@@ -490,7 +491,7 @@ def inform_comment_tracked(comment, desired_author2_string, parent_post, sub_nam
 	reply(comment, reply_text)
 
 def inform_credit_already_given(comment):
-	reply_text = "You already got credit for this trade. This is because credit is only given once per partner per thread. If you already received credit with this user on this thread, please do not message the mods asking for an exception. Only message the mods if you think this is an error."
+	reply_text = "I already have a reference to this trade in my database. This either means that you tried to confirm a transaction with the same person on this post already **OR** Reddit was having issues earlier and I recorded the transaction but just now got around to replying and updating your flair.\n\nEither way, both you and your parther's flairs are all set and no further action is required. Thank you!"
 	reply(comment, reply_text)
 
 def inform_comment_archived(comment, sub_config):
