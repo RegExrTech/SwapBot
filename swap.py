@@ -133,7 +133,11 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	Updates a user's flair.
 	Returns the flair text of the user.
 	"""
-	mods = [str(x).lower() for x in sub.moderator()]
+	try:
+		mods = [str(x).lower() for x in sub.moderator()]
+	except Exception as e:
+		print("Unable to get mod list from " + sub_config.subreddit_name + " with error " + str(e))
+		return ""
 	if author in sub_config.blacklisted_users:
 		return "" # Silently return
 	if int(swap_count) < sub_config.flair_threshold:
