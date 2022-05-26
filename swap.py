@@ -403,7 +403,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	else:  # If we found no correct looking comments, let's come back to it later
 		# New comments get auto response so users know they've been heard
 		if is_new_comment:
-			inform_comment_tracked(comment, desired_author2_string, parent_post, sub_config.subreddit_name)
+			inform_comment_tracked(comment, desired_author2_string, parent_post, sub_config.subreddit_name, str(author1))
 		if debug:
 			print("No correct looking replies were found")
 		return False
@@ -490,8 +490,8 @@ def handle_suspended_redditor(comment):
 	reply_text = "The person you tagged has had their reddit account suspended by the Reddit site-wide Admins. As such, this person will not be able to confirm a transaction with you. If their account is unsuspended, you will need to make a new comment to confirm a transaction with them as **this comment will no longer be tracked**."
 	reply(comment, reply_text)
 
-def inform_comment_tracked(comment, desired_author2_string, parent_post, sub_name):
-	reply_text = "This comment is now being tracked. Your flair will update once your partner replies to your comment.\n\n" + desired_author2_string + ", please reply to the above comment with your feedback **ONLY AFTER YOUR TRANSACTION IS COMPLETE** and *both* sides have received their end of the transaction. Once you reply, you will both get credit and your flair scores will increase.\n\n" + desired_author2_string + ", if you did **NOT** complete a transaction with this person, please **DO NOT** reply to their comment as this will confirm the transaction. Instead, please [message the moderators](https://www.reddit.com/message/compose/?to=r/" + sub_name + "&subject=Incorrectly%20Tagged%20Confirmation&message=I%20was%20incorrectly%20tagged%20in%20this%20comment%3A%20https%3A%2F%2Fwww.reddit.com%2Fcomments%2F" + parent_post.id + "%2F-%2F" + comment.id + ") so we can contact the user and handle the situation.\n\nThank you!"
+def inform_comment_tracked(comment, desired_author2_string, parent_post, sub_name, tagging_user):
+	reply_text = "This comment is now being tracked. Your flair will update once your partner replies to your comment.\n\n" + desired_author2_string + ", please reply to the above comment with your feedback **ONLY AFTER YOUR TRANSACTION IS COMPLETE** and *both* sides have received their end of the transaction. Once you reply, you will both get credit and your flair scores will increase.\n\n" + desired_author2_string + ", if you did **NOT** complete a transaction with this person, please **DO NOT** reply to their comment as this will confirm the transaction. Instead, please [message the moderators](https://www.reddit.com/message/compose/?to=r/" + sub_name + "&subject=Incorrectly%20Tagged%20Confirmation&message=u%2F" + tagging_user + "%20incorrectly%20tagged%20me%20in%20this%20comment%3A%20https%3A%2F%2Fwww.reddit.com%2Fcomments%2F" + parent_post.id + "%2F-%2F" + comment.id + ") so we can contact the user and handle the situation.\n\nThank you!"
 	reply(comment, reply_text)
 
 def inform_credit_already_given(comment):
