@@ -163,7 +163,7 @@ def get_mentioned_roles(message):
 	return list(set(x['id'] for x in message['mention_roles']))
 
 def get_mentioned_posts(text, invalids):
-	pattern = re.compile("([0-9]{18})")
+	pattern = re.compile("([0-9]{18,19})")
 	found = re.findall(pattern, text)
 	return list(set([x for x in found if x not in invalids]))
 
@@ -243,7 +243,7 @@ for message in confirmation_invocations:
 	original_post_id = mentioned_posts[0]
 	channel_id, original_post_data = get_correct_channel_id(original_post_id)
 	if not channel_id:
-		reply("I could not find the message you are referring to in any of the BST channels. Please try again with a correct message ID.", confirmation_message_id, baseUrl)
+		reply("I could not find " + str(original_post_id) + " in any of the BST channels. Please try again with a correct message ID.", confirmation_message_id, baseUrl)
 		continue
 
 	desired_author_id = original_post_data['author']['id']
