@@ -26,7 +26,8 @@ class Config():
 			value = ":".join(line.split(":")[1:])
 			config[key] = value
 
-		self.subreddit_name = config['subreddit_name']
+		self.subreddit_name = config['subreddit_name'].lower()
+		self.subreddit_display_name = config['subreddit_name']
 		self.database_name = self.subreddit_name.lower()
 		self.client_id = config['client_id']
 		self.client_secret = config['client_secret']
