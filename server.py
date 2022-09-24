@@ -578,7 +578,11 @@ def launch():
 	global pending_requests
 	for fname in os.listdir('database'):
 		if '-swaps.json' in fname:
-			_db = json_helper.get_db('database/'+fname)
+			try:
+				_db = json_helper.get_db('database/'+fname)
+			except Exception as e:
+				print("Unable to load database for " + fname + " with erro " + str(e))
+				raise e
 			swap_data[fname.split("-")[0]] = _db
 	comment_data = json_helper.get_db(comment_fname)
 	username_lookup = json_helper.get_db(username_lookup_fname, False)
