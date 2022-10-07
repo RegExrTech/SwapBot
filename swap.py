@@ -33,7 +33,7 @@ request_url = "http://0.0.0.0:8000"
 
 check_time = datetime.datetime.utcnow().time()
 
-kofi_text = "\n\n---\n\n[^(Buy the developer a coffee)](https://kofi.regexr.tech)"
+kofi_text = "\n\n---\n\n[^(Buy the developer a coffee)](https://kofi.regexr.tech) or [support this project monthly](https://patreon.regexr.tech)"
 
 def get_comment_text(comment):
 	body = comment.body.lower().encode('utf-8').strip()
