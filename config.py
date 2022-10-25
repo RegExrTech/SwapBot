@@ -59,8 +59,8 @@ class Config():
 			self.age_titles = get_json_data('age_titles/'+self.subreddit_name+'.json')
 		else:
 			self.age_titles = False
-		self.title_blacklist = [x for x in config['title_black_list'].split(",") if x]
-		self.blacklisted_users = [x for x in config['black_list'].split(",") if x]
+		self.title_blacklist = [x.lower() for x in config['title_black_list'].split(",") if x]
+		self.blacklisted_users = [x.lower() for x in config['black_list'].split(",") if x]
 		self.gets_flair_from = self.get_gets_flair_from([x.lower() for x in config['gets_flair_from'].split(",") if x])
 		self.gives_flair_to = self.get_gives_flair_to(self.subreddit_name)
 		self.sister_subs = {}
