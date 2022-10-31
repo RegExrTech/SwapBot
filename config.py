@@ -20,59 +20,59 @@ class Config():
 		info = f.read().splitlines()
 		f.close()
 
-		config = {}
+		self.raw_config = {}
 		for line in info:
 			key = line.split(":")[0].lower()
 			value = ":".join(line.split(":")[1:])
-			config[key] = value
+			self.raw_config[key] = value
 
-		self.subreddit_name = config['subreddit_name'].lower()
-		self.subreddit_display_name = config['subreddit_name']
+		self.subreddit_name = self.raw_config['subreddit_name'].lower()
+		self.subreddit_display_name = self.raw_config['subreddit_name']
 		self.database_name = self.subreddit_name.lower()
-		self.client_id = config['client_id']
-		self.client_secret = config['client_secret']
-		self.bot_username = config['bot_username']
-		self.bot_password = config['bot_password']
-		self.flair_word = config['flair_word']
-		self.mod_flair_word = config['mod_flair_word']
+		self.client_id = self.raw_config['client_id']
+		self.client_secret = self.raw_config['client_secret']
+		self.bot_username = self.raw_config['bot_username']
+		self.bot_password = self.raw_config['bot_password']
+		self.flair_word = self.raw_config['flair_word']
+		self.mod_flair_word = self.raw_config['mod_flair_word']
 		if not self.mod_flair_word.strip():
 			self.mod_flair_word = ""
-		if config['display_mod_count'].lower() == "true":
+		if self.raw_config['display_mod_count'].lower() == "true":
 			self.display_mod_count = True
 		else:
 			self.display_mod_count = False
-		if config['flair_templates'].lower() == "true":
+		if self.raw_config['flair_templates'].lower() == "true":
 			self.flair_templates = get_json_data('templates/'+self.subreddit_name+'.json')
 		else:
 			self.flair_templates = False
-		self.confirmation_text = config['confirmation_text']
+		self.confirmation_text = self.raw_config['confirmation_text']
 		if not self.confirmation_text:
 			self.confirmation_text = "Added"
-		self.flair_threshold = int(config['flair_threshold'])
-		self.post_age_threshold = float(config['post_age_threshold'])
-		self.mod_flair_template = config['mod_flair_template']
-		if config['titles'].lower() == "true":
+		self.flair_threshold = int(self.raw_config['flair_threshold'])
+		self.post_age_threshold = float(self.raw_config['post_age_threshold'])
+		self.mod_flair_template = self.raw_config['mod_flair_template']
+		if self.raw_config['titles'].lower() == "true":
 			self.titles = get_json_data('titles/'+self.subreddit_name+'.json')
 		else:
 			self.titles = False
-		if config['age_titles'].lower() == "true":
+		if self.raw_config['age_titles'].lower() == "true":
 			self.age_titles = get_json_data('age_titles/'+self.subreddit_name+'.json')
 		else:
 			self.age_titles = False
-		self.title_blacklist = [x.lower() for x in config['title_black_list'].split(",") if x]
-		self.blacklisted_users = [x.lower() for x in config['black_list'].split(",") if x]
-		self.gets_flair_from = self.get_gets_flair_from([x.lower() for x in config['gets_flair_from'].split(",") if x])
+		self.title_blacklist = [x.lower() for x in self.raw_config['title_black_list'].split(",") if x]
+		self.blacklisted_users = [x.lower() for x in self.raw_config['black_list'].split(",") if x]
+		self.gets_flair_from = self.get_gets_flair_from([x.lower() for x in self.raw_config['gets_flair_from'].split(",") if x])
 		self.gives_flair_to = self.get_gives_flair_to(self.subreddit_name)
 		self.sister_subs = {}
-		if config['discord_config'].lower() == "true":
+		if self.raw_config['discord_config'].lower() == "true":
 			self.discord_config = DiscordConfig(self.subreddit_name)
 		else:
 			self.discord_config = None
-		if config['discord_roles'].lower() == "true":
+		if self.raw_config['discord_roles'].lower() == "true":
 			self.discord_roles = get_json_data('roles/'+self.subreddit_name+'.json')
 		else:
 			self.discord_roles = False
-		self.discord_mod_contact_text = config['discord_mod_contact_text']
+		self.discord_mod_contact_text = self.raw_config['discord_mod_contact_text']
 
 	def get_gets_flair_from(self, initial_list):
 		gets_flair_from = []
