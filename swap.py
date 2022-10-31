@@ -138,7 +138,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	except Exception as e:
 		print("Unable to get mod list from " + sub_config.subreddit_name + " with error " + str(e))
 		return ""
-	if author.lower() in sub_config.blacklisted_users:
+	if author.lower() in sub_config.black_list:
 		return "" # Silently return
 	if int(swap_count) < sub_config.flair_threshold:
 		non_updated_users.append((author, swap_count))
@@ -371,9 +371,9 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comment if the post title contains a blacklisted word
-	if any([x.lower() in parent_post.title.lower() for x in sub_config.title_blacklist]):
+	if any([x.lower() in parent_post.title.lower() for x in sub_config.title_black_list]):
 		type = ""
-		for word in sub_config.title_blacklist:
+		for word in sub_config.title_black_list:
 			if word.lower() in parent_post.title.lower():
 				type = word
 		log(parent_post, comment, "Comment was made on a blacklisted post of type " + type)
