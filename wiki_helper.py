@@ -143,5 +143,10 @@ def send_update_message(config_page, message):
 	redditor.message(subject=WIKI_PAGE_NAME + " wiki update", message=message)
 
 if __name__ == "__main__":
-	log_bot = Config('funkoppopmod')
-	run_config_checker(log_bot)
+	import os
+	for fname in os.listdir('config'):
+		if 'ecigclassifieds' in fname:
+			continue
+		print(fname)
+		bot = Config(fname.split(".")[0])
+		run_config_checker(bot)
