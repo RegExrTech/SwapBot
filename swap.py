@@ -532,7 +532,7 @@ def inform_giving_credit(comment, non_updated_users, sub_config, user_flair_text
 			reply_text += "\n\n* " + user + " - " + swap_count + " " + sub_config.flair_word
 		reply_text += "\n\nFlair for those users will update only once they reach the flair threshold mentioned above."
 	if user_flair_text:
-		reply_text += "\n\n---\n\n" + "\n".join(["* u/" + user + " → " + flair_text for user, flair_text in user_flair_text.items()])
+		reply_text += "\n\n---\n\n" + "\n".join(["* u/" + user + " -> " + flair_text for user, flair_text in user_flair_text.items()])
 	reply(comment, reply_text)
 
 def reply_to_message(message, text, sub_config):
@@ -597,7 +597,7 @@ def main():
 	parser.add_argument('sub_name', metavar='C', type=str)
 	args = parser.parse_args()
 
-	sub_config = Config.Config(sub_name.lower())
+	sub_config = Config.Config(args.sub_name.lower())
 	reddit = sub_config.reddit_object
 	sub = sub_config.subreddit_object
 	sub_config.sister_subs[sub_config.subreddit_name] = {'reddit': reddit, 'sub': sub, 'config': sub_config}
