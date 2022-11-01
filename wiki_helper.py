@@ -101,7 +101,7 @@ def create_wiki_config(config, config_page):
 
 def validate_wiki_content(config, config_page):
 	content_lines = []
-	content_lines.append("For help with this configuration, please visit https://regexrtech.github.io/swap_bot_config.html")  # Must ALWAYS be first
+	content_lines.append("For help with this configuration, please visit https://redd.it/yixgoa")  # Must ALWAYS be first
 	content_lines.append("flair_word: " + config.flair_word)
 	content_lines.append("mod_flair_word: " + config.mod_flair_word)
 	content_lines.append("display_mod_count: " + str(config.display_mod_count))
