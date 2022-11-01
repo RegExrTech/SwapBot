@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, '.')
 sys.path.insert(0, 'Discord')
 from assign_role import assign_role
-import config
+import Config
 import requests
 import re
 import json
@@ -24,7 +24,7 @@ def log(post, comment, reason):
 	print("Removing comment " + url + " because: " + reason)
 
 def create_reddit_and_sub(sub_name):
-	sub_config = config.Config(sub_name.lower())
+	sub_config = Config.Config(sub_name.lower())
 	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='Swap Bot for ' + sub_config.subreddit_name + ' v1.0 (by u/RegExr)', username=sub_config.bot_username, password=sub_config.bot_password)
 	sub = reddit.subreddit(sub_config.subreddit_name)
 	return sub_config, reddit, sub
@@ -116,7 +116,9 @@ def update_flair(author1, author2, sub_config):
 		updates = []
 		for sub_name in [sub_config.subreddit_name] + sub_config.gives_flair_to:
 			if sub_name not in sub_config.sister_subs:
-				sister_sub_config, sister_reddit, sister_sub = create_reddit_and_sub(sub_name)
+				sister_sub_config = Config.Config(sub_name.lower())
+				sister_reddit = sister_sub_config.reddit_object
+				sister_sub = sister_sub_config.subreddit_object
 				sub_config.sister_subs[sub_name] = {'reddit': sister_reddit, 'sub': sister_sub, 'config': sister_sub_config}
 			author_count = str(get_swap_count(author_string, [sub_name] + sub_config.sister_subs[sub_name]['config'].gets_flair_from, PLATFORM))
 			flair_text = update_single_user_flair(sub_config.sister_subs[sub_name]['sub'], sub_config.sister_subs[sub_name]['config'], author_string, author_count, non_updated_users, age, debug)
@@ -595,7 +597,9 @@ def main():
 	parser.add_argument('sub_name', metavar='C', type=str)
 	args = parser.parse_args()
 
-	sub_config, reddit, sub = create_reddit_and_sub(args.sub_name.lower())
+	sub_config = Config.Config(sub_name.lower())
+	reddit = sub_config.reddit_object
+	sub = sub_config.subreddit_object
 	sub_config.sister_subs[sub_config.subreddit_name] = {'reddit': reddit, 'sub': sub, 'config': sub_config}
 
 	comments = []  # Stores comments from both sources of Ids

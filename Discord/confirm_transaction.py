@@ -10,7 +10,7 @@ import sys
 sys.path.insert(0, ".")
 sys.path.insert(0, "Discord")
 from assign_role import assign_role
-from config import Config
+from Config import Config
 import swap
 import time
 

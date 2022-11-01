@@ -2,7 +2,7 @@ import json
 import praw
 import sys
 sys.path.insert(0, '.')
-import config
+import Config
 import swap
 
 import argparse
@@ -13,7 +13,7 @@ import requests
 
 # modify here
 ids = set([])
-authors = set([x.lower() for x in ['wpcp007']])
+authors = set([x.lower() for x in ['ghettokatniss']])
 
 request_url = "http://0.0.0.0:8000"
 
@@ -37,56 +37,57 @@ elif sub_name == "ygomarketplace":
 else:
 	feedback_sub_name = sub_name
 
+def GetUsersFromCSV(sub):
+	d = {}
+	fname = "data.csv"
+	f = open(fname, "r")
+	lines = f.read().splitlines()
+	f.close()
+	for line in lines[1:]:
+		elems = line.split(",")
+		user = elems[3].strip().lower()
+		if 'u/' in user:
+			user = user.split("u/")[1]
+		rating = elems[4].strip()
+		if int(rating) >= 4:
+			if user not in d:
+				d[user] = 0
+			d[user] += 1
+	for user in d.keys():
+		d[user] = ["LEGACY TRADE"]*d[user]
+	return d
+
 def GetUsersFromCss(sub):
 	count = 0
-	d = defaultdict(lambda: [])
-	mapping = {'oredshroom': 10, '5oblueshroom': 5, '5oredshroom': 10, 'complicatedorc': 5, '5oblueshroom': 5, 'oredshroom': 10, 'ogreenshroom': 25, '5blueshroom': 5, 'redshroom': 10, 'greenshroom': 25, 'superstar': 100, 'silvershroom': 50, 'goldshroom': 75, 'osilvershroom': 50, 'ogoldshroom': 75, 'osuperstar': 100, 'rainbow': 200}
+#	d = defaultdict(lambda: [])
+	d = {}
+	mapping = {'i-1': 1, 'i-3': 3, 'i-15': 15, 'i-10': 10, 'i-11': 11, 'i-2': 2, 'i-4': 4, 'i-6': 6, 'i-14': 14, 'i-5': 5, 'i-9': 9}
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
 	to_review = []
 	for flair in sub.flair():
 		username = str(flair['user']).lower()
+		d[username] = []
 #		if username in db:
 #			continue
-		css = flair['flair_css_class']
-		if css:
-			css = css.strip()
+#		css = flair['flair_css_class']
+#		if css:
+#			css = css.strip()
+#		if css is None:
+#			continue
+#		css = css.strip()
 		flair_text = flair['flair_text']
+		if flair_text is None:
+			print(username + " has no flair text")
+			continue
 		if flair_text:
 			flair_text = flair_text.strip()
 
-		# TODO delete me
-		if not css:
-			if flair_text:
-				print(username + " text: " + flair_text)
-			else:
-				print(username)
-		else:
-			try:
-				int(css)
-			except:
-				if flair_text:
-					print(username + " text: " + flair_text + " css: " + css)
-				else:
-					print(username + " css: " + css)
-		continue
+		flair_count = flair_text.split(" Confirm")[0]
+		try:
+			user_count = int(flair_count)
+		except:
+			continue
 
-#		if not css and not flair_text:
-#			print(username + " -  - ")
-#		elif not css:
-#			print(username + " -  - " + flair_text)
-#		elif not flair_text:
-#			print(username + " - " + css + " - ")
-#		else:
-#			print(username + " - " + css + " - " + flair_text)
-#		if not css:
-#			continue
-#		css = css.strip()
-#		if css not in mapping:
-#			print("Found weird CSS: " + username + " - " + css)
-#			continue
-		user_count = 0
-		if css == 'ak47':
-			user_count += 1
 		for _ in range(user_count):
 			d[username].append("LEGACY TRADE")
 		count += 1
@@ -205,6 +206,8 @@ def GetUserCountsYGOFeedback(authors, ids, sub_config):
 				body = comment.body
 			except:
 				print("unable to get body from a comment on " + str(submission.permalink))
+				continue
+			if not comment.author:
 				continue
 			potential_author_two = comment.author.name.lower()
 
@@ -372,14 +375,17 @@ def UpdateFlairs(sub, sub_config, users):
 	for user in users:
 		if not user:
 			continue
+		swap_count = str(swap.get_swap_count(user, [sub_config.subreddit_name], 'reddit'))
 		user = reddit.redditor(user)
 		try:
 			swap.update_flair(user, None, sub_config)
+#			swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
 		except Exception as e:
 			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
 			time.sleep(20)
 			try:
 				swap.update_flair(user, None, sub_config)
+#				swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
 			except Exception as e:
 				print("Unable to assign flair to " + str(user) + ":\n    " + str(e))
 		time.sleep(0.5)
@@ -387,9 +393,9 @@ def UpdateFlairs(sub, sub_config, users):
 		if count % 25 == 0:
 			print("Finished assigning flair for " + str(count) + " users out of " + str(len(users)) + " users.")
 
-sub_config = config.Config(sub_name)
-reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='UserAgent', username=sub_config.bot_username, password=sub_config.bot_password)
-sub = reddit.subreddit(sub_config.subreddit_name)
+sub_config = Config.Config(sub_name)
+reddit = sub_config.reddit_object
+sub = sub_config.subreddit_object
 feedback_sub = reddit.subreddit(feedback_sub_name)
 
 print("sub_name: " + sub_name)
@@ -411,8 +417,10 @@ elif sub_name == "ygomarketplace":
 	users_to_confirmations = GetUserCountsYGOFeedback(authors, ids, sub_config)
 elif sub_name in ["appleswap", "animalcrossingamiibos"]:
 	users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
-elif sub_name in ["snackexchange"]:
+elif sub_name in ["snackexchange", "airsoftmarketcanada", "watchexchangecanada", "legomarket", "legotrade", "mangaswap"]:
 	users_to_confirmations = GetUsersFromCss(sub)
+elif sub_name in ["comblocmarket2"]:
+	users_to_confirmations = GetUsersFromCSV(sub)
 
 print(users_to_confirmations)
 
