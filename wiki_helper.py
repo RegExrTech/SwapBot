@@ -81,14 +81,14 @@ def run_config_checker(config):
 	if "black_list" in config_content:
 		config.black_list = [x.strip() for x in config_content["black_list"].split(",")]
 		config.black_list = [x for x in config.black_list if x]
-		config.black_list = [x[1:] for x in config.black_list if x[0] == "/"]
-		config.black_list = [x[2:] for x in config.black_list if x[0] == "u/"]
+		config.black_list = [x[1:] if x[0] == "/" else x for x in config.black_list]
+		config.black_list = [x[2:] if x[0] == "u/" else x for x in config.black_list]
 		config.raw_config["black_list"] = config.black_list
 	if "gets_flair_from" in config_content:
 		config.gets_flair_from = [x.strip() for x in config_content["gets_flair_from"].split(",")]
 		config.gets_flair_from = [x for x in config.gets_flair_from if x]
-		config.gets_flair_from = [x[1:] for x in config.gets_flair_from if x[0] == "/"]
-		config.gets_flair_from = [x[2:] for x in config.gets_flair_from if x[0] == "r/"]
+		config.gets_flair_from = [x[1:] if x[0] == "/" else x for x in config.gets_flair_from]
+		config.gets_flair_from = [x[2:] if x[0] == "r/" else x for x in config.gets_flair_from]
 		config.raw_config["gets_flair_from"] = config.gets_flair_from
 	# Dump the new config to the file
 	config.dump()
