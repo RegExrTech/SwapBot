@@ -28,24 +28,15 @@ class Config():
 		self.flair_word = self.raw_config['flair_word']
 		self.mod_flair_word = self.raw_config['mod_flair_word']
 		self.display_mod_count = self.raw_config['display_mod_count']
-		if self.raw_config['flair_templates']:
-			self.flair_templates = get_json_data('templates/'+self.subreddit_name+'.json')
-		else:
-			self.flair_templates = False
+		self.flair_templates = self.raw_config['flair_templates']
 		self.confirmation_text = self.raw_config['confirmation_text']
 		if not self.confirmation_text:
 			self.confirmation_text = "Added"
 		self.flair_threshold = self.raw_config['flair_threshold']
 		self.post_age_threshold = self.raw_config['post_age_threshold']
 		self.mod_flair_template = self.raw_config['mod_flair_template']
-		if self.raw_config['titles']:
-			self.titles = get_json_data('titles/'+self.subreddit_name+'.json')
-		else:
-			self.titles = False
-		if self.raw_config['age_titles']:
-			self.age_titles = get_json_data('age_titles/'+self.subreddit_name+'.json')
-		else:
-			self.age_titles = False
+		self.titles = self.raw_config['titles']
+		self.age_titles = self.raw_config['age_titles']
 		self.title_black_list = self.raw_config['title_black_list']
 		self.black_list = self.raw_config['black_list']
 		self.gets_flair_from = self.get_gets_flair_from(self.raw_config['gets_flair_from'])
@@ -55,10 +46,7 @@ class Config():
 			self.discord_config = DiscordConfig(self.subreddit_name)
 		else:
 			self.discord_config = None
-		if self.raw_config['discord_roles']:
-			self.discord_roles = get_json_data('roles/'+self.subreddit_name+'.json')
-		else:
-			self.discord_roles = False
+		self.discord_roles = self.raw_config['discord_roles']
 		self.discord_mod_contact_text = self.raw_config['discord_mod_contact_text']
 
 	def get_gets_flair_from(self, initial_list):
