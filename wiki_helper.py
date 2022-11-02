@@ -23,9 +23,11 @@ def get_wiki_page_content(config_page, config):
 			create_wiki_config(config, config_page)
 			return config_page.content_md
 		except NotFound as e:
+			print(e)
 			# We likely don't have permissions, so just silently return
 			return ""
-	except:
+	except Exception as e:
+		print(e)
 		# Transient error, assume no changes have been made
 		return ""
 
@@ -112,6 +114,7 @@ def validate_wiki_content(config, config_page):
 	content_lines.append("title_black_list: " + ",".join(config.title_black_list))
 	content_lines.append("black_list: " + ",".join(config.black_list))
 	content_lines.append("gets_flair_from: " + ",".join(config.gets_flair_from))
+#	if config.discord_roles:
 	content_lines.append("bot_timestamp: " + str(time.time()))  # Must ALWAYS be last
 	content = "\n\n".join(content_lines)
 	config_page.edit(content=content)
@@ -148,5 +151,5 @@ if __name__ == "__main__":
 		if 'ecigclassifieds' in fname:
 			continue
 		print(fname)
-		bot = Config(fname.split(".")[0])
-		run_config_checker(bot)
+		config = Config(fname.split(".")[0])
+		validate_wiki_content(config, get_wiki_page(config, WIKI_PAGE_NAME))
