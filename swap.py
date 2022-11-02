@@ -13,6 +13,7 @@ from prawcore.exceptions import NotFound
 import time
 import datetime
 import argparse
+import wiki_helper
 
 debug = False
 silent = False
@@ -601,6 +602,8 @@ def main():
 	reddit = sub_config.reddit_object
 	sub = sub_config.subreddit_object
 	sub_config.sister_subs[sub_config.subreddit_name] = {'reddit': reddit, 'sub': sub, 'config': sub_config}
+
+	wiki_helper.run_config_checker(sub_config)
 
 	comments = []  # Stores comments from both sources of Ids
 	messages = []  # Want to catch everything else for replying
