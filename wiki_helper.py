@@ -80,7 +80,7 @@ def run_config_checker(config):
 		config.raw_config["title_black_list"] = config.title_black_list
 	if "black_list" in config_content:
 		config.black_list = [x.strip() for x in config_content["black_list"].split(",")]
-		config.black_list = [x for x in config.black_list if x]
+		config.black_list = [x.lower() for x in config.black_list if x]
 		config.black_list = [x[1:] if x[0] == "/" else x for x in config.black_list]
 		config.black_list = [x[2:] if x[0] == "u/" else x for x in config.black_list]
 		config.raw_config["black_list"] = config.black_list

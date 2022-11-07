@@ -37,9 +37,9 @@ class Config():
 		self.mod_flair_template = self.raw_config['mod_flair_template']
 		self.titles = self.raw_config['titles']
 		self.age_titles = self.raw_config['age_titles']
-		self.title_black_list = self.raw_config['title_black_list']
-		self.black_list = self.raw_config['black_list']
-		self.gets_flair_from = self.get_gets_flair_from(self.raw_config['gets_flair_from'])
+		self.title_black_list = [x.lower() for x in self.raw_config['title_black_list']]
+		self.black_list = [x.lower() for x in self.raw_config['black_list']]
+		self.gets_flair_from = self.get_gets_flair_from([x.lower() for x in self.raw_config['gets_flair_from']])
 		self.gives_flair_to = self.get_gives_flair_to(self.subreddit_name)
 		self.sister_subs = {}
 		if self.raw_config['discord_config']:
