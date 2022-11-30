@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import random
 import sys
 sys.path.insert(0, '.')
@@ -34,7 +33,7 @@ request_url = "http://0.0.0.0:8000"
 
 check_time = datetime.datetime.utcnow().time()
 
-kofi_text = "\n\n---\n\n[^(Buy the developer a coffee)](https://kofi.regexr.tech) or [support this project monthly](https://patreon.regexr.tech)"
+kofi_text = "\n\n---\n\n^([Buy the developer a coffee](https://kofi.regexr.tech) or [support this project monthly](https://patreon.regexr.tech))"
 
 def get_comment_text(comment):
 	body = comment.body.lower().encode('utf-8').strip()
@@ -128,7 +127,10 @@ def update_flair(author1, author2, sub_config):
 				if sub_name == sub_config.subreddit_name:
 					user_flair_text[author_string] = flair_text
 		if updates:
-			print("u/" + author_string + " was updated at the following subreddits with the following flair: \n" + "\n".join(["  * r/"+x[0]+" - "+str(x[1]) for x in updates]))
+			try:
+				print("u/" + author_string + " was updated at the following subreddits with the following flair: \n" + "\n".join(["  * r/"+x[0]+" - "+x[1] for x in updates]))
+			except Exception as e:
+				print("Unable to log " + author_string + " flair update with error " + str(e))
 	return non_updated_users, user_flair_text
 
 def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_users, age, debug=False):
