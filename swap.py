@@ -490,7 +490,7 @@ def handle_top_level_in_automod(comment):
 	reply(comment, reply_text)
 
 def handle_not_op(comment, op_author, incorrect_name):
-	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is `" + op_author + "` but you tagged `" + incorrect_name + "`. If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
+	reply_text = "Neither you nor the person you tagged are the OP of this post so credit will not be given and this comment will no longer be tracked. The original author is `" + op_author.lower() + "` but you tagged `" + incorrect_name + "`. If you meant to tag someone else, please make a **NEW** comment and tag the correct person (**editing your comment will do nothing**). Thanks!"
 	reply(comment, reply_text)
 
 def handle_comment_by_filtered_user(comment):
