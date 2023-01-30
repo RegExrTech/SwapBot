@@ -2,6 +2,8 @@
 config.txt
 config
 config/*
+archived_config
+archived_config/*
 explore_db.py
 backup
 backup/*
