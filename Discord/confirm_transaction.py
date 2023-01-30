@@ -64,11 +64,14 @@ def send_request(type, url, headers, data="{}", should_retry=True, is_embed=Fals
 			print("Discord data too big: \n" + data)
 			return r
 		status_data = r.json()
+		if 'code' in status_data and status_data['code'] == 10008:
+			# This is message not found. We get this a lot as we search each channel for the message ID
+			return r
 		if 'retry_after' in status_data and should_retry:
 			time.sleep((status_data['retry_after']/1000.0) + 0.1) # Add some buffer to the sleep
 			return send_request(type, url, headers, data, False, is_embed)
 		else:
-			print("Discord Failure - status: " + str(r.status_code) + " - text: " + r.text + "\nData: " + str(data))
+			print("Discord Failure - status: " + str(r.status_code) + " - text: " + r.text + "\nData: " + str(data) + "\nURL: " + url + "\nType: " + type)
 	return r
 
 def get_embedded_messaged_template(content="", title="", url="", description=""):
@@ -293,7 +296,7 @@ for message in confirmation_replies:
 			assign_role(current_sub_config.discord_config.server_id, discord_user_id, discord_role_id)
 		if discord_user_id in paired_usernames['discord']:
 			tmp_sub_config, tmp_reddit, tmp_sub = swap.create_reddit_and_sub(sub_config.subreddit_name)
-			if 'reddit' in paired_usernames['discord'][discord_user_id]:
+			if 'reddit' in paired_usernames['discord'][discord_user_id] and tmp_reddit:
 				reddit_username_string = paired_usernames['discord'][discord_user_id]['reddit']
 				reddit_user = tmp_reddit.redditor(reddit_username_string)
 				swap.update_flair(reddit_user, None, sub_config)
