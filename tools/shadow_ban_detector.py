@@ -10,7 +10,7 @@ reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.cl
 
 subnames = [x.split("-")[0] for x in os.listdir("config/")]
 for subname in subnames:
-	sub_config = config.Config(subname)
+	sub_config = Config.Config(subname.split(".")[0])
 	try:
 		bot = reddit.redditor(sub_config.bot_username)
 		m = bot.is_mod
