@@ -68,6 +68,8 @@ class Config():
 	def get_gives_flair_to(self, sub_name):
 		gives_flair_to = []
 		for fname in os.listdir('config'):
+			if '.swp' in fname:
+				continue
 			raw_config = get_json_data("config/"+fname)
 			if raw_config['subreddit_name'] == self.subreddit_name:
 				continue
