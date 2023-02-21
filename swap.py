@@ -113,7 +113,11 @@ def update_flair(author1, author2, sub_config):
 	for author in [author1, author2]:
 		if not author:
 			continue
-		age = datetime.timedelta(seconds=(time.time() - author.created_utc)).days
+		try:
+			age = datetime.timedelta(seconds=(time.time() - author.created_utc)).days
+		except Exception as e:
+			print("Unable to get age for " + str(author) + " with error " + str(e) + ". As such, I am unable to update their flair.")
+			continue
 		author_string = str(author).lower()
 		updates = []
 		for sub_name in [sub_config.subreddit_name] + sub_config.gives_flair_to:
