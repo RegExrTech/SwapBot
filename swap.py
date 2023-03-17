@@ -38,7 +38,7 @@ check_time = datetime.datetime.utcnow().time()
 kofi_text = "\n\n---\n\n[^(Buy the developer a coffee)](https://kofi.regexr.tech) ^or [^(support this project monthly)](https://patreon.regexr.tech)"
 
 def get_comment_text(comment):
-	body = comment.body.lower().encode('utf-8').strip()
+	body = comment.body.lower().strip()
 	while("\\" in body):
 		body = body.replace("\\", "")
 	body = body.replace("www.reddit.com/user/", "www.reddit.com/u/")
@@ -46,10 +46,10 @@ def get_comment_text(comment):
 
 # Checks if the time at script start up is between two desired times
 def is_time_between(begin_time, end_time):
-    if begin_time < end_time:
-	return check_time >= begin_time and check_time <= end_time
-    else: # crosses midnight
-	return check_time >= begin_time or check_time <= end_time
+	if begin_time < end_time:
+		return check_time >= begin_time and check_time <= end_time
+	else: # crosses midnight
+		return check_time >= begin_time or check_time <= end_time
 
 # Method for giving credit to users when they do a trade.
 # Returns True if credit was given, False otherwise
