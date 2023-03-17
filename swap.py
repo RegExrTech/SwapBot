@@ -158,10 +158,10 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	title = get_flair_template(sub_config.titles, int(swap_count))
 	age_title = get_age_title(sub_config.age_titles, age)
 	discord_role_id = get_discord_role(sub_config.discord_roles, int(swap_count))
+	flair_text = ""
 	if not debug:
-		if author in mods and not sub_config.display_mod_count:
-			flair_text = ""
-		else:
+		# Only non-mods and mods when display count is enabled get counts in their flair
+		if author not in mods or sub_config.display_mod_count:
 			if swap_count == "1" and sub_config.flair_word[-1] == 's':
 				flair_text = swap_count + " " + sub_config.flair_word[:-1]
 			else:
