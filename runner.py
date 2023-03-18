@@ -9,11 +9,11 @@ subreddit_name = args.subreddit_name.lower()
 
 def main():
 	while True:
-		os.system('python swap.py ' + subreddit_name)
+		os.system('python3 swap.py ' + subreddit_name)
 		time.sleep(30)
 
 time.sleep(3)
-ps_output = [x for x in os.popen('ps -ef | grep \&\&\ python\ runner.py\ ' + subreddit_name + "\ ").read().splitlines() if 'grep' not in x]
+ps_output = [x for x in os.popen('ps -ef | grep \&\&\ python3\ runner.py\ ' + subreddit_name + "\ ").read().splitlines() if 'grep' not in x]
 # If the only output we get from grep is the grep itself and this instance of the runner,
 # then runner is not currently running so this instance should take over
 if len(ps_output) == 1:

@@ -179,9 +179,9 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 				flair_text += " | " + title
 		try:
 			if template:
-				sub.flair.set(author, flair_text, flair_template_id=template)
+				sub.flair.set(redditor=author, text=flair_text, flair_template_id=template)
 			else:
-				sub.flair.set(author, flair_text, swap_count)
+				sub.flair.set(redditor=author, text=flair_text, css_class=swap_count)
 		except Exception as e:
 			print("Error assigning flair to " + str(author) + " on sub " + sub_config.subreddit_name + " with error " + str(e) + ". Please update flair manually.")
 		if sub_config.discord_config and discord_role_id:
