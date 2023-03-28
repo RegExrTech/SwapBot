@@ -265,7 +265,10 @@ for message in confirmation_replies:
 	bot_reply_id = message['referenced_message']['id']
 	bot_message = send_request(GET, baseUrl+"/"+bot_reply_id, headers).json()
 	author2_message = bot_message['referenced_message']
+	if not author2_message:
+		continue
 	author2_id = author2_message['author']['id']
+
 	if author1_id not in [x['id'] for x in author2_message['mentions']]:
 		reply("You replied to a message that did not tag you. Please do not do that.", message['id'], baseUrl)
 		continue
