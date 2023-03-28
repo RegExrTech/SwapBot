@@ -3,8 +3,12 @@ import os
 sys.path.insert(0, '.')
 import swap
 
-subnames = [x.split("-")[0] for x in os.listdir("config/")]
+subnames = [x.split(".")[0] for x in os.listdir("config/")]
 for subname in subnames:
+	print(subname)
 	sub_config, reddit, sub = swap.create_reddit_and_sub(subname)
-	message_content = "Hi Mod Team! I've made a super small but interesting change tho the swap bot that I wanted to share with you all.\n\nWhen the bot replies to a users comment to 'confirm' the transaction, the bot will now *also* leave a note stating exactly what each user's flair was changed to.\n\nThis is an improvement to the user experience as now BOTH parties will get a notification when the bot updates their flair, as oppposed to just the person who the bot is replying to.\n\nThis is also an improvement for moderators as well. Mods can now click on the bot's profile, filter by comments, and easily see who is transacting with who and what their flairs are at a glance. This makes it easy for mods to quickly profile what is happening on their sub and make sure everything is above water.\n\n [Here is an example](https://imgur.com/a/NxuZFf1) of this new feature in action.\n\nThanks for taking the time to read this! Please let me know if you have any questions at all.\n\nBest,\n\nu/RegExr"
-	sub.message("New Swap Bot Feature - Flair Change Logging", message_content)
+	message_content = "Hi Mod Team!\n\nTLDR You can now control the bot's behavior through a configuration wiki page.\n\nThe Swap Bot System has grown considerably, running against more than 50 communities! As such, it has become unscalable for me to make small changes to each bot here and there. As such, I've devised a new method for giving moderators more direct control over the behavior of their bot.\n\nCheck out https://www.reddit.com/r/" + subname + "/wiki/swap_bot_config/ to see your bot's configuration. The user guide to that configuration page will always be linked at the top, but you can also find it [here](https://redd.it/yixgoa). This change is especially helpful for folks who utilize the username 'black list' feature to prevent user flairs from updating. You can now override a user's flair and add them to this list to prevent the bot from clobbering their flair when they confirm their next transaction.\n\nI'll keep an eye on this thread so please reply if you have any questions or feedback! Hopefully this is helpful change that not only puts some of the control back in your hands but also speeds up your ability to get things done as I am no longer the single point of contact for making changes to the bot configuration.\n\nBest,\n\nu/RegExr\n\nP.S. The wiki pages are only viewable by moderators so no need to worry about random community members stumbling upon this."
+	try:
+		sub.message("Swap Bot Update - Configure Your Bot via Wiki Page!", message_content)
+	except:
+		print("Unable to send message to " + subname)
