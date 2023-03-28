@@ -13,7 +13,7 @@ import requests
 
 # modify here
 ids = set([])
-authors = set([x.lower() for x in ['ghettokatniss']])
+authors = set([x.lower() for x in ["wronginreterosect"]])
 
 request_url = "http://0.0.0.0:8000"
 
@@ -66,7 +66,6 @@ def GetUsersFromCss(sub):
 	to_review = []
 	for flair in sub.flair():
 		username = str(flair['user']).lower()
-		d[username] = []
 #		if username in db:
 #			continue
 #		css = flair['flair_css_class']
@@ -81,15 +80,16 @@ def GetUsersFromCss(sub):
 			continue
 		if flair_text:
 			flair_text = flair_text.strip()
+		if flair_text == "GCX Beginner":
+			try:
+				sub.flair.set(username, "0 Exchanges | Beginner", flair_template_id="d1c87488-f623-11e3-940c-12313d224df5")
+			except Exception as e:
+				print("Unable to set flair for u/" + username + " with error " + str(e))
+		d[username] = flair_text
 
-		flair_count = flair_text.split(" Confirm")[0]
-		try:
-			user_count = int(flair_count)
-		except:
-			continue
+#		for _ in range(user_count):
+#			d[username].append("LEGACY TRADE")
 
-		for _ in range(user_count):
-			d[username].append("LEGACY TRADE")
 		count += 1
 		if not count % 100:
 			print("Finished adding " + str(count) + " users from the sub flair list")
@@ -290,12 +290,12 @@ def GetUserCountsFromMegaThreads(ids, sub_config):
 		for top_level_comment in submission.comments:
 			text = swap.get_comment_text(top_level_comment)
 			partner = swap.get_username_from_text(text, [str(top_level_comment.author).lower()])[2:]
-#			reply = swap.find_correct_reply(top_level_comment, top_level_comment.author, "u/"+partner, submission)
-#			if reply:
-			author1 = str(top_level_comment.author).lower()
-			author2 = partner
-#			d[author1].append(author2 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
-			d[author2].append(author1 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
+			reply = swap.find_correct_reply(top_level_comment, top_level_comment.author, "u/"+partner, submission)
+			if reply:
+				author1 = str(top_level_comment.author).lower()
+				author2 = partner
+				d[author1].append(author2 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
+				d[author2].append(author1 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
 	return d
 
 
@@ -312,7 +312,10 @@ def GetUserCountsWatchExchangeFeedback(authors, ids, sub_config):
 			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
 			time.sleep(20)
 			submission = reddit.submission(id=id)
-		author = str(submission.author).lower()
+		try:
+			author = str(submission.author).lower()
+		except Exception as e:
+			print("Unable to get author fom submission id " + id + " with error " + str(e))
 		author2 = ""
 		match = re.compile("\/*u\/([A-Za-z0-9_-]+)")
 		found = match.findall(submission.title.lower())
@@ -378,14 +381,14 @@ def UpdateFlairs(sub, sub_config, users):
 		swap_count = str(swap.get_swap_count(user, [sub_config.subreddit_name], 'reddit'))
 		user = reddit.redditor(user)
 		try:
-			swap.update_flair(user, None, sub_config)
-#			swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
+#			swap.update_flair(user, None, sub_config)
+			swap.update_single_user_flair(sub, sub_config, str(user), swap_count, [], 0)
 		except Exception as e:
 			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
 			time.sleep(20)
 			try:
-				swap.update_flair(user, None, sub_config)
-#				swap.update_single_user_flair(sub, sub_config, user, swap_count, [], 0)
+#				swap.update_flair(user, None, sub_config)
+				swap.update_single_user_flair(sub, sub_config, str(user), swap_count, [], 0)
 			except Exception as e:
 				print("Unable to assign flair to " + str(user) + ":\n    " + str(e))
 		time.sleep(0.5)
@@ -404,6 +407,10 @@ print("feedback_sub_name: " + feedback_sub_name)
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 
+if sub_name == "giftcardexchange":
+	GetUsersFromCss(sub)
+int('s')
+
 if sub_name == "gamesale":
 	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
 elif sub_name in ["giftcardexchange", "watchexchange", "ygomarketplace"]:
@@ -415,18 +422,12 @@ elif sub_name == "giftcardexchange":
 	users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 elif sub_name == "ygomarketplace":
 	users_to_confirmations = GetUserCountsYGOFeedback(authors, ids, sub_config)
-elif sub_name in ["appleswap", "animalcrossingamiibos"]:
+elif sub_name in ["appleswap", "animalcrossingamiibos", "synths4sale"]:
 	users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
-elif sub_name in ["snackexchange", "airsoftmarketcanada", "watchexchangecanada", "legomarket", "legotrade", "mangaswap"]:
+elif sub_name in ["snackexchange", "airsoftmarketcanada", "watchexchangecanada", "legomarket", "legotrade", "mangaswap", "comblocmarket2"]:
 	users_to_confirmations = GetUsersFromCss(sub)
-elif sub_name in ["comblocmarket2"]:
-	users_to_confirmations = GetUsersFromCSV(sub)
 
 print(users_to_confirmations)
-
-## Use this for manual count assignment
-#users_to_confirmations = {"hobbyistimpulsebuyer".lower(): ["LEGACY TRADE"] * 1}
-#users_to_confirmations = {"HerbyVershmales".lower(): ["avoidingwork57 - https://www.reddit.com/r/WatchExchangeFeedback/comments/fpahsn"]}
 
 UpdateDatabase(sub_config.subreddit_name, users_to_confirmations)
 UpdateFlairs(sub, sub_config, users_to_confirmations.keys())
