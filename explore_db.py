@@ -3,6 +3,12 @@ from collections import defaultdict
 import json
 import server
 import os
+import sys
+sys.path.insert(0, ".")
+import swap
+from server import JsonHelper
+
+j = JsonHelper()
 
 FNAME = 'database/comments.json'
 
@@ -40,13 +46,14 @@ def get_common_users(db):
 
 def get_highest(db):
 	for sub in db:
-		highest = 0
-		h_user = ""
-		for user in db[sub]:
-			if len(db[sub][user]) > highest and not user == 'none':
-				highest = len(db[sub][user])
-				h_user = user
-		print(sub + " - " + h_user + " - " + str(highest))
+		for platform in db[sub]:
+			highest = 0
+			h_user = ""
+			for user in db[sub][platform]:
+				if len(db[sub][platform][user]) > highest and not user == 'none':
+					highest = len(db[sub][platform][user])
+					h_user = user
+			print(sub + " - " + h_user + " - " + str(highest))
 
 def print_user_in_all_subs(db, user):
 	username_lookup = server.json_helper.get_db(server.username_lookup_fname, False)
@@ -61,7 +68,7 @@ def print_user_in_all_subs(db, user):
 					print_user_in_sub(db, sub, platform, user)
 
 def print_user_in_sub(db, sub, platform, user):
-	print("=== " + sub + " - " + platform + " - " + user + " ===")
+	print("=== " + sub + " - " + platform + " - " + user + " - " + str(len(db[sub][platform][user])) + " ===")
 	print("    " + "\n    ".join(db[sub][platform][user]))
 
 def count_partners(db, sub, user):
@@ -80,13 +87,23 @@ def get_total_count(db, user):
 			total += count
 	return total
 
+def check_if_banned(usernames, sub):
+	banned = set([])
+	for ban in sub.banned(limit=None):
+		banned_user = str(ban).lower()
+		banned.add(banned_user)
+#	print(banned)
+#	print(usernames)
+	for username in usernames:
+		if str(username) in banned:
+			print(username)
+
 
 request_url = "http://0.0.0.0:8000"
 db = requests.get(request_url+"/get-db/").json()
 
-for user in [x.lower() for x in ['marvintaylor12']]:
+for user in [x.lower() for x in ['CharminUltraGentle']]:
 	print_user_in_all_subs(db, user.lower())
 
-
-
 #dump(db)
+
