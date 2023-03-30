@@ -18,6 +18,7 @@ debug = False
 silent = False
 
 PLATFORM = "reddit"
+CREDIT_ALREADY_GIVEN_TEXT = "I already have a reference to this trade in my database. This can mean one of three things:\n\n* You made two 'different' transactions with one person in this post and expect to get +2 in your flair for it. However, users are only allowed one confirmation per partner per post. Sorry for the inconevnience, but there are no exceptions.\n\n* You or your partner already tried to confirm this transaction in this post already\n\n* Reddit was having issues earlier and I recorded the transaction but just now got around to replying and updating your flair.\n\nRegardless of which situation applies here, both you and your parther's flairs are all set and no further action is required from either of you. Thank you!"
 
 def log(post, comment, reason):
 	url = "reddit.com/comments/"+str(post)+"/-/"+str(comment)
@@ -399,6 +400,11 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 
 	correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
 	if correct_reply:
+		# If we already left a comment saying we updated their flair, ignore this.
+		bot_reply = find_correct_reply(correct_reply, desired_author2_string, sub_config.bot_username, parent_post)
+		if bot_reply and any([x in bot_reply.body for x in [sub_config.confirmation_text, CREDIT_ALREADY_GIVEN_TEXT]]):
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+			return True
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
 		if correct_reply.banned_by:
 			log(parent_post, comment, "Replying user is shadow banned")
@@ -525,8 +531,7 @@ def inform_comment_tracked(comment, desired_author2_string, parent_post, sub_nam
 	reply(comment, reply_text)
 
 def inform_credit_already_given(comment):
-	reply_text = "I already have a reference to this trade in my database. This can mean one of three things:\n\n* You made two 'different' transactions with one person in this post and expect to get +2 in your flair for it. However, users are only allowed one confirmation per partner per post. Sorry for the inconevnience, but there are no exceptions.\n\n* You or your partner already tried to confirm this transaction in this post already\n\n* Reddit was having issues earlier and I recorded the transaction but just now got around to replying and updating your flair.\n\nRegardless of which situation applies here, both you and your parther's flairs are all set and no further action is required from either of you. Thank you!"
-	reply(comment, reply_text)
+	reply(comment, CREDIT_ALREADY_GIVEN_TEXT)
 
 def inform_comment_archived(comment, sub_config):
 	comment_text = get_comment_text(comment)
@@ -596,7 +601,7 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 		replies.replace_more(limit=None)
 	except Exception as e:
 		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e) + "\n    parent post: " + str(parent_post))
-		return None
+#		return None
 	for reply in replies.list():
 		potential_author2_string = "u/"+str(reply.author).lower()
 		if not potential_author2_string == desired_author2_string:
