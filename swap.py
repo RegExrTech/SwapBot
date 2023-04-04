@@ -603,7 +603,11 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e) + "\n    parent post: " + str(parent_post))
 #		return None
 	for reply in replies.list():
-		potential_author2_string = "u/"+str(reply.author).lower()
+		try:
+			potential_author2_string = "u/"+str(reply.author).lower()
+		except:
+			# This is sometimes a more comments object
+			continue
 		if not potential_author2_string == desired_author2_string:
 			continue
 		if str(author1).lower() == potential_author2_string:  # They can't get credit for swapping with themselves
