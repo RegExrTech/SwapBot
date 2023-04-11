@@ -402,7 +402,8 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	if correct_reply:
 		# If we already left a comment saying we updated their flair, ignore this.
 		bot_reply = find_correct_reply(correct_reply, desired_author2_string, sub_config.bot_username, parent_post)
-		if bot_reply and any([x in bot_reply.body for x in [sub_config.confirmation_text, CREDIT_ALREADY_GIVEN_TEXT]]):
+		if bot_reply and any([x in bot_reply.body for x in [' -> ', CREDIT_ALREADY_GIVEN_TEXT]]):
+			print("Removing comment reddit.com/r/" + sub_config.subreddit_name + "/comments/" + parent_post.id + "/-/" + correct_reply.id + " because the bot found it again for some reason.")
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			return True
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
