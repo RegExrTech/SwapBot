@@ -574,6 +574,13 @@ def format_swap_count(trades, sub_config):
 	for trade in trades[::-1]:
 		if "LEGACY TRADE" in trade:
 			legacy_count += 1
+		elif 'redd.it' in trade:
+			trade_partner = trade.split(" - ")[0]
+			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': trade_partner}).json()['data'])
+			trade_url = trade.split(" - ")[1]
+			trade_url_sub = sub_config.subreddit_display_name
+			trade_url_id = trade_url.split("/")[-1]
+			final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://" + trade_url  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
 		elif 'reddit.com' in trade:
 			trade_partner = trade.split(" - ")[0]
 			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': trade_partner}).json()['data'])
