@@ -537,11 +537,11 @@ def inform_credit_already_given(comment):
 def inform_comment_archived(comment, sub_config):
 	comment_text = get_comment_text(comment)
 	author2 = get_username_from_text(comment_text, [sub_config.bot_username, str(comment.author)])
-	reply_text = author2 + ", please reply to the comment above once both parties have received their end of the transaction to confirm with your trade partner.\n\nThis comment has been around for more than 3 days without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance."
+	reply_text = author2 + ", please reply to the comment above once both parties have received their end of the transaction to confirm with your trade partner.\n\nThis comment has been around for more than a day without a response. The bot will still track this comment but it will only check it once a day. This means that if your trade partner replies to your comment, it will take up to 24 hours before your comment is confirmed. Please wait that long before messaging the mods for help. If you are getting this message but your partner has already confirmed, please message the mods for assistance."
 	reply(comment, reply_text)
 
 def inform_comment_deleted(comment):
-	reply_text = "This comment has been around for more than a month and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner."
+	reply_text = "This comment has been around for more than a week and will no longer be tracked. If you wish to attempt to get trade credit for this swap again, please make a new comment and tag both this bot and your trade partner."
 	reply(comment, reply_text)
 
 def inform_giving_credit(comment, non_updated_users, sub_config, user_flair_text):
@@ -652,8 +652,8 @@ def main():
 			continue
 		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit, comment.id in new_ids, sub_config)
 		time_made = comment.created
-		# if this comment is more than three days old and we didn't find a correct looking reply
-		if time.time() - time_made > 3 * 24 * 60 * 60 and not handeled:
+		# if this comment is more than a day old and we didn't find a correct looking reply
+		if time.time() - time_made > 24 * 60 * 60 and not handeled:
 			inform_comment_archived(comment, sub_config)
 			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 
@@ -679,7 +679,7 @@ def main():
 				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
 				continue
 			time_made = comment.created
-			if time.time() - time_made > 30 * 24 * 60 * 60:  # if this comment is more than thirty days old
+			if time.time() - time_made > 7 * 24 * 60 * 60:  # if this comment is more than seven days old
 				inform_comment_deleted(comment)
 				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			else:
