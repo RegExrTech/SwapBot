@@ -293,6 +293,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	try:
 		parent_sub = parent_post.subreddit
 	except:  # If we can't get the sub, it means the sub is private.
+		log(parent_post, comment, "Associated sub is private.")
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	if str(parent_sub).lower() == "edefinition":
@@ -302,6 +303,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		return True
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
+		log(parent_post, comment, "Bot was tagged in reply to a bot tag.")
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comments made by shadowbanned users.
@@ -315,6 +317,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	# Determine if they properly tagged a trade partner
 	desired_author2_string = get_username_from_text(comment_text, [bot_username, str(author1)])
 	if not desired_author2_string:
+		log(parent_post, comment, "No other user was tagged in the comment.")
 		handle_no_author2(comment)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
@@ -367,6 +370,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		# Confirmations in Automod threads must not be done at the top level.
 		if comment == top_level_comment:
 			handle_top_level_in_automod(comment)
+			log(parent_post, comment, "Top level comment in automod post.")
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			return True
 		# Remove comment if neither the person doing the tagging nor the person being tagged are the OP of the top level comment
@@ -403,7 +407,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		# If we already left a comment saying we updated their flair, ignore this.
 		bot_reply = find_correct_reply(correct_reply, desired_author2_string, sub_config.bot_username, parent_post)
 		if bot_reply and any([x in bot_reply.body for x in [' -> ', CREDIT_ALREADY_GIVEN_TEXT]]):
-			print("Removing comment reddit.com/r/" + sub_config.subreddit_name + "/comments/" + parent_post.id + "/-/" + correct_reply.id + " because the bot found it again for some reason.")
+			log(parent_post, comment, "Bot found it again for some reason")
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 			return True
 		# Remove if correct reply is made by someone who cannot leave public commens on the sub
@@ -608,7 +612,7 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 	try:
 		replies.replace_more(limit=None)
 	except Exception as e:
-		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e) + "\n    parent post: " + str(parent_post))
+		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e) + "\n    parent post: " + str(parent_post) + "\n    author1: u/" + author1.name + "\n    author2: u/" + desired_author2_string)
 #		return None
 	for reply in replies.list():
 		try:
@@ -663,7 +667,6 @@ def main():
 	is_time_3 = is_time_between(datetime.time(14,0), datetime.time(14,9))
 	is_time_4 = is_time_between(datetime.time(20,0), datetime.time(20,9))
 	if is_time_1 or is_time_2 or is_time_3 or is_time_4 or debug:
-#	if True:
 		if debug:
 			print("Looking through archived comments...")
 		comments = []
