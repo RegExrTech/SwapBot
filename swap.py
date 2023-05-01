@@ -8,6 +8,7 @@ import requests
 import re
 import json
 import praw
+from praw.models import SubredditHelper
 from prawcore.exceptions import NotFound
 import time
 import datetime
@@ -211,7 +212,22 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 				except:  # if this fails, the user deleted their account or comment so skip it
 					pass
 			elif not message.was_comment:
-				messages.append(message)
+				if 'gadzooks! **you are invited to become a moderator**' in message.body.lower() and message.subreddit != None and message.subreddit.display_name.lower() == sub_config.subreddit_name:
+					try:
+						sub_config.subreddit_object.mod.accept_invite()
+					except Exception as e:
+						print("Was unable to accept invitation to moderate " + sub_config.subreddit_name + " with error " + str(e))
+						continue
+					# This means that we're in action for the first time, so let's also claim our own subreddit
+					print("Attempting to claim r/" + sub_config.bot_username)
+					sh = SubredditHelper(sub_config.reddit, {})
+					try:
+						sh.create(sub_config.bot_username, subreddit_type='private')
+					except Exception as e:
+						if 'SUBREDDIT_EXISTS' in str(e):
+							print("    IMPERSONATION FOUND FOR u/" + sub_config.bot_username)
+				else:
+					messages.append(message)
 	except Exception as e:
 		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
@@ -244,7 +260,8 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 			else:
 				comment = reddit.comment(comment_id)
 			comments.append(comment)
-		except:  # If we fail, the user deleted their comment or account, so skip
+		except Exception as e:  # If we fail, the user deleted their comment or account, so skip
+			print("Failed to turn comment id " + comment_id + " into a comment object with bot " + bot_name + " with error " + str(e))
 			pass
 
 	if not debug:
@@ -303,7 +320,6 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		return True
 	# If this is someone responding to a tag by tagging the bot, we want to ignore them.
 	if isinstance(comment.parent(), praw.models.Comment) and bot_username.lower() in comment.parent().body.lower() and 'automod' not in str(comment.parent().author).lower():
-		log(parent_post, comment, "Bot was tagged in reply to a bot tag.")
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comments made by shadowbanned users.
@@ -612,7 +628,7 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 	try:
 		replies.replace_more(limit=None)
 	except Exception as e:
-		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e) + "\n    parent post: " + str(parent_post) + "\n    author1: u/" + author1.name + "\n    author2: u/" + desired_author2_string)
+		print("Was unable to add more comments down the comment tree when trying to find correct reply with comment: " + str(comment) + " with error: " + str(e) + "\n    parent post: " + str(parent_post) + "\n    author1: " + str(author1) + "\n    author2: u/" + desired_author2_string)
 #		return None
 	for reply in replies.list():
 		try:
