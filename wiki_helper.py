@@ -2,6 +2,7 @@ from Config import Config
 from prawcore.exceptions import NotFound
 import time
 import requests
+import swap
 
 WIKI_PAGE_NAME = 'swap_bot_config'
 
@@ -79,11 +80,19 @@ def run_config_checker(config):
 		config.title_black_list = [x for x in config.title_black_list if x]
 		config.raw_config["title_black_list"] = config.title_black_list
 	if "black_list" in config_content:
-		config.black_list = [x.strip() for x in config_content["black_list"].split(",")]
-		config.black_list = [x.lower() for x in config.black_list if x]
-		config.black_list = [x[1:] if x[0] == "/" else x for x in config.black_list]
-		config.black_list = [x[2:] if x[0] == "u/" else x for x in config.black_list]
+		black_list = [x.strip() for x in config_content["black_list"].split(",")]
+		black_list = [x.lower() for x in black_list if x]
+		black_list = [x[1:] if x[0] == "/" else x for x in black_list]
+		black_list = [x[2:] if x[0] == "u/" else x for x in black_list]
+		users_to_update = [x for x in config.black_list if x not in black_list]
+		config.black_list = black_list
 		config.raw_config["black_list"] = config.black_list
+		for user in users_to_update:
+			try:
+				redditor = config.reddit_object.redditor(user)
+				swap.update_flair(redditor, None, config)
+			except Exception as e:
+				print("Unable to update flair for u/" + user + " after removing them from the black list for r/" + config.subreddit_display_name + " with error " + str(e))
 	if "gets_flair_from" in config_content:
 		config.gets_flair_from = [x.strip() for x in config_content["gets_flair_from"].split(",")]
 		config.gets_flair_from = [x for x in config.gets_flair_from if x]
