@@ -306,13 +306,14 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	while parent_post.__class__.__name__ == "Comment":
 		top_level_comment = parent_post
 		parent_post = parent_post.parent()
-	# r/edefinition keeps the bot around as a pet. Have some fun with them here.
 	try:
 		parent_sub = parent_post.subreddit
-	except:  # If we can't get the sub, it means the sub is private.
-		log(parent_post, comment, "Associated sub is private.")
-		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+	except Exception as e:  # If we can't get the sub, it means the sub is private.
+		log(parent_post, comment, "Associated sub is private. Error: " + str(e))
+		requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+#		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
+	# r/edefinition keeps the bot around as a pet. Have some fun with them here.
 	if str(parent_sub).lower() == "edefinition":
 		print("ALERT! r/edefinition post: redd.it/" + str(parent_post))
 		handle_edefinition(comment)
