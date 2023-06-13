@@ -23,7 +23,8 @@ class Config():
 		self.client_secret = self.raw_config['client_secret']
 		self.bot_username = self.raw_config['bot_username']
 		self.bot_password = self.raw_config['bot_password']
-		self.reddit_object = praw.Reddit(client_id=self.client_id, client_secret=self.client_secret, user_agent='Swap Bot for ' + self.subreddit_name + ' v1.0 (by u/RegExr)', username=self.bot_username, password=self.bot_password)
+		self.refresh_token = self.raw_config['refresh_token']
+		self.reddit_object = praw.Reddit(client_id=self.client_id, client_secret=self.client_secret, user_agent='Swap Bot for ' + self.subreddit_name + ' v1.0 (by u/RegExr)', refresh_token=self.refresh_token)
 		self.subreddit_object = self.reddit_object.subreddit(self.subreddit_name)
 		self.flair_word = self.raw_config['flair_word']
 		self.mod_flair_word = self.raw_config['mod_flair_word']

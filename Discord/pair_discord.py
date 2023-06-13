@@ -18,7 +18,7 @@ request_url = "http://0.0.0.0:8000"
 bot_username = "Swap Bot#0749"
 TOKENS = json_helper.get_db("Discord/config/" + args.sub_name + ".json")
 
-reddit = praw.Reddit(client_id=TOKENS['reddit_pairing_config']['client_id'], client_secret=TOKENS['reddit_pairing_config']['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', username=TOKENS['reddit_pairing_config']['username'], password=TOKENS['reddit_pairing_config']['password'])
+reddit = praw.Reddit(client_id=TOKENS['reddit_pairing_config']['client_id'], client_secret=TOKENS['reddit_pairing_config']['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', refresh_token=TOKENS['reddit_pairing_config']['refresh_token'])
 
 baseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["pairing_channel"])
 logBaseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["log_channel"])

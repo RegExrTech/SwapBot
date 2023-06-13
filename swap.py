@@ -27,10 +27,10 @@ def log(post, comment, reason):
 
 def create_reddit_and_sub(sub_name):
 	sub_config = Config.Config(sub_name.lower())
-	if not all([sub_config.client_id, sub_config.client_secret, sub_config.bot_username, sub_config.bot_password]):
+	if not all([sub_config.client_id, sub_config.client_secret, sub_config.refresh_token]):
 		return sub_config, None, None
-	reddit = praw.Reddit(client_id=sub_config.client_id, client_secret=sub_config.client_secret, user_agent='Swap Bot for ' + sub_config.subreddit_name + ' v1.0 (by u/RegExr)', username=sub_config.bot_username, password=sub_config.bot_password)
-	sub = reddit.subreddit(sub_config.subreddit_name)
+	reddit = sub_config.reddit_object
+	sub = sub_config.subreddit_object
 	return sub_config, reddit, sub
 
 request_url = "http://0.0.0.0:8000"
