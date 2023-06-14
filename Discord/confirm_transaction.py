@@ -124,6 +124,8 @@ def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmati
 		else:
 			partner = confirmation.split(" - ")[0]
 			url = confirmation.split(" - ")[1]
+			if 'http' not in url:
+				url = 'https://' + url
 			next_item_string = "[" + partner + "](" + url + ")"
 		if first_reply_in_field:
 			first_reply_in_field = False
