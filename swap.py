@@ -699,7 +699,7 @@ def handle_manual_adjustment(message, sub_config):
 	except Exception as e:
 		print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " with subject\n\n" + subject + "\n\n and body\n\n" + body)
 
-	update_flair(username1, None, sub_config)
+	update_flair(sub_config.reddit_object.redditor(username1), None, sub_config)
 
 	return reply_to_message(message, "Success!", sub_config)
 
