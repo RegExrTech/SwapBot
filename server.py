@@ -327,10 +327,11 @@ def add_batch_swap():
 		String username: Username for a reddit user to update
 		String swap_text: comma separated string representing transactions to add for the corresponding user
 
-	Return JSON {}
+	Return JSON {username1: String(Boolean representation of if the user was updated or not), username2: ...}
 	"""
 
 	global swap_data
+	return_data = {}
 	sub_name = request.get_json()["sub_name"]
 	platform = request.get_json()["platform"]
 	if sub_name not in swap_data:
@@ -339,15 +340,17 @@ def add_batch_swap():
 		swap_data[sub_name][platform] = {}
 	user_data = request.get_json()["user_data"]
 	for username in user_data:
+		username = username.lower()
+		return_data[username] = 'False'
 		swap_text_list = user_data[username].split(",")
 		if username not in swap_data[sub_name][platform]:
 			swap_data[sub_name][platform][username] = []
 		for swap_text in swap_text_list:
 			if swap_text not in swap_data[sub_name][platform][username] or "LEGACY TRADE" in swap_text:
 				swap_data[sub_name][platform][username].append(swap_text)
+				return_data[username] = 'True'
 	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
-	return jsonify({})
-
+	return jsonify(return_data)
 
 
 @app.route('/remove-swap/', methods=['POST'])

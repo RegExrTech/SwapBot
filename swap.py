@@ -642,6 +642,102 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 		return reply
 	return None
 
+def handle_manual_adjustment(message, sub_config):
+	error_text = "\n\nPlease send a message in the form of `$add u/<requester> u/<unresponsive_user> <reddit link>` and try again (don't include the `<>` characters)."
+
+	requesting_mod = message.author.name.lower()
+	if requesting_mod not in sub_config.admins:
+		reply_text = "Error: You are not authorized to execute this command." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	items = message.body.split(" ")
+	if len(items) < 4:
+		response_text = "Error: Invalid Format." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	username1 = items[1]
+	username2 = items[2]
+	link = items[3]
+	if all(['u/' not in x for x in [username1, username2]]):
+		response_text = "Error: No usernames could be found in the message you sent." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+	if any(['u/' not in x for x in [username1, username2]]):
+		response_text = "Error: Only one username was found." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+	username1 = username1.split("/")[-1].lower()
+	username2 = username2.split("/")[-1].lower()
+
+	url_parts = link.split("/")
+	if len(url_parts) < 7:
+		reply_text = "Error: Could not find a proper reddit URL in the message. Please ensure the URL looks like this: https://www.reddit.com/r/subreddit/comments/xxxxxxx/..." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+	post_id = url_parts[6]
+	thread = "https://www.reddit.com/r/" + sub_config.subreddit_name + "/comments/" + post_id
+	post_object = sub_config.reddit_object.submission(id=post_id)
+
+	try:
+		attempted_sub_name = post_object.subreddit.display_name.lower()
+		if sub_config.subreddit_name != attempted_sub_name:
+			reply_text = "Error: I am not supposed to run on r/" + attempted_sub_name + error_text
+			return reply_to_message(message, reply_text, sub_config)
+	except Exception as e:
+		reply_text = "Error: " + str(e) + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	if post_object.author.name.lower() not in [username1, username2]:
+		reply_text = "Error: Neither u/" + username1 + " nor u/" + username2 + " are the author of " + thread + "\n\nThe author of that thread is u/" + post_object.author.name + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	database_text = username2 + " - " + thread
+	return_data = requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'user_data': {username1: database_text}}).json()
+	if return_data[username1] == 'False':
+		reply_text = "Error: This transaction was previously recorded for u/" + username1
+		return reply_to_message(message, reply_text, sub_config)
+
+	try:
+		sub_config.subreddit_object.message(subject="[Notification] Manual Flair Update", message="u/" + message.author.name + " has manually updated flair for u/" + username1 + " because u/" + username2 + " was unresponsive in thread " + thread)
+	except Exception as e:
+		print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " with subject\n\n" + subject + "\n\n and body\n\n" + body)
+
+	update_flair(username1, None, sub_config)
+
+	return reply_to_message(message, "Success!", sub_config)
+
+def handle_swap_data_request(message, sub_config):
+	text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ")
+	username = get_username_from_text(text)[2:]  # remove the leading u/ in the username
+	if not username:  # If we didn't find a username, let them know and continue
+		reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
+		reply_to_message(message, reply_text, sub_config)
+		return
+	trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
+	# Text based on swaps for this sub
+	if len(trades) == 0:
+		reply_header = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " in this sub yet."
+		swap_count_text = ""
+	else:
+		reply_header = "Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " " + sub_config.flair_word + ":\n\n"
+		swap_count_text = format_swap_count(trades, sub_config)
+	# Get a summary of other subs at the bottom of the message
+	sister_sub_text = ""
+	for sister_sub in sub_config.gets_flair_from:
+		sister_sub_count = get_swap_count(username, [sister_sub], PLATFORM)
+		if sister_sub_count > 0:
+			sister_sub_text += "\n\nThis user also has " + str(sister_sub_count) + " " + sub_config.flair_word + " on r/" + sister_sub
+	# Truncate if too large
+	if len(reply_header+swap_count_text+sister_sub_text+kofi_text) > 10000:
+		truncated_text = "* And more..."
+		amount_to_truncate = len(reply_header+swap_count_text+sister_sub_text+kofi_text+truncated_text) + 1 - 10000
+		swap_count_text = swap_count_text[:len(swap_count_text) - amount_to_truncate]
+		swap_count_text = "*".join(swap_count_text.split("*")[:-1])
+	else:
+		truncated_text = ""
+
+	reply_text = reply_header + swap_count_text + truncated_text + sister_sub_text
+
+	reply_to_message(message, reply_text, sub_config)
+
+
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('sub_name', metavar='C', type=str)
@@ -706,38 +802,10 @@ def main():
 
 	# This is for if anyone sends us a message requesting swap data
 	for message in messages:
-		text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ")
-		username = get_username_from_text(text)[2:]  # remove the leading u/ in the username
-		if not username:  # If we didn't find a username, let them know and continue
-			reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
-			reply_to_message(message, reply_text, sub_config)
-			continue
-		trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
-		# Text based on swaps for this sub
-		if len(trades) == 0:
-			reply_header = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " in this sub yet."
-			swap_count_text = ""
+		if message.body[0:4] == "$add":
+			handle_manual_adjustment(message, sub_config)
 		else:
-			reply_header = "Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " " + sub_config.flair_word + ":\n\n"
-			swap_count_text = format_swap_count(trades, sub_config)
-		# Get a summary of other subs at the bottom of the message
-		sister_sub_text = ""
-		for sister_sub in sub_config.gets_flair_from:
-			sister_sub_count = get_swap_count(username, [sister_sub], PLATFORM)
-			if sister_sub_count > 0:
-				sister_sub_text += "\n\nThis user also has " + str(sister_sub_count) + " " + sub_config.flair_word + " on r/" + sister_sub
-		# Truncate if too large
-		if len(reply_header+swap_count_text+sister_sub_text+kofi_text) > 10000:
-			truncated_text = "* And more..."
-			amount_to_truncate = len(reply_header+swap_count_text+sister_sub_text+kofi_text+truncated_text) + 1 - 10000
-			swap_count_text = swap_count_text[:len(swap_count_text) - amount_to_truncate]
-			swap_count_text = "*".join(swap_count_text.split("*")[:-1])
-		else:
-			truncated_text = ""
-
-		reply_text = reply_header + swap_count_text + truncated_text + sister_sub_text
-
-		reply_to_message(message, reply_text, sub_config)
+			handle_swap_data_request(message, sub_config)
 
 if __name__ == "__main__":
 	main()
