@@ -58,11 +58,9 @@ def is_time_between(begin_time, end_time):
 def update_database(author1, author2, post_id, comment_id, sub_config, top_level_comment_id=""):
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
-
-	# Default generic value for swaps
 	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id,'top_level_comment_id': top_level_comment_id,  'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
-	is_duplicate = return_data['is_duplicate'] == 'True'
-	return not is_duplicate
+	# If at least one confirmation was not a duplicate, credit was given
+	return any([return_data[username]['is_duplicate'] == 'False' for username in return_data])
 
 def get_flair_template(templates, count):
 	if not templates:

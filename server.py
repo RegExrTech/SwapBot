@@ -152,7 +152,7 @@ def check_comment():
 	String comment_id: The ID of the comment where the trade took place
 	String platform: The platform the comment is coming from
 
-	Return JSON {'is_duplicate': String, 'flair_count_1': String, 'flair_count_2': String}
+	Return JSON {username1: is_dupliate (string representation of boolean), username2: ...}
 	"""
 
 	global swap_data
@@ -168,6 +168,7 @@ def check_comment():
 
 	author1 = request.form['author1']
 	author2 = request.form['author2']
+	return_data = {author1: {'is_duplicate': 'False'}, author2: {'is_duplicate': 'False'}}
 	post_id = request.form['post_id']
 	comment_id = request.form['comment_id']
 	if 'top_level_comment_id' in request.form:
@@ -188,14 +189,16 @@ def check_comment():
 		sub_data[author1] = [author2 + message]
 	else:
 		if author2 + message in sub_data[author1]:
-			return jsonify({'is_duplicate': 'True', 'flair_count_1': 0, 'flair_count_2': 0})
-		sub_data[author1].append(author2 + message)
+			return_data[author1]['is_duplicate'] = 'True'
+		else:
+			sub_data[author1].append(author2 + message)
 	if author2 not in sub_data:
 		sub_data[author2] = [author1 + message]
 	else:
 		if author1 + message in sub_data[author2]:
-			return jsonify({'is_duplicate': 'True', 'flair_count_1': 0, 'flair_count_2': 0})
-		sub_data[author2].append(author1 + message)
+			return_data[author2]['is_duplicate'] = 'True'
+		else:
+			sub_data[author2].append(author1 + message)
 
 	if sub_name not in comment_data:
 		comment_data[sub_name] = {}
@@ -211,9 +214,7 @@ def check_comment():
 		comment_data[sub_name][platform]['archived'].remove(comment_id)
 	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	json_helper.dump(comment_data, comment_fname)
-	flair_count_1 = len(get_user_summary(swap_data[sub_name], author1, platform))
-	flair_count_2 = len(get_user_summary(swap_data[sub_name], author2, platform))
-	return jsonify({'is_duplicate': 'False', 'flair_count_1': flair_count_1, 'flair_count_2': flair_count_2})
+	return jsonify(return_data)
 
 @app.route('/get-summary/', methods=['POST'])
 def get_summary():

@@ -197,8 +197,8 @@ def reply(message, reply_id, url):
 
 def update_database(author1, author2, listing_url):
 	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': listing_url, 'comment_id': "", 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
-	is_duplicate = return_data['is_duplicate'] == 'True'
-	return is_duplicate
+	# If at least one confirmation was not a duplicate, credit was given
+	return any([return_data[username]['is_duplicate'] == 'False' for username in return_data])
 
 messages = send_request(GET, baseUrl, headers).json()
 
