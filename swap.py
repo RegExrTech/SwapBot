@@ -694,10 +694,12 @@ def handle_manual_adjustment(message, sub_config):
 		reply_text = "Error: This transaction was previously recorded for u/" + username1
 		return reply_to_message(message, reply_text, sub_config)
 
-	try:
-		sub_config.subreddit_object.message(subject="[Notification] Manual Flair Update", message="u/" + message.author.name + " has manually updated flair for u/" + username1 + " because u/" + username2 + " was unresponsive in thread " + thread)
-	except Exception as e:
-		print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " with subject\n\n" + subject + "\n\n and body\n\n" + body)
+	# Send a notification if someone other than RegExr uses this feature.
+	if requesting_mod != 'regexr':
+		try:
+			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Update", message="u/" + message.author.name + " has manually updated flair for u/" + username1 + " because u/" + username2 + " was unresponsive in thread " + thread)
+		except Exception as e:
+			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " with subject\n\n" + subject + "\n\n and body\n\n" + body)
 
 	update_flair(sub_config.reddit_object.redditor(username1), None, sub_config)
 
