@@ -585,7 +585,7 @@ def launch():
 			try:
 				_db = json_helper.get_db('database/'+fname)
 			except Exception as e:
-				print("Unable to load database for " + fname + " with erro " + str(e))
+				print("Unable to load database for " + fname + " with error " + str(e))
 				raise e
 			swap_data[fname.split("-")[0]] = _db
 	comment_data = json_helper.get_db(comment_fname)
