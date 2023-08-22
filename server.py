@@ -548,6 +548,8 @@ def remove_account_pairing_request():
 	global pending_requests
 	discord_user_id = request.form["discord_user_id"]
 
+	if discord_user_id not in pending_requests:
+		return jsonify({'error': 'id ' + discord_user_id + ' not found in pending requests.'})
 	del(pending_requests[discord_user_id])
 	json_helper.dump(pending_requests, pending_requests_fname)
 	return jsonify({})
