@@ -184,5 +184,3 @@ for reddit_message in reddit_messages:
 		requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
 		requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
 
-# Dump the relevant databases
-json_helper.dump(pending_requests, "Discord/pending_requests.json")
