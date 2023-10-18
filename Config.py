@@ -49,6 +49,7 @@ class Config():
 			self.discord_config = None
 		self.discord_roles = self.raw_config['discord_roles']
 		self.discord_mod_contact_text = self.raw_config['discord_mod_contact_text']
+		self.admins = [x.lower() for x in self.raw_config['admins']]
 
 	def get_gets_flair_from(self, initial_list):
 		gets_flair_from = []
