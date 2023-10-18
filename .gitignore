@@ -9,3 +9,4 @@ backup
 backup/*
 edefinition.txt
 Discord/tokens.json
+logger/tokens.py
