@@ -29,9 +29,9 @@ for subname in subnames:
 newly_banned = [x for x in banned if x not in previously_banned]
 no_longer_banned = [x for x in previously_banned if x not in banned]
 if newly_banned:
-	logger.log("The following USL bots are shadowbanned:\n\n* " + "\n* ".join(newly_banned))
+	logger.log("The following swap bots are shadowbanned:\n\n* " + "\n* ".join(newly_banned))
 if no_longer_banned:
-	logger.log("The following USL bots are no longer shadowbanned:\n\n* " + "\n* ".join(no_longer_banned))
+	logger.log("The following swap bots are no longer shadowbanned:\n\n* " + "\n* ".join(no_longer_banned))
 
 if newly_banned or no_longer_banned:
 	f = open(database_fname, 'w')
