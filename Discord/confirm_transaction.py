@@ -221,8 +221,8 @@ def reply(message, reply_id, url):
 		print("Would have sent message: " + message)
 
 def update_database(author1, author2, listing_url):
-	post_id = listing_url.split("/")[]
-	comment_id = listing_url.split("/")[]
+	post_id = listing_url.split("/")[5]
+	comment_id = listing_url.split("/")[6]
 	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
 	# If at least one confirmation was not a duplicate, credit was given
 	return not any([return_data[username]['is_duplicate'] == 'False' for username in return_data])
