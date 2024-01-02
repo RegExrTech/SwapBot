@@ -130,12 +130,14 @@ def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmati
 				continue
 			for _ in range(transaction_data[platform]['legacy_count']):
 				confirmations.append("LEGACY TRADE")
+		return confirmations
 
 	transaction_count = 0
 	for platform in confirmations:
 		if 'legacy_count' in confirmations[platform]:
 			transaction_count += confirmations[platform]['legacy_count']
 		transaction_count += len(confirmations[platform]['transactions'])
+	confirmations = _format_transactions(confirmations)
 	title = username + " has " + str(transaction_count) + " confirmed transactions"
 	content = kofi_text[6:]
 	data = _get_embed(content, title)
@@ -219,7 +221,9 @@ def reply(message, reply_id, url):
 		print("Would have sent message: " + message)
 
 def update_database(author1, author2, listing_url):
-	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': listing_url, 'comment_id': "", 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
+	post_id = listing_url.split("/")[]
+	comment_id = listing_url.split("/")[]
+	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
 	# If at least one confirmation was not a duplicate, credit was given
 	return not any([return_data[username]['is_duplicate'] == 'False' for username in return_data])
 
