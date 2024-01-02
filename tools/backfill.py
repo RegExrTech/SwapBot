@@ -85,10 +85,9 @@ def GetUsersFromCss(sub):
 				sub.flair.set(username, "0 Exchanges | Beginner", flair_template_id="d1c87488-f623-11e3-940c-12313d224df5")
 			except Exception as e:
 				print("Unable to set flair for u/" + username + " with error " + str(e))
-		d[username] = flair_text
 
-#		for _ in range(user_count):
-#			d[username].append("LEGACY TRADE")
+		for _ in range(user_count):
+			d[username].append({'post_id': "LEGACY TRADE"})
 
 		count += 1
 		if not count % 100:
@@ -294,8 +293,8 @@ def GetUserCountsFromMegaThreads(ids, sub_config):
 			if reply:
 				author1 = str(top_level_comment.author).lower()
 				author2 = partner
-				d[author1].append(author2 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
-				d[author2].append(author1 + " - https://www.reddit.com/r/" + submission.subreddit.display_name.lower() + "/comments/" + id + "/-/" + top_level_comment.id)
+				d[author1].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': int(time.time()), 'partner': author2})
+				d[author2].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': int(time.time()), 'partner': author1})
 	return d
 
 
@@ -366,11 +365,7 @@ def GetUserCountsWatchExchangeFeedback(authors, ids, sub_config):
 
 def UpdateDatabase(sub_name, users_to_confirmations):
 	print("Updating Database for all users...")
-	user_data = {}
-	for user in users_to_confirmations:
-		confirmation_text_list = ",".join(users_to_confirmations[user])
-		user_data[user] = confirmation_text_list
-	requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'platform': PLATFORM, 'user_data': user_data})
+	requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'platform': PLATFORM, 'user_data': users_to_confirmations})
 
 def UpdateFlairs(sub, sub_config, users):
 	print("Updating flair for all users...")

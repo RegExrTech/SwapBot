@@ -15,21 +15,14 @@ cli.show_server_banner = lambda *x: None
 app = Flask(__name__)
 
 class JsonHelper:
-	def ascii_encode_dict(self, data):
-		ascii_encode = lambda x: x.encode('ascii') if isinstance(x, unicode) else x
-		return dict(map(ascii_encode, pair) for pair in data.items())
-
 	def get_db(self, fname, encode_ascii=True):
 		with open(fname) as json_data:
-			if encode_ascii:
-				data = json.load(json_data, object_hook=self.ascii_encode_dict)
-			else:
-				data = json.load(json_data)
+			data = json.load(json_data)
 		return data
 
 	def dump(self, db, fname):
 		with open(fname, 'w') as outfile:
-			outfile.write(str(db).replace("'", '"').replace('{u"', '{"').replace('[u"', '["').replace(' u"', ' "').encode('ascii','ignore'))
+			outfile.write(json.dumps(db, sort_keys=True, indent=4))
 
 json_helper = JsonHelper()
 
@@ -53,7 +46,22 @@ def get_alias(user_id, current_platform, desired_platform):
 	return username_lookup[current_platform][user_id]
 
 def get_user_summary(sub_data, author, current_platform):
-	summary = []
+	"""Returns transaction entries.
+		Example: {
+			'reddit': {
+				'legacy_count': 12,
+				'transactions': [
+					{
+						'post_id': 'abc',
+						'comment_id': 'abc',
+						'timestamp': 'abc',
+						'partner': 'abc'
+					}
+				]
+			}
+		}
+	"""
+	summary = {}
 	usernames_on_platforms = username_lookup[current_platform]
 	for platform in sub_data:
 		if author in usernames_on_platforms:
@@ -61,10 +69,10 @@ def get_user_summary(sub_data, author, current_platform):
 			if platform in platforms_to_username:
 				platform_author_name = platforms_to_username[platform]
 				if platform_author_name in sub_data[platform]:
-					summary += sub_data[platform][platform_author_name]
+					summary[platform] = sub_data[platform][platform_author_name]
 		if platform == current_platform:
 			if author in sub_data[platform]:
-				summary += sub_data[platform][author]
+				summary[platform] = sub_data[platform][author]
 	return summary
 
 @app.route('/add-comment/', methods=['POST'])
@@ -148,7 +156,7 @@ def check_comment():
 	String author1: The first trade partner's name
 	String author2: The second trade partner's name
 	String post_id: The ID of the post where the trade took place
-	Optional(String) top_level_comment_id: The ID of the top most comment in the comment chain
+	Optional(String) top_level_comment_id: The ID of the top most comment in the comment chain (usually indicates automod thread)
 	String comment_id: The ID of the comment where the trade took place
 	String platform: The platform the comment is coming from
 
@@ -176,29 +184,32 @@ def check_comment():
 	else:
 		top_level_comment_id = ""
 
-	if platform == 'reddit':
-		message = " - https://www.reddit.com/r/" + request.form['real_sub_name'] + "/comments/" + post_id
-		if top_level_comment_id:
-			message += "/-/" + top_level_comment_id
-	elif platform == 'discord':
-		message = " - " + post_id
-	else:
-		message = " - " + post_id
-
 	if author1 not in sub_data:
-		sub_data[author1] = [author2 + message]
-	else:
-		if author2 + message in sub_data[author1]:
+		sub_data[author1] = []
+	if author2 not in sub_data:
+		sub_data[author2] = []
+
+	if top_level_comment_id:
+		if any([x['partner'] == author2 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[author1]['transactions']]):
 			return_data[author1]['is_duplicate'] = 'True'
 		else:
-			sub_data[author1].append(author2 + message)
-	if author2 not in sub_data:
-		sub_data[author2] = [author1 + message]
+			sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
 	else:
-		if author1 + message in sub_data[author2]:
+		if any([x['partner'] == author2 and x['post_id'] == post_id for x in sub_data[author1]['transactions']]):
+			return_data[author1]['is_duplicate'] = 'True'
+		else:
+			sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
+
+	if top_level_comment_id:
+		if any([x['partner'] == author1 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[author2]['transactions']]):
 			return_data[author2]['is_duplicate'] = 'True'
 		else:
-			sub_data[author2].append(author1 + message)
+			sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
+	else:
+		if any([x['partner'] == author1 and x['post_id'] == post_id for x in sub_data[author2]['transactions']]):
+			return_data[author2]['is_duplicate'] = 'True'
+		else:
+			sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
 
 	if sub_name not in comment_data:
 		comment_data[sub_name] = {}
@@ -285,36 +296,6 @@ def remove_comment():
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify({})
 
-@app.route('/add-swap/', methods=['POST'])
-def add_swap():
-	"""
-	Adds a swap to a user's profile, given the user and the sub
-
-	Requested Form Params:
-	String sub_name: The name of the current subreddit
-	String username: The name of the user toadd swaps for
-	String swap_text: The text to add for that user
-	String platform: The platform the swap is coming from
-
-	Return JSON {}
-	"""
-
-	global swap_data
-	sub_name = request.form["sub_name"]
-	platform = request.form["platform"]
-	username = request.form['username']
-	swap_text = request.form['swap_text']
-	if sub_name not in swap_data:
-		swap_data[sub_name] = {platform: {}}
-	if platform not in swap_data[sub_name]:
-		swap_data[sub_name][platform] = {}
-	if username not in swap_data[sub_name][platform]:
-		swap_data[sub_name][platform][username] = []
-	if swap_text not in swap_data[sub_name][platform][username] or "LEGACY TRADE" in swap_text:
-		swap_data[sub_name][platform][username].append(swap_text)
-	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
-	return jsonify({})
-
 @app.route('/add-batch-swap/', methods=['POST'])
 def add_batch_swap():
 	"""
@@ -325,7 +306,7 @@ def add_batch_swap():
 	String platform: The platform the swaps are coming from
 	Dict user_data {username: swap_text}:
 		String username: Username for a reddit user to update
-		String swap_text: comma separated string representing transactions to add for the corresponding user
+		List[Dict] transaction_data {post_id, comment_id, partner, timestamp}
 
 	Return JSON {username1: String(Boolean representation of if the user was updated or not), username2: ...}
 	"""
@@ -342,12 +323,18 @@ def add_batch_swap():
 	for username in user_data:
 		username = username.lower()
 		return_data[username] = 'False'
-		swap_text_list = user_data[username].split(",")
 		if username not in swap_data[sub_name][platform]:
-			swap_data[sub_name][platform][username] = []
-		for swap_text in swap_text_list:
-			if swap_text not in swap_data[sub_name][platform][username] or "LEGACY TRADE" in swap_text:
-				swap_data[sub_name][platform][username].append(swap_text)
+			swap_data[sub_name][platform][username] = {'transactions': []}
+		for transaction_data in user_data[username]:
+			if transaction_data['post_id'] == "LEGACY TRADE":
+				if 'legacy_count' not in swap_data[sub_name][platform][username]:
+					swap_data[sub_name][platform][username]['legacy_count'] = 0
+				swap_data[sub_name][platform][username]['legacy_count'] += 1
+				return_data[username] = 'True'
+			else:
+				if any([x['post_id'] == transaction_data['post_id'] and x['partner'] == transaction_data['partner'] for x in swap_data[sub_name][platform][username]['transactions']]):
+					continue
+				swap_data[sub_name][platform][username]['transactions'].append({'post_id': transaction_data['post_id'], 'comment_id': transaction_data['comment_id'], 'partner': transaction_data['partner'], 'timestamp': transaction_data['timestamp']})
 				return_data[username] = 'True'
 	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	return jsonify(return_data)
@@ -356,34 +343,36 @@ def add_batch_swap():
 @app.route('/remove-swap/', methods=['POST'])
 def remove_swap():
 	"""
-	Adds a swap to a user's profile, given the user and the sub
+	Removes swaps from a user's profile.
 
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
-	String username: The name of the user toadd swaps for
-	String swap_text: The text to add for that user
+	String username: The name of the user to add swaps for
 	String platform: The platform the swaps are being removed from
+	Dict transaction_data {username: swap_text}:
+		String username: Username for a reddit user to update
+		List[Dict] transaction_data {post_id, comment_id, partner, timestamp}
+
 
 	Return JSON {}
 	"""
 
 	global swap_data
-	sub_name = request.form["sub_name"]
-	platform = request.form["platform"]
-	username = request.form['username']
-	index = int(request.form['index'])
+	sub_name = request.get_json()["sub_name"]
+	platform = request.get_json()["platform"]
+	username = request.get_json()["username"]
+	transaction_data = request.get_json()["transaction_data"]
 	if sub_name not in swap_data:
 		return jsonify({})
 	if platform not in swap_data[sub_name]:
 		return jsonify({})
 	if username not in swap_data[sub_name][platform]:
 		return jsonify({})
-	if len(swap_data[sub_name][platform][username]) <= index:
-		return jsonify({})
-	if len(swap_data[sub_name][platform][username])-1 == index:
-		swap_data[sub_name][platform][username] = swap_data[sub_name][platform][username][:-1]
-	else:
-		swap_data[sub_name][platform][username] = swap_data[sub_name][platform][username][:index] + swap_data[sub_name][platform][username][index+1:]
+	for transaction in transaction_data:
+		if transaction['post_id'] == "LEGACY TRADE" and 'legacy_count' in swap_data[sub_name][platform][username] and swap_data[sub_name][platform][username]['legacy_count'] > 0:
+			swap_data[sub_name][platform][username]['legacy_count'] -= 1
+		else:
+			swap_data[sub_name][platform][username]['transactions'] = [x for x in swap_data[sub_name][platform][username]['transactions'] if not (x['post_id'] == transaction['post_id'] and x['comment_id'] == transaction['comment_id'] and x['partner'] == transaction['partner'])]
 	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
 	return jsonify({})
 
@@ -433,7 +422,11 @@ def get_user_count_from_subs():
 	for sub_name in sub_names:
 		if sub_name not in swap_data:
 			continue
-		count += len(get_user_summary(swap_data[sub_name], author, current_platform))
+		data = get_user_summary(swap_data[sub_name], author, current_platform)
+		for platform in data:
+			if 'legacy_count' in data[platform]:
+				count += data[platform]['legacy_count']
+			count += len(data[platform]['transactions'])
 	return jsonify({'count': count})
 
 @app.route('/get-paired-usernames/', methods=["GET"])

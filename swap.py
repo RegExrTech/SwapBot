@@ -218,7 +218,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 						continue
 					# This means that we're in action for the first time, so let's also claim our own subreddit
 					print("Attempting to claim r/" + sub_config.bot_username)
-					sh = SubredditHelper(sub_config.reddit, {})
+					sh = SubredditHelper(sub_config.reddit_object, {})
 					try:
 						sh.create(sub_config.bot_username, subreddit_type='private')
 					except Exception as e:
@@ -587,34 +587,28 @@ def reply_to_message(message, text, sub_config):
 	else:
 		print(text + "\n==========")
 
-def format_swap_count(trades, sub_config):
+def format_swap_count(trades_data, sub_config):
 	final_text = ""
-	legacy_count = 0  # Use this to track the number of legacy swaps someone has
-	for trade in trades[::-1]:
-		if "LEGACY TRADE" in trade:
-			legacy_count += 1
-		elif 'redd.it' in trade:
-			trade_partner = trade.split(" - ")[0]
-			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': trade_partner}).json()['data'])
-			trade_url = trade.split(" - ")[1]
-			trade_url_sub = sub_config.subreddit_display_name
-			trade_url_id = trade_url.split("/")[-1]
-			final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://" + trade_url  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
-		elif 'reddit.com' in trade:
-			trade_partner = trade.split(" - ")[0]
-			trade_partner_count = len(requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': trade_partner}).json()['data'])
-			trade_url = trade.split(" - ")[1]
-			try:
-				trade_url_sub = trade_url.split("/")[4]
-			except:
-				print("Error getting trade sub url from " + trade_url)
+	legacy_count = 0
+	for platform in trades_data:
+		if 'legacy_count' in trades_data[platform]:
+			legacy_count += trades_data[platform]['legacy_count']
+		for trade in trades_data[platform]['transactions'][::-1]:
+			if platform == 'reddit':
+				trade_partner = trade['partner']
+				trade_partner_count = get_swap_count(trade_partner, [sub_config.database_name], PLATFORM)
+				if trade['comment_id']:
+					trade_url = "https://www.reddit.com/r/" + sub_config.database_name + "/comments/" + trade['post_id'] + "/-/" + trade['comment_id']
+				else:
+					trade_url = "https://redd.it/" + trade['post_id']
+				trade_url_sub = sub_config.subreddit_display_name
+				final_text += "*  [" + trade_url_sub + "/" + trade['post_id']  + "](https://" + trade_url  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
+			elif platform == 'discord':
+				trade_url = "https://www.discord.com/channels/" + str(sub_config.discord_config.server_id) + "/" + trade['post_id'] + "/" + trade['comment_id']
+				final_text += "* [Discord " + sub_config.flair_word[:-1] + "](" +  trade_url + ")\n\n"
+			else:
+				print("Found unexpected platform `" + platform + "` when running `format_swap_count` for sub " + sub_config.subreddit_display_name)
 				continue
-			trade_url_id = trade_url.split("/")[6]
-			final_text += "*  [" + trade_url_sub + "/" + trade_url_id  + "](https://redd.it/" + trade_url_id  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
-		elif 'discord.com' in trade:
-			final_text += "* [Discord " + sub_config.flair_word[:-1] + "](" +  trade.split(" - ")[1] + ")\n\n"
-		else:
-			final_text += "* " + trade.split(" - ")[1] + "\n\n"
 
 	if legacy_count > 0:
 		final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
@@ -668,10 +662,11 @@ def handle_manual_adjustment(message, sub_config):
 	username2 = username2.split("/")[-1].lower()
 
 	url_parts = link.split("/")
-	if len(url_parts) < 7:
-		reply_text = "Error: Could not find a proper reddit URL in the message. Please ensure the URL looks like this: https://www.reddit.com/r/subreddit/comments/xxxxxxx/..." + error_text
+	if len(url_parts) < 8:
+		reply_text = "Error: Could not find a proper reddit URL in the message. Please ensure the URL looks like this: https://www.reddit.com/r/subreddit/comments/xxxxxxx/.../xxxxxxx" + error_text
 		return reply_to_message(message, reply_text, sub_config)
 	post_id = url_parts[6]
+	comment_id = url_parts[8]
 	thread = "https://www.reddit.com/r/" + sub_config.subreddit_name + "/comments/" + post_id
 	post_object = sub_config.reddit_object.submission(id=post_id)
 
@@ -688,8 +683,8 @@ def handle_manual_adjustment(message, sub_config):
 		reply_text = "Error: Neither u/" + username1 + " nor u/" + username2 + " are the author of " + thread + "\n\nThe author of that thread is u/" + post_object.author.name + error_text
 		return reply_to_message(message, reply_text, sub_config)
 
-	database_text = username2 + " - " + thread
-	return_data = requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'user_data': {username1: database_text}}).json()
+	user_data = [{'post_id': post_id, 'comment_id': comment_id, 'partner': username2, 'timestamp': int(time.time())}]
+	return_data = requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'user_data': {username1: user_data}}).json()
 	if return_data[username1] == 'False':
 		reply_text = "Error: This transaction was previously recorded for u/" + username1
 		return reply_to_message(message, reply_text, sub_config)
@@ -712,14 +707,19 @@ def handle_swap_data_request(message, sub_config):
 		reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
 		reply_to_message(message, reply_text, sub_config)
 		return
-	trades = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
+	trades_data = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
+	trade_count = 0
+	for platform in trades_data:
+		trade_count += len(trades_data[platform]['transactions'])
+		if 'legacy_count' in trades_data[platform]:
+			trade_count += trades_data[platform]['legacy_count']
 	# Text based on swaps for this sub
-	if len(trades) == 0:
+	if trade_count == 0:
 		reply_header = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " in this sub yet."
 		swap_count_text = ""
 	else:
-		reply_header = "Hello,\n\nu/" + username + " has had the following " + str(len(trades)) + " " + sub_config.flair_word + ":\n\n"
-		swap_count_text = format_swap_count(trades, sub_config)
+		reply_header = "Hello,\n\nu/" + username + " has had the following " + str(trade_count) + " " + sub_config.flair_word + ":\n\n"
+		swap_count_text = format_swap_count(trades_data, sub_config)
 	# Get a summary of other subs at the bottom of the message
 	sister_sub_text = ""
 	for sister_sub in sub_config.gets_flair_from:

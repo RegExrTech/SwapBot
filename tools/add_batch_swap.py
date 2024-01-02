@@ -11,7 +11,9 @@ parser.add_argument('username', metavar='C', type=str)
 parser.add_argument('swap_count', metavar='C', type=int)
 args = parser.parse_args()
 request_url = "http://0.0.0.0:8000"
-user_data = ",".join(["LEGACY TRADE" for i in range(args.swap_count)])
+user_data = []
+for _ in range(args.swap_count):
+	user_data.append({'post_id': "LEGACY TRADE"})
 username = args.username.lower()
 requests.post(request_url + "/add-batch-swap/", json={'sub_name': args.sub_name.lower(), 'platform': args.platform.lower(), 'user_data': {username: user_data}})
 sub_config, reddit, sub = swap.create_reddit_and_sub(args.sub_name.lower())

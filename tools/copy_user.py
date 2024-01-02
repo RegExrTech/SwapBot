@@ -32,8 +32,14 @@ def main():
 		elif old_username not in db[sub_name][platform]:
 			print(old_username + " was not found in the " + platform + " platform of the " + sub_name + " community. As such, there is nothing to copy over.")
 		else:
+			old_data = db[sub_name][platform][old_username]
+			new_data = []
+			if 'legacy_count' in old_data:
+				for _ in range(old_data['legacy_count']):
+					new_data.append({'post_id': "LEGACY TRADE"})
+			new_data += db[sub_name][platform][old_username]['transactions']
 			swap_text = ",".join(db[sub_name][platform][old_username])
-			requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'platform': platform, 'user_data': {new_username: swap_text}})
+			requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'platform': platform, 'user_data': {new_username: new_data}})
 			sub_config, reddit, sub = swap.create_reddit_and_sub(sub_name)
 			swap.update_flair(reddit.redditor(new_username), None, sub_config)
 

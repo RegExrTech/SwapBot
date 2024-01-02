@@ -96,7 +96,7 @@ def get_embedded_messaged_template(content="", title="", url="", description="")
 		data['embed']['url'] = url
 	return data
 
-def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmations):
+def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmations, sub_config):
 	def _get_embed(content, title, image_url=""):
 		data = get_embedded_messaged_template(content=content, title=title, url=image_url)
 		data['embed']['fields'].append({
@@ -110,8 +110,33 @@ def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmati
 		content = "continued..."
 		return _get_embed(content, title)
 
+	def _format_transactions(transaction_data):
+		confirmations = []
+		for platform in transaction_data:
+			for trade in transaction_data[platform]['transactions']:
+				trade_partner = trade['partner']
+				if platform == 'reddit':
+					if trade['comment_id']:
+						trade_url = "https://www.reddit.com/r/" + sub_config.database_name + "/comments/" + trade['post_id'] + "/-/" + trade['comment_id']
+					else:
+						trade_url = "https://redd.it/" + trade['post_id']
+				elif platform == 'discord':
+					trade_url = "https://www.discord.com/channels/" + str(sub_config.discord_config.server_id) + "/" + trade['post_id'] + "/" + trade['comment_id']
+				else:
+					trade_url = "https://www.unknown.com"
+				confirmations.append(trade_partner + " - " + trade_url)
+		for platform in transaction_data:
+			if 'legacy_count' not in transaction_data[platform]:
+				continue
+			for _ in range(transaction_data[platform]['legacy_count']):
+				confirmations.append("LEGACY TRADE")
 
-	title = username + " has " + str(len(transactions)) + " confirmed transactions"
+	transaction_count = 0
+	for platform in confirmations:
+		if 'legacy_count' in confirmations[platform]:
+			transaction_count += confirmations[platform]['legacy_count']
+		transaction_count += len(confirmations[platform]['transactions'])
+	title = username + " has " + str(transaction_count) + " confirmed transactions"
 	content = kofi_text[6:]
 	data = _get_embed(content, title)
 	data['message_reference'] = {'message_id': reply_id}
@@ -124,8 +149,6 @@ def create_embedded_feedback_check_reply(reply_id, user_id, username, confirmati
 		else:
 			partner = confirmation.split(" - ")[0]
 			url = confirmation.split(" - ")[1]
-			if 'http' not in url:
-				url = 'https://' + url
 			next_item_string = "[" + partner + "](" + url + ")"
 		if first_reply_in_field:
 			first_reply_in_field = False
@@ -337,7 +360,7 @@ for message in invocations:
 	if not transactions:
 		reply("<@!" + user_to_check + "> has not confirmed any transactions yet.", message['id'], feedbackUrl)
 		continue
-	formatted_replies = create_embedded_feedback_check_reply(message['id'], author_id, username, transactions)
+	formatted_replies = create_embedded_feedback_check_reply(message['id'], author_id, username, transactions, sub_config)
 	for formatted_reply in formatted_replies:
 		send_request(POST, feedbackUrl, headers, data=formatted_reply, should_retry=True, is_embed=True)
 
