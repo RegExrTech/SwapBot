@@ -1,1 +1,24 @@
-{"reddit": {"never_same_pw_twice": ["ncaacommissioner - redd.it/tjir0k"], "ncaacommissioner": ["never_same_pw_twice - redd.it/tjir0k"]}}
+{
+    "reddit": {
+        "ncaacommissioner": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "never_same_pw_twice",
+                    "post_id": "tjir0k",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "never_same_pw_twice": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "ncaacommissioner",
+                    "post_id": "tjir0k",
+                    "timestamp": 0
+                }
+            ]
+        }
+    }
+}

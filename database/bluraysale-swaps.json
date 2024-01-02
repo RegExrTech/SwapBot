@@ -1,1 +1,15 @@
-{"reddit": {"totallynotregexr": ["regexr - redd.it/g8f5pa"], "regexr": []}}
+{
+    "reddit": {
+        "regexr": {},
+        "totallynotregexr": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "regexr",
+                    "post_id": "g8f5pa",
+                    "timestamp": 0
+                }
+            ]
+        }
+    }
+}

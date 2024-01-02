@@ -1,1 +1,151 @@
-{"reddit": {"brushparticular8134": ["nomad_00 - https://www.reddit.com/r/figpinswap/comments/13c6b3j"], "regexr": [], "legendkiller117": ["nerdygeekydude - redd.it/qqyv27"], "luvscake333": ["nerdygeekydude - redd.it/my0ku8", "nerdygeekydude - redd.it/ror7xd"], "nerdygeekydude": ["luvscake333 - redd.it/my0ku8", "legendkiller117 - redd.it/qqyv27", "luvscake333 - redd.it/ror7xd", "accomplished-salt815 - redd.it/russk8", "indefinitelydead - redd.it/svumsh", "desperadolucky - redd.it/vfg7f5"], "flaccidmagician": ["arukun14 - redd.it/vwwkon"], "totallynotregexr": ["regexr - redd.it/mmar9s"], "indefinitelydead": ["nerdygeekydude - redd.it/svumsh"], "nomad_00": ["brushparticular8134 - https://www.reddit.com/r/figpinswap/comments/13c6b3j"], "arukun14": ["flaccidmagician - redd.it/vwwkon"], "desperadolucky": ["nerdygeekydude - redd.it/vfg7f5"], "accomplished-salt815": ["nerdygeekydude - redd.it/russk8"]}}
+{
+    "reddit": {
+        "accomplished-salt815": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "nerdygeekydude",
+                    "post_id": "russk8",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "arukun14": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "flaccidmagician",
+                    "post_id": "vwwkon",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "brushparticular8134": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "nomad_00",
+                    "post_id": "13c6b3j",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "desperadolucky": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "nerdygeekydude",
+                    "post_id": "vfg7f5",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "flaccidmagician": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "arukun14",
+                    "post_id": "vwwkon",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "indefinitelydead": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "nerdygeekydude",
+                    "post_id": "svumsh",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "legendkiller117": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "nerdygeekydude",
+                    "post_id": "qqyv27",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "luvscake333": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "nerdygeekydude",
+                    "post_id": "my0ku8",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "nerdygeekydude",
+                    "post_id": "ror7xd",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "nerdygeekydude": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "luvscake333",
+                    "post_id": "my0ku8",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "legendkiller117",
+                    "post_id": "qqyv27",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "luvscake333",
+                    "post_id": "ror7xd",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "accomplished-salt815",
+                    "post_id": "russk8",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "indefinitelydead",
+                    "post_id": "svumsh",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "desperadolucky",
+                    "post_id": "vfg7f5",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "nomad_00": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "brushparticular8134",
+                    "post_id": "13c6b3j",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "regexr": {},
+        "totallynotregexr": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "regexr",
+                    "post_id": "mmar9s",
+                    "timestamp": 0
+                }
+            ]
+        }
+    }
+}

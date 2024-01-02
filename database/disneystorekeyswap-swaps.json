@@ -1,1 +1,24 @@
-{"reddit": {"chiverray1000": ["rachelguy72 - redd.it/gkfsmo"], "rachelguy72": ["chiverray1000 - redd.it/gkfsmo"]}}
+{
+    "reddit": {
+        "chiverray1000": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "rachelguy72",
+                    "post_id": "gkfsmo",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "rachelguy72": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "chiverray1000",
+                    "post_id": "gkfsmo",
+                    "timestamp": 0
+                }
+            ]
+        }
+    }
+}

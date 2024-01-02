@@ -1,1 +1,24 @@
-{"reddit": {"chipndalencats": ["lizrox - redd.it/ue7xfc"], "lizrox": ["chipndalencats - redd.it/ue7xfc"]}}
+{
+    "reddit": {
+        "chipndalencats": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "lizrox",
+                    "post_id": "ue7xfc",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "lizrox": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "chipndalencats",
+                    "post_id": "ue7xfc",
+                    "timestamp": 0
+                }
+            ]
+        }
+    }
+}

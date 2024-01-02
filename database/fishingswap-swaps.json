@@ -1,1 +1,203 @@
-{"reddit": {"okbar8273": ["panduhsaur - redd.it/npa9iy", "notedward69 - redd.it/wa3xy7"], "dandydonut": ["spyderr8 - redd.it/nog0q4"], "chinesepotatoe": ["mrnickytate - redd.it/11tezwe"], "mrnickytate": ["chinesepotatoe - redd.it/11tezwe"], "smolmouth": ["asals314 - redd.it/np3q8o"], "dirtydevlin": ["asals314 - redd.it/l2vbqw"], "notedward69": ["okbar8273 - redd.it/wa3xy7"], "obsessed2": ["spyderr8 - redd.it/kpuesf", "spyderr8 - redd.it/jcy8g3"], "asals314": ["dirtydevlin - redd.it/l2vbqw", "zgardnaaa - redd.it/np3q8o", "smolmouth - redd.it/np3q8o"], "panduhsaur": ["okbar8273 - redd.it/npa9iy", "kirko_bangz - redd.it/qk1dbo"], "viraloner": ["spyderr8 - redd.it/kpuesf"], "zgardnaaa": ["asals314 - redd.it/np3q8o"], "spyderr8": ["obsessed2 - redd.it/kpuesf", "obsessed2 - redd.it/jcy8g3", "viraloner - redd.it/kpuesf", "dandydonut - redd.it/nog0q4"], "kirko_bangz": ["panduhsaur - redd.it/qk1dbo"], "regexr": [], "totallynotregexr": ["regexr - redd.it/mqxv6b"]}}
+{
+    "reddit": {
+        "asals314": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "dirtydevlin",
+                    "post_id": "l2vbqw",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "zgardnaaa",
+                    "post_id": "np3q8o",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "smolmouth",
+                    "post_id": "np3q8o",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "chinesepotatoe": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "mrnickytate",
+                    "post_id": "11tezwe",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "dandydonut": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "spyderr8",
+                    "post_id": "nog0q4",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "dirtydevlin": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "asals314",
+                    "post_id": "l2vbqw",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "kirko_bangz": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "panduhsaur",
+                    "post_id": "qk1dbo",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "mrnickytate": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "chinesepotatoe",
+                    "post_id": "11tezwe",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "notedward69": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "okbar8273",
+                    "post_id": "wa3xy7",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "obsessed2": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "spyderr8",
+                    "post_id": "kpuesf",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "spyderr8",
+                    "post_id": "jcy8g3",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "okbar8273": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "panduhsaur",
+                    "post_id": "npa9iy",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "notedward69",
+                    "post_id": "wa3xy7",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "panduhsaur": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "okbar8273",
+                    "post_id": "npa9iy",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "kirko_bangz",
+                    "post_id": "qk1dbo",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "regexr": {},
+        "smolmouth": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "asals314",
+                    "post_id": "np3q8o",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "spyderr8": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "obsessed2",
+                    "post_id": "kpuesf",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "obsessed2",
+                    "post_id": "jcy8g3",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "viraloner",
+                    "post_id": "kpuesf",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "dandydonut",
+                    "post_id": "nog0q4",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "totallynotregexr": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "regexr",
+                    "post_id": "mqxv6b",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "viraloner": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "spyderr8",
+                    "post_id": "kpuesf",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "zgardnaaa": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "asals314",
+                    "post_id": "np3q8o",
+                    "timestamp": 0
+                }
+            ]
+        }
+    }
+}
