@@ -195,10 +195,16 @@ def check_comment():
 		else:
 			sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
 	else:
-		if any([x['partner'] == author2 and x['post_id'] == post_id for x in sub_data[author1]['transactions']]):
-			return_data[author1]['is_duplicate'] = 'True'
+		if platform == 'discord':
+			if any([x['partner'] == author2 and x['comment_id'] == comment_id for x in sub_data[author1]['transactions']]):
+				return_data[author1]['is_duplicate'] = 'True'
+			else:
+				sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
 		else:
-			sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
+			if any([x['partner'] == author2 and x['post_id'] == post_id for x in sub_data[author1]['transactions']]):
+				return_data[author1]['is_duplicate'] = 'True'
+			else:
+				sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
 
 	if top_level_comment_id:
 		if any([x['partner'] == author1 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[author2]['transactions']]):
@@ -206,10 +212,16 @@ def check_comment():
 		else:
 			sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
 	else:
-		if any([x['partner'] == author1 and x['post_id'] == post_id for x in sub_data[author2]['transactions']]):
-			return_data[author2]['is_duplicate'] = 'True'
+		if platform == 'discord':
+			if any([x['partner'] == author1 and x['comment_id'] == comment_id for x in sub_data[author2]['transactions']]):
+				return_data[author2]['is_duplicate'] = 'True'
+			else:
+				sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
 		else:
-			sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
+			if any([x['partner'] == author1 and x['post_id'] == post_id for x in sub_data[author2]['transactions']]):
+				return_data[author2]['is_duplicate'] = 'True'
+			else:
+				sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
 
 	if sub_name not in comment_data:
 		comment_data[sub_name] = {}
@@ -566,6 +578,8 @@ class MyRequestHandler(WSGIRequestHandler):
 	def log_request(self, code='-', size='-'):
 		if 200 == code:
 			pass
+		elif 'Address already in use' in self.requestline:
+			pass
 		else:
 			self.log('info', '"%s" %s %s', self.requestline, code, size)
 
@@ -588,9 +602,10 @@ def launch():
 	pending_requests = json_helper.get_db(pending_requests_fname)
 
 if __name__ == "__main__":
+	port = 8000
 	try:
-		app.run(host= '0.0.0.0', port=8000, request_handler=MyRequestHandler)
+		app.run(host= '0.0.0.0', port=port, request_handler=MyRequestHandler)
 	except Exception as e:
-		if str(e).lower() != '[Errno 98] Address already in use'.lower():
+		if 'Address already in use'.lower() not in str(e).lower():
 			print(e)
 			print(traceback.format_exc())
