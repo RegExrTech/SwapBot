@@ -185,9 +185,9 @@ def check_comment():
 		top_level_comment_id = ""
 
 	if author1 not in sub_data:
-		sub_data[author1] = []
+		sub_data[author1] = {'transactions': []}
 	if author2 not in sub_data:
-		sub_data[author2] = []
+		sub_data[author2] = {'transactions': []}
 
 	if top_level_comment_id:
 		if any([x['partner'] == author2 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[author1]['transactions']]):
