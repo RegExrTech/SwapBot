@@ -1,4 +1,4 @@
-\from Config import Config
+from Config import Config
 from prawcore.exceptions import NotFound
 import time
 import requests
