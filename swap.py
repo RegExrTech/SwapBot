@@ -193,7 +193,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 			paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 			if author in paired_usernames['reddit']:
 				discord_user_id = paired_usernames['reddit'][author]['discord']
-				assign_role(sub_config.discord_config.server_id, discord_user_id, discord_role_id)
+				assign_role(sub_config.discord_config.server_id, discord_user_id, discord_role_id, sub_config.discord_config.token)
 	else:
 		print("Assigning flair " + swap_count + " to user " + author + " with template_id: " + template)
 		print("==========")

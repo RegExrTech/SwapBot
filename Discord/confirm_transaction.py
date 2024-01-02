@@ -321,7 +321,7 @@ for message in confirmation_replies:
 				continue
 			swap_count = str(swap.get_swap_count(discord_user_id, [sub_name] + current_sub_config.gets_flair_from, PLATFORM))
 			discord_role_id = swap.get_discord_role(current_sub_config.discord_roles, int(swap_count))
-			assign_role(current_sub_config.discord_config.server_id, discord_user_id, discord_role_id)
+			assign_role(current_sub_config.discord_config.server_id, discord_user_id, discord_role_id, current_sub_config.discord_config.token)
 		if discord_user_id in paired_usernames['discord']:
 			tmp_sub_config, tmp_reddit, tmp_sub = swap.create_reddit_and_sub(sub_config.subreddit_name)
 			if 'reddit' in paired_usernames['discord'][discord_user_id] and tmp_reddit:
