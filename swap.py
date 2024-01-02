@@ -218,7 +218,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 						continue
 					# This means that we're in action for the first time, so let's also claim our own subreddit
 					print("Attempting to claim r/" + sub_config.bot_username)
-					sh = SubredditHelper(sub_config.reddit, {})
+					sh = SubredditHelper(sub_config.reddit_object, {})
 					try:
 						sh.create(sub_config.bot_username, subreddit_type='private')
 					except Exception as e:
