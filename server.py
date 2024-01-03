@@ -404,6 +404,7 @@ def remove_user():
 	global swap_data
 	sub_name = request.form["sub_name"]
 	username = request.form['username']
+	platform = request.form['platform']
 	if sub_name not in swap_data:
 		return jsonify({'status': sub_name + ' not found'})
 	if platform not in swap_data[sub_name]:
@@ -413,7 +414,7 @@ def remove_user():
 	else:
 		return jsonify({'status': username + ' not found'})
 	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
-	return jsonify({'status': username + " removed from " + sub_name + " at the following platforms: " + ",".join(removed_platforms)})
+	return jsonify({'status': username + " removed from " + sub_name + " on " + platform})
 
 @app.route('/get-user-count-from-subs/', methods=["GET"])
 def get_user_count_from_subs():
