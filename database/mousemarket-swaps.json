@@ -11530,6 +11530,16 @@
                 }
             ]
         },
+        "aussie_butt": {
+            "transactions": [
+                {
+                    "comment_id": "kg0pbdx",
+                    "partner": "fakenickscreen",
+                    "post_id": "18ox9di",
+                    "timestamp": 1704233753
+                }
+            ]
+        },
         "austin575": {
             "transactions": [
                 {
@@ -30139,6 +30149,12 @@
                     "partner": "sharkboy1006",
                     "post_id": "14419xg",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kf8zoxu",
+                    "partner": "isohypo",
+                    "post_id": "18isiwd",
+                    "timestamp": 1704247242
                 }
             ]
         },
@@ -33495,6 +33511,12 @@
                     "partner": "tj446",
                     "post_id": "18q3tnj",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg1l014",
+                    "partner": "zzzderp",
+                    "post_id": "18q3tnj",
+                    "timestamp": 1704236002
                 }
             ]
         },
@@ -39109,6 +39131,12 @@
                     "partner": "tianlamian",
                     "post_id": "18kbdh3",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg0pbdx",
+                    "partner": "aussie_butt",
+                    "post_id": "18ox9di",
+                    "timestamp": 1704233753
                 }
             ]
         },
@@ -55632,6 +55660,16 @@
                     "partner": "dipvss",
                     "post_id": "w1i5kg",
                     "timestamp": 0
+                }
+            ]
+        },
+        "isohypo": {
+            "transactions": [
+                {
+                    "comment_id": "kf8zoxu",
+                    "partner": "dig_y",
+                    "post_id": "18isiwd",
+                    "timestamp": 1704247242
                 }
             ]
         },
@@ -92378,7 +92416,6 @@
                 }
             ]
         },
-        "regexr": {},
         "reggie-deji": {
             "transactions": [
                 {
@@ -130932,6 +130969,16 @@
                     "partner": "zodspeed",
                     "post_id": "ecwux0",
                     "timestamp": 0
+                }
+            ]
+        },
+        "zzzderp": {
+            "transactions": [
+                {
+                    "comment_id": "kg1l014",
+                    "partner": "dwang0129",
+                    "post_id": "18q3tnj",
+                    "timestamp": 1704236002
                 }
             ]
         }

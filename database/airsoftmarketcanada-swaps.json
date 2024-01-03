@@ -443,6 +443,16 @@
                 }
             ]
         },
+        "airmatic": {
+            "transactions": [
+                {
+                    "comment_id": "kg0nk7o",
+                    "partner": "cdn_citizen",
+                    "post_id": "18mxy8u",
+                    "timestamp": 1704229300
+                }
+            ]
+        },
         "airsoft_dan": {
             "transactions": [
                 {
@@ -2195,6 +2205,12 @@
                     "partner": "antonioshamoun",
                     "post_id": "1412489",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg0v4c7",
+                    "partner": "cdn_citizen",
+                    "post_id": "18ugn27",
+                    "timestamp": 1704228928
                 }
             ]
         },
@@ -5439,6 +5455,18 @@
                     "partner": "eucldian",
                     "post_id": "18t0i4x",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg0nk7o",
+                    "partner": "airmatic",
+                    "post_id": "18mxy8u",
+                    "timestamp": 1704226601
+                },
+                {
+                    "comment_id": "kg0v4c7",
+                    "partner": "bobdole_707",
+                    "post_id": "18ugn27",
+                    "timestamp": 1704228928
                 }
             ]
         },

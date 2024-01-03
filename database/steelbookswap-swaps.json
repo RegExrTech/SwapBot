@@ -7349,6 +7349,12 @@
                     "partner": "eclectic_masquerade",
                     "post_id": "18oq37a",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kffnrev",
+                    "partner": "gallopmygoose",
+                    "post_id": "18oq37a",
+                    "timestamp": 1704247228
                 }
             ]
         },
@@ -8909,6 +8915,16 @@
                     "partner": "icy-march2752",
                     "post_id": "t355qe",
                     "timestamp": 0
+                }
+            ]
+        },
+        "gallopmygoose": {
+            "transactions": [
+                {
+                    "comment_id": "kffnrev",
+                    "partner": "eli_burdette",
+                    "post_id": "18oq37a",
+                    "timestamp": 1704247228
                 }
             ]
         },
