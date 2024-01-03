@@ -694,9 +694,9 @@ def handle_flair_transfer(message, sub_config):
 	# Send a notification if someone other than RegExr uses this feature.
 	if requesting_mod != 'regexr':
 		try:
-			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Update", message="u/" + message.author.name + " has manually updated flair for u/" + username1 + " because u/" + username2 + " was unresponsive in thread " + thread)
+			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Transfer", message="u/" + message.author.name + " has manually transferred flair from u/" + username1 + " to u/" + username2 + ".")
 		except Exception as e:
-			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " with subject\n\n" + subject + "\n\n and body\n\n" + body)
+			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " when manually transferring flair.")
 
 	update_flair(sub_config.reddit_object.redditor(username2), None, sub_config)
 
@@ -760,7 +760,7 @@ def handle_manual_adjustment(message, sub_config):
 		try:
 			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Update", message="u/" + message.author.name + " has manually updated flair for u/" + username1 + " because u/" + username2 + " was unresponsive in thread " + thread)
 		except Exception as e:
-			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " with subject\n\n" + subject + "\n\n and body\n\n" + body)
+			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " when manually adjusting flair.")
 
 	update_flair(sub_config.reddit_object.redditor(username1), None, sub_config)
 
