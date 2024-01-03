@@ -107,7 +107,7 @@ def get_swap_count(author_name, subs, platform):
 	return_data = requests.get(request_url + "/get-user-count-from-subs/", data={'sub_names': ",".join(subs), 'current_platform': platform, 'author': author_name.lower()}).json()
 	return int(return_data['count'])
 
-def update_flair(author1, author2, sub_config):
+def update_flair(author1, author2, sub_config, post_id="", comment_id=""):
 	"""
 	returns list of tuples of author name and (str)swap count if flair was NOT updated.
 	also returns a dict of usernames to flair text
@@ -139,7 +139,10 @@ def update_flair(author1, author2, sub_config):
 					user_flair_text[author_string] = flair_text
 		if updates:
 			try:
-				print("u/" + author_string + " was updated at the following subreddits with the following flair: \n" + "\n".join(["  * r/"+x[0]+" - "+x[1] for x in updates]))
+				t = "u/" + author_string + " was updated at the following subreddits with the following flair: \n" + "\n".join(["  * r/"+x[0]+" - "+x[1] for x in updates])
+				if post_id:
+					t += "\nfrom post https://www.reddit.com/r/" + sub_config.subreddit_name + "/comments/" + post_id + "/-/" + comment_id
+				print(t)
 			except Exception as e:
 				print("Unable to log " + author_string + " flair update with error " + str(e))
 	return non_updated_users, user_flair_text
@@ -449,7 +452,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 			credit_given = False
 
 		if credit_given:
-			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config)
+			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config, parent_post.id, comment.id)
 			inform_giving_credit(correct_reply, non_updated_users, sub_config, user_flair_text)
 		else:
 			log(parent_post, comment, "Credit already given")
