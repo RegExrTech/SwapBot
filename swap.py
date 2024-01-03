@@ -679,7 +679,6 @@ def handle_flair_transfer(message, sub_config):
 		reply_text = "u/" + username1 + " was not found in the database. Please verify the spelling and try again."
 		return reply_to_message(message, reply_text, sub_config)
 
-	print(return_data)
 	copy_data = []
 	return_data = return_data['reddit']
 	if 'legacy_count' in return_data:
