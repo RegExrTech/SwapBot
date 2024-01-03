@@ -686,9 +686,6 @@ def handle_flair_transfer(message, sub_config):
 			copy_data.append({'post_id': "LEGACY TRADE"})
 	copy_data += return_data['transactions']
 	return_data = requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'user_data': {username2: copy_data}}).json()
-	if return_data[username2] == 'False':
-		reply_text = "Something went wrong. Please reach out to u/RegExr for assistance."
-		return reply_to_message(message, reply_text, sub_config)
 
 	# Send a notification if someone other than RegExr uses this feature.
 	if requesting_mod != 'regexr':
@@ -699,7 +696,11 @@ def handle_flair_transfer(message, sub_config):
 
 	update_flair(sub_config.reddit_object.redditor(username2), None, sub_config)
 
-	return reply_to_message(message, "Success", sub_config)
+	if return_data[username2] == 'False':
+		reply_text = "Duplicate transactions were found in the database. Was this user already copied over? I copied all non-duplicate transactions and have updated the user flair accordingly. Please reach out to u/RegExr if you require more assistance."
+		return reply_to_message(message, reply_text, sub_config)
+
+	return reply_to_message(message, "Success!", sub_config)
 
 def handle_manual_adjustment(message, sub_config):
 	error_text = "\n\nPlease send a message in the form of `$add u/<requester> u/<unresponsive_user> <reddit link>` and try again (don't include the `<>` characters)."
