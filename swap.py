@@ -610,7 +610,7 @@ def format_swap_count(trades_data, sub_config):
 				else:
 					trade_url = "https://redd.it/" + trade['post_id']
 				trade_url_sub = sub_config.subreddit_display_name
-				final_text += "*  [" + trade_url_sub + "/" + trade['post_id']  + "](https://" + trade_url  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
+				final_text += "*  [" + trade_url_sub + "/" + trade['post_id']  + "](" + trade_url  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
 			elif platform == 'discord':
 				trade_url = "https://www.discord.com/channels/" + str(sub_config.discord_config.server_id) + "/" + trade['post_id'] + "/" + trade['comment_id']
 				final_text += "* [Discord " + sub_config.flair_word[:-1] + "](" +  trade_url + ")\n\n"
