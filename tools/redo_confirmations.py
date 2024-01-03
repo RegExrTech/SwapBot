@@ -1,13 +1,16 @@
+import time
 import praw
 import os
 import sys
 sys.path.insert(0, '.')
 import Config
 import server
+import requests
 
 j = server.JsonHelper()
 
 db = j.get_db('database/comments.json')
+request_url = "http://0.0.0.0:8000"
 
 subnames = [x.split("-")[0] for x in os.listdir("config/")]
 for subname in subnames:
@@ -22,6 +25,9 @@ for subname in subnames:
 		if comment.created_utc < 1704247245:
 			print("Done, confirmation was made at " + str(comment.created_utc))
 			break
+		if comment.created_utc > time.time() - (10*60):
+			print("Found a comment made recently. Skipping...")
+			continue
 		if not '->' in comment.body:
 			continue
 		lines = [x for x in comment.body.splitlines() if '* ' in x]
@@ -34,5 +40,4 @@ for subname in subnames:
 		print(users)
 		if top_comment.id not in db[sub_config.subreddit_name]["reddit"]["active"] and top_comment.id not in db[sub_config.subreddit_name]["reddit"]["archived"]:
 			print(top_comment.id)
-			db[sub_config.subreddit_name]["reddit"]["active"].append(top_comment.id)
-j.dump(db, 'database/comments.json')
+			requests.post(request_url + "/add-comment/", {'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'comment_id': top_comment.id})
