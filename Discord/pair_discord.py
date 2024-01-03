@@ -1,3 +1,4 @@
+import string
 import time
 import json_helper
 import requests
@@ -31,6 +32,8 @@ headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
 reddit_message_subject = "Please Confirm Your Identity on the " + args.sub_name + " discord server"
 
 def decode(text):
+	printable = set(string.printable)
+	return ''.join(filter(lambda x: x in printable, text))
 	try:
 		return text.encode('utf-8').decode('utf-8').encode('ascii', 'ignore').replace("\u002F", "/")
 	except:
@@ -73,7 +76,7 @@ def get_reddit_messages(reddit):
 	return messages
 
 def send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id):
-	reddit.redditor(reddit_username).message(reddit_message_subject, "A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
+	reddit.redditor(reddit_username).message(subject=reddit_message_subject, message="A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
 	inbox = reddit.inbox.sent(limit=None)
 	reddit_message_id = None
 	while not reddit_message_id:
