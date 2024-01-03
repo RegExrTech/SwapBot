@@ -644,6 +644,64 @@ def find_correct_reply(comment, author1, desired_author2_string, parent_post):
 		return reply
 	return None
 
+def handle_flair_transfer(message, sub_config):
+	error_text = "\n\nPlease send a message in the form of `$add u/<old username> u/<new username>` and try again (don't include the `<>` characters)."
+
+	requesting_mod = message.author.name.lower()
+	if requesting_mod not in sub_config.admins:
+		reply_text = "Error: You are not authorized to execute this command." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	items = message.body.split(" ")
+	if len(items) < 3:
+		response_text = "Error: Invalid Format." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	username1 = items[1]
+	username2 = items[2]
+	if all(['u/' not in x for x in [username1, username2]]):
+		response_text = "Error: No usernames could be found in the message you sent." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+	if any(['u/' not in x for x in [username1, username2]]):
+		response_text = "Error: Only one username was found." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+	username1 = username1.split("/")[-1].lower()
+	username2 = username2.split("/")[-1].lower()
+
+	try:
+		sub_config.reddit_object.redditor(username2).id
+	except:
+		reply_text = "u/" + username2 + " is not a valid reddit username. Please verify the spelling and try again."
+		return reply_to_message(message, reply_text, sub_config)
+
+	return_data = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'current_platform': 'reddit', 'username': username1}).json()['data']
+	if not return_data:
+		reply_text = "u/" + username1 + " was not found in the database. Please verify the spelling and try again."
+		return reply_to_message(message, reply_text, sub_config)
+
+	print(return_data)
+	copy_data = []
+	return_data = return_data['reddit']
+	if 'legacy_count' in return_data:
+		for _ in range(return_data['legacy_count']):
+			copy_data.append({'post_id': "LEGACY TRADE"})
+	copy_data += return_data['transactions']
+	return_data = requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'user_data': {username2: copy_data}}).json()
+	if return_data[username2] == 'False':
+		reply_text = "Something went wrong. Please reach out to u/RegExr for assistance."
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Send a notification if someone other than RegExr uses this feature.
+	if requesting_mod != 'regexr':
+		try:
+			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Update", message="u/" + message.author.name + " has manually updated flair for u/" + username1 + " because u/" + username2 + " was unresponsive in thread " + thread)
+		except Exception as e:
+			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " with subject\n\n" + subject + "\n\n and body\n\n" + body)
+
+	update_flair(sub_config.reddit_object.redditor(username2), None, sub_config)
+
+	return reply_to_message(message, "Success", sub_config)
+
 def handle_manual_adjustment(message, sub_config):
 	error_text = "\n\nPlease send a message in the form of `$add u/<requester> u/<unresponsive_user> <reddit link>` and try again (don't include the `<>` characters)."
 
@@ -814,6 +872,8 @@ def main():
 	for message in messages:
 		if message.body[0:4] == "$add":
 			handle_manual_adjustment(message, sub_config)
+		elif message.body[0:9] == "$transfer":
+			handle_flair_transfer(message, sub_config)
 		else:
 			handle_swap_data_request(message, sub_config)
 
