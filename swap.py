@@ -152,6 +152,9 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	Updates a user's flair.
 	Returns the flair text of the user.
 	"""
+	# No username means no real reddit config
+	if not sub_config.bot_username:
+		return ""
 	try:
 		mods = [str(x).lower() for x in sub.moderator()]
 	except Exception as e:
