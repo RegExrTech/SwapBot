@@ -30667,6 +30667,12 @@
                     "partner": "ontheropes",
                     "post_id": "18iky2m",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg72j94",
+                    "partner": "long_way_down",
+                    "post_id": "18ls2rr",
+                    "timestamp": 1704322952
                 }
             ]
         },
@@ -32217,6 +32223,12 @@
                     "partner": "razorvein",
                     "post_id": "17ugfol",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg0bl16",
+                    "partner": "pixelator3",
+                    "post_id": "18srndj",
+                    "timestamp": 1704312126
                 }
             ]
         },
@@ -58219,6 +58231,12 @@
                     "partner": "jazzedmurf",
                     "post_id": "13c5q6e",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg72j94",
+                    "partner": "efficient-elk24",
+                    "post_id": "18ls2rr",
+                    "timestamp": 1704322952
                 }
             ]
         },
@@ -65210,6 +65228,16 @@
                 }
             ]
         },
+        "mwu8689": {
+            "transactions": [
+                {
+                    "comment_id": "kg828sr",
+                    "partner": "zacklemore",
+                    "post_id": "18ht65n",
+                    "timestamp": 1704337593
+                }
+            ]
+        },
         "mycarsdead": {
             "transactions": [
                 {
@@ -67645,6 +67673,12 @@
                     "partner": "miked1013",
                     "post_id": "18kyzjy",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg6ozfo",
+                    "partner": "rup_pup",
+                    "post_id": "18kzsiz",
+                    "timestamp": 1704320790
                 }
             ]
         },
@@ -73619,6 +73653,12 @@
                     "partner": "foxfyre2",
                     "post_id": "17ycun7",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg0bl16",
+                    "partner": "elliot93c",
+                    "post_id": "18srndj",
+                    "timestamp": 1704312126
                 }
             ]
         },
@@ -79921,6 +79961,16 @@
                     "partner": "cookiedave",
                     "post_id": "14gk4fe",
                     "timestamp": 0
+                }
+            ]
+        },
+        "rup_pup": {
+            "transactions": [
+                {
+                    "comment_id": "kg6ozfo",
+                    "partner": "noobiam88",
+                    "post_id": "18kzsiz",
+                    "timestamp": 1704320790
                 }
             ]
         },
@@ -106021,6 +106071,12 @@
                     "partner": "turo9992000",
                     "post_id": "18hl4f1",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg828sr",
+                    "partner": "mwu8689",
+                    "post_id": "18ht65n",
+                    "timestamp": 1704337593
                 }
             ]
         },

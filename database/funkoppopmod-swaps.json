@@ -1,6 +1,7 @@
 {
     "reddit": {
         "regexr": {
+            "legacy_count": 10,
             "transactions": [
                 {
                     "comment_id": "",
@@ -11,6 +12,7 @@
             ]
         },
         "totallynotregexr": {
+            "legacy_count": 10,
             "transactions": [
                 {
                     "comment_id": "",
@@ -184,6 +186,12 @@
                     "comment_id": "",
                     "partner": "regexr",
                     "post_id": "r51a9s",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "regexrbot",
+                    "post_id": "15545s3",
                     "timestamp": 0
                 }
             ]

@@ -4727,6 +4727,12 @@
                     "partner": "laurence_of_labia",
                     "post_id": "18rsryp",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kfczk8g",
+                    "partner": "luzzarrow",
+                    "post_id": "18rsryp",
+                    "timestamp": 1704312101
                 }
             ]
         },
@@ -5425,6 +5431,16 @@
                     "partner": "less-entrepreneur566",
                     "post_id": "xl4j54",
                     "timestamp": 0
+                }
+            ]
+        },
+        "luzzarrow": {
+            "transactions": [
+                {
+                    "comment_id": "kfczk8g",
+                    "partner": "key_experience4584",
+                    "post_id": "18rsryp",
+                    "timestamp": 1704312101
                 }
             ]
         },
