@@ -457,6 +457,8 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		if credit_given:
 			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config, parent_post.id, comment.id)
 			inform_giving_credit(correct_reply, non_updated_users, sub_config, user_flair_text)
+#			for username in [x in [author1, author2] if x not in non_updated_users]:
+#				check_booster_count(username, sub_config)
 		else:
 			log(parent_post, comment, "Credit already given")
 			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config)
@@ -470,6 +472,39 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		if debug:
 			print("No correct looking replies were found")
 		return False
+
+def check_booster_count(username, sub_config):
+	# Any of the booster_check values being set to 0 will disable the check.
+	if not sub_config.booster_check_hours_threshold or not sub_config.booster_check_count_threshold or not sub_config.booster_check_hours_threshold:
+		return
+	check_time = time.time()
+	all_subs = sub_config.get_gets_flair_from("*") + [sub_config.subreddit_name]
+	return_data = requests.post(request_url + "/get-summary/", {'sub_names': ",".join(all_subs), 'current_platform': 'reddit', 'username': username}).json()['data']
+	recent_transactions = []
+	sub_transaction_count = 0
+	for sub_name in return_data:
+		for platform in return_data[sub_name]:
+			if sub_name == sub_config.subreddit_name and 'legacy_count' in return_data[sub_name][platform]:
+				sub_transaction_count += return_data[sub_name][platform]['legacy_count']
+			for transaction in return_data[sub_name][platform]['transactions']:
+				if sub_name == sub_config.subreddit_name:
+					sub__transaction_count += 1
+				if transaction['timestamp'] < check_time - (sub_config.booster_check_hours_threshold*60*60):
+					transaction['sub_name'] = sub_config.subreddit_name
+					transaction['platform'] = platform
+					recent_transactions.append(transaction)
+	if len(recent_transactions) >= sub_config.booster_check_count_threshold:
+		if sub_transaction_count < sub_config.booster_check_max_score:
+			message = "u/" + username + " has confirmed " + str(len(recent_transactions)) + " within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score on your sub is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
+			for transaction in recent_transactions:
+				if transaction['platform'] == 'reddit':
+					message = "* u/" + transaction['partner'] + " - https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + "\n"
+				elif transaction['platform'] == 'discord':
+					message = "* " + transaction['partner'] + " - Discord transaction from " + transaction['sub_name'] + " - " + transaction['post_id'] + " - " + transaction['comment_id'] + "\n"
+				else:
+					message += "* " + str(transaction) + "\n"
+			message += "\nThis message does **NOT** mean that the user in question is boosting their flair score, just that they *might* be doing as such. Please take a look and act accordingly.\n\nPlease reach out directly to u/RegExr if you have any questions."
+			sub_config.subreddit_object.message(subject="Potential Flair Booster Found", message=message)
 
 def get_username_from_text(text, usernames_to_ignore=[]):
 	text = text.replace("/user/", "/u/")

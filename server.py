@@ -249,7 +249,7 @@ def get_summary():
 	String username: The name of the user to check feedback for
 	String current_platform: The name of the platform making the request
 
-	Return JSON {'data': List(String)}
+	Return JSON {'data': List(Transactions)}
 	"""
 
 	sub_name = request.form["sub_name"]
@@ -259,6 +259,29 @@ def get_summary():
 	sub_data = swap_data[sub_name]
 	username = request.form['username']
 	data = get_user_summary(swap_data[sub_name], username, current_platform)
+	return jsonify({'data': data})
+
+@app.route('/get-summary-from-subs/', methods=['POST'])
+def get_summary_from_subs():
+	"""
+	Like get_summary(), but for multiple subs
+
+	Requested Form Params:
+	List[String] sub_names: Comma-seperated list of sub names to check
+	String username: The name of the user to check feedback for
+	String current_platform: The name of the platform making the request
+
+	Return JSON {'data': {'sub_name': {'platform': {Optional('legacy_count'): int, 'transactions': [{partner, post_id, comment_id, timestamp}]}}}}
+	"""
+
+	current_platform = request.form["current_platform"]
+	username = request.form['username']
+	sub_names = request.form["sub_names"].split(",")
+	data = {}
+	for sub_name in sub_names:
+		if sub_name not in swap_data:
+			continue
+		data[sub_name] = get_user_summary(swap_data[sub_name], author, current_platform)
 	return jsonify({'data': data})
 
 @app.route('/archive-comment/', methods=['POST'])

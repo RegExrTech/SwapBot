@@ -99,6 +99,24 @@ def run_config_checker(config):
 		config.gets_flair_from = [x[1:] if x[0] == "/" else x for x in config.gets_flair_from]
 		config.gets_flair_from = [x[2:] if x[0] == "r/" else x for x in config.gets_flair_from]
 		config.raw_config["gets_flair_from"] = config.gets_flair_from
+	if "booster_check_count_threshold" in config_content:
+		try:
+			config.booster_check_count_threshold = int(config_content['booster_check_count_threshold'])
+			config.raw_config['booster_check_count_threshold'] = config.booster_check_count_threshold
+		except:
+			pass
+	if "booster_check_hours_threshold" in config_content:
+		try:
+			config.booster_check_hours_threshold = int(config_content['booster_check_hours_threshold'])
+			config.raw_config['booster_check_hours_threshold'] = config.booster_check_hours_threshold
+		except:
+			pass
+	if "booster_check_max_score" in config_content:
+		try:
+			config.booster_check_max_score = int(config_content['booster_check_max_score'])
+			config.raw_config['booster_check_max_score'] = config.booster_check_max_score
+		except:
+			pass
 	# Dump the new config to the file
 	config.dump()
 	# Inform parsing successful
@@ -123,6 +141,9 @@ def validate_wiki_content(config, config_page):
 	content_lines.append("title_black_list: " + ",".join(config.title_black_list))
 	content_lines.append("black_list: " + ",".join(config.black_list))
 	content_lines.append("gets_flair_from: " + ",".join(config.gets_flair_from))
+	content_lines.append("booster_check_count_threshold: " + str(config.booster_check_count_threshold))
+	content_lines.append("booster_check_hours_threshold: " + str(config.booster_check_hours_threshold))
+	content_lines.append("booster_check_max_score: " + str(config.booster_check_max_score))
 #	if config.discord_roles:
 	content_lines.append("bot_timestamp: " + str(time.time()))  # Must ALWAYS be last
 	content = "\n\n".join(content_lines)
