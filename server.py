@@ -281,7 +281,7 @@ def get_summary_from_subs():
 	for sub_name in sub_names:
 		if sub_name not in swap_data:
 			continue
-		data[sub_name] = get_user_summary(swap_data[sub_name], author, current_platform)
+		data[sub_name] = get_user_summary(swap_data[sub_name], username, current_platform)
 	return jsonify({'data': data})
 
 @app.route('/archive-comment/', methods=['POST'])
@@ -607,6 +607,11 @@ class MyRequestHandler(WSGIRequestHandler):
 		else:
 			self.log('info', '"%s" %s %s', self.requestline, code, size)
 
+def port_in_use(port):
+	import socket
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+		return s.connect_ex(('0.0.0.0', port)) == 0
+
 @app.before_first_request
 def launch():
 	global swap_data
@@ -628,7 +633,8 @@ def launch():
 if __name__ == "__main__":
 	port = 8000
 	try:
-		app.run(host= '0.0.0.0', port=port, request_handler=MyRequestHandler)
+		if not port_in_use(port):
+			app.run(host= '0.0.0.0', port=port, request_handler=MyRequestHandler)
 	except Exception as e:
 		if 'Address already in use'.lower() not in str(e).lower():
 			print(e)
