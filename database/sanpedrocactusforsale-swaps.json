@@ -449,6 +449,12 @@
                     "partner": "prollysmokedtoomuch",
                     "post_id": "169vj16",
                     "timestamp": 1704322718
+                },
+                {
+                    "comment_id": "kga8m6p",
+                    "partner": "wedemcrispyboyz",
+                    "post_id": "1838a7e",
+                    "timestamp": 1704389943
                 }
             ]
         },
@@ -2526,6 +2532,12 @@
                     "partner": "mmpdp",
                     "post_id": "18cdus3",
                     "timestamp": 1704302777
+                },
+                {
+                    "comment_id": "kga8czd",
+                    "partner": "wedemcrispyboyz",
+                    "post_id": "1838a7e",
+                    "timestamp": 1704389929
                 }
             ]
         },
@@ -3236,7 +3248,14 @@
         },
         "jarvisphd": {
             "legacy_count": 2,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kga8sac",
+                    "partner": "wedemcrispyboyz",
+                    "post_id": "17v5uqi",
+                    "timestamp": 1704389816
+                }
+            ]
         },
         "jbrosak": {
             "legacy_count": 10,
@@ -6867,6 +6886,24 @@
                     "partner": "limpdick9rotocal",
                     "post_id": "1838nee",
                     "timestamp": 1704312180
+                },
+                {
+                    "comment_id": "kga8sac",
+                    "partner": "jarvisphd",
+                    "post_id": "17v5uqi",
+                    "timestamp": 1704389816
+                },
+                {
+                    "comment_id": "kga8czd",
+                    "partner": "floxnar",
+                    "post_id": "1838a7e",
+                    "timestamp": 1704389929
+                },
+                {
+                    "comment_id": "kga8m6p",
+                    "partner": "artistic_part5025",
+                    "post_id": "1838a7e",
+                    "timestamp": 1704389943
                 }
             ]
         },

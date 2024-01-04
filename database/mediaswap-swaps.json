@@ -4975,6 +4975,12 @@
                     "partner": "thesuppishone",
                     "post_id": "18rio78",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kgaybhn",
+                    "partner": "mammothplate",
+                    "post_id": "18u58g5",
+                    "timestamp": 1704389813
                 }
             ]
         },
@@ -7327,6 +7333,16 @@
                     "partner": "cortez989",
                     "post_id": "17o0n6l",
                     "timestamp": 0
+                }
+            ]
+        },
+        "mammothplate": {
+            "transactions": [
+                {
+                    "comment_id": "kgaybhn",
+                    "partner": "fragdelta",
+                    "post_id": "18u58g5",
+                    "timestamp": 1704389813
                 }
             ]
         },
