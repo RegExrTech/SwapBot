@@ -457,7 +457,7 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		if credit_given:
 			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config, parent_post.id, comment.id)
 			inform_giving_credit(correct_reply, non_updated_users, sub_config, user_flair_text)
-			for username in [x in [author1, author2] if x not in non_updated_users]:
+			for username in [x for x in [author1, author2] if x not in non_updated_users]:
 				check_booster_count(username, sub_config)
 		else:
 			log(parent_post, comment, "Credit already given")
