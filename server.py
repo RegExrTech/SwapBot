@@ -634,6 +634,7 @@ if __name__ == "__main__":
 	port = 8000
 	try:
 		if not port_in_use(port):
+			print("Server start time: " + str(time.time()))
 			app.run(host= '0.0.0.0', port=port, request_handler=MyRequestHandler)
 	except Exception as e:
 		if 'Address already in use'.lower() not in str(e).lower():
