@@ -12,7 +12,9 @@ j = server.JsonHelper()
 db = j.get_db('database/comments.json')
 request_url = "http://0.0.0.0:8000"
 
-subnames = [x.split("-")[0] for x in os.listdir("config/")]
+timestamp = 1704310354
+
+subnames = [x.split(".")[0] for x in os.listdir("config/")]
 for subname in subnames:
 	print("=== " + subname + " ===")
 	sub_config = Config.Config(subname.split(".")[0])
@@ -22,7 +24,7 @@ for subname in subnames:
 	bot_obj = sub_config.reddit_object.redditor(sub_config.bot_username)
 	comments = bot_obj.comments.new(limit=None)
 	for comment in comments:
-		if comment.created_utc < 1704247245:
+		if comment.created_utc < timestamp:
 			print("Done, confirmation was made at " + str(comment.created_utc))
 			break
 		if comment.created_utc > time.time() - (10*60):

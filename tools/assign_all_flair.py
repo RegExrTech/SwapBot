@@ -28,7 +28,7 @@ keys = db[sub_config.subreddit_name][platform].keys()
 mods = [str(x).lower() for x in sub.moderator()]
 keys = mods
 
-keys = ['dimitritelep2113']
+keys = ['hesogross']
 
 for i in range(len(keys)):
 	user = keys[i].lower()
