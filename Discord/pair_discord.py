@@ -1,11 +1,13 @@
 import string
 import time
-import json_helper
 import requests
 import re
 import json
 import praw
 import argparse
+import sys
+sys.path.insert(0, '.')
+import Config
 
 parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)
@@ -17,15 +19,15 @@ time_limit = time_limit_minutes * 60 # Seconds
 request_url = "http://0.0.0.0:8000"
 
 bot_username = "Swap Bot#0749"
-TOKENS = json_helper.get_db("Discord/config/" + args.sub_name + ".json")
+config = Config.Config(args.sub_name.lower())
 
-reddit = praw.Reddit(client_id=TOKENS['reddit_pairing_config']['client_id'], client_secret=TOKENS['reddit_pairing_config']['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', refresh_token=TOKENS['reddit_pairing_config']['refresh_token'])
+reddit = praw.Reddit(client_id=config.discord_config.reddit_pairing_config['client_id'], client_secret=config.discord_config.reddit_pairing_config['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', refresh_token=config.discord_config.reddit_pairing_config['refresh_token'])
 
-baseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["pairing_channel"])
-logBaseURL = "https://discordapp.com/api/channels/{}/messages".format(TOKENS["log_channel"])
-roleURL = "https://discordapp.com/api/guilds/" + TOKENS['server_id'] + "/members/{}/roles/{}"
+baseURL = "https://discordapp.com/api/channels/{}/messages".format(config.discord_config.pairing_channel)
+logBaseURL = "https://discordapp.com/api/channels/{}/messages".format(config.discord_config.log_channel)
+roleURL = "https://discordapp.com/api/guilds/" + config.discord_config.server_id + "/members/{}/roles/{}"
 deleteMessageURL = "https://discordapp.com/api/channels/{}/messages/{}"
-headers = {"Authorization":"Bot {}".format(TOKENS["token"]),
+headers = {"Authorization":"Bot {}".format(config.discord_config.token),
 	"User-Agent":"SwapBot (https://www.regexr.tech, v0.1)",
 	"Content-Type":"application/json"}
 
@@ -88,103 +90,108 @@ def send_reddit_message(reddit_username, discord_username, reddit, time_limit_mi
 	requests.post(request_url + "/add-account-pairing-request/", data={"discord_user_id": discord_user_id, "reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, 'discord_message_id': discord_message_id})
 	return reply_text
 
+def main(config):
+	if not config.discord_config or not config.discord_config.pairing_channel:
+		return
 
-r = requests.get(baseURL, headers = headers)
-messages = r.json()
+	r = requests.get(baseURL, headers = headers)
+	messages = r.json()
 
-pending_requests = requests.get(request_url + "/get-pending-account-pairing-requests/").json()
-paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
+	pending_requests = requests.get(request_url + "/get-pending-account-pairing-requests/").json()
+	paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
 
-to_skip = []
+	to_skip = []
 
-# Check Discord for messages
-for message in messages:
-	discord_username = message['author']['username'] + "#" + message['author']['discriminator']
-	discord_username = decode(discord_username.lower())
-	discord_user_id = message['author']['id']
-	discord_message_id = message['id']
+	# Check Discord for messages
+	for message in messages:
+		discord_username = message['author']['username'] + "#" + message['author']['discriminator']
+		discord_username = decode(discord_username.lower())
+		discord_user_id = message['author']['id']
+		discord_message_id = message['id']
 
-	if discord_message_id in to_skip:
-		continue
-	# If we find a message from the bot and the bot was replying to someone, add that reply to a list of messages to skip over
-	if 'message_reference' in message and message['message_reference'] and discord_user_id == TOKENS["bot_id"]:
-		to_skip.append(message['message_reference']['message_id'])
-		continue
-	# If the message is from a user with a pending request, skip
-	if discord_user_id in pending_requests:
-		continue
+		if discord_message_id in to_skip:
+			continue
+		# If we find a message from the bot and the bot was replying to someone, add that reply to a list of messages to skip over
+		if 'message_reference' in message and message['message_reference'] and discord_user_id == config.discord_config.bot_id:
+			to_skip.append(message['message_reference']['message_id'])
+			continue
+		# If the message is from a user with a pending request, skip
+		if discord_user_id in pending_requests:
+			continue
 
-	body = message['content']
-	# If the message is from a user with a completed request, let them know and make sure the role is applied
-	if discord_user_id in paired_usernames['discord']:
-		reddit_username = None
-	else:
-		reddit_username = get_username_from_text(body)
-
-	reply_text = ""
-	# If we were able to find a reddit username in the message
-	if reddit_username is not None and reddit_username:
-		# If the reddit username in question has already been paired:
-		if reddit_username in paired_usernames['reddit']:
-			reply_text = "Sorry, this Reddit account was already used to pair with a different discord account. Specifically, it is paired to <@" + str(paired_usernames['reddit'][reddit_username]['discord'] + ">.")
+		body = message['content']
+		# If the message is from a user with a completed request, let them know and make sure the role is applied
+		if discord_user_id in paired_usernames['discord']:
+			reddit_username = None
 		else:
-			# Try to send a PM via reddit
-			try:
-				reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
-			# If we fail, tell them to try again later
-			except Exception as e:
-				error_text = str(e)
-				if "RATELIMIT" in error_text:
-					if 'minute' in error_text:
-						time_to_sleep = int(error_text.split("Take a break for ")[1].split(" minute")[0]) * 60
+			reddit_username = get_username_from_text(body)
+
+		reply_text = ""
+		# If we were able to find a reddit username in the message
+		if reddit_username is not None and reddit_username:
+			# If the reddit username in question has already been paired:
+			if reddit_username in paired_usernames['reddit']:
+				reply_text = "Sorry, this Reddit account was already used to pair with a different discord account. Specifically, it is paired to <@" + str(paired_usernames['reddit'][reddit_username]['discord'] + ">.")
+			else:
+				# Try to send a PM via reddit
+				try:
+					reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
+				# If we fail, tell them to try again later
+				except Exception as e:
+					error_text = str(e)
+					if "RATELIMIT" in error_text:
+						if 'minute' in error_text:
+							time_to_sleep = int(error_text.split("Take a break for ")[1].split(" minute")[0]) * 60
+						else:
+							time_to_sleep = int(error_text.split("Take a break for ")[1].split(" second")[0])
+						time.sleep(time_to_sleep + 2)
+						try:
+							reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
+						except Exception as e:
+							print(e)
+							reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
 					else:
-						time_to_sleep = int(error_text.split("Take a break for ")[1].split(" second")[0])
-					time.sleep(time_to_sleep + 2)
-					try:
-						reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
-					except Exception as e:
 						print(e)
-						reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
-				else:
-					print(e)
-					reply_text = "Sorry, <@" + str(discord_user_id) + ">, I was unable to send a message to that username. Please check your spelling and try again."
-	elif reddit_username is not None and not reddit_username:
-		reply_text = "Sorry, I was unable to detect a reddit username in your message. Please send another message, ensuring that the reddit usernames begin with u/. Thanks!"
-	else:
-		reply_text = "Your account has already been verified so I've added the relevant role to your account. Thanks!"
-		requests.put(roleURL.format(discord_user_id, TOKENS['role_id']), headers=headers)
+						reply_text = "Sorry, <@" + str(discord_user_id) + ">, I was unable to send a message to that username. Please check your spelling and try again."
+		elif reddit_username is not None and not reddit_username:
+			reply_text = "Sorry, I was unable to detect a reddit username in your message. Please send another message, ensuring that the reddit usernames begin with u/. Thanks!"
+		else:
+			reply_text = "Your account has already been verified so I've added the relevant role to your account. Thanks!"
+			requests.put(roleURL.format(discord_user_id, config.discord_config.role_id), headers=headers)
 
-	reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
-	requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
-
-# Delete any stale requests
-for discord_user_id, data in pending_requests.items():
-	if data['request_timestamp'] + time_limit < time.time():
-		reply_text = "<@" + str(discord_user_id) + ">, you have taken too long to complete this process. Please feel free to make a new message and restart the process at any time."
-		discord_message_id = discord_user_id
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
-		requests.delete(deleteMessageURL.format(TOKENS["pairing_channel"], discord_message_id), headers=headers)
-		requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
 
-# Check Reddit for unread replies
-reddit_messages = get_reddit_messages(reddit)
-for reddit_message in reddit_messages:
-	try:
-		reddit_message_id = reddit_message.parent_id.split("_")[-1]
-	except:
-		print("Unable to parse reddit message. Skipping...")
-		continue
+	# Delete any stale requests
 	for discord_user_id, data in pending_requests.items():
-		if not reddit_message_id == data['reddit_message_id']:
-			continue
-		requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_user_id, 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
-		try:
-			reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
-		except:
-			pass
-		requests.put(roleURL.format(discord_user_id, TOKENS['role_id']), headers=headers)
-		message_data = {'content': "<@"+discord_user_id+"> -> "+data['reddit_username']}
-		requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
-		requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
+		if data['request_timestamp'] + time_limit < time.time():
+			reply_text = "<@" + str(discord_user_id) + ">, you have taken too long to complete this process. Please feel free to make a new message and restart the process at any time."
+			discord_message_id = discord_user_id
+			reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
+			requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
+			requests.delete(deleteMessageURL.format(config.discord_config.pairing_channel, discord_message_id), headers=headers)
+			requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
 
+	# Check Reddit for unread replies
+	reddit_messages = get_reddit_messages(reddit)
+	for reddit_message in reddit_messages:
+		try:
+			reddit_message_id = reddit_message.parent_id.split("_")[-1]
+		except:
+			print("Unable to parse reddit message. Skipping...")
+			continue
+		for discord_user_id, data in pending_requests.items():
+			if not reddit_message_id == data['reddit_message_id']:
+				continue
+			requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_user_id, 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
+			try:
+				reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
+			except:
+				pass
+			requests.put(roleURL.format(discord_user_id, config.discord_config.role_id), headers=headers)
+			message_data = {'content': "<@"+discord_user_id+"> -> "+data['reddit_username']}
+			requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
+			requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
+
+
+main(config)
