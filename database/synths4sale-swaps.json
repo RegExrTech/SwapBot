@@ -233,6 +233,12 @@
                     "partner": "dirtygremlin",
                     "post_id": "17385sp",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kgdu9a4",
+                    "partner": "luckyfrenchman",
+                    "post_id": "18ulsu5",
+                    "timestamp": 1704471089
                 }
             ]
         },
@@ -3025,6 +3031,12 @@
                     "partner": "rdgameboy",
                     "post_id": "16gcjqq",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kgdv0tf",
+                    "partner": "luckyfrenchman",
+                    "post_id": "18uuold",
+                    "timestamp": 1704429297
                 }
             ]
         },
@@ -3829,6 +3841,34 @@
                     "partner": "gipperski",
                     "post_id": "zbqyl9",
                     "timestamp": 0
+                }
+            ]
+        },
+        "luckyfrenchman": {
+            "transactions": [
+                {
+                    "comment_id": "kgcd8mc",
+                    "partner": "seoul",
+                    "post_id": "18uufrz",
+                    "timestamp": 1704425773
+                },
+                {
+                    "comment_id": "kgdv0tf",
+                    "partner": "hizzlekizzle",
+                    "post_id": "18uuold",
+                    "timestamp": 1704429297
+                },
+                {
+                    "comment_id": "kgdutgt",
+                    "partner": "unw1",
+                    "post_id": "18uubva",
+                    "timestamp": 1704433529
+                },
+                {
+                    "comment_id": "kgdu9a4",
+                    "partner": "_rfj",
+                    "post_id": "18ulsu5",
+                    "timestamp": 1704471089
                 }
             ]
         },
@@ -5640,6 +5680,16 @@
                 }
             ]
         },
+        "seoul": {
+            "transactions": [
+                {
+                    "comment_id": "kgcd8mc",
+                    "partner": "luckyfrenchman",
+                    "post_id": "18uufrz",
+                    "timestamp": 1704425773
+                }
+            ]
+        },
         "seriousheartburn": {
             "transactions": [
                 {
@@ -6601,6 +6651,16 @@
                     "partner": "electronic_citron_50",
                     "post_id": "459ihe",
                     "timestamp": 0
+                }
+            ]
+        },
+        "unw1": {
+            "transactions": [
+                {
+                    "comment_id": "kgdutgt",
+                    "partner": "luckyfrenchman",
+                    "post_id": "18uubva",
+                    "timestamp": 1704433529
                 }
             ]
         },

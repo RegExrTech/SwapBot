@@ -1,13 +1,25 @@
 {
     "reddit": {
         "regexr": {
-            "legacy_count": 10,
+            "legacy_count": 0,
             "transactions": [
                 {
                     "comment_id": "",
-                    "partner": "regexrbot",
+                    "partner": "totallynotregexr",
                     "post_id": "15545s3",
-                    "timestamp": 0
+                    "timestamp": 1704398318
+                },
+                {
+                    "comment_id": "",
+                    "partner": "totallynotregexr",
+                    "post_id": "15545s3",
+                    "timestamp": 1704398318
+                },
+                {
+                    "comment_id": "",
+                    "partner": "totallynotregexr",
+                    "post_id": "15545s3",
+                    "timestamp": 1704398318
                 }
             ]
         },

@@ -5352,6 +5352,16 @@
                 }
             ]
         },
+        "alllthecoffee": {
+            "transactions": [
+                {
+                    "comment_id": "kghfm4j",
+                    "partner": "reptigod",
+                    "post_id": "18w6hxt",
+                    "timestamp": 1704486669
+                }
+            ]
+        },
         "allthetunes": {
             "transactions": [
                 {
@@ -15879,6 +15889,16 @@
                     "partner": "nuclearwaffelle",
                     "post_id": "eiebro",
                     "timestamp": 0
+                }
+            ]
+        },
+        "buglykitty175": {
+            "transactions": [
+                {
+                    "comment_id": "kg33zrh",
+                    "partner": "reitrack",
+                    "post_id": "18um3rs",
+                    "timestamp": 1704420080
                 }
             ]
         },
@@ -35945,6 +35965,16 @@
                 }
             ]
         },
+        "geneparmesancostanza": {
+            "transactions": [
+                {
+                    "comment_id": "kg9qcd1",
+                    "partner": "reitrack",
+                    "post_id": "18t8m61",
+                    "timestamp": 1704410611
+                }
+            ]
+        },
         "generaizod": {
             "transactions": [
                 {
@@ -51975,6 +52005,12 @@
                     "partner": "wpjoseph",
                     "post_id": "18g98yq",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kgcaex9",
+                    "partner": "spike71spiegel",
+                    "post_id": "18wpeny",
+                    "timestamp": 1704410743
                 }
             ]
         },
@@ -53632,6 +53668,12 @@
                     "partner": "jawzxd",
                     "post_id": "17ve7wm",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg6k7p1",
+                    "partner": "rutgersftw",
+                    "post_id": "18gkjcc",
+                    "timestamp": 1704420108
                 }
             ]
         },
@@ -78264,6 +78306,18 @@
                     "partner": "manzelahi14",
                     "post_id": "17u1xa2",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg9qcd1",
+                    "partner": "geneparmesancostanza",
+                    "post_id": "18t8m61",
+                    "timestamp": 1704410611
+                },
+                {
+                    "comment_id": "kg33zrh",
+                    "partner": "buglykitty175",
+                    "post_id": "18um3rs",
+                    "timestamp": 1704420080
                 }
             ]
         },
@@ -78580,6 +78634,16 @@
                     "partner": "xavierm90",
                     "post_id": "txvddi",
                     "timestamp": 0
+                }
+            ]
+        },
+        "reptigod": {
+            "transactions": [
+                {
+                    "comment_id": "kghfm4j",
+                    "partner": "alllthecoffee",
+                    "post_id": "18w6hxt",
+                    "timestamp": 1704486669
                 }
             ]
         },
@@ -80383,6 +80447,12 @@
                     "partner": "hermionepringles",
                     "post_id": "xuku3o",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kg6k7p1",
+                    "partner": "kicsta",
+                    "post_id": "18gkjcc",
+                    "timestamp": 1704420108
                 }
             ]
         },
@@ -87970,6 +88040,12 @@
                     "partner": "blessmehaxima",
                     "post_id": "18hqszw",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kgcaex9",
+                    "partner": "kapazza",
+                    "post_id": "18wpeny",
+                    "timestamp": 1704410743
                 }
             ]
         },

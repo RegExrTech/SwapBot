@@ -388,6 +388,12 @@
                     "partner": "mentld",
                     "post_id": "131o8d5",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kfqnnu5",
+                    "partner": "collector1978",
+                    "post_id": "18tmhvk",
+                    "timestamp": 1704420074
                 }
             ]
         },
@@ -1949,6 +1955,16 @@
                     "partner": "someguitarguy",
                     "post_id": "yfx3sb",
                     "timestamp": 0
+                }
+            ]
+        },
+        "collector1978": {
+            "transactions": [
+                {
+                    "comment_id": "kfqnnu5",
+                    "partner": "anongta",
+                    "post_id": "18tmhvk",
+                    "timestamp": 1704420074
                 }
             ]
         },

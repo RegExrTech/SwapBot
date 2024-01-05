@@ -5754,7 +5754,14 @@
         },
         "one_dollar_poop_joke": {
             "legacy_count": 41,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kgh4i2d",
+                    "partner": "thelegojunkie",
+                    "post_id": "18w4uu3",
+                    "timestamp": 1704483218
+                }
+            ]
         },
         "onyxthe4tuitous": {
             "legacy_count": 7,
@@ -7947,7 +7954,14 @@
         },
         "thelegojunkie": {
             "legacy_count": 3,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kgh4i2d",
+                    "partner": "one_dollar_poop_joke",
+                    "post_id": "18w4uu3",
+                    "timestamp": 1704483218
+                }
+            ]
         },
         "thelostcow": {
             "legacy_count": 29,

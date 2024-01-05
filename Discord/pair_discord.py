@@ -91,6 +91,7 @@ def send_reddit_message(reddit_username, discord_username, reddit, time_limit_mi
 	return reply_text
 
 def main(config):
+	# Only run if we specify a pairing channel
 	if not config.discord_config or not config.discord_config.pairing_channel:
 		return
 
