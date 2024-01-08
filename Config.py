@@ -16,6 +16,7 @@ class Config():
 		self.fname = "config/" + sub_name.lower() + ".json"
 		self.raw_config = get_json_data(self.fname)
 
+		self.disabled = self.raw_config['disabled']
 		self.subreddit_name = self.raw_config['subreddit_name'].lower()
 		self.subreddit_display_name = self.raw_config['subreddit_name']
 		self.database_name = self.subreddit_name.lower()
