@@ -10,16 +10,17 @@ parser.add_argument('platform', metavar='C', type=str)
 parser.add_argument('username', metavar='C', type=str)
 args = parser.parse_args()
 request_url = "http://0.0.0.0:8000"
-db = requests.get(request_url+"/get-db/").json()
 
 sub_config, reddit, sub = swap.create_reddit_and_sub(args.sub_name.lower())
 
+db = requests.get(request_url+"/get-sub-db/", data={'sub': sub_config.subreddit_name}).json()
+
 i = 0
-if 'legacy_count' in db[args.sub_name.lower()][args.platform.lower()][args.username.lower()]:
-	for _ in range(db[args.sub_name.lower()][args.platform.lower()][args.username.lower()]['legacy_count']):
+if 'legacy_count' in db[args.platform.lower()][args.username.lower()]:
+	for _ in range(db[args.platform.lower()][args.username.lower()]['legacy_count']):
 		print(str(i) + ") LEGACY TRADE")
 		i += 1
-for trade in db[args.sub_name.lower()][args.platform.lower()][args.username.lower()]['transactions']:
+for trade in db[args.platform.lower()][args.username.lower()]['transactions']:
 	print(str(i) + ") " + trade['partner'] + " - " + trade['post_id'] + " - " + trade['comment_id'])
 	i += 1
 
@@ -36,12 +37,12 @@ for index in indexes.split(",")[::-1]:
 			cleaned_indexes.append(i)
 user_data = []
 i = 0
-if 'legacy_count' in db[args.sub_name.lower()][args.platform.lower()][args.username.lower()]:
-	for _ in range(db[args.sub_name.lower()][args.platform.lower()][args.username.lower()]['legacy_count']):
+if 'legacy_count' in db[args.platform.lower()][args.username.lower()]:
+	for _ in range(db[args.platform.lower()][args.username.lower()]['legacy_count']):
 		if i in cleaned_indexes:
 			user_data.append({'post_id': "LEGACY TRADE"})
 		i += 1
-for trade in db[args.sub_name.lower()][args.platform.lower()][args.username.lower()]['transactions']:
+for trade in db[args.platform.lower()][args.username.lower()]['transactions']:
 	if i in cleaned_indexes:
 		user_data.append(trade)
 	i += 1

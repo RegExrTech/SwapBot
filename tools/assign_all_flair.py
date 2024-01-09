@@ -16,15 +16,13 @@ platform = 'reddit'
 sub_config, reddit, sub = create_reddit_and_sub(args.sub_name.lower())
 
 request_url = "http://0.0.0.0:8000"
-db = requests.get(request_url+"/get-db/").json()
+db = requests.get(request_url+"/get-db/", data={'sub': sub_config.subreddit_name}).json()
 
-if sub_config.subreddit_name not in db:
-	db[sub_config.subreddit_name] = {}
-if platform not in db[sub_config.subreddit_name]:
-	db[sub_config.subreddit_name][platform] = {}
+if platform not in db:
+	db[platform] = {}
 
 unassigned_users = []
-keys = db[sub_config.subreddit_name][platform].keys()
+keys = db[platform].keys()
 mods = [str(x).lower() for x in sub.moderator()]
 keys = mods
 
@@ -32,8 +30,8 @@ keys = ['hesogross']
 
 for i in range(len(keys)):
 	user = keys[i].lower()
-	if user not in db[sub_config.subreddit_name][platform]:
-		db[sub_config.subreddit_name][platform][user] = []
+	if user not in db[platform]:
+		db[platform][user] = []
 #	count = str(get_swap_count(user, [sub_config.subreddit_name] + sub_config.gets_flair_from, platform))
 	try:
 		print(str(i) + ") Updating user " + user)
