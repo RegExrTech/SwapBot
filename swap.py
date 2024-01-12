@@ -804,6 +804,14 @@ def handle_manual_adjustment(message, sub_config):
 
 	return reply_to_message(message, "Success!", sub_config)
 
+def get_count_from_summary(trades_data):
+	trade_count = 0
+	for platform in trades_data:
+		trade_count += len(trades_data[platform]['transactions'])
+		if 'legacy_count' in trades_data[platform]:
+			trade_count += trades_data[platform]['legacy_count']
+	return trade_count
+
 def handle_swap_data_request(message, sub_config):
 	text = (message.body + " " +  message.subject).replace("\n", " ").replace("\r", " ")
 	username = get_username_from_text(text)[2:]  # remove the leading u/ in the username
@@ -812,11 +820,7 @@ def handle_swap_data_request(message, sub_config):
 		reply_to_message(message, reply_text, sub_config)
 		return
 	trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data'][sub_config.database_name]
-	trade_count = 0
-	for platform in trades_data:
-		trade_count += len(trades_data[platform]['transactions'])
-		if 'legacy_count' in trades_data[platform]:
-			trade_count += trades_data[platform]['legacy_count']
+	trade_count = get_count_from_summary(trades_data)
 	# Text based on swaps for this sub
 	if trade_count == 0:
 		reply_header = "Hello,\n\nu/" + username + " has not had any " + sub_config.flair_word + " in this sub yet."
