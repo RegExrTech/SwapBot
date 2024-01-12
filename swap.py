@@ -495,7 +495,11 @@ def check_booster_count(username, sub_config):
 					recent_transactions.append(transaction)
 	if len(recent_transactions) >= sub_config.booster_check_count_threshold:
 		if sub_transaction_count < sub_config.booster_check_max_score:
-			message = "**u/" + username + "** has confirmed " + str(len(recent_transactions)) + " " + sub_config.flair_word + " within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score on your sub is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
+			if not sub_config.gets_flair_from:
+				user_flair_text = "ON THIS SUB ONLY "
+			else:
+				user_flair_text = ""
+			message = "**u/" + username + "** has confirmed " + str(len(recent_transactions)) + " " + sub_config.flair_word + " within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score of **" + str(sub_transaction_count) + "** " + user_flair_text + "is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
 			for transaction in recent_transactions:
 				if transaction['platform'] == 'reddit':
 					partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': ",".join(sub_config.gets_flair_from + [sub_config.database_name]), 'current_platform': PLATFORM, 'username': username}).json()['data']
