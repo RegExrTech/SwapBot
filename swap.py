@@ -498,7 +498,9 @@ def check_booster_count(username, sub_config):
 			message = "**u/" + username + "** has confirmed " + str(len(recent_transactions)) + " " + sub_config.flair_word + " within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score on your sub is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
 			for transaction in recent_transactions:
 				if transaction['platform'] == 'reddit':
-					message += "* u/" + transaction['partner'] + " - https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + "\n"
+					partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': ",".join(sub_config.gets_flair_from + [sub_config.database_name]), 'current_platform': PLATFORM, 'username': username}).json()['data']
+					partner_count = get_count_from_summary(partner_trades_data)
+					message += "* u/" + transaction['partner'] + " (" + str(partner_count) + " " + sub_config.flair_word + ") - [" + transaction['sub_name'] + " " + sub_config.flair_word[:-1] + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + ")\n"
 				elif transaction['platform'] == 'discord':
 					message += "* " + transaction['partner'] + " - Discord transaction from " + transaction['sub_name'] + " - " + transaction['post_id'] + " - " + transaction['comment_id'] + "\n"
 				else:
@@ -806,10 +808,11 @@ def handle_manual_adjustment(message, sub_config):
 
 def get_count_from_summary(trades_data):
 	trade_count = 0
-	for platform in trades_data:
-		trade_count += len(trades_data[platform]['transactions'])
-		if 'legacy_count' in trades_data[platform]:
-			trade_count += trades_data[platform]['legacy_count']
+	for sub in trades_data:
+		for platform in trades_data[sub]:
+			trade_count += len(trades_data[sub][platform]['transactions'])
+			if 'legacy_count' in trades_data[sub][platform]:
+				trade_count += trades_data[sub][platform]['legacy_count']
 	return trade_count
 
 def handle_swap_data_request(message, sub_config):
@@ -819,7 +822,7 @@ def handle_swap_data_request(message, sub_config):
 		reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
 		reply_to_message(message, reply_text, sub_config)
 		return
-	trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data'][sub_config.database_name]
+	trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
 	trade_count = get_count_from_summary(trades_data)
 	# Text based on swaps for this sub
 	if trade_count == 0:
