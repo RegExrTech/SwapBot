@@ -712,7 +712,7 @@ def handle_flair_transfer(message, sub_config):
 		reply_text = "u/" + username2 + " is not a valid reddit username. Please verify the spelling and try again."
 		return reply_to_message(message, reply_text, sub_config)
 
-	return_data = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'current_platform': 'reddit', 'username': username1}).json()['data']
+	return_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': sub_config.subreddit_name, 'current_platform': 'reddit', 'username': username1}).json()['data'][sub_config.database_name]
 	if not return_data:
 		reply_text = "u/" + username1 + " was not found in the database. Please verify the spelling and try again."
 		return reply_to_message(message, reply_text, sub_config)
@@ -811,7 +811,7 @@ def handle_swap_data_request(message, sub_config):
 		reply_text = "Hi there,\n\nYou did not specify a username to check. Please ensure that you have a user name in the body of the message you just sent me. Please feel free to try again. Thanks!"
 		reply_to_message(message, reply_text, sub_config)
 		return
-	trades_data = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data']
+	trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': sub_config.database_name, 'current_platform': PLATFORM, 'username': username}).json()['data'][sub_config.database_name]
 	trade_count = 0
 	for platform in trades_data:
 		trade_count += len(trades_data[platform]['transactions'])

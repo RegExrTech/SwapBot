@@ -360,7 +360,7 @@ for message in invocations:
 		continue
 	user_to_check = user_to_check_list[0]
 	username = get_mentioned_usernames(message, [])[0]
-	transactions = requests.post(request_url + "/get-summary/", {'sub_name': sub_config.subreddit_name, 'current_platform': PLATFORM, 'username': user_to_check}).json()['data']
+	transactions = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': sub_config.subreddit_name, 'current_platform': PLATFORM, 'username': user_to_check}).json()['data'][sub_config.subreddit_name]
 	if not transactions:
 		reply("<@!" + user_to_check + "> has not confirmed any transactions yet.", message['id'], feedbackUrl)
 		continue

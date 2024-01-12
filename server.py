@@ -239,28 +239,6 @@ def check_comment():
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify(return_data)
 
-@app.route('/get-summary/', methods=['POST'])
-def get_summary():
-	"""
-	Given a sub and a username, get their list of confirmed trades
-
-	Requested Form Params:
-	String sub_name: The name of the current subreddit
-	String username: The name of the user to check feedback for
-	String current_platform: The name of the platform making the request
-
-	Return JSON {'data': List(Transactions)}
-	"""
-
-	sub_name = request.form["sub_name"]
-	current_platform = request.form["current_platform"]
-	if sub_name not in swap_data:
-		return jsonify({'data': []})
-	sub_data = swap_data[sub_name]
-	username = request.form['username']
-	data = get_user_summary(swap_data[sub_name], username, current_platform)
-	return jsonify({'data': data})
-
 @app.route('/get-summary-from-subs/', methods=['POST'])
 def get_summary_from_subs():
 	"""
