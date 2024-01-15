@@ -202,6 +202,9 @@ def get_url(text):
 	found = re.findall(pattern, text)
 	if not found:
 		return None
+	# If all we found was a kofi link, then there is no link
+	if 'kofi' in found[0]:
+		return None
 	return found[0]
 
 def get_correct_channel_id(post_id):
