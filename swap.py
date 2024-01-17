@@ -642,25 +642,25 @@ def reply_to_message(message, text, sub_config):
 def format_swap_count(trades_data, sub_config):
 	final_text = ""
 	legacy_count = 0
-	for platform in trades_data:
-		if 'legacy_count' in trades_data[platform]:
-			legacy_count += trades_data[platform]['legacy_count']
-		for trade in trades_data[platform]['transactions'][::-1]:
-			if platform == 'reddit':
-				trade_partner = trade['partner']
-				trade_partner_count = get_swap_count(trade_partner, [sub_config.database_name], PLATFORM)
-				if trade['comment_id']:
-					trade_url = "https://www.reddit.com/r/" + sub_config.database_name + "/comments/" + trade['post_id'] + "/-/" + trade['comment_id']
+	for sub_name in trades_data:
+		for platform in trades_data[sub_name]:
+			if 'legacy_count' in trades_data[sub_name][platform]:
+				legacy_count += trades_data[sub_name][platform]['legacy_count']
+			for trade in trades_data[sub_name][platform]['transactions'][::-1]:
+				if platform == 'reddit':
+					trade_partner = trade['partner']
+					trade_partner_count = get_swap_count(trade_partner, [sub_config.database_name], PLATFORM)
+					if trade['comment_id']:
+						trade_url = "https://www.reddit.com/r/" + sub_name + "/comments/" + trade['post_id'] + "/-/" + trade['comment_id']
+					else:
+						trade_url = "https://redd.it/" + trade['post_id']
+					final_text += "*  [" + sub_name + "/" + trade['post_id']  + "](" + trade_url  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
+				elif platform == 'discord':
+					trade_url = "https://www.discord.com/channels/" + str(sub_config.discord_config.server_id) + "/" + trade['post_id'] + "/" + trade['comment_id']
+					final_text += "* [Discord " + sub_config.flair_word[:-1] + "](" +  trade_url + ")\n\n"
 				else:
-					trade_url = "https://redd.it/" + trade['post_id']
-				trade_url_sub = sub_config.subreddit_display_name
-				final_text += "*  [" + trade_url_sub + "/" + trade['post_id']  + "](" + trade_url  + ") - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
-			elif platform == 'discord':
-				trade_url = "https://www.discord.com/channels/" + str(sub_config.discord_config.server_id) + "/" + trade['post_id'] + "/" + trade['comment_id']
-				final_text += "* [Discord " + sub_config.flair_word[:-1] + "](" +  trade_url + ")\n\n"
-			else:
-				print("Found unexpected platform `" + platform + "` when running `format_swap_count` for sub " + sub_config.subreddit_display_name)
-				continue
+					print("Found unexpected platform `" + platform + "` when running `format_swap_count` for sub " + sub_config.subreddit_display_name)
+					continue
 
 	if legacy_count > 0:
 		final_text = "* " + str(legacy_count) + " Legacy Trades (trade done before this bot was created)\n\n" + final_text
