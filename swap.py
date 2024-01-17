@@ -504,7 +504,7 @@ def check_booster_count(username, sub_config):
 				if transaction['platform'] == 'reddit':
 					partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': ",".join(sub_config.gets_flair_from + [sub_config.database_name]), 'current_platform': PLATFORM, 'username': transaction["partner"]}).json()['data']
 					partner_count = get_count_from_summary(partner_trades_data)
-					message += "* u/" + transaction['partner'] + " (" + str(partner_count) + " " + sub_config.flair_word + ") - [" + transaction['sub_name'] + " " + sub_config.flair_word[:-1] + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + ")\n"
+					message += "* u/" + transaction['partner'] + " (" + str(partner_count) + " " + sub_config.flair_word + ") - [" + transaction['sub_name'] + " " + sub_config.flair_word[:-1] + " - " + transaction['post_id'] + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + ")\n"
 				elif transaction['platform'] == 'discord':
 					message += "* " + transaction['partner'] + " - Discord transaction from " + transaction['sub_name'] + " - " + transaction['post_id'] + " - " + transaction['comment_id'] + "\n"
 				else:
