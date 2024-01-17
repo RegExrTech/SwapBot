@@ -490,7 +490,7 @@ def check_booster_count(username, sub_config):
 				if sub_name == sub_config.subreddit_name:
 					sub_transaction_count += 1
 				if transaction['timestamp'] > check_time - (sub_config.booster_check_hours_threshold*60*60):
-					transaction['sub_name'] = sub_config.subreddit_name
+					transaction['sub_name'] = sub_name
 					transaction['platform'] = platform
 					recent_transactions.append(transaction)
 	if len(recent_transactions) >= sub_config.booster_check_count_threshold:
