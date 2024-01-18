@@ -493,24 +493,36 @@ def check_booster_count(username, sub_config):
 					transaction['sub_name'] = sub_name
 					transaction['platform'] = platform
 					recent_transactions.append(transaction)
-	if len(recent_transactions) >= sub_config.booster_check_count_threshold:
-		if sub_transaction_count < sub_config.booster_check_max_score:
-			if not sub_config.gets_flair_from:
-				user_flair_text = "ON THIS SUB ONLY "
-			else:
-				user_flair_text = ""
-			message = "**u/" + username + "** has confirmed " + str(len(recent_transactions)) + " " + sub_config.flair_word + " within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score of **" + str(sub_transaction_count) + "** " + user_flair_text + "is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
-			for transaction in recent_transactions:
-				if transaction['platform'] == 'reddit':
-					partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': ",".join(sub_config.gets_flair_from + [sub_config.database_name]), 'current_platform': PLATFORM, 'username': transaction["partner"]}).json()['data']
-					partner_count = get_count_from_summary(partner_trades_data)
-					message += "* u/" + transaction['partner'] + " (" + str(partner_count) + " " + sub_config.flair_word + ") - [" + transaction['sub_name'] + " " + sub_config.flair_word[:-1] + " - " + transaction['post_id'] + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + ")\n"
-				elif transaction['platform'] == 'discord':
-					message += "* " + transaction['partner'] + " - Discord transaction from " + transaction['sub_name'] + " - " + transaction['post_id'] + " - " + transaction['comment_id'] + "\n"
-				else:
-					message += "* " + str(transaction) + "\n"
-			message += "\nThis message does **NOT** mean that the user in question is boosting their flair score, just that they *might* be doing as such. Please take a look and act accordingly.\n\nPlease reach out directly to u/RegExr if you have any questions."
-			sub_config.subreddit_object.message(subject="Potential Flair Booster Found", message=message)
+	if len(recent_transactions) < sub_config.booster_check_count_threshold:
+		return
+	if sub_transaction_count >= sub_config.booster_check_max_score:
+		return
+
+	valid_recent_transactions = []
+	for transaction in recent_transactions:
+		partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': ",".join(sub_config.gets_flair_from + [sub_config.database_name]), 'current_platform': transaction['platform'], 'username': transaction["partner"]}).json()['data']
+		partner_count = get_count_from_summary(partner_trades_data)
+		if partner_count < sub_config.booster_check_max_score:
+			transaction['partner_count'] = partner_count
+			valid_recent_transactions.append(transaction)
+
+	if len(valid_recent_transactions) < sub_config.booster_check_count_threshold:
+		return
+
+	if not sub_config.gets_flair_from:
+		user_flair_text = "ON THIS SUB ONLY "
+	else:
+		user_flair_text = ""
+	message = "**u/" + username + "** has confirmed " + str(len(recent_transactions)) + " " + sub_config.flair_word + " within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score of **" + str(sub_transaction_count) + "** " + user_flair_text + "is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
+	for transaction in valid_recent_transactions:
+		if transaction['platform'] == 'reddit':
+			message += "* u/" + transaction['partner'] + " (" + str(transaction['partner_count']) + " " + sub_config.flair_word + ") - [" + transaction['sub_name'] + " " + sub_config.flair_word[:-1] + " - " + transaction['post_id'] + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + ")\n"
+		elif transaction['platform'] == 'discord':
+			message += "* " + transaction['partner'] + " - Discord transaction from " + transaction['sub_name'] + " - " + transaction['post_id'] + " - " + transaction['comment_id'] + "\n"
+		else:
+			message += "* " + str(transaction) + "\n"
+	message += "\nThis message does **NOT** mean that the user in question is boosting their flair score, just that they *might* be doing as such. Please take a look and act accordingly.\n\nPlease reach out directly to u/RegExr if you have any questions."
+	sub_config.subreddit_object.message(subject="Potential Flair Booster Found", message=message)
 
 def get_username_from_text(text, usernames_to_ignore=[]):
 	text = text.replace("/user/", "/u/")
