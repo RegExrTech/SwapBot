@@ -571,7 +571,7 @@ def dump():
 	json_helper.dump(pending_requests, pending_requests_fname)
 	return jsonify({})
 
-@approute('/get-sub-db/', methods=["GET"])
+@app.route('/get-sub-db/', methods=["GET"])
 def get_sub_db():
 	sub = request.form["sub"].lower()
 	if sub not in swap_data:
