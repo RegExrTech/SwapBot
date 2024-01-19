@@ -500,7 +500,8 @@ def check_booster_count(username, sub_config):
 
 	valid_recent_transactions = []
 	for transaction in recent_transactions:
-		partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': ",".join(sub_config.gets_flair_from + [sub_config.database_name]), 'current_platform': transaction['platform'], 'username': transaction["partner"]}).json()['data']
+#		partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': ",".join(sub_config.gets_flair_from + [sub_config.database_name]), 'current_platform': transaction['platform'], 'username': transaction["partner"]}).json()['data']
+		partner_trades_data = requests.post(request_url + "/get-summary-from-subs/", {'sub_names': transaction['sub_name'], 'current_platform': transaction['platform'], 'username': transaction["partner"]}).json()['data']
 		partner_count = get_count_from_summary(partner_trades_data)
 		if partner_count < sub_config.booster_check_max_score:
 			transaction['partner_count'] = partner_count
