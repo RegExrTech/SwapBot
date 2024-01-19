@@ -81,6 +81,8 @@ class Config():
 				continue
 			if not raw_config['gets_flair_from']:
 				continue
+			if raw_config['disabled']:
+				continue
 			# If the sub has a wildcard, and sub names following the wild card are excluded.
 			# If a sub does not have a wildcard, any sub explicitly listed is included.
 			# If a sub ONLY has a wildcard, ALL subs are included.
