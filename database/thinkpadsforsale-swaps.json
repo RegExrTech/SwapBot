@@ -1136,6 +1136,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "cocowtown": {
+            "transactions": [
+                {
+                    "comment_id": "kiucq7v",
+                    "partner": "kingtrollbrajfs",
+                    "post_id": "18wzuxj",
+                    "timestamp": 1705953662
+                }
+            ]
+        },
         "coldfusion718": {
             "legacy_count": 13,
             "transactions": []
@@ -1646,6 +1656,12 @@
                     "partner": "chickenpot",
                     "post_id": "qrv87o",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kh33d1h",
+                    "partner": "totallyjaded",
+                    "post_id": "18w4g01",
+                    "timestamp": 1704824668
                 }
             ]
         },
@@ -2813,6 +2829,16 @@
                 }
             ]
         },
+        "junior_budget_3721": {
+            "transactions": [
+                {
+                    "comment_id": "kgmunwi",
+                    "partner": "lifeisamemel0l",
+                    "post_id": "18ot4vd",
+                    "timestamp": 1704574789
+                }
+            ]
+        },
         "junkknight": {
             "transactions": [
                 {
@@ -2960,6 +2986,16 @@
         "kingsympathizer": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "kingtrollbrajfs": {
+            "transactions": [
+                {
+                    "comment_id": "kiucq7v",
+                    "partner": "cocowtown",
+                    "post_id": "18wzuxj",
+                    "timestamp": 1705953662
+                }
+            ]
         },
         "kiragami": {
             "legacy_count": 1,
@@ -3154,6 +3190,16 @@
                     "partner": "sebileis",
                     "post_id": "lee9i5",
                     "timestamp": 0
+                }
+            ]
+        },
+        "lifeisamemel0l": {
+            "transactions": [
+                {
+                    "comment_id": "kgmunwi",
+                    "partner": "junior_budget_3721",
+                    "post_id": "18ot4vd",
+                    "timestamp": 1704574789
                 }
             ]
         },
@@ -5481,6 +5527,16 @@
         "torncobblestone": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "totallyjaded": {
+            "transactions": [
+                {
+                    "comment_id": "kh33d1h",
+                    "partner": "embke",
+                    "post_id": "18w4g01",
+                    "timestamp": 1704824668
+                }
+            ]
         },
         "totallynotregexr": {
             "transactions": [
