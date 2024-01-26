@@ -89612,6 +89612,16 @@
                 }
             ]
         },
+        "thetealarrow": {
+            "transactions": [
+                {
+                    "comment_id": "kj9j34f",
+                    "partner": "udondraper",
+                    "post_id": "1989rz7",
+                    "timestamp": 1706148023
+                }
+            ]
+        },
         "thethexa": {
             "legacy_count": 2,
             "transactions": []
@@ -93896,6 +93906,12 @@
                     "partner": "wls24",
                     "post_id": "18fcqym",
                     "timestamp": 1704247237
+                },
+                {
+                    "comment_id": "kj9j34f",
+                    "partner": "thetealarrow",
+                    "post_id": "1989rz7",
+                    "timestamp": 1706148023
                 }
             ]
         },
