@@ -606,6 +606,16 @@
                 }
             ]
         },
+        "anus-lupus": {
+            "transactions": [
+                {
+                    "comment_id": "kjqcc8z",
+                    "partner": "bizzledelic",
+                    "post_id": "18lkdg5",
+                    "timestamp": 1706321788
+                }
+            ]
+        },
         "anxst": {
             "transactions": [
                 {
@@ -1005,6 +1015,12 @@
                     "partner": "jannunzi",
                     "post_id": "18lkdg5",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kjqcc8z",
+                    "partner": "anus-lupus",
+                    "post_id": "18lkdg5",
+                    "timestamp": 1706321788
                 }
             ]
         },
