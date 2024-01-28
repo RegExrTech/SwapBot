@@ -7638,6 +7638,12 @@
                     "partner": "thecapt",
                     "post_id": "18zjsu0",
                     "timestamp": 1705054044
+                },
+                {
+                    "comment_id": "kjujr9m",
+                    "partner": "theemblem2114",
+                    "post_id": "19b8lde",
+                    "timestamp": 1706392587
                 }
             ]
         },
@@ -8151,7 +8157,14 @@
         },
         "theemblem2114": {
             "legacy_count": 15,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kjujr9m",
+                    "partner": "stephw8",
+                    "post_id": "19b8lde",
+                    "timestamp": 1706392587
+                }
+            ]
         },
         "thegooch49": {
             "legacy_count": 1,

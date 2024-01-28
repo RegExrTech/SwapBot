@@ -3383,6 +3383,12 @@
                     "partner": "howsr",
                     "post_id": "11f449i",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kjkwpub",
+                    "partner": "wpjoseph",
+                    "post_id": "19bm2jw",
+                    "timestamp": 1706407309
                 }
             ]
         },
@@ -3926,6 +3932,18 @@
                     "partner": "striving4glory",
                     "post_id": "17qed0v",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kjvb4aq",
+                    "partner": "malteasers",
+                    "post_id": "199er9e",
+                    "timestamp": 1706398444
+                },
+                {
+                    "comment_id": "kjvbzzf",
+                    "partner": "saexciter",
+                    "post_id": "195z0ag",
+                    "timestamp": 1706401675
                 }
             ]
         },
@@ -35108,6 +35126,12 @@
                     "partner": "kebmpb",
                     "post_id": "188gso6",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kjvpq0d",
+                    "partner": "statflow",
+                    "post_id": "19feaag",
+                    "timestamp": 1706407257
                 }
             ]
         },
@@ -59349,6 +59373,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "luckywolf_1807": {
+            "transactions": [
+                {
+                    "comment_id": "kjv351y",
+                    "partner": "lunchboxmercenary",
+                    "post_id": "19biyr4",
+                    "timestamp": 1706417034
+                }
+            ]
+        },
         "ludendwarf1918": {
             "legacy_count": 1,
             "transactions": [
@@ -59605,6 +59639,12 @@
                     "partner": "justrichie",
                     "post_id": "19biyr4",
                     "timestamp": 1706195788
+                },
+                {
+                    "comment_id": "kjv351y",
+                    "partner": "luckywolf_1807",
+                    "post_id": "19biyr4",
+                    "timestamp": 1706417034
                 }
             ]
         },
@@ -60994,6 +61034,12 @@
                     "partner": "office_chair",
                     "post_id": "vaz5zj",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kjvb4aq",
+                    "partner": "aimboii",
+                    "post_id": "199er9e",
+                    "timestamp": 1706398444
                 }
             ]
         },
@@ -81609,6 +81655,12 @@
                     "partner": "justintimehere",
                     "post_id": "ex18ug",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kjvbzzf",
+                    "partner": "aimboii",
+                    "post_id": "195z0ag",
+                    "timestamp": 1706401675
                 }
             ]
         },
@@ -89394,6 +89446,12 @@
                     "partner": "igingerbreadman",
                     "post_id": "16ppf7w",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kjvpq0d",
+                    "partner": "frightened-inm8",
+                    "post_id": "19feaag",
+                    "timestamp": 1706407257
                 }
             ]
         },
@@ -89594,6 +89652,16 @@
                     "partner": "jman1994678",
                     "post_id": "vl790b",
                     "timestamp": 0
+                }
+            ]
+        },
+        "steven-is-even": {
+            "transactions": [
+                {
+                    "comment_id": "kj5nl45",
+                    "partner": "tungsten_",
+                    "post_id": "19ckiqw",
+                    "timestamp": 1706342438
                 }
             ]
         },
@@ -99300,6 +99368,16 @@
                 }
             ]
         },
+        "tungsten_": {
+            "transactions": [
+                {
+                    "comment_id": "kj5nl45",
+                    "partner": "steven-is-even",
+                    "post_id": "19ckiqw",
+                    "timestamp": 1706342438
+                }
+            ]
+        },
         "tupham0501": {
             "transactions": [
                 {
@@ -105431,6 +105509,12 @@
                     "partner": "tzac11",
                     "post_id": "190dklr",
                     "timestamp": 1705086262
+                },
+                {
+                    "comment_id": "kjkwpub",
+                    "partner": "aenut52",
+                    "post_id": "19bm2jw",
+                    "timestamp": 1706407309
                 }
             ]
         },
