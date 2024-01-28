@@ -537,8 +537,8 @@ def get_username_from_text(text, usernames_to_ignore=[]):
 	return username.lower()
 
 def reply(comment, reply_text):
-	reply_text = "Hello, u/" + comment.author.name + ". " + reply_text
 	try:
+		reply_text = "Hello, u/" + comment.author.name + ". " + reply_text
 		if not debug:
 			if not silent:
 				reply = comment.reply(reply_text+kofi_text)
