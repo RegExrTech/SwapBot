@@ -17483,6 +17483,12 @@
                     "partner": "adagreeable9784",
                     "post_id": "18w4vhb",
                     "timestamp": 1705952188
+                },
+                {
+                    "comment_id": "kk698ix",
+                    "partner": "vihav",
+                    "post_id": "19fkh6r",
+                    "timestamp": 1706574055
                 }
             ]
         },
@@ -19832,6 +19838,16 @@
                     "partner": "shinxanta",
                     "post_id": "p5s2hv",
                     "timestamp": 0
+                }
+            ]
+        },
+        "ripleyfromalien": {
+            "transactions": [
+                {
+                    "comment_id": "kk6qa3h",
+                    "partner": "twall1297",
+                    "post_id": "18x2ftx",
+                    "timestamp": 1706574493
                 }
             ]
         },
@@ -25175,6 +25191,12 @@
                     "partner": "dg07",
                     "post_id": "18x2ftx",
                     "timestamp": 1705517705
+                },
+                {
+                    "comment_id": "kk6qa3h",
+                    "partner": "ripleyfromalien",
+                    "post_id": "18x2ftx",
+                    "timestamp": 1706574493
                 }
             ]
         },
@@ -25509,6 +25531,16 @@
                     "partner": "_movie-magic_",
                     "post_id": "16m6tih",
                     "timestamp": 0
+                }
+            ]
+        },
+        "vihav": {
+            "transactions": [
+                {
+                    "comment_id": "kk698ix",
+                    "partner": "novasteelbookfan",
+                    "post_id": "19fkh6r",
+                    "timestamp": 1706574055
                 }
             ]
         },

@@ -60,7 +60,7 @@ def GetUsersFromCSV(sub):
 def GetUsersFromCss(sub):
 	count = 0
 #	d = defaultdict(lambda: [])
-	d = {}
+	d = defaultdict(lambda: [])
 	mapping = {'i-1': 1, 'i-3': 3, 'i-15': 15, 'i-10': 10, 'i-11': 11, 'i-2': 2, 'i-4': 4, 'i-6': 6, 'i-14': 14, 'i-5': 5, 'i-9': 9}
 	# {u'flair_css_class': u'i-buy', u'user': Redditor(name='Craig'), u'flair_text': u'Buyer'}
 	to_review = []
@@ -80,11 +80,7 @@ def GetUsersFromCss(sub):
 			continue
 		if flair_text:
 			flair_text = flair_text.strip()
-		if flair_text == "GCX Beginner":
-			try:
-				sub.flair.set(username, "0 Exchanges | Beginner", flair_template_id="d1c87488-f623-11e3-940c-12313d224df5")
-			except Exception as e:
-				print("Unable to set flair for u/" + username + " with error " + str(e))
+		user_count = int(flair_text.split(": ")[1])
 
 		for _ in range(user_count):
 			d[username].append({'post_id': "LEGACY TRADE"})
@@ -404,7 +400,6 @@ print("feedback_sub_name: " + feedback_sub_name)
 
 if sub_name == "giftcardexchange":
 	GetUsersFromCss(sub)
-int('s')
 
 if sub_name == "gamesale":
 	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
@@ -419,7 +414,7 @@ elif sub_name == "ygomarketplace":
 	users_to_confirmations = GetUserCountsYGOFeedback(authors, ids, sub_config)
 elif sub_name in ["appleswap", "animalcrossingamiibos", "synths4sale"]:
 	users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
-elif sub_name in ["snackexchange", "airsoftmarketcanada", "watchexchangecanada", "legomarket", "legotrade", "mangaswap", "comblocmarket2"]:
+elif sub_name in ["snackexchange", "airsoftmarketcanada", "watchexchangecanada", "legomarket", "legotrade", "mangaswap", "comblocmarket2", "lorcanatcgtrades"]:
 	users_to_confirmations = GetUsersFromCss(sub)
 
 print(users_to_confirmations)
