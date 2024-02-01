@@ -824,6 +824,66 @@ def handle_manual_adjustment(message, sub_config):
 
 	return reply_to_message(message, "Success!", sub_config)
 
+def handle_legacy_add(message, sub_config):
+	error_text = "\n\nPlease send a message in the form of `$batch u/<username> <number>` where `<number>` is an integer between 1 and 10 and try again (don't include the `<>` characters)."
+
+	# Check requester is allowed
+	requesting_mod = message.author.name.lower()
+	if requesting_mod not in sub_config.admins:
+		reply_text = "Error: You are not authorized to execute this command." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Check we get expected number of args
+	items = message.body.split(" ")
+	if len(items) < 3:
+		response_text = "Error: Invalid Format." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Check a username is present in the args
+	username1 = items[1]
+	if 'u/' not in username1:
+		response_text = "Error: No usernames could be found in the message you sent." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+	username1 = username1.split("/")[-1].lower()
+
+	# Check the given username is valid
+	try:
+		sub_config.reddit_object.redditor(username1).id
+	except:
+		response_text = "Error: u/" + username1 + " is not a real redditor. Verify this by clicking their name and checking if their profile exists." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Check there is a count in the args
+	try:
+		count = int(items[2])
+	except:
+		response_text = "Error: " + items[2] + " is not an integer." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Check 0 <= count <= 10
+	if count <= 0 or count > 10:
+		response_text = "Error: " + items[2] + " is an invalid amount." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Update the user in the db
+	user_data = [{'post_id': "LEGACY TRADE"} for _ in range(count)]
+	return_data = requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'user_data': {username1: user_data}}).json()
+	if return_data[username1] == 'False':
+		reply_text = "Error: Something went wrong. Contact u//RegExr for help."
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Send a modmail message
+	if requesting_mod != 'regexr':
+		try:
+			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Update", message="u/" + message.author.name + " has manually updated flair for u/" + username1 + " by " + str(count) + " " + sub_config.flair_word)
+		except Exception as e:
+			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " when manually adjusting flair.")
+
+	# Update the flair
+	update_flair(sub_config.reddit_object.redditor(username1), None, sub_config)
+
+	return reply_to_message(message, "Success!", sub_config)
+
 def get_count_from_summary(trades_data):
 	trade_count = 0
 	for sub in trades_data:
@@ -937,6 +997,8 @@ def main():
 			handle_manual_adjustment(message, sub_config)
 		elif message.body[0:9] == "$transfer":
 			handle_flair_transfer(message, sub_config)
+		elif message.body[0:9] == "$backfill":
+			handle_legacy_add(message, sub_config)
 		else:
 			handle_swap_data_request(message, sub_config)
 
