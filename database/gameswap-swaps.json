@@ -5675,6 +5675,12 @@
                     "partner": "izelo95-",
                     "post_id": "19cdutb",
                     "timestamp": 1706382481
+                },
+                {
+                    "comment_id": "kobwmdl",
+                    "partner": "viv_no_cap",
+                    "post_id": "19dl9n2",
+                    "timestamp": 1706806108
                 }
             ]
         },
@@ -19491,6 +19497,16 @@
                     "partner": "kapt1nplan3t",
                     "post_id": "qfk9na",
                     "timestamp": 0
+                }
+            ]
+        },
+        "viv_no_cap": {
+            "transactions": [
+                {
+                    "comment_id": "kobwmdl",
+                    "partner": "fe110ws1tiz3n",
+                    "post_id": "19dl9n2",
+                    "timestamp": 1706806108
                 }
             ]
         },

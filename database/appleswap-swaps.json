@@ -595,6 +595,12 @@
                     "partner": "math_from_stark",
                     "post_id": "r0twv7",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ko8hbxc",
+                    "partner": "key_jackfruit7775",
+                    "post_id": "19etcez",
+                    "timestamp": 1706817664
                 }
             ]
         },
@@ -627,6 +633,12 @@
                     "partner": "atluu",
                     "post_id": "17bqkd2",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koh6gck",
+                    "partner": "samir4021",
+                    "post_id": "192v4o4",
+                    "timestamp": 1706816106
                 }
             ]
         },
@@ -7647,6 +7659,12 @@
                     "partner": "aeibon",
                     "post_id": "125bw7g",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koiuxlm",
+                    "partner": "cribbit",
+                    "post_id": "197nqvk",
+                    "timestamp": 1706837992
                 }
             ]
         },
@@ -13680,6 +13698,16 @@
                     "partner": "spike71spiegel",
                     "post_id": "18hqszw",
                     "timestamp": 0
+                }
+            ]
+        },
+        "blitex__": {
+            "transactions": [
+                {
+                    "comment_id": "koho1xz",
+                    "partner": "tzac11",
+                    "post_id": "1adi8qm",
+                    "timestamp": 1706821475
                 }
             ]
         },
@@ -22079,6 +22107,16 @@
                 }
             ]
         },
+        "cribbit": {
+            "transactions": [
+                {
+                    "comment_id": "koiuxlm",
+                    "partner": "arios_cx3",
+                    "post_id": "197nqvk",
+                    "timestamp": 1706837992
+                }
+            ]
+        },
         "cringefromyou": {
             "legacy_count": 1,
             "transactions": []
@@ -25622,6 +25660,12 @@
                     "partner": "yellous",
                     "post_id": "18cmlb9",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koi2hu5",
+                    "partner": "tzac11",
+                    "post_id": "1adi8qm",
+                    "timestamp": 1706828085
                 }
             ]
         },
@@ -53447,6 +53491,16 @@
                     "partner": "knockswithsocks",
                     "post_id": "ex18ug",
                     "timestamp": 0
+                }
+            ]
+        },
+        "key_jackfruit7775": {
+            "transactions": [
+                {
+                    "comment_id": "ko8hbxc",
+                    "partner": "16_8millioncowboys",
+                    "post_id": "19etcez",
+                    "timestamp": 1706817664
                 }
             ]
         },
@@ -82017,6 +82071,12 @@
                     "partner": "aznblahboy",
                     "post_id": "174w87a",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koh6gck",
+                    "partner": "19lucien97",
+                    "post_id": "192v4o4",
+                    "timestamp": 1706816106
                 }
             ]
         },
@@ -100082,6 +100142,18 @@
                     "partner": "kimoikat",
                     "post_id": "196xwhb",
                     "timestamp": 1705627030
+                },
+                {
+                    "comment_id": "koho1xz",
+                    "partner": "blitex__",
+                    "post_id": "1adi8qm",
+                    "timestamp": 1706821475
+                },
+                {
+                    "comment_id": "koi2hu5",
+                    "partner": "dentedbowl",
+                    "post_id": "1adi8qm",
+                    "timestamp": 1706828085
                 }
             ]
         },

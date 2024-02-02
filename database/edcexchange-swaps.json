@@ -4985,6 +4985,12 @@
                     "partner": "themidship22",
                     "post_id": "19736fc",
                     "timestamp": 1706053482
+                },
+                {
+                    "comment_id": "kohsxq1",
+                    "partner": "ramisugar",
+                    "post_id": "19d1paw",
+                    "timestamp": 1706826345
                 }
             ]
         },
@@ -13979,6 +13985,12 @@
                     "partner": "wheres_my_bike",
                     "post_id": "16xhuur",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kodeuym",
+                    "partner": "dj-chaos",
+                    "post_id": "18m4t2l",
+                    "timestamp": 1706860850
                 }
             ]
         },
@@ -17492,6 +17504,12 @@
                     "partner": "tapacoba0623",
                     "post_id": "164uxot",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kodeuym",
+                    "partner": "cman1120",
+                    "post_id": "18m4t2l",
+                    "timestamp": 1706860850
                 }
             ]
         },
@@ -20052,6 +20070,12 @@
                     "partner": "jaro1_",
                     "post_id": "19aqgvb",
                     "timestamp": 1706226300
+                },
+                {
+                    "comment_id": "kojo8ec",
+                    "partner": "mannyjuano420",
+                    "post_id": "1ab5er1",
+                    "timestamp": 1706851287
                 }
             ]
         },
@@ -38084,6 +38108,12 @@
                     "partner": "main_chapter",
                     "post_id": "14v8d3g",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kojo8ec",
+                    "partner": "eugeneden2010",
+                    "post_id": "1ab5er1",
+                    "timestamp": 1706851287
                 }
             ]
         },
@@ -49497,6 +49527,16 @@
                 }
             ]
         },
+        "ponydogs": {
+            "transactions": [
+                {
+                    "comment_id": "kodnuy5",
+                    "partner": "rofic",
+                    "post_id": "19euyf1",
+                    "timestamp": 1706798096
+                }
+            ]
+        },
         "poodleillusions": {
             "transactions": [
                 {
@@ -50732,6 +50772,16 @@
                 }
             ]
         },
+        "purple_drank562": {
+            "transactions": [
+                {
+                    "comment_id": "kodnp3x",
+                    "partner": "rofic",
+                    "post_id": "19euyf1",
+                    "timestamp": 1706812078
+                }
+            ]
+        },
         "purplelit": {
             "transactions": [
                 {
@@ -51298,6 +51348,16 @@
         "ramblingarborist": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "ramisugar": {
+            "transactions": [
+                {
+                    "comment_id": "kohsxq1",
+                    "partner": "applecrips",
+                    "post_id": "19d1paw",
+                    "timestamp": 1706826345
+                }
+            ]
         },
         "ramrawd": {
             "transactions": [
@@ -53383,6 +53443,18 @@
                     "partner": "killwatch",
                     "post_id": "19euyf1",
                     "timestamp": 1706755046
+                },
+                {
+                    "comment_id": "kodnuy5",
+                    "partner": "ponydogs",
+                    "post_id": "19euyf1",
+                    "timestamp": 1706798096
+                },
+                {
+                    "comment_id": "kodnp3x",
+                    "partner": "purple_drank562",
+                    "post_id": "19euyf1",
+                    "timestamp": 1706812078
                 }
             ]
         },

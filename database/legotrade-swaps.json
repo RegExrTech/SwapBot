@@ -1480,6 +1480,12 @@
                     "partner": "martycoffey",
                     "post_id": "18rbr68",
                     "timestamp": 1706160089
+                },
+                {
+                    "comment_id": "koec0vd",
+                    "partner": "vorjones",
+                    "post_id": "195adwm",
+                    "timestamp": 1706806480
                 }
             ]
         },
@@ -3224,6 +3230,12 @@
                     "partner": "batmanrises001",
                     "post_id": "1877y73",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koe7lte",
+                    "partner": "jackdonaghyswingman",
+                    "post_id": "19bfjjk",
+                    "timestamp": 1706860844
                 }
             ]
         },
@@ -3567,6 +3579,12 @@
                     "partner": "penguin_724",
                     "post_id": "13uwcwk",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koj6fig",
+                    "partner": "joedracke",
+                    "post_id": "1ac234e",
+                    "timestamp": 1706843208
                 }
             ]
         },
@@ -3739,6 +3757,12 @@
                     "partner": "allthegreenthingies",
                     "post_id": "1908bku",
                     "timestamp": 1706126458
+                },
+                {
+                    "comment_id": "koe7lte",
+                    "partner": "hbelle01",
+                    "post_id": "19bfjjk",
+                    "timestamp": 1706860844
                 }
             ]
         },
@@ -3977,7 +4001,14 @@
         },
         "joedracke": {
             "legacy_count": 27,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "koj6fig",
+                    "partner": "icant_think_ofa_name",
+                    "post_id": "1ac234e",
+                    "timestamp": 1706843208
+                }
+            ]
         },
         "joenobody77": {
             "legacy_count": 37,
@@ -8819,6 +8850,12 @@
                     "partner": "sliderhmss",
                     "post_id": "17ab81h",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koec0vd",
+                    "partner": "choice_cry8178",
+                    "post_id": "195adwm",
+                    "timestamp": 1706806480
                 }
             ]
         },
