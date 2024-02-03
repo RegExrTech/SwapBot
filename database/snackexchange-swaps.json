@@ -10667,6 +10667,16 @@
                 }
             ]
         },
+        "diachan": {
+            "transactions": [
+                {
+                    "comment_id": "kojlh88",
+                    "partner": "taurenis89",
+                    "post_id": "18l0tv1",
+                    "timestamp": 1706876982
+                }
+            ]
+        },
         "diamondx911": {
             "legacy_count": 1,
             "transactions": []
@@ -40719,6 +40729,16 @@
         "taurano": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "taurenis89": {
+            "transactions": [
+                {
+                    "comment_id": "kojlh88",
+                    "partner": "diachan",
+                    "post_id": "18l0tv1",
+                    "timestamp": 1706876982
+                }
+            ]
         },
         "taxaccountant22": {
             "legacy_count": 1,
