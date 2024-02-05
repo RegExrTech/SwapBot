@@ -918,6 +918,18 @@
                     "partner": "bubbly-success-9674",
                     "post_id": "19ez6nt",
                     "timestamp": 1706644870
+                },
+                {
+                    "comment_id": "koq1fpd",
+                    "partner": "tglo321",
+                    "post_id": "19ey1nh",
+                    "timestamp": 1706974726
+                },
+                {
+                    "comment_id": "koq1cr8",
+                    "partner": "tglo321",
+                    "post_id": "19eo40f",
+                    "timestamp": 1706974740
                 }
             ]
         },
@@ -2192,6 +2204,16 @@
                     "partner": "renart",
                     "post_id": "17kqm14",
                     "timestamp": 0
+                }
+            ]
+        },
+        "cujowu": {
+            "transactions": [
+                {
+                    "comment_id": "kom8gnr",
+                    "partner": "very_curiousone",
+                    "post_id": "19ats5k",
+                    "timestamp": 1707098448
                 }
             ]
         },
@@ -8534,6 +8556,18 @@
                     "partner": "notclever15322",
                     "post_id": "1acg94t",
                     "timestamp": 1706674039
+                },
+                {
+                    "comment_id": "koq1fpd",
+                    "partner": "avhva",
+                    "post_id": "19ey1nh",
+                    "timestamp": 1706974726
+                },
+                {
+                    "comment_id": "koq1cr8",
+                    "partner": "avhva",
+                    "post_id": "19eo40f",
+                    "timestamp": 1706974740
                 }
             ]
         },
@@ -9082,6 +9116,16 @@
                     "partner": "bird_problem",
                     "post_id": "10vfcsn",
                     "timestamp": 0
+                }
+            ]
+        },
+        "very_curiousone": {
+            "transactions": [
+                {
+                    "comment_id": "kom8gnr",
+                    "partner": "cujowu",
+                    "post_id": "19ats5k",
+                    "timestamp": 1707098448
                 }
             ]
         },

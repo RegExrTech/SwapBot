@@ -260,6 +260,12 @@
                     "partner": "impossible_tour_2163",
                     "post_id": "176dpgv",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kosg78a",
+                    "partner": "r1e2d3d4et",
+                    "post_id": "1adpzlc",
+                    "timestamp": 1707098473
                 }
             ]
         },
@@ -1388,6 +1394,18 @@
                     "partner": "cabmandoo",
                     "post_id": "19ayudb",
                     "timestamp": 1706759264
+                },
+                {
+                    "comment_id": "kosckro",
+                    "partner": "cabmandoo",
+                    "post_id": "1aby9z5",
+                    "timestamp": 1706994395
+                },
+                {
+                    "comment_id": "kostass",
+                    "partner": "str3d731",
+                    "post_id": "1aby9z5",
+                    "timestamp": 1707001120
                 }
             ]
         },
@@ -3681,6 +3699,12 @@
                     "partner": "sfogx",
                     "post_id": "16nt9ja",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kot3yjx",
+                    "partner": "rpalace",
+                    "post_id": "1ae2vas",
+                    "timestamp": 1707012453
                 }
             ]
         },
@@ -5885,6 +5909,16 @@
                     "partner": "urban5615",
                     "post_id": "spm78e",
                     "timestamp": 0
+                }
+            ]
+        },
+        "aut1ger": {
+            "transactions": [
+                {
+                    "comment_id": "koh852q",
+                    "partner": "rofic",
+                    "post_id": "19euyf1",
+                    "timestamp": 1707033686
                 }
             ]
         },
@@ -10951,6 +10985,12 @@
                     "partner": "50wwaayyss",
                     "post_id": "19ayudb",
                     "timestamp": 1706759264
+                },
+                {
+                    "comment_id": "kosckro",
+                    "partner": "50wwaayyss",
+                    "post_id": "1aby9z5",
+                    "timestamp": 1706994395
                 }
             ]
         },
@@ -46280,6 +46320,12 @@
                     "partner": "d9jms",
                     "post_id": "133ag7j",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "koxwm6a",
+                    "partner": "stupidfuckinwizard",
+                    "post_id": "1abxe11",
+                    "timestamp": 1707094829
                 }
             ]
         },
@@ -51217,6 +51263,12 @@
                     "partner": "streakkdp",
                     "post_id": "19dxedb",
                     "timestamp": 1706306965
+                },
+                {
+                    "comment_id": "kosg78a",
+                    "partner": "------unknown-------",
+                    "post_id": "1adpzlc",
+                    "timestamp": 1707098473
                 }
             ]
         },
@@ -53472,6 +53524,12 @@
                     "partner": "purple_drank562",
                     "post_id": "19euyf1",
                     "timestamp": 1706812078
+                },
+                {
+                    "comment_id": "koh852q",
+                    "partner": "aut1ger",
+                    "post_id": "19euyf1",
+                    "timestamp": 1707033686
                 }
             ]
         },
@@ -53600,6 +53658,16 @@
         "rozivue": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "rpalace": {
+            "transactions": [
+                {
+                    "comment_id": "kot3yjx",
+                    "partner": "alanfulp2010",
+                    "post_id": "1ae2vas",
+                    "timestamp": 1707012453
+                }
+            ]
         },
         "rpdos": {
             "legacy_count": 1,
@@ -59996,6 +60064,12 @@
                     "partner": "plethoraofblades1",
                     "post_id": "195pj03",
                     "timestamp": 1705503624
+                },
+                {
+                    "comment_id": "kostass",
+                    "partner": "50wwaayyss",
+                    "post_id": "1aby9z5",
+                    "timestamp": 1707001120
                 }
             ]
         },
@@ -60102,6 +60176,16 @@
         "stupefactionist": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "stupidfuckinwizard": {
+            "transactions": [
+                {
+                    "comment_id": "koxwm6a",
+                    "partner": "opposed3",
+                    "post_id": "1abxe11",
+                    "timestamp": 1707094829
+                }
+            ]
         },
         "suanadrama": {
             "transactions": [

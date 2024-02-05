@@ -1320,6 +1320,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "dangerous-snow-6982": {
+            "transactions": [
+                {
+                    "comment_id": "konqqax",
+                    "partner": "grumplestache",
+                    "post_id": "1adj1av",
+                    "timestamp": 1706986755
+                }
+            ]
+        },
         "danishlad": {
             "legacy_count": 1,
             "transactions": []
@@ -2224,6 +2234,16 @@
         "grimman": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "grumplestache": {
+            "transactions": [
+                {
+                    "comment_id": "konqqax",
+                    "partner": "dangerous-snow-6982",
+                    "post_id": "1adj1av",
+                    "timestamp": 1706986755
+                }
+            ]
         },
         "grx20": {
             "transactions": [
