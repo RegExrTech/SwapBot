@@ -28436,6 +28436,16 @@
                 }
             ]
         },
+        "nate1275": {
+            "transactions": [
+                {
+                    "comment_id": "kp308t1",
+                    "partner": "shucklestorm",
+                    "post_id": "19c7v75",
+                    "timestamp": 1707168258
+                }
+            ]
+        },
         "nate1534": {
             "legacy_count": 1,
             "transactions": []
@@ -36749,6 +36759,12 @@
                     "partner": "somrandomguy",
                     "post_id": "19c7v75",
                     "timestamp": 1706990886
+                },
+                {
+                    "comment_id": "kp308t1",
+                    "partner": "nate1275",
+                    "post_id": "19c7v75",
+                    "timestamp": 1707168258
                 }
             ]
         },

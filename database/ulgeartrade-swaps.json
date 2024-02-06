@@ -2140,6 +2140,16 @@
                 }
             ]
         },
+        "chow_17": {
+            "transactions": [
+                {
+                    "comment_id": "kp0cens",
+                    "partner": "outsideyourworld",
+                    "post_id": "19c6ygs",
+                    "timestamp": 1707130450
+                }
+            ]
+        },
         "christinasvdp": {
             "transactions": [
                 {
@@ -3194,6 +3204,16 @@
                 }
             ]
         },
+        "dudertheduder": {
+            "transactions": [
+                {
+                    "comment_id": "kp2sisk",
+                    "partner": "durmnative",
+                    "post_id": "1afzya0",
+                    "timestamp": 1707168890
+                }
+            ]
+        },
         "dumpler": {
             "transactions": [
                 {
@@ -3207,6 +3227,16 @@
                     "partner": "creekmeat",
                     "post_id": "16qd9mb",
                     "timestamp": 0
+                }
+            ]
+        },
+        "durmnative": {
+            "transactions": [
+                {
+                    "comment_id": "kp2sisk",
+                    "partner": "dudertheduder",
+                    "post_id": "1afzya0",
+                    "timestamp": 1707168890
                 }
             ]
         },
@@ -3574,6 +3604,16 @@
                 }
             ]
         },
+        "fanuary": {
+            "transactions": [
+                {
+                    "comment_id": "kp2qg84",
+                    "partner": "fine_neighborhood802",
+                    "post_id": "1adh7ls",
+                    "timestamp": 1707168666
+                }
+            ]
+        },
         "fayettedouche": {
             "transactions": [
                 {
@@ -3649,6 +3689,16 @@
                     "partner": "iaintnothief",
                     "post_id": "173qxi8",
                     "timestamp": 0
+                }
+            ]
+        },
+        "fine_neighborhood802": {
+            "transactions": [
+                {
+                    "comment_id": "kp2qg84",
+                    "partner": "fanuary",
+                    "post_id": "1adh7ls",
+                    "timestamp": 1707168666
                 }
             ]
         },
@@ -4051,6 +4101,12 @@
                     "partner": "agnostic_beverage_23",
                     "post_id": "1ae8suk",
                     "timestamp": 1706906624
+                },
+                {
+                    "comment_id": "kp24ae7",
+                    "partner": "sabre36",
+                    "post_id": "1ae8suk",
+                    "timestamp": 1707160102
                 }
             ]
         },
@@ -6451,6 +6507,18 @@
                     "partner": "yukichisuu",
                     "post_id": "o7940d",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kp38i4t",
+                    "partner": "shaner41",
+                    "post_id": "1agf0pk",
+                    "timestamp": 1707171066
+                },
+                {
+                    "comment_id": "kp39bec",
+                    "partner": "poundfulish",
+                    "post_id": "1agf0pk",
+                    "timestamp": 1707171546
                 }
             ]
         },
@@ -6938,6 +7006,16 @@
                 }
             ]
         },
+        "outsideyourworld": {
+            "transactions": [
+                {
+                    "comment_id": "kp0cens",
+                    "partner": "chow_17",
+                    "post_id": "19c6ygs",
+                    "timestamp": 1707130450
+                }
+            ]
+        },
         "pakmile": {
             "transactions": [
                 {
@@ -7259,6 +7337,16 @@
                     "partner": "goviel",
                     "post_id": "17zsuhq",
                     "timestamp": 1704302685
+                }
+            ]
+        },
+        "poundfulish": {
+            "transactions": [
+                {
+                    "comment_id": "kp39bec",
+                    "partner": "neuservrrat",
+                    "post_id": "1agf0pk",
+                    "timestamp": 1707171546
                 }
             ]
         },
@@ -7828,6 +7916,16 @@
                 }
             ]
         },
+        "sabre36": {
+            "transactions": [
+                {
+                    "comment_id": "kp24ae7",
+                    "partner": "gosox2525",
+                    "post_id": "1ae8suk",
+                    "timestamp": 1707160102
+                }
+            ]
+        },
         "saintpablo666": {
             "transactions": [
                 {
@@ -8043,6 +8141,12 @@
                     "partner": "noodlemuppet",
                     "post_id": "19esf1f",
                     "timestamp": 1707012058
+                },
+                {
+                    "comment_id": "kp38i4t",
+                    "partner": "neuservrrat",
+                    "post_id": "1agf0pk",
+                    "timestamp": 1707171066
                 }
             ]
         },

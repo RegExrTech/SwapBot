@@ -8826,6 +8826,12 @@
                     "partner": "noblevi7",
                     "post_id": "12ck6aj",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kp3zp5f",
+                    "partner": "the0therdave",
+                    "post_id": "19214ld",
+                    "timestamp": 1707185487
                 }
             ]
         },
@@ -22626,6 +22632,18 @@
                     "partner": "run_nerd",
                     "post_id": "18fxepq",
                     "timestamp": 1705888872
+                },
+                {
+                    "comment_id": "kp1ny1w",
+                    "partner": "run_nerd",
+                    "post_id": "1ah8ium",
+                    "timestamp": 1707152818
+                },
+                {
+                    "comment_id": "kp1o1xq",
+                    "partner": "mairj23",
+                    "post_id": "1ah8ium",
+                    "timestamp": 1707158204
                 }
             ]
         },
@@ -31859,6 +31877,16 @@
                 }
             ]
         },
+        "mairj23": {
+            "transactions": [
+                {
+                    "comment_id": "kp1o1xq",
+                    "partner": "homey_badger88",
+                    "post_id": "1ah8ium",
+                    "timestamp": 1707158204
+                }
+            ]
+        },
         "maistrechat": {
             "legacy_count": 4,
             "transactions": [
@@ -35785,6 +35813,12 @@
                     "partner": "bctopics",
                     "post_id": "1644spl",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kodh5uz",
+                    "partner": "spdallday",
+                    "post_id": "1ae8g7o",
+                    "timestamp": 1707120041
                 }
             ]
         },
@@ -44834,6 +44868,12 @@
                     "partner": "homey_badger88",
                     "post_id": "18fxepq",
                     "timestamp": 1705888872
+                },
+                {
+                    "comment_id": "kp1ny1w",
+                    "partner": "homey_badger88",
+                    "post_id": "1ah8ium",
+                    "timestamp": 1707152818
                 }
             ]
         },
@@ -49222,6 +49262,16 @@
                 }
             ]
         },
+        "skewer_the_hydra": {
+            "transactions": [
+                {
+                    "comment_id": "kp0iwlj",
+                    "partner": "wmbtwarrior",
+                    "post_id": "13731vb",
+                    "timestamp": 1707134833
+                }
+            ]
+        },
         "skiiiill": {
             "transactions": [
                 {
@@ -50986,6 +51036,16 @@
                     "partner": "environmental_leek49",
                     "post_id": "146451p",
                     "timestamp": 0
+                }
+            ]
+        },
+        "spdallday": {
+            "transactions": [
+                {
+                    "comment_id": "kodh5uz",
+                    "partner": "mrkec",
+                    "post_id": "1ae8g7o",
+                    "timestamp": 1707120041
                 }
             ]
         },
@@ -54113,6 +54173,12 @@
                     "partner": "jetsfly228",
                     "post_id": "19c54xk",
                     "timestamp": 1706829209
+                },
+                {
+                    "comment_id": "kp3zp5f",
+                    "partner": "celadorn",
+                    "post_id": "19214ld",
+                    "timestamp": 1707185487
                 }
             ]
         },
@@ -59742,6 +59808,12 @@
                     "partner": "zero_starz",
                     "post_id": "158p931",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kp0iwlj",
+                    "partner": "skewer_the_hydra",
+                    "post_id": "13731vb",
+                    "timestamp": 1707134833
                 }
             ]
         },

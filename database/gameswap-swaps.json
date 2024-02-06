@@ -2472,6 +2472,16 @@
                 }
             ]
         },
+        "brian80x": {
+            "transactions": [
+                {
+                    "comment_id": "kp2vbxc",
+                    "partner": "kupoofwar",
+                    "post_id": "1af04g6",
+                    "timestamp": 1707166722
+                }
+            ]
+        },
         "brockbrown": {
             "transactions": [
                 {
@@ -7889,6 +7899,12 @@
                     "partner": "fe110ws1tiz3n",
                     "post_id": "19cdutb",
                     "timestamp": 1706382481
+                },
+                {
+                    "comment_id": "kp3r5aj",
+                    "partner": "thebrave-zero",
+                    "post_id": "193t23m",
+                    "timestamp": 1707177770
                 }
             ]
         },
@@ -10047,6 +10063,16 @@
                     "partner": "versucher42",
                     "post_id": "zz88u6",
                     "timestamp": 0
+                }
+            ]
+        },
+        "kupoofwar": {
+            "transactions": [
+                {
+                    "comment_id": "kp2vbxc",
+                    "partner": "brian80x",
+                    "post_id": "1af04g6",
+                    "timestamp": 1707166722
                 }
             ]
         },
@@ -18179,6 +18205,12 @@
                     "partner": "feenatic",
                     "post_id": "17lvrl3",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kp3r5aj",
+                    "partner": "izelo95-",
+                    "post_id": "193t23m",
+                    "timestamp": 1707177770
                 }
             ]
         },

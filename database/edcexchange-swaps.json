@@ -266,6 +266,12 @@
                     "partner": "r1e2d3d4et",
                     "post_id": "1adpzlc",
                     "timestamp": 1707098473
+                },
+                {
+                    "comment_id": "kp1xk23",
+                    "partner": "roshlev",
+                    "post_id": "1adpzlc",
+                    "timestamp": 1707170269
                 }
             ]
         },
@@ -848,6 +854,16 @@
                     "partner": "kbgthememelord",
                     "post_id": "xjb6d8",
                     "timestamp": 0
+                }
+            ]
+        },
+        "427zippy": {
+            "transactions": [
+                {
+                    "comment_id": "kp31k94",
+                    "partner": "diligent-agency854",
+                    "post_id": "1agsrf3",
+                    "timestamp": 1707169276
                 }
             ]
         },
@@ -2303,6 +2319,16 @@
                     "partner": "drl_02",
                     "post_id": "17tqj9j",
                     "timestamp": 0
+                }
+            ]
+        },
+        "_tall-midget_": {
+            "transactions": [
+                {
+                    "comment_id": "kp2m5nu",
+                    "partner": "cgauspg",
+                    "post_id": "1afsajq",
+                    "timestamp": 1707163510
                 }
             ]
         },
@@ -12669,6 +12695,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "cgauspg": {
+            "transactions": [
+                {
+                    "comment_id": "kp2m5nu",
+                    "partner": "_tall-midget_",
+                    "post_id": "1afsajq",
+                    "timestamp": 1707163510
+                }
+            ]
+        },
         "cgboy20": {
             "transactions": [
                 {
@@ -17329,6 +17365,16 @@
                     "partner": "docred_",
                     "post_id": "rvdh66",
                     "timestamp": 0
+                }
+            ]
+        },
+        "diligent-agency854": {
+            "transactions": [
+                {
+                    "comment_id": "kp31k94",
+                    "partner": "427zippy",
+                    "post_id": "1agsrf3",
+                    "timestamp": 1707169276
                 }
             ]
         },
@@ -22853,6 +22899,12 @@
                     "partner": "thing_subject",
                     "post_id": "17hgnrl",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kp1b381",
+                    "partner": "stupidfuckinwizard",
+                    "post_id": "1afz1ch",
+                    "timestamp": 1707147411
                 }
             ]
         },
@@ -53631,6 +53683,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "roshlev": {
+            "transactions": [
+                {
+                    "comment_id": "kp1xk23",
+                    "partner": "------unknown-------",
+                    "post_id": "1adpzlc",
+                    "timestamp": 1707170269
+                }
+            ]
+        },
         "rosiejetson": {
             "transactions": [
                 {
@@ -60184,6 +60246,12 @@
                     "partner": "opposed3",
                     "post_id": "1abxe11",
                     "timestamp": 1707094829
+                },
+                {
+                    "comment_id": "kp1b381",
+                    "partner": "garthuber",
+                    "post_id": "1afz1ch",
+                    "timestamp": 1707147411
                 }
             ]
         },
