@@ -4543,6 +4543,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "andyjzou": {
+            "transactions": [
+                {
+                    "comment_id": "kp6hm3j",
+                    "partner": "sfogx",
+                    "post_id": "18vf1w5",
+                    "timestamp": 1707229371
+                }
+            ]
+        },
         "andymakk": {
             "transactions": [
                 {
@@ -56270,6 +56280,12 @@
                     "partner": "djeucalyptus",
                     "post_id": "18vf1w5",
                     "timestamp": 1705579108
+                },
+                {
+                    "comment_id": "kp6hm3j",
+                    "partner": "andyjzou",
+                    "post_id": "18vf1w5",
+                    "timestamp": 1707229371
                 }
             ]
         },
