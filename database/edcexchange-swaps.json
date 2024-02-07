@@ -27425,6 +27425,12 @@
                     "partner": "kbgthememelord",
                     "post_id": "19e1p59",
                     "timestamp": 1706585315
+                },
+                {
+                    "comment_id": "kp6qo0k",
+                    "partner": "yourbuddysuperfly",
+                    "post_id": "1afzmwa",
+                    "timestamp": 1707233061
                 }
             ]
         },
@@ -71661,6 +71667,16 @@
         "youngb830": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "yourbuddysuperfly": {
+            "transactions": [
+                {
+                    "comment_id": "kp6qo0k",
+                    "partner": "honestwreck",
+                    "post_id": "1afzmwa",
+                    "timestamp": 1707233061
+                }
+            ]
         },
         "yourgrandmasskillet": {
             "transactions": [

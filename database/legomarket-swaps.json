@@ -4303,6 +4303,16 @@
             "legacy_count": 6,
             "transactions": []
         },
+        "bassmachinejon": {
+            "transactions": [
+                {
+                    "comment_id": "kp2u0ll",
+                    "partner": "chrishoutx80",
+                    "post_id": "19e5n5p",
+                    "timestamp": 1707231435
+                }
+            ]
+        },
         "batboy0": {
             "legacy_count": 1,
             "transactions": []
@@ -7311,6 +7321,12 @@
                     "partner": "agnostic_beverage_23",
                     "post_id": "1ad80mm",
                     "timestamp": 1707120056
+                },
+                {
+                    "comment_id": "kp9e9p4",
+                    "partner": "pelicano234",
+                    "post_id": "1ad80mm",
+                    "timestamp": 1707266876
                 }
             ]
         },
@@ -8629,6 +8645,12 @@
                     "partner": "bakerymaker",
                     "post_id": "19e0rtp",
                     "timestamp": 1707086308
+                },
+                {
+                    "comment_id": "kp2u0ll",
+                    "partner": "bassmachinejon",
+                    "post_id": "19e5n5p",
+                    "timestamp": 1707231435
                 }
             ]
         },
@@ -23270,6 +23292,12 @@
                     "partner": "cawls",
                     "post_id": "19d8i0q",
                     "timestamp": 1706476553
+                },
+                {
+                    "comment_id": "kp530sa",
+                    "partner": "wetmothtoes",
+                    "post_id": "1afx1a3",
+                    "timestamp": 1707292812
                 }
             ]
         },
@@ -30866,6 +30894,12 @@
                     "partner": "hugediagram",
                     "post_id": "195xzzu",
                     "timestamp": 1706493625
+                },
+                {
+                    "comment_id": "kp9e9p4",
+                    "partner": "bxtart",
+                    "post_id": "1ad80mm",
+                    "timestamp": 1707266876
                 }
             ]
         },
@@ -44194,6 +44228,16 @@
         "wetmapes": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "wetmothtoes": {
+            "transactions": [
+                {
+                    "comment_id": "kp530sa",
+                    "partner": "kittyshnooookems55",
+                    "post_id": "1afx1a3",
+                    "timestamp": 1707292812
+                }
+            ]
         },
         "whasian96": {
             "legacy_count": 4,
