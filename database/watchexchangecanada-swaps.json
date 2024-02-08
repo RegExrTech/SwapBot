@@ -2043,6 +2043,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "copilot3": {
+            "transactions": [
+                {
+                    "comment_id": "kpegt3v",
+                    "partner": "theanswer39",
+                    "post_id": "18x1v88",
+                    "timestamp": 1707348855
+                }
+            ]
+        },
         "coubyman23": {
             "legacy_count": 2,
             "transactions": [
@@ -2247,6 +2257,16 @@
                     "partner": "ckim52",
                     "post_id": "uyay2y",
                     "timestamp": 0
+                }
+            ]
+        },
+        "daftyd95": {
+            "transactions": [
+                {
+                    "comment_id": "kpd9rkm",
+                    "partner": "escapement_watch",
+                    "post_id": "1ajojf2",
+                    "timestamp": 1707332498
                 }
             ]
         },
@@ -2789,6 +2809,12 @@
                     "partner": "theredeemer1997",
                     "post_id": "18w0h7t",
                     "timestamp": 1704763968
+                },
+                {
+                    "comment_id": "kpd9rkm",
+                    "partner": "daftyd95",
+                    "post_id": "1ajojf2",
+                    "timestamp": 1707332498
                 }
             ]
         },
@@ -5813,6 +5839,16 @@
                 }
             ]
         },
+        "nanibakanani": {
+            "transactions": [
+                {
+                    "comment_id": "koza7bd",
+                    "partner": "niezla",
+                    "post_id": "1ahsb03",
+                    "timestamp": 1707357620
+                }
+            ]
+        },
         "naydanno": {
             "transactions": [
                 {
@@ -5940,6 +5976,16 @@
                     "partner": "peter7474",
                     "post_id": "vp6wcf",
                     "timestamp": 0
+                }
+            ]
+        },
+        "niezla": {
+            "transactions": [
+                {
+                    "comment_id": "koza7bd",
+                    "partner": "nanibakanani",
+                    "post_id": "1ahsb03",
+                    "timestamp": 1707357620
                 }
             ]
         },
@@ -6984,6 +7030,12 @@
                     "partner": "civil-seaweed-69",
                     "post_id": "1abqibf",
                     "timestamp": 1706488755
+                },
+                {
+                    "comment_id": "kpdooje",
+                    "partner": "testerwoot",
+                    "post_id": "1adgd1x",
+                    "timestamp": 1707336966
                 }
             ]
         },
@@ -8042,6 +8094,12 @@
                     "partner": "thatpetrolhead",
                     "post_id": "1826xs3",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kpef5xr",
+                    "partner": "zl1297",
+                    "post_id": "1aibupt",
+                    "timestamp": 1707345930
                 }
             ]
         },
@@ -8527,6 +8585,12 @@
                     "partner": "likasumbodyyy",
                     "post_id": "1adfugv",
                     "timestamp": 1706812482
+                },
+                {
+                    "comment_id": "kpdooje",
+                    "partner": "renart",
+                    "post_id": "1adgd1x",
+                    "timestamp": 1707336966
                 }
             ]
         },
@@ -8634,6 +8698,16 @@
                     "partner": "balli977",
                     "post_id": "vt6uqs",
                     "timestamp": 0
+                }
+            ]
+        },
+        "theanswer39": {
+            "transactions": [
+                {
+                    "comment_id": "kpegt3v",
+                    "partner": "copilot3",
+                    "post_id": "18x1v88",
+                    "timestamp": 1707348855
                 }
             ]
         },
@@ -9596,6 +9670,12 @@
                     "partner": "sovshop",
                     "post_id": "128urpp",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kpef5xr",
+                    "partner": "taziott",
+                    "post_id": "1aibupt",
+                    "timestamp": 1707345930
                 }
             ]
         },

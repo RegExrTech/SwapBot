@@ -2721,6 +2721,12 @@
                     "partner": "cjafe",
                     "post_id": "18x8z54",
                     "timestamp": 1704778974
+                },
+                {
+                    "comment_id": "kpe62mb",
+                    "partner": "poecile-606",
+                    "post_id": "18x6v9x",
+                    "timestamp": 1707346897
                 }
             ]
         },
@@ -5995,6 +6001,16 @@
                     "partner": "evanhinosikkhitabbam",
                     "post_id": "1909txa",
                     "timestamp": 1705089694
+                }
+            ]
+        },
+        "funsloppywaffles": {
+            "transactions": [
+                {
+                    "comment_id": "kos7ggl",
+                    "partner": "twoeightnine",
+                    "post_id": "1aggd0f",
+                    "timestamp": 1707357667
                 }
             ]
         },
@@ -11358,6 +11374,16 @@
                 }
             ]
         },
+        "poecile-606": {
+            "transactions": [
+                {
+                    "comment_id": "kpe62mb",
+                    "partner": "bornagainvirginjoe",
+                    "post_id": "18x6v9x",
+                    "timestamp": 1707346897
+                }
+            ]
+        },
         "pointofthejoke": {
             "transactions": [
                 {
@@ -15061,6 +15087,12 @@
                     "partner": "marcobr0l0",
                     "post_id": "18zbkfl",
                     "timestamp": 1705100824
+                },
+                {
+                    "comment_id": "kos7ggl",
+                    "partner": "funsloppywaffles",
+                    "post_id": "1aggd0f",
+                    "timestamp": 1707357667
                 }
             ]
         },
