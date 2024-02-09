@@ -189,39 +189,23 @@ def check_comment():
 	if author2 not in sub_data:
 		sub_data[author2] = {'transactions': []}
 
-	if top_level_comment_id:
-		if any([x['partner'] == author2 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[author1]['transactions']]):
-			return_data[author1]['is_duplicate'] = 'True'
-		else:
-			sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
-	else:
-		if platform == 'discord':
-			if any([x['partner'] == author2 and x['comment_id'] == comment_id for x in sub_data[author1]['transactions']]):
-				return_data[author1]['is_duplicate'] = 'True'
+	for user1, user2 in [(author1, author2), (author2, author1)]:
+		if top_level_comment_id:
+			if any([x['partner'] == user2 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[user1]['transactions']]):
+				return_data[user1]['is_duplicate'] = 'True'
 			else:
-				sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
+				sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
 		else:
-			if any([x['partner'] == author2 and x['post_id'] == post_id for x in sub_data[author1]['transactions']]):
-				return_data[author1]['is_duplicate'] = 'True'
+			if platform == 'discord':
+				if any([x['partner'] == user2 and x['comment_id'] == comment_id for x in sub_data[user1]['transactions']]):
+					return_data[user1]['is_duplicate'] = 'True'
+				else:
+					sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
 			else:
-				sub_data[author1]['transactions'].append({'partner': author2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
-
-	if top_level_comment_id:
-		if any([x['partner'] == author1 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[author2]['transactions']]):
-			return_data[author2]['is_duplicate'] = 'True'
-		else:
-			sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
-	else:
-		if platform == 'discord':
-			if any([x['partner'] == author1 and x['comment_id'] == comment_id for x in sub_data[author2]['transactions']]):
-				return_data[author2]['is_duplicate'] = 'True'
-			else:
-				sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
-		else:
-			if any([x['partner'] == author1 and x['post_id'] == post_id for x in sub_data[author2]['transactions']]):
-				return_data[author2]['is_duplicate'] = 'True'
-			else:
-				sub_data[author2]['transactions'].append({'partner': author1, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
+				if any([x['partner'] == user2 and x['post_id'] == post_id for x in sub_data[user1]['transactions']]):
+					return_data[user1]['is_duplicate'] = 'True'
+				else:
+					sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
 
 	if sub_name not in comment_data:
 		comment_data[sub_name] = {}
