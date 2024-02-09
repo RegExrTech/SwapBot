@@ -74,7 +74,7 @@ def print_user_in_sub(db, sub, platform, user):
 	count += len(db[sub][platform][user]['transactions'])
 	print("=== " + sub + " - " + platform + " - " + user + " - " + str(count) + " ===")
 	if 'legacy_count' in db[sub][platform][user]:
-		print("    Legacy Count: " + str(legacy_count))
+		print("    Legacy Count: " + str(db[sub][platform][user]['legacy_count']))
 	print("    " + "\n    ".join([str(x) for x in db[sub][platform][user]['transactions']]))
 
 def count_partners(db, sub, user):
@@ -108,7 +108,7 @@ def check_if_banned(usernames, sub):
 request_url = "http://0.0.0.0:8000"
 db = requests.get(request_url+"/get-db/").json()
 
-for user in [x.lower() for x in ['jmatt144']]:
+for user in [x.lower().split("/")[1] if "/" in x else x.lower() for x in ['robmusial']]:
 	print_user_in_all_subs(db, user.lower())
 
 #dump(db)
