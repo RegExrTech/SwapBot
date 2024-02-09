@@ -1881,7 +1881,14 @@
         },
         "dastier6000": {
             "legacy_count": 34,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kp3mf10",
+                    "partner": "mihowleepow",
+                    "post_id": "18vjl3c",
+                    "timestamp": 1707465618
+                }
+            ]
         },
         "davefogo": {
             "legacy_count": 2,
@@ -5253,6 +5260,16 @@
         "mightymashtun": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "mihowleepow": {
+            "transactions": [
+                {
+                    "comment_id": "kp3mf10",
+                    "partner": "dastier6000",
+                    "post_id": "18vjl3c",
+                    "timestamp": 1707465618
+                }
+            ]
         },
         "mikelisse": {
             "legacy_count": 4,
