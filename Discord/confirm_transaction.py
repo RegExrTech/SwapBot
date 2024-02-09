@@ -227,8 +227,7 @@ def update_database(author1, author2, listing_url):
 	post_id = listing_url.split("/")[5]
 	comment_id = listing_url.split("/")[6]
 	return_data = requests.post(request_url + "/check-comment/", {'sub_name': sub_config.database_name, 'author1': author1, 'author2': author2, 'post_id': post_id, 'comment_id': comment_id, 'real_sub_name': sub_config.subreddit_name, 'platform': PLATFORM}).json()
-	# If at least one confirmation was not a duplicate, credit was given
-	return not any([return_data[username]['is_duplicate'] == 'False' for username in return_data])
+	return return_data
 
 messages = send_request(GET, baseUrl, headers).json()
 
@@ -313,9 +312,12 @@ for message in confirmation_replies:
 		reply("Please only reply to messages that I tag you in. Thank you!", message['id'], baseUrl)
 		continue
 
-	is_duplicate = update_database(author1_id, author2_id, full_original_post_url)
-	if is_duplicate:
+	update_data = update_database(author1_id, author2_id, full_original_post_url)
+	if any([update_data[x]['is_duplicate'] for x in update_data]):
 		reply("Sorry, but you already got credit for this transaction.", message['id'], baseUrl)
+		continue
+	elif any([update_data[x]['is_recent'] for x in update_data]):
+		reply("Sorry, but you confirmed a transaction with this user too recently. Remember that you are only given one confirmation PER TRANSACTION, not per item.", message['id'], baseUrl)
 		continue
 
 	for discord_user_id in [author1_id, author2_id]:

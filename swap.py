@@ -54,7 +54,7 @@ def is_time_between(begin_time, end_time):
 		return check_time >= begin_time or check_time <= end_time
 
 # Method for giving credit to users when they do a trade.
-# Returns True if credit was given, False otherwise
+# Returns a dict of users to 'is_duplicate' and 'is_recent' booleans
 def update_database(author1, author2, post_id, comment_id, sub_config, top_level_comment_id=""):
 	author1 = str(author1).lower()  # Create strings of the user names for keys and values
 	author2 = str(author2).lower()
@@ -63,9 +63,11 @@ def update_database(author1, author2, post_id, comment_id, sub_config, top_level
 		return_data = r.json()
 	except Exception as e:
 		print("ERROR: Unable to update database for r/" + sub_config.database_name + " for u/" + author1 + " and u/" + author2 + " with post ID " + post_id + " and comment ID " + comment_id + " and top_level_comment_id " + top_level_comment_id + " on platform " + PLATFORM + " with error " + str(e))
-		return True
-	# If at least one confirmation was not a duplicate, credit was given
-	return any([return_data[username]['is_duplicate'] == 'False' for username in return_data])
+		return {author1: {'is_duplicate': False, 'is_recent': False}, author2: {'is_duplicate': False, 'is_recent': False}}
+	for user in return_data:
+		for key in return_data[user]:
+			return_data[user][key] = return_data[user][key] == 'True'
+	return return_data
 
 def get_flair_template(templates, count):
 	if not templates:
@@ -448,22 +450,27 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 			print("Author2: " + str(author2))
 
 		if correct_reply.is_submitter or comment.is_submitter:  # make sure at least one of them is the OP for the post
-			credit_given = update_database(author1, author2, parent_post.id, comment.id, sub_config)
+			update_data = update_database(author1, author2, parent_post.id, comment.id, sub_config)
 		elif str(parent_post.author).lower() == "automoderator":
-			credit_given = update_database(author1, author2, parent_post.id, comment.id, sub_config, top_level_comment.id)
+			update_data = update_database(author1, author2, parent_post.id, comment.id, sub_config, top_level_comment.id)
 		else:
-			credit_given = False
+			update_data = {str(author1).lower(): {'is_duplicate': True, 'is_recent': False}, str(author2).lower(): {'is_duplicate': True, 'is_recent': False}}
 
-		if credit_given:
-			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config, parent_post.id, comment.id)
-			inform_giving_credit(correct_reply, non_updated_users, sub_config, user_flair_text)
-			for username in [x.name.lower() for x in [author1, author2] if x not in non_updated_users]:
-				check_booster_count(username, sub_config)
-		else:
+		if any([update_data[x]['is_duplicate'] for x in update_data]):
 			log(parent_post, comment, "Credit already given")
 			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config)
 			inform_credit_already_given(correct_reply)
 			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+		elif any([update_data[x]['is_recent'] for x in update_data]):
+			log(parent_post, comment, "Partner interaction too recent")
+			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config)
+			inform_partner_interaction_too_recent(correct_reply, str(author1).lower(), str(author2).lower())
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+		else:
+			non_updated_users, user_flair_text = update_flair(author1, author2, sub_config, parent_post.id, comment.id)
+			inform_giving_credit(correct_reply, non_updated_users, sub_config, user_flair_text)
+			for username in [x.name.lower() for x in [author1, author2] if x not in non_updated_users]:
+				check_booster_count(username, sub_config)
 		return True
 	else:  # If we found no correct looking comments, let's come back to it later
 		# New comments get auto response so users know they've been heard
@@ -618,6 +625,10 @@ def inform_comment_tracked(comment, desired_author2_string, parent_post, sub_nam
 
 def inform_credit_already_given(comment):
 	reply(comment, CREDIT_ALREADY_GIVEN_TEXT)
+
+def inform_partner_interaction_too_recent(comment, author1, author2):
+	reply_text = "Sorry, but you and your partner, u/" + author2 + ", have confirmed a transaction together too recently. As such, I cannot count this transaction. Remember that you are only allowed ONE confirmation **per transaction**, *not* per item. Even if the transaction included multiple items from multiple posts, you only get one confirmation per transaction."
+	reply(comment, reply_text)
 
 def inform_comment_archived(comment, sub_config):
 	comment_text = get_comment_text(comment)

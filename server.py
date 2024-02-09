@@ -36,6 +36,9 @@ comment_data = {}
 username_lookup = {}
 pending_requests = {}
 
+# TODO: This is hard coded but maybe we make it a sub config in the future
+TIMESTAMP_DELTA_THRESHOLD = 6 * 60 * 60  # 6 Hours
+
 def get_alias(user_id, current_platform, desired_platform):
 	if current_platform not in username_lookup:
 		return
@@ -44,6 +47,24 @@ def get_alias(user_id, current_platform, desired_platform):
 	if user_id not in username_lookup[current_platform]:
 		return
 	return username_lookup[current_platform][user_id]
+
+def check_is_recent_transaction(user1, user2, timestamp, current_platform, swap_data, timestamp_delta_threshold):
+	for sub in swap_data:
+		summary = get_user_summary(swap_data[sub], user1, current_platform)
+		for platform in summary:
+			if platform != current_platform:
+				user2_aliases = get_alias(user2, current_platform, platform)
+				if not user2_aliases:
+					continue
+				user2_alias = user2_aliases[platform]
+			else:
+				user2_alias = user2
+			for transaction in summary[platform]['transactions']:
+				if user2_alias != transaction['partner']:
+					continue
+				if abs(int(transaction['timestamp']) - timestamp) < timestamp_delta_threshold:
+					return True
+	return False
 
 def get_user_summary(sub_data, author, current_platform):
 	"""Returns transaction entries.
@@ -149,7 +170,7 @@ def get_comments():
 @app.route('/check-comment/', methods=['POST'])
 def check_comment():
 	"""
-	Updates the database for a confirmed trade if it is not a duplicate
+	Updates the database for a confirmed trade if it is not a duplicate or recent
 
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
@@ -165,6 +186,7 @@ def check_comment():
 
 	global swap_data
 	global comment_data
+	timestamp = int(time.time())
 	sub_name = request.form["sub_name"]
 	platform = request.form["platform"].lower()
 	if sub_name not in swap_data:
@@ -176,7 +198,7 @@ def check_comment():
 
 	author1 = request.form['author1']
 	author2 = request.form['author2']
-	return_data = {author1: {'is_duplicate': 'False'}, author2: {'is_duplicate': 'False'}}
+	return_data = {author1: {'is_duplicate': 'False', 'is_recent': 'False'}, author2: {'is_duplicate': 'False', 'is_recent': 'False'}}
 	post_id = request.form['post_id']
 	comment_id = request.form['comment_id']
 	if 'top_level_comment_id' in request.form:
@@ -193,19 +215,25 @@ def check_comment():
 		if top_level_comment_id:
 			if any([x['partner'] == user2 and x['post_id'] == post_id and x['comment_id'] == top_level_comment_id for x in sub_data[user1]['transactions']]):
 				return_data[user1]['is_duplicate'] = 'True'
+			elif check_is_recent_transaction(user1, user2, timestamp, platform, swap_data, TIMESTAMP_DELTA_THRESHOLD):
+				return_data[user1]['is_recent'] = 'True'
 			else:
-				sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': int(time.time())})
+				sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': top_level_comment_id, 'timestamp': timestamp})
 		else:
 			if platform == 'discord':
 				if any([x['partner'] == user2 and x['comment_id'] == comment_id for x in sub_data[user1]['transactions']]):
 					return_data[user1]['is_duplicate'] = 'True'
+				elif check_is_recent_transaction(user1, user2, timestamp, platform, swap_data, TIMESTAMP_DELTA_THRESHOLD):
+					return_data[user1]['is_recent'] = 'True'
 				else:
-					sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
+					sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': timestamp})
 			else:
 				if any([x['partner'] == user2 and x['post_id'] == post_id for x in sub_data[user1]['transactions']]):
 					return_data[user1]['is_duplicate'] = 'True'
+				elif check_is_recent_transaction(user1, user2, timestamp, platform, swap_data, TIMESTAMP_DELTA_THRESHOLD):
+					return_data[user1]['is_recent'] = 'True'
 				else:
-					sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': int(time.time())})
+					sub_data[user1]['transactions'].append({'partner': user2, 'post_id': post_id, 'comment_id': comment_id, 'timestamp': timestamp})
 
 	if sub_name not in comment_data:
 		comment_data[sub_name] = {}
