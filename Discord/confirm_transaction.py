@@ -313,10 +313,10 @@ for message in confirmation_replies:
 		continue
 
 	update_data = update_database(author1_id, author2_id, full_original_post_url)
-	if any([update_data[x]['is_duplicate'] for x in update_data]):
+	if any([update_data[x]['is_duplicate'] == 'True' for x in update_data]):
 		reply("Sorry, but you already got credit for this transaction.", message['id'], baseUrl)
 		continue
-	elif any([update_data[x]['is_recent'] for x in update_data]):
+	elif any([update_data[x]['is_recent'] == 'True' for x in update_data]):
 		reply("Sorry, but you confirmed a transaction with this user too recently. Remember that you are only given one confirmation PER TRANSACTION, not per item.", message['id'], baseUrl)
 		continue
 
