@@ -78,6 +78,16 @@
             "legacy_count": 8,
             "transactions": []
         },
+        "315retro": {
+            "transactions": [
+                {
+                    "comment_id": "kpph1bl",
+                    "partner": "jackdonaghyswingman",
+                    "post_id": "19bfjjk",
+                    "timestamp": 1707527708
+                }
+            ]
+        },
         "420blazeitfagit1999": {
             "legacy_count": 1,
             "transactions": []
@@ -1183,6 +1193,16 @@
         "btetley": {
             "legacy_count": 3,
             "transactions": []
+        },
+        "bubbly-atmosphere114": {
+            "transactions": [
+                {
+                    "comment_id": "kpp3mea",
+                    "partner": "sonuvataint",
+                    "post_id": "1ae06lq",
+                    "timestamp": 1707876055
+                }
+            ]
         },
         "buddha24": {
             "legacy_count": 4,
@@ -3782,6 +3802,18 @@
                     "partner": "hbelle01",
                     "post_id": "19bfjjk",
                     "timestamp": 1706860844
+                },
+                {
+                    "comment_id": "kpph1bl",
+                    "partner": "315retro",
+                    "post_id": "19bfjjk",
+                    "timestamp": 1707527708
+                },
+                {
+                    "comment_id": "kpq3hgq",
+                    "partner": "onlygoodjuju",
+                    "post_id": "19bfjjk",
+                    "timestamp": 1707593658
                 }
             ]
         },
@@ -6020,6 +6052,16 @@
                 }
             ]
         },
+        "onlygoodjuju": {
+            "transactions": [
+                {
+                    "comment_id": "kpq3hgq",
+                    "partner": "jackdonaghyswingman",
+                    "post_id": "19bfjjk",
+                    "timestamp": 1707593658
+                }
+            ]
+        },
         "onyxthe4tuitous": {
             "legacy_count": 7,
             "transactions": []
@@ -7425,6 +7467,16 @@
         "sonofabitchmachine": {
             "legacy_count": 3,
             "transactions": []
+        },
+        "sonuvataint": {
+            "transactions": [
+                {
+                    "comment_id": "kpp3mea",
+                    "partner": "bubbly-atmosphere114",
+                    "post_id": "1ae06lq",
+                    "timestamp": 1707876055
+                }
+            ]
         },
         "sound1down": {
             "legacy_count": 4,

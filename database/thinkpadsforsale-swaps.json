@@ -4799,6 +4799,16 @@
             "legacy_count": 2,
             "transactions": []
         },
+        "serendipical_": {
+            "transactions": [
+                {
+                    "comment_id": "kq3gr6s",
+                    "partner": "snowcrashedx",
+                    "post_id": "1aoz3yv",
+                    "timestamp": 1707762281
+                }
+            ]
+        },
         "setholopolus": {
             "legacy_count": 1,
             "transactions": []
@@ -4916,6 +4926,16 @@
                     "partner": "cukon__",
                     "post_id": "p6ktv7",
                     "timestamp": 0
+                }
+            ]
+        },
+        "snowcrashedx": {
+            "transactions": [
+                {
+                    "comment_id": "kq3gr6s",
+                    "partner": "serendipical_",
+                    "post_id": "1aoz3yv",
+                    "timestamp": 1707762281
                 }
             ]
         },
