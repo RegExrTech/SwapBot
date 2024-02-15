@@ -627,7 +627,7 @@ def inform_credit_already_given(comment):
 	reply(comment, CREDIT_ALREADY_GIVEN_TEXT)
 
 def inform_partner_interaction_too_recent(comment, author1, author2):
-	reply_text = "Sorry, but you and your partner, u/" + author2 + ", have confirmed a transaction together too recently. As such, I cannot count this transaction. Remember that you are only allowed ONE confirmation **per transaction**, *not* per item. Even if the transaction included multiple items from multiple posts, you only get one confirmation per transaction."
+	reply_text = "Sorry, but you and your partner, u/" + author1 + ", have confirmed a transaction together too recently. As such, I cannot count this transaction. Remember that you are only allowed ONE confirmation **per transaction**, *not* per item. Even if the transaction included multiple items from multiple posts, you only get one confirmation per transaction."
 	reply(comment, reply_text)
 
 def inform_comment_archived(comment, sub_config):
