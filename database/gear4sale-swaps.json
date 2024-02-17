@@ -242,6 +242,16 @@
                 }
             ]
         },
+        "fearsome_crocostimpy": {
+            "transactions": [
+                {
+                    "comment_id": "kqlp438",
+                    "partner": "hotprint",
+                    "post_id": "1aob98f",
+                    "timestamp": 1708040669
+                }
+            ]
+        },
         "few-elephant748": {
             "transactions": [
                 {
@@ -269,6 +279,16 @@
                     "partner": "used-preparation-676",
                     "post_id": "17k14ak",
                     "timestamp": 0
+                }
+            ]
+        },
+        "hotprint": {
+            "transactions": [
+                {
+                    "comment_id": "kqlp438",
+                    "partner": "fearsome_crocostimpy",
+                    "post_id": "1aob98f",
+                    "timestamp": 1708040669
                 }
             ]
         },

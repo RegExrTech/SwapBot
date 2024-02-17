@@ -6292,6 +6292,16 @@
                 }
             ]
         },
+        "caitcatbar1669": {
+            "transactions": [
+                {
+                    "comment_id": "kq9qj8p",
+                    "partner": "s_m_y_g_f",
+                    "post_id": "1acxo4d",
+                    "timestamp": 1708070481
+                }
+            ]
+        },
         "caitiecakes": {
             "legacy_count": 1,
             "transactions": []
@@ -25834,7 +25844,14 @@
         },
         "maybebatshit": {
             "legacy_count": 1,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kqerf8r",
+                    "partner": "whattfisthisshit",
+                    "post_id": "1aqs77m",
+                    "timestamp": 1707932416
+                }
+            ]
         },
         "maybeimacat": {
             "legacy_count": 1,
@@ -32703,6 +32720,12 @@
                     "partner": "velvetpowerhouse",
                     "post_id": "13zazx7",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kqgb7sr",
+                    "partner": "stankycheeks12",
+                    "post_id": "1ar04so",
+                    "timestamp": 1708048824
                 }
             ]
         },
@@ -35749,6 +35772,16 @@
                     "partner": "spinozas_bum",
                     "post_id": "pniip0",
                     "timestamp": 0
+                }
+            ]
+        },
+        "s_m_y_g_f": {
+            "transactions": [
+                {
+                    "comment_id": "kq9qj8p",
+                    "partner": "caitcatbar1669",
+                    "post_id": "1acxo4d",
+                    "timestamp": 1708070481
                 }
             ]
         },
@@ -39307,6 +39340,12 @@
                     "partner": "gloomishere",
                     "post_id": "1admmwo",
                     "timestamp": 1706644830
+                },
+                {
+                    "comment_id": "kqgb7sr",
+                    "partner": "polylingualanilingus",
+                    "post_id": "1ar04so",
+                    "timestamp": 1708048824
                 }
             ]
         },
@@ -44304,6 +44343,12 @@
                     "partner": "stankycheeks12",
                     "post_id": "18eoemt",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kqerf8r",
+                    "partner": "maybebatshit",
+                    "post_id": "1aqs77m",
+                    "timestamp": 1707932416
                 }
             ]
         },

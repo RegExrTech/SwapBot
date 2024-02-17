@@ -2332,6 +2332,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "hedgie1": {
+            "transactions": [
+                {
+                    "comment_id": "kqesfq6",
+                    "partner": "watney",
+                    "post_id": "1anklmm",
+                    "timestamp": 1707931836
+                }
+            ]
+        },
         "hellow23": {
             "transactions": [
                 {
@@ -3408,6 +3418,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "matthogen": {
+            "transactions": [
+                {
+                    "comment_id": "kqmv80c",
+                    "partner": "yaguey22",
+                    "post_id": "1aj08l3",
+                    "timestamp": 1708053218
+                }
+            ]
+        },
         "maurohh0": {
             "transactions": [
                 {
@@ -4098,6 +4118,16 @@
         "oeuvre": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "oh-monsieur": {
+            "transactions": [
+                {
+                    "comment_id": "kqga3a9",
+                    "partner": "snaxolotl7",
+                    "post_id": "1akszob",
+                    "timestamp": 1707961648
+                }
+            ]
         },
         "ointedoliphant": {
             "transactions": [
@@ -4926,6 +4956,16 @@
                     "partner": "cukon__",
                     "post_id": "p6ktv7",
                     "timestamp": 0
+                }
+            ]
+        },
+        "snaxolotl7": {
+            "transactions": [
+                {
+                    "comment_id": "kqga3a9",
+                    "partner": "oh-monsieur",
+                    "post_id": "1akszob",
+                    "timestamp": 1707961648
                 }
             ]
         },
@@ -5786,6 +5826,12 @@
                     "partner": "goblin_flectomancer",
                     "post_id": "rsaxxy",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kqesfq6",
+                    "partner": "hedgie1",
+                    "post_id": "1anklmm",
+                    "timestamp": 1707931836
                 }
             ]
         },
@@ -5958,6 +6004,16 @@
                     "partner": "nuclearwaffelle",
                     "post_id": "15qbfba",
                     "timestamp": 0
+                }
+            ]
+        },
+        "yaguey22": {
+            "transactions": [
+                {
+                    "comment_id": "kqmv80c",
+                    "partner": "matthogen",
+                    "post_id": "1aj08l3",
+                    "timestamp": 1708053218
                 }
             ]
         },

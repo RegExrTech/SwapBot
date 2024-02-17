@@ -295,6 +295,12 @@
                     "partner": "collegecutter",
                     "post_id": "1aizuj2",
                     "timestamp": 1707768073
+                },
+                {
+                    "comment_id": "kq5sk5a",
+                    "partner": "jooe1",
+                    "post_id": "1aizuj2",
+                    "timestamp": 1707940840
                 }
             ]
         },
@@ -495,6 +501,16 @@
                     "partner": "craigerstar",
                     "post_id": "117mipm",
                     "timestamp": 0
+                }
+            ]
+        },
+        "amandes11": {
+            "transactions": [
+                {
+                    "comment_id": "kqn03bu",
+                    "partner": "brief-mirror-3851",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708079219
                 }
             ]
         },
@@ -1141,6 +1157,12 @@
                     "partner": "dshiu",
                     "post_id": "176l5ld",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kqky5pb",
+                    "partner": "brief-mirror-3851",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708027723
                 }
             ]
         },
@@ -1453,6 +1475,30 @@
                     "partner": "roaddog113",
                     "post_id": "18w5rqf",
                     "timestamp": 1705208489
+                },
+                {
+                    "comment_id": "kqh0b86",
+                    "partner": "future_molasses_8844",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708020118
+                },
+                {
+                    "comment_id": "kqky5pb",
+                    "partner": "bilinz",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708027723
+                },
+                {
+                    "comment_id": "kqn03bu",
+                    "partner": "amandes11",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708079219
+                },
+                {
+                    "comment_id": "kqk0m7q",
+                    "partner": "ottoman1986",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708113674
                 }
             ]
         },
@@ -1915,6 +1961,12 @@
                     "partner": "capuletx",
                     "post_id": "18vgis8",
                     "timestamp": 1704849208
+                },
+                {
+                    "comment_id": "kqpn07y",
+                    "partner": "storyaboutabridge",
+                    "post_id": "14cnpe2",
+                    "timestamp": 1708115286
                 }
             ]
         },
@@ -3577,6 +3629,12 @@
                     "partner": "fuckhufflepuff",
                     "post_id": "18fa67d",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kqh0b86",
+                    "partner": "brief-mirror-3851",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708020118
                 }
             ]
         },
@@ -4120,6 +4178,16 @@
                 }
             ]
         },
+        "its_shugerrush": {
+            "transactions": [
+                {
+                    "comment_id": "kqh0shn",
+                    "partner": "techsqueeze",
+                    "post_id": "1allbll",
+                    "timestamp": 1707961137
+                }
+            ]
+        },
         "j_j_maelikson": {
             "transactions": [
                 {
@@ -4468,6 +4536,16 @@
                     "partner": "zealousidealbar1759",
                     "post_id": "121q3rv",
                     "timestamp": 0
+                }
+            ]
+        },
+        "jooe1": {
+            "transactions": [
+                {
+                    "comment_id": "kq5sk5a",
+                    "partner": "adelegant5073",
+                    "post_id": "1aizuj2",
+                    "timestamp": 1707940840
                 }
             ]
         },
@@ -5254,6 +5332,12 @@
                     "partner": "federal_telephone_57",
                     "post_id": "13c2wgh",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kqhbqy5",
+                    "partner": "techsqueeze",
+                    "post_id": "1aqaga1",
+                    "timestamp": 1708113651
                 }
             ]
         },
@@ -6353,6 +6437,12 @@
                     "partner": "jdosman",
                     "post_id": "v9na8z",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kqk0m7q",
+                    "partner": "brief-mirror-3851",
+                    "post_id": "1aofja1",
+                    "timestamp": 1708113674
                 }
             ]
         },
@@ -7906,6 +7996,16 @@
                 }
             ]
         },
+        "storyaboutabridge": {
+            "transactions": [
+                {
+                    "comment_id": "kqpn07y",
+                    "partner": "chuffnessment",
+                    "post_id": "14cnpe2",
+                    "timestamp": 1708115286
+                }
+            ]
+        },
         "stramler": {
             "transactions": [
                 {
@@ -8577,6 +8677,18 @@
                     "partner": "icoopernicus",
                     "post_id": "1anu0t7",
                     "timestamp": 1707793078
+                },
+                {
+                    "comment_id": "kqh0shn",
+                    "partner": "its_shugerrush",
+                    "post_id": "1allbll",
+                    "timestamp": 1707961137
+                },
+                {
+                    "comment_id": "kqhbqy5",
+                    "partner": "madladltd",
+                    "post_id": "1aqaga1",
+                    "timestamp": 1708113651
                 }
             ]
         },

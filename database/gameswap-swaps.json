@@ -1376,6 +1376,16 @@
                 }
             ]
         },
+        "bald_yoshi": {
+            "transactions": [
+                {
+                    "comment_id": "kq4joch",
+                    "partner": "fe110ws1tiz3n",
+                    "post_id": "1abpxho",
+                    "timestamp": 1707919253
+                }
+            ]
+        },
         "balenciaga-bag": {
             "transactions": [
                 {
@@ -5707,6 +5717,18 @@
                     "partner": "viv_no_cap",
                     "post_id": "19dl9n2",
                     "timestamp": 1706806108
+                },
+                {
+                    "comment_id": "kq4joch",
+                    "partner": "bald_yoshi",
+                    "post_id": "1abpxho",
+                    "timestamp": 1707919253
+                },
+                {
+                    "comment_id": "kqli4kp",
+                    "partner": "joeybag0dildos",
+                    "post_id": "1airwde",
+                    "timestamp": 1708034553
                 }
             ]
         },
@@ -8851,6 +8873,16 @@
                     "partner": "braiyan8972",
                     "post_id": "11oqr4p",
                     "timestamp": 0
+                }
+            ]
+        },
+        "joeybag0dildos": {
+            "transactions": [
+                {
+                    "comment_id": "kqli4kp",
+                    "partner": "fe110ws1tiz3n",
+                    "post_id": "1airwde",
+                    "timestamp": 1708034553
                 }
             ]
         },
@@ -17757,6 +17789,12 @@
                     "partner": "burningriverbrigade",
                     "post_id": "19djpda",
                     "timestamp": 1706601315
+                },
+                {
+                    "comment_id": "kqhvb9b",
+                    "partner": "viv_no_cap",
+                    "post_id": "19dl9n2",
+                    "timestamp": 1707974757
                 }
             ]
         },
@@ -19603,6 +19641,12 @@
                     "partner": "noice5",
                     "post_id": "19faend",
                     "timestamp": 1707610471
+                },
+                {
+                    "comment_id": "kqhvb9b",
+                    "partner": "team_instinct",
+                    "post_id": "19dl9n2",
+                    "timestamp": 1707974757
                 }
             ]
         },
