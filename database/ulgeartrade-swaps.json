@@ -2737,6 +2737,12 @@
                     "partner": "leifey",
                     "post_id": "1afo9l4",
                     "timestamp": 1706921878
+                },
+                {
+                    "comment_id": "kqwrj77",
+                    "partner": "slow-two6173",
+                    "post_id": "1aqpl86",
+                    "timestamp": 1708210936
                 }
             ]
         },
@@ -3213,6 +3219,16 @@
                     "partner": "katsuragi___misato",
                     "post_id": "18cc1zq",
                     "timestamp": 1704302693
+                }
+            ]
+        },
+        "doritos_spokesperson": {
+            "transactions": [
+                {
+                    "comment_id": "kqpo4ft",
+                    "partner": "hikininlevis",
+                    "post_id": "1afv597",
+                    "timestamp": 1708243232
                 }
             ]
         },
@@ -4689,6 +4705,12 @@
                     "partner": "mortimeir_",
                     "post_id": "1ae9ipd",
                     "timestamp": 1707594709
+                },
+                {
+                    "comment_id": "kqpo4ft",
+                    "partner": "doritos_spokesperson",
+                    "post_id": "1afv597",
+                    "timestamp": 1708243232
                 }
             ]
         },
@@ -6469,6 +6491,16 @@
                     "partner": "dischargefan",
                     "post_id": "1515dmg",
                     "timestamp": 0
+                }
+            ]
+        },
+        "mikiery": {
+            "transactions": [
+                {
+                    "comment_id": "kqtbbqg",
+                    "partner": "thewanderingovas",
+                    "post_id": "1akd06g",
+                    "timestamp": 1708207044
                 }
             ]
         },
@@ -8756,6 +8788,16 @@
                 }
             ]
         },
+        "slow-two6173": {
+            "transactions": [
+                {
+                    "comment_id": "kqwrj77",
+                    "partner": "d_brewster",
+                    "post_id": "1aqpl86",
+                    "timestamp": 1708210936
+                }
+            ]
+        },
         "smbeat": {
             "transactions": [
                 {
@@ -9493,6 +9535,16 @@
                     "partner": "sondering_poet",
                     "post_id": "17dxxo1",
                     "timestamp": 0
+                }
+            ]
+        },
+        "thewanderingovas": {
+            "transactions": [
+                {
+                    "comment_id": "kqtbbqg",
+                    "partner": "mikiery",
+                    "post_id": "1akd06g",
+                    "timestamp": 1708207044
                 }
             ]
         },

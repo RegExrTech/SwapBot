@@ -22,7 +22,14 @@
         },
         "callousparade": {
             "legacy_count": 7,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kqx46vd",
+                    "partner": "ragonaut",
+                    "post_id": "1amymzx",
+                    "timestamp": 1708218404
+                }
+            ]
         },
         "capecodder22": {
             "transactions": [
@@ -167,6 +174,16 @@
         "quokimbo": {
             "legacy_count": 5,
             "transactions": []
+        },
+        "ragonaut": {
+            "transactions": [
+                {
+                    "comment_id": "kqx46vd",
+                    "partner": "callousparade",
+                    "post_id": "1amymzx",
+                    "timestamp": 1708218404
+                }
+            ]
         },
         "rjzendi": {
             "legacy_count": 1,
