@@ -773,6 +773,16 @@
                 }
             ]
         },
+        "angypangy": {
+            "transactions": [
+                {
+                    "comment_id": "kr0y5gl",
+                    "partner": "cdn_citizen",
+                    "post_id": "1albpu5",
+                    "timestamp": 1708282489
+                }
+            ]
+        },
         "annoyinghawkstar": {
             "transactions": [
                 {
@@ -5857,6 +5867,18 @@
                     "partner": "proudmaple4",
                     "post_id": "1af6s3s",
                     "timestamp": 1707886826
+                },
+                {
+                    "comment_id": "kr0y5gl",
+                    "partner": "angypangy",
+                    "post_id": "1albpu5",
+                    "timestamp": 1708282489
+                },
+                {
+                    "comment_id": "kqxvbiy",
+                    "partner": "technical-rush-5301",
+                    "post_id": "1asmgp1",
+                    "timestamp": 1708285288
                 }
             ]
         },
@@ -8238,6 +8260,12 @@
                     "partner": "oo7-dimitri",
                     "post_id": "197wuni",
                     "timestamp": 1706935949
+                },
+                {
+                    "comment_id": "kr2dhp4",
+                    "partner": "kaiser3690",
+                    "post_id": "1aqd5f5",
+                    "timestamp": 1708302875
                 }
             ]
         },
@@ -12423,6 +12451,12 @@
                     "partner": "murky_window_6190",
                     "post_id": "19e4oto",
                     "timestamp": 1707183702
+                },
+                {
+                    "comment_id": "kr2dhp4",
+                    "partner": "emzyss35",
+                    "post_id": "1aqd5f5",
+                    "timestamp": 1708302875
                 }
             ]
         },
@@ -21313,6 +21347,16 @@
                     "partner": "cdn_citizen",
                     "post_id": "176l77c",
                     "timestamp": 0
+                }
+            ]
+        },
+        "technical-rush-5301": {
+            "transactions": [
+                {
+                    "comment_id": "kqxvbiy",
+                    "partner": "cdn_citizen",
+                    "post_id": "1asmgp1",
+                    "timestamp": 1708285288
                 }
             ]
         },
