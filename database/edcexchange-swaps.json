@@ -2440,6 +2440,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "a7murch": {
+            "transactions": [
+                {
+                    "comment_id": "krc04ux",
+                    "partner": "izieey",
+                    "post_id": "1aqlhju",
+                    "timestamp": 1708457798
+                }
+            ]
+        },
         "a_10l": {
             "legacy_count": 1,
             "transactions": []
@@ -29884,6 +29894,12 @@
                     "partner": "previous_speaker8408",
                     "post_id": "1akius9",
                     "timestamp": 1707924591
+                },
+                {
+                    "comment_id": "krc04ux",
+                    "partner": "a7murch",
+                    "post_id": "1aqlhju",
+                    "timestamp": 1708457798
                 }
             ]
         },
@@ -32903,6 +32919,12 @@
                     "partner": "grouchy-baker6004",
                     "post_id": "19c8s1q",
                     "timestamp": 1706376670
+                },
+                {
+                    "comment_id": "kr5gc46",
+                    "partner": "sharpvalue1084",
+                    "post_id": "1ao9xi4",
+                    "timestamp": 1708358900
                 }
             ]
         },
@@ -34299,6 +34321,12 @@
                     "partner": "cybershadowx",
                     "post_id": "190b1ga",
                     "timestamp": 1705811136
+                },
+                {
+                    "comment_id": "kr6xlsz",
+                    "partner": "sirshabba",
+                    "post_id": "1asirv7",
+                    "timestamp": 1708402642
                 }
             ]
         },
@@ -37840,6 +37868,12 @@
                     "partner": "pm_me_your_kitty",
                     "post_id": "14ufqij",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "krcqhmp",
+                    "partner": "phonestevegavetotony",
+                    "post_id": "1apk48d",
+                    "timestamp": 1708464904
                 }
             ]
         },
@@ -45591,6 +45625,12 @@
                     "partner": "green_panda1986",
                     "post_id": "18066xa",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "krecyef",
+                    "partner": "russeljd",
+                    "post_id": "1assolf",
+                    "timestamp": 1708489082
                 }
             ]
         },
@@ -48697,6 +48737,12 @@
                     "partner": "rdtshaw",
                     "post_id": "19a9gef",
                     "timestamp": 1706390099
+                },
+                {
+                    "comment_id": "krcqhmp",
+                    "partner": "machmothetrumpeteer",
+                    "post_id": "1apk48d",
+                    "timestamp": 1708464904
                 }
             ]
         },
@@ -54253,6 +54299,16 @@
                 }
             ]
         },
+        "russeljd": {
+            "transactions": [
+                {
+                    "comment_id": "krecyef",
+                    "partner": "obligatedname",
+                    "post_id": "1assolf",
+                    "timestamp": 1708489082
+                }
+            ]
+        },
         "rustbelthiker": {
             "transactions": [
                 {
@@ -56999,6 +57055,12 @@
                     "partner": "djeucalyptus",
                     "post_id": "15hm8r6",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kr5gc46",
+                    "partner": "justonemoreknaf",
+                    "post_id": "1ao9xi4",
+                    "timestamp": 1708358900
                 }
             ]
         },
@@ -57768,6 +57830,22 @@
                     "partner": "illwill318",
                     "post_id": "qgfp0q",
                     "timestamp": 0
+                }
+            ]
+        },
+        "sirshabba": {
+            "transactions": [
+                {
+                    "comment_id": "kr87x8z",
+                    "partner": "sungsays",
+                    "post_id": "1asirv7",
+                    "timestamp": 1708402533
+                },
+                {
+                    "comment_id": "kr6xlsz",
+                    "partner": "knifedigger",
+                    "post_id": "1asirv7",
+                    "timestamp": 1708402642
                 }
             ]
         },
@@ -60811,6 +60889,12 @@
                     "partner": "boataccident",
                     "post_id": "wc64t0",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kr87x8z",
+                    "partner": "sirshabba",
+                    "post_id": "1asirv7",
+                    "timestamp": 1708402533
                 }
             ]
         },
