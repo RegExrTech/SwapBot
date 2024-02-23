@@ -2852,6 +2852,12 @@
                     "partner": "grahamcawthorne",
                     "post_id": "1ah9f9u",
                     "timestamp": 1707422425
+                },
+                {
+                    "comment_id": "kqw9dk8",
+                    "partner": "definitelynotkevin_",
+                    "post_id": "1at5iip",
+                    "timestamp": 1708545671
                 }
             ]
         },
@@ -2921,6 +2927,12 @@
                     "partner": "d3vilzadvoca8",
                     "post_id": "1anhndh",
                     "timestamp": 1708090613
+                },
+                {
+                    "comment_id": "kqw9dk8",
+                    "partner": "deathbyninjadust",
+                    "post_id": "1at5iip",
+                    "timestamp": 1708545671
                 }
             ]
         },
@@ -5113,6 +5125,18 @@
                     "partner": "the_burnt_waffle",
                     "post_id": "1admw84",
                     "timestamp": 1707167281
+                },
+                {
+                    "comment_id": "kr8dgk9",
+                    "partner": "vixxii54",
+                    "post_id": "1amg55h",
+                    "timestamp": 1708567255
+                },
+                {
+                    "comment_id": "kr6owai",
+                    "partner": "s1michaelwestens7",
+                    "post_id": "1aum6s2",
+                    "timestamp": 1708567276
                 }
             ]
         },
@@ -7611,6 +7635,16 @@
                 }
             ]
         },
+        "pretend-management69": {
+            "transactions": [
+                {
+                    "comment_id": "kqvg64d",
+                    "partner": "zealousideal_dig_372",
+                    "post_id": "1asofsy",
+                    "timestamp": 1708588823
+                }
+            ]
+        },
         "puzzleheaded-feed410": {
             "legacy_count": 1,
             "transactions": []
@@ -8132,6 +8166,12 @@
                     "partner": "sunpuzzledhead",
                     "post_id": "1ak0mxi",
                     "timestamp": 1708117053
+                },
+                {
+                    "comment_id": "kr6owai",
+                    "partner": "joker09180",
+                    "post_id": "1aum6s2",
+                    "timestamp": 1708567276
                 }
             ]
         },
@@ -10061,6 +10101,16 @@
                 }
             ]
         },
+        "vixxii54": {
+            "transactions": [
+                {
+                    "comment_id": "kr8dgk9",
+                    "partner": "joker09180",
+                    "post_id": "1amg55h",
+                    "timestamp": 1708567255
+                }
+            ]
+        },
         "vomitorypepper": {
             "transactions": [
                 {
@@ -10110,6 +10160,12 @@
                     "partner": "matthewdunne7",
                     "post_id": "19ab27n",
                     "timestamp": 1706842474
+                },
+                {
+                    "comment_id": "kro0vc8",
+                    "partner": "yolo-acct",
+                    "post_id": "1ak0ltq",
+                    "timestamp": 1708637792
                 }
             ]
         },
@@ -10356,6 +10412,12 @@
                     "partner": "grippyg10",
                     "post_id": "17z6am6",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kro0vc8",
+                    "partner": "vomitorypepper",
+                    "post_id": "1ak0ltq",
+                    "timestamp": 1708637792
                 }
             ]
         },
@@ -10443,6 +10505,12 @@
                     "partner": "zealousideal_ice_824",
                     "post_id": "1ajadvv",
                     "timestamp": 1707789612
+                },
+                {
+                    "comment_id": "kqvg64d",
+                    "partner": "pretend-management69",
+                    "post_id": "1asofsy",
+                    "timestamp": 1708588823
                 }
             ]
         },

@@ -461,6 +461,18 @@
                     "partner": "sobr122222",
                     "post_id": "1au5ep7",
                     "timestamp": 1708317674
+                },
+                {
+                    "comment_id": "krng1ip",
+                    "partner": "lophonacci",
+                    "post_id": "1avmxoe",
+                    "timestamp": 1708630389
+                },
+                {
+                    "comment_id": "kroy9g6",
+                    "partner": "no_loquat_2423",
+                    "post_id": "1aqbir1",
+                    "timestamp": 1708654863
                 }
             ]
         },
@@ -1000,6 +1012,16 @@
                 }
             ]
         },
+        "impedingbleeding": {
+            "transactions": [
+                {
+                    "comment_id": "kro8rvl",
+                    "partner": "key-pitch9357",
+                    "post_id": "1aut2uu",
+                    "timestamp": 1708640012
+                }
+            ]
+        },
         "individual-ad-9308": {
             "legacy_count": 10,
             "transactions": [
@@ -1152,6 +1174,12 @@
                     "partner": "chocobearv93",
                     "post_id": "1afbr2b",
                     "timestamp": 1707706740
+                },
+                {
+                    "comment_id": "krhdgz1",
+                    "partner": "moth1992",
+                    "post_id": "1av3g0r",
+                    "timestamp": 1708574057
                 }
             ]
         },
@@ -1162,6 +1190,12 @@
                     "partner": "n0t-again",
                     "post_id": "185dc77",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kro8rvl",
+                    "partner": "impedingbleeding",
+                    "post_id": "1aut2uu",
+                    "timestamp": 1708640012
                 }
             ]
         },
@@ -1288,6 +1322,12 @@
                     "partner": "correct_analysis5325",
                     "post_id": "1aqbir1",
                     "timestamp": 1707997608
+                },
+                {
+                    "comment_id": "krng1ip",
+                    "partner": "correct_analysis5325",
+                    "post_id": "1avmxoe",
+                    "timestamp": 1708630389
                 }
             ]
         },
@@ -1350,6 +1390,12 @@
                     "partner": "taliauli",
                     "post_id": "1ama0ef",
                     "timestamp": 1708009752
+                },
+                {
+                    "comment_id": "krh5q4t",
+                    "partner": "tezca_6_6_6_",
+                    "post_id": "1aptlql",
+                    "timestamp": 1708542258
                 }
             ]
         },
@@ -1360,6 +1406,12 @@
                     "partner": "curtismarauderz",
                     "post_id": "1alj2hn",
                     "timestamp": 1707798692
+                },
+                {
+                    "comment_id": "krhdgz1",
+                    "partner": "junescactus",
+                    "post_id": "1av3g0r",
+                    "timestamp": 1708574057
                 }
             ]
         },
@@ -1444,6 +1496,12 @@
                     "partner": "leonsgarden",
                     "post_id": "1amzk2x",
                     "timestamp": 1707965938
+                },
+                {
+                    "comment_id": "kroy9g6",
+                    "partner": "correct_analysis5325",
+                    "post_id": "1aqbir1",
+                    "timestamp": 1708654863
                 }
             ]
         },
@@ -1827,6 +1885,16 @@
                     "partner": "outrageoustarget6546",
                     "post_id": "17npnlu",
                     "timestamp": 0
+                }
+            ]
+        },
+        "tezca_6_6_6_": {
+            "transactions": [
+                {
+                    "comment_id": "krh5q4t",
+                    "partner": "midniteflounder",
+                    "post_id": "1aptlql",
+                    "timestamp": 1708542258
                 }
             ]
         },
