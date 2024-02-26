@@ -2281,6 +2281,16 @@
                 }
             ]
         },
+        "crippledbanana": {
+            "transactions": [
+                {
+                    "comment_id": "krjv9la",
+                    "partner": "thedylster74",
+                    "post_id": "1ap3c04",
+                    "timestamp": 1708718442
+                }
+            ]
+        },
         "crownandconvention": {
             "transactions": [
                 {
@@ -5464,6 +5474,16 @@
                 }
             ]
         },
+        "mangopatate": {
+            "transactions": [
+                {
+                    "comment_id": "kr55jrt",
+                    "partner": "saadidas",
+                    "post_id": "1aue4ae",
+                    "timestamp": 1708804826
+                }
+            ]
+        },
         "many_distribution_21": {
             "transactions": [
                 {
@@ -6241,6 +6261,16 @@
                     "partner": "jdosman",
                     "post_id": "y5ugez",
                     "timestamp": 0
+                }
+            ]
+        },
+        "obi-wannabee": {
+            "transactions": [
+                {
+                    "comment_id": "krrr5hw",
+                    "partner": "tglo321",
+                    "post_id": "1at9pcd",
+                    "timestamp": 1708709379
                 }
             ]
         },
@@ -7526,6 +7556,16 @@
                     "partner": "goodchives",
                     "post_id": "1633sln",
                     "timestamp": 0
+                }
+            ]
+        },
+        "saadidas": {
+            "transactions": [
+                {
+                    "comment_id": "kr55jrt",
+                    "partner": "mangopatate",
+                    "post_id": "1aue4ae",
+                    "timestamp": 1708804826
                 }
             ]
         },
@@ -8934,6 +8974,12 @@
                     "partner": "avhva",
                     "post_id": "19eo40f",
                     "timestamp": 1706974740
+                },
+                {
+                    "comment_id": "krrr5hw",
+                    "partner": "obi-wannabee",
+                    "post_id": "1at9pcd",
+                    "timestamp": 1708709379
                 }
             ]
         },
@@ -9012,6 +9058,12 @@
                     "partner": "balli977",
                     "post_id": "1960hgd",
                     "timestamp": 1705953675
+                },
+                {
+                    "comment_id": "krjv9la",
+                    "partner": "crippledbanana",
+                    "post_id": "1ap3c04",
+                    "timestamp": 1708718442
                 }
             ]
         },

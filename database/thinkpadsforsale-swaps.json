@@ -4503,6 +4503,16 @@
             "legacy_count": 2,
             "transactions": []
         },
+        "riuseche": {
+            "transactions": [
+                {
+                    "comment_id": "krz2bo6",
+                    "partner": "yaguey22",
+                    "post_id": "1asnvif",
+                    "timestamp": 1708809218
+                }
+            ]
+        },
         "rmathiasen": {
             "legacy_count": 2,
             "transactions": []
@@ -6014,6 +6024,12 @@
                     "partner": "matthogen",
                     "post_id": "1aj08l3",
                     "timestamp": 1708053218
+                },
+                {
+                    "comment_id": "krz2bo6",
+                    "partner": "riuseche",
+                    "post_id": "1asnvif",
+                    "timestamp": 1708809218
                 }
             ]
         },
