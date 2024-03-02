@@ -70,6 +70,16 @@
                 }
             ]
         },
+        "bangotraphouse": {
+            "transactions": [
+                {
+                    "comment_id": "ksngr1h",
+                    "partner": "walusqueegee",
+                    "post_id": "1aq9wrs",
+                    "timestamp": 1709216817
+                }
+            ]
+        },
         "bigbutterfly583": {
             "transactions": [
                 {
@@ -370,6 +380,16 @@
                 }
             ]
         },
+        "jdubz90": {
+            "transactions": [
+                {
+                    "comment_id": "kspoo7a",
+                    "partner": "ridlerfin",
+                    "post_id": "1ay883m",
+                    "timestamp": 1709223791
+                }
+            ]
+        },
         "kelpicardal21": {
             "transactions": [
                 {
@@ -569,6 +589,16 @@
                     "partner": "jaymac603",
                     "post_id": "18txstj",
                     "timestamp": 1704497923
+                }
+            ]
+        },
+        "ridlerfin": {
+            "transactions": [
+                {
+                    "comment_id": "kspoo7a",
+                    "partner": "jdubz90",
+                    "post_id": "1ay883m",
+                    "timestamp": 1709223791
                 }
             ]
         },
@@ -777,6 +807,16 @@
                     "partner": "gerarg89",
                     "post_id": "17k14ak",
                     "timestamp": 0
+                }
+            ]
+        },
+        "walusqueegee": {
+            "transactions": [
+                {
+                    "comment_id": "ksngr1h",
+                    "partner": "bangotraphouse",
+                    "post_id": "1aq9wrs",
+                    "timestamp": 1709216817
                 }
             ]
         },

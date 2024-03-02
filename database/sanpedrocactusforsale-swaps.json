@@ -80,6 +80,16 @@
                 }
             ]
         },
+        "3dwardt3ach": {
+            "transactions": [
+                {
+                    "comment_id": "ksbbi4w",
+                    "partner": "mc-mikeflow",
+                    "post_id": "1anicpu",
+                    "timestamp": 1709035376
+                }
+            ]
+        },
         "3poundhummingbird": {
             "legacy_count": 10,
             "transactions": [
@@ -520,6 +530,12 @@
                     "partner": "atfarley",
                     "post_id": "1ab7jqd",
                     "timestamp": 1706833341
+                },
+                {
+                    "comment_id": "ksb1557",
+                    "partner": "masterzanteka",
+                    "post_id": "1authvu",
+                    "timestamp": 1709055436
                 }
             ]
         },
@@ -540,6 +556,16 @@
         "adawgx": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "adplenty3605": {
+            "transactions": [
+                {
+                    "comment_id": "ksaub0x",
+                    "partner": "ckriley59",
+                    "post_id": "1aybrzt",
+                    "timestamp": 1708996046
+                }
+            ]
         },
         "afruitingape": {
             "legacy_count": 10,
@@ -856,6 +882,16 @@
                 }
             ]
         },
+        "atxlvr": {
+            "transactions": [
+                {
+                    "comment_id": "ksdvxwz",
+                    "partner": "ckriley59",
+                    "post_id": "1awtuhh",
+                    "timestamp": 1709047854
+                }
+            ]
+        },
         "au74ra": {
             "legacy_count": 10,
             "transactions": []
@@ -1162,6 +1198,12 @@
                     "partner": "chicagocactuscompany",
                     "post_id": "1ar2zir",
                     "timestamp": 1708722387
+                },
+                {
+                    "comment_id": "kslg9wz",
+                    "partner": "mantishead2",
+                    "post_id": "1atlf7r",
+                    "timestamp": 1709171720
                 }
             ]
         },
@@ -1198,6 +1240,18 @@
                     "partner": "sillib",
                     "post_id": "1aurarv",
                     "timestamp": 1708732244
+                },
+                {
+                    "comment_id": "ksap0ew",
+                    "partner": "similar-wealth-2092",
+                    "post_id": "1awidk8",
+                    "timestamp": 1708991078
+                },
+                {
+                    "comment_id": "ksgv68y",
+                    "partner": "desmondstetson",
+                    "post_id": "1atcrym",
+                    "timestamp": 1709090397
                 }
             ]
         },
@@ -1253,7 +1307,38 @@
         },
         "billeats": {
             "legacy_count": 7,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ksbcyx1",
+                    "partner": "waz2011",
+                    "post_id": "1awk03e",
+                    "timestamp": 1709033859
+                },
+                {
+                    "comment_id": "ksbmgr7",
+                    "partner": "redtailhawknest",
+                    "post_id": "1awk5yn",
+                    "timestamp": 1709033943
+                },
+                {
+                    "comment_id": "krqlds5",
+                    "partner": "tezca_6_6_6_",
+                    "post_id": "1ar95x1",
+                    "timestamp": 1709042441
+                },
+                {
+                    "comment_id": "krs2nc2",
+                    "partner": "worksforcactus",
+                    "post_id": "1aswbmv",
+                    "timestamp": 1709042469
+                },
+                {
+                    "comment_id": "ksg88q0",
+                    "partner": "chocobearv93",
+                    "post_id": "1axu7k2",
+                    "timestamp": 1709082494
+                }
+            ]
         },
         "billy-willy": {
             "legacy_count": 2,
@@ -1311,6 +1396,12 @@
                     "partner": "desertdogbotanicals",
                     "post_id": "1akqyho",
                     "timestamp": 1707610707
+                },
+                {
+                    "comment_id": "ksmdzoo",
+                    "partner": "chicagocactuscompany",
+                    "post_id": "1awlmoq",
+                    "timestamp": 1709239061
                 }
             ]
         },
@@ -1482,6 +1573,46 @@
                     "partner": "ckriley59",
                     "post_id": "1all1ky",
                     "timestamp": 1707452986
+                }
+            ]
+        },
+        "bridgefirelight": {
+            "transactions": [
+                {
+                    "comment_id": "ks6iaa3",
+                    "partner": "gizzonyourface",
+                    "post_id": "1arqoor",
+                    "timestamp": 1708952664
+                },
+                {
+                    "comment_id": "ksbaqh0",
+                    "partner": "consistent-theory861",
+                    "post_id": "1arplmf",
+                    "timestamp": 1709008240
+                },
+                {
+                    "comment_id": "ksg1bhz",
+                    "partner": "gruyererind",
+                    "post_id": "1arr91h",
+                    "timestamp": 1709072730
+                },
+                {
+                    "comment_id": "ksg0ww7",
+                    "partner": "pewpewpewgg",
+                    "post_id": "1auz0ua",
+                    "timestamp": 1709135875
+                },
+                {
+                    "comment_id": "ksbb0o2",
+                    "partner": "significant_win_345",
+                    "post_id": "1arqoor",
+                    "timestamp": 1709258450
+                },
+                {
+                    "comment_id": "ksg1g4a",
+                    "partner": "stormystorm1",
+                    "post_id": "1arr91h",
+                    "timestamp": 1709280092
                 }
             ]
         },
@@ -1772,6 +1903,12 @@
                     "partner": "no1boyscout",
                     "post_id": "1aj2x88",
                     "timestamp": 1707412726
+                },
+                {
+                    "comment_id": "ksxfcjt",
+                    "partner": "geneticgrool",
+                    "post_id": "1azcdil",
+                    "timestamp": 1709352476
                 }
             ]
         },
@@ -2331,6 +2468,12 @@
                     "partner": "nipomocactuscompany",
                     "post_id": "1ap8emp",
                     "timestamp": 1708829229
+                },
+                {
+                    "comment_id": "kshpeja",
+                    "partner": "jipc_tears",
+                    "post_id": "1atg7fe",
+                    "timestamp": 1709151176
                 }
             ]
         },
@@ -2478,6 +2621,18 @@
                     "partner": "tezca_6_6_6_",
                     "post_id": "1ar74nd",
                     "timestamp": 1708729691
+                },
+                {
+                    "comment_id": "ksmdzoo",
+                    "partner": "billy-willy",
+                    "post_id": "1awlmoq",
+                    "timestamp": 1709239061
+                },
+                {
+                    "comment_id": "ksrbyjy",
+                    "partner": "legacy-gardens",
+                    "post_id": "1ar74nd",
+                    "timestamp": 1709243215
                 }
             ]
         },
@@ -2636,6 +2791,18 @@
                     "partner": "joshnorsworthy",
                     "post_id": "1algw0k",
                     "timestamp": 1708730129
+                },
+                {
+                    "comment_id": "ksg7gf9",
+                    "partner": "mc-mikeflow",
+                    "post_id": "1ax6il9",
+                    "timestamp": 1709079399
+                },
+                {
+                    "comment_id": "ksg88q0",
+                    "partner": "billeats",
+                    "post_id": "1axu7k2",
+                    "timestamp": 1709082494
                 }
             ]
         },
@@ -3631,6 +3798,66 @@
                     "partner": "cactaiguy1",
                     "post_id": "1ar1sqy",
                     "timestamp": 1708848081
+                },
+                {
+                    "comment_id": "ks9trcb",
+                    "partner": "tichugrrl",
+                    "post_id": "1awfs5d",
+                    "timestamp": 1708980420
+                },
+                {
+                    "comment_id": "ksaub0x",
+                    "partner": "adplenty3605",
+                    "post_id": "1aybrzt",
+                    "timestamp": 1708996046
+                },
+                {
+                    "comment_id": "ksatuh4",
+                    "partner": "significant-tone-178",
+                    "post_id": "1aua8ok",
+                    "timestamp": 1708999208
+                },
+                {
+                    "comment_id": "ksdvxwz",
+                    "partner": "atxlvr",
+                    "post_id": "1awtuhh",
+                    "timestamp": 1709047854
+                },
+                {
+                    "comment_id": "kshat8o",
+                    "partner": "redtailhawknest",
+                    "post_id": "1b1018i",
+                    "timestamp": 1709090579
+                },
+                {
+                    "comment_id": "ksm17mg",
+                    "partner": "shittykitty2x4",
+                    "post_id": "1ayboju",
+                    "timestamp": 1709161859
+                },
+                {
+                    "comment_id": "ksl65x2",
+                    "partner": "probablyonlsd69",
+                    "post_id": "1ayb11h",
+                    "timestamp": 1709161948
+                },
+                {
+                    "comment_id": "ksm758d",
+                    "partner": "redtailhawknest",
+                    "post_id": "1axqfcy",
+                    "timestamp": 1709165790
+                },
+                {
+                    "comment_id": "ksm7ezx",
+                    "partner": "standard-tie3256",
+                    "post_id": "1au1ej4",
+                    "timestamp": 1709167764
+                },
+                {
+                    "comment_id": "ksxnd48",
+                    "partner": "extraordinairily",
+                    "post_id": "1b0zvv3",
+                    "timestamp": 1709339578
                 }
             ]
         },
@@ -3850,6 +4077,12 @@
                     "partner": "juve_stabia",
                     "post_id": "1acdyn9",
                     "timestamp": 1708468012
+                },
+                {
+                    "comment_id": "ksbaqh0",
+                    "partner": "bridgefirelight",
+                    "post_id": "1arplmf",
+                    "timestamp": 1709008240
                 }
             ]
         },
@@ -3980,6 +4213,12 @@
                     "partner": "kinkyfunpear",
                     "post_id": "1atedpc",
                     "timestamp": 1708820437
+                },
+                {
+                    "comment_id": "ksambbx",
+                    "partner": "jipc_tears",
+                    "post_id": "1aqxs8r",
+                    "timestamp": 1708990740
                 }
             ]
         },
@@ -4598,6 +4837,12 @@
                     "partner": "hefty-success4451",
                     "post_id": "196jgz9",
                     "timestamp": 1707163275
+                },
+                {
+                    "comment_id": "ksgv68y",
+                    "partner": "big-beat-1443",
+                    "post_id": "1atcrym",
+                    "timestamp": 1709090397
                 }
             ]
         },
@@ -4683,6 +4928,12 @@
                     "partner": "pinkmiata",
                     "post_id": "1ankify",
                     "timestamp": 1708491929
+                },
+                {
+                    "comment_id": "kskij0p",
+                    "partner": "initial_two_9511",
+                    "post_id": "1asg6ck",
+                    "timestamp": 1709193501
                 }
             ]
         },
@@ -4830,6 +5081,12 @@
                     "partner": "ckriley59",
                     "post_id": "1af2dnj",
                     "timestamp": 1706994788
+                },
+                {
+                    "comment_id": "ksy7no8",
+                    "partner": "watchinitgrow",
+                    "post_id": "1aty8x4",
+                    "timestamp": 1709348380
                 }
             ]
         },
@@ -5267,6 +5524,12 @@
                     "partner": "friendly524",
                     "post_id": "1arl53j",
                     "timestamp": 1708739574
+                },
+                {
+                    "comment_id": "ksi4owh",
+                    "partner": "shittykitty2x4",
+                    "post_id": "1aydnbp",
+                    "timestamp": 1709110083
                 }
             ]
         },
@@ -5308,6 +5571,12 @@
                     "partner": "cactrex",
                     "post_id": "1aks3kr",
                     "timestamp": 1707614559
+                },
+                {
+                    "comment_id": "ksb99oq",
+                    "partner": "mycolojean",
+                    "post_id": "1auov87",
+                    "timestamp": 1708998833
                 }
             ]
         },
@@ -5365,6 +5634,16 @@
                     "partner": "tichugrrl",
                     "post_id": "18zf678",
                     "timestamp": 1707799484
+                }
+            ]
+        },
+        "ethancortes": {
+            "transactions": [
+                {
+                    "comment_id": "ks2255t",
+                    "partner": "juve_stabia",
+                    "post_id": "1aimoph",
+                    "timestamp": 1708977672
                 }
             ]
         },
@@ -5622,6 +5901,16 @@
                     "partner": "ckriley59",
                     "post_id": "17z48fb",
                     "timestamp": 0
+                }
+            ]
+        },
+        "extraordinairily": {
+            "transactions": [
+                {
+                    "comment_id": "ksxnd48",
+                    "partner": "ckriley59",
+                    "post_id": "1b0zvv3",
+                    "timestamp": 1709339578
                 }
             ]
         },
@@ -6140,6 +6429,24 @@
                     "partner": "edart7",
                     "post_id": "1av2crx",
                     "timestamp": 1708670786
+                },
+                {
+                    "comment_id": "ksmfic1",
+                    "partner": "softhartedfungi",
+                    "post_id": "1aychzg",
+                    "timestamp": 1709167263
+                },
+                {
+                    "comment_id": "ks9wzmo",
+                    "partner": "softhartedfungi",
+                    "post_id": "1aynt1c",
+                    "timestamp": 1709344883
+                },
+                {
+                    "comment_id": "ksxfcjt",
+                    "partner": "cactuscontinuum",
+                    "post_id": "1azcdil",
+                    "timestamp": 1709352476
                 }
             ]
         },
@@ -6203,6 +6510,24 @@
                     "partner": "slash4251",
                     "post_id": "1amv8z5",
                     "timestamp": 1708457025
+                },
+                {
+                    "comment_id": "ks6iaa3",
+                    "partner": "bridgefirelight",
+                    "post_id": "1arqoor",
+                    "timestamp": 1708952664
+                },
+                {
+                    "comment_id": "kssrvwx",
+                    "partner": "sanpedrofarm",
+                    "post_id": "1952rxp",
+                    "timestamp": 1709262962
+                },
+                {
+                    "comment_id": "ksssu6z",
+                    "partner": "sharxxblue",
+                    "post_id": "1b2dvz9",
+                    "timestamp": 1709272886
                 }
             ]
         },
@@ -6366,6 +6691,12 @@
                     "partner": "turd8urgler",
                     "post_id": "19cn79a",
                     "timestamp": 1708661187
+                },
+                {
+                    "comment_id": "ksli32t",
+                    "partner": "turd8urgler",
+                    "post_id": "19cmzm0",
+                    "timestamp": 1709170871
                 }
             ]
         },
@@ -6424,6 +6755,12 @@
                     "partner": "houndcereus",
                     "post_id": "1avvuei",
                     "timestamp": 1708826032
+                },
+                {
+                    "comment_id": "ksg1bhz",
+                    "partner": "bridgefirelight",
+                    "post_id": "1arr91h",
+                    "timestamp": 1709072730
                 }
             ]
         },
@@ -6629,6 +6966,12 @@
                     "partner": "paleojoemoore",
                     "post_id": "1agu0zy",
                     "timestamp": 1707673862
+                },
+                {
+                    "comment_id": "ksysa4u",
+                    "partner": "starseedcreator",
+                    "post_id": "1ary92c",
+                    "timestamp": 1709358182
                 }
             ]
         },
@@ -6779,6 +7122,18 @@
                     "partner": "junescactus",
                     "post_id": "1aho17b",
                     "timestamp": 1707878232
+                },
+                {
+                    "comment_id": "kslz75n",
+                    "partner": "slurs818",
+                    "post_id": "1au1w11",
+                    "timestamp": 1709161114
+                },
+                {
+                    "comment_id": "kss5g7q",
+                    "partner": "watchinitgrow",
+                    "post_id": "1az3io7",
+                    "timestamp": 1709257833
                 }
             ]
         },
@@ -7377,6 +7732,24 @@
                     "partner": "cartographerhumble50",
                     "post_id": "1akrjoi",
                     "timestamp": 1708804881
+                },
+                {
+                    "comment_id": "ksb1svx",
+                    "partner": "responsible_lettuce1",
+                    "post_id": "1avuz69",
+                    "timestamp": 1708995882
+                },
+                {
+                    "comment_id": "ksb7b40",
+                    "partner": "pretend_ad_7422",
+                    "post_id": "1avuz69",
+                    "timestamp": 1708999521
+                },
+                {
+                    "comment_id": "ksbj9me",
+                    "partner": "natural_confection29",
+                    "post_id": "1azf3x0",
+                    "timestamp": 1709002463
                 }
             ]
         },
@@ -7643,6 +8016,12 @@
                     "partner": "mryan824",
                     "post_id": "1aqcdnk",
                     "timestamp": 1708898706
+                },
+                {
+                    "comment_id": "kskij0p",
+                    "partner": "diligenttraining2",
+                    "post_id": "1asg6ck",
+                    "timestamp": 1709193501
                 }
             ]
         },
@@ -7878,7 +8257,14 @@
         },
         "jedi_flip7997": {
             "legacy_count": 10,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ks9tkvb",
+                    "partner": "kushy_koala",
+                    "post_id": "1asnpii",
+                    "timestamp": 1709085699
+                }
+            ]
         },
         "jeff_bridgesii": {
             "legacy_count": 10,
@@ -8080,6 +8466,18 @@
                     "partner": "lovegloom",
                     "post_id": "19d6fqw",
                     "timestamp": 1706211113
+                },
+                {
+                    "comment_id": "ksambbx",
+                    "partner": "cornpop32",
+                    "post_id": "1aqxs8r",
+                    "timestamp": 1708990740
+                },
+                {
+                    "comment_id": "kshpeja",
+                    "partner": "cheshirecreation",
+                    "post_id": "1atg7fe",
+                    "timestamp": 1709151176
                 }
             ]
         },
@@ -8260,6 +8658,12 @@
                     "partner": "chocobearv93",
                     "post_id": "1algw0k",
                     "timestamp": 1708730129
+                },
+                {
+                    "comment_id": "ksy5vsz",
+                    "partner": "natural_confection29",
+                    "post_id": "1av7hdz",
+                    "timestamp": 1709348100
                 }
             ]
         },
@@ -8716,6 +9120,12 @@
                     "partner": "vanishingpointz",
                     "post_id": "1aimoph",
                     "timestamp": 1708870491
+                },
+                {
+                    "comment_id": "ks2255t",
+                    "partner": "ethancortes",
+                    "post_id": "1aimoph",
+                    "timestamp": 1708977672
                 }
             ]
         },
@@ -8736,6 +9146,12 @@
                     "partner": "jacob32224",
                     "post_id": "1aju7g1",
                     "timestamp": 1708565188
+                },
+                {
+                    "comment_id": "ksy9ynr",
+                    "partner": "natural_confection29",
+                    "post_id": "1b1e2oz",
+                    "timestamp": 1709348998
                 }
             ]
         },
@@ -8845,6 +9261,12 @@
                     "partner": "cornpop32",
                     "post_id": "1atedpc",
                     "timestamp": 1708820437
+                },
+                {
+                    "comment_id": "kslwtph",
+                    "partner": "starseedcreator",
+                    "post_id": "1asrbye",
+                    "timestamp": 1709171742
                 }
             ]
         },
@@ -8975,6 +9397,12 @@
                     "partner": "geneticgrool",
                     "post_id": "1aofloj",
                     "timestamp": 1707957168
+                },
+                {
+                    "comment_id": "ks9tkvb",
+                    "partner": "jedi_flip7997",
+                    "post_id": "1asnpii",
+                    "timestamp": 1709085699
                 }
             ]
         },
@@ -9135,6 +9563,12 @@
                     "partner": "tralerunner614",
                     "post_id": "1ahebby",
                     "timestamp": 1708061404
+                },
+                {
+                    "comment_id": "ksrbyjy",
+                    "partner": "chicagocactuscompany",
+                    "post_id": "1ar74nd",
+                    "timestamp": 1709243215
                 }
             ]
         },
@@ -9391,6 +9825,16 @@
             "legacy_count": 4,
             "transactions": []
         },
+        "losttagclothing": {
+            "transactions": [
+                {
+                    "comment_id": "ksy8sm9",
+                    "partner": "natural_confection29",
+                    "post_id": "1b2c2yj",
+                    "timestamp": 1709350106
+                }
+            ]
+        },
         "lou-bjm": {
             "legacy_count": 10,
             "transactions": []
@@ -9557,6 +10001,12 @@
                     "partner": "hippiecamper313",
                     "post_id": "1ai9x7d",
                     "timestamp": 1708316280
+                },
+                {
+                    "comment_id": "kslg9wz",
+                    "partner": "beezycoc",
+                    "post_id": "1atlf7r",
+                    "timestamp": 1709171720
                 }
             ]
         },
@@ -9611,6 +10061,18 @@
                     "partner": "slash4251",
                     "post_id": "1amveka",
                     "timestamp": 1708156878
+                },
+                {
+                    "comment_id": "ksb23kx",
+                    "partner": "mc-mikeflow",
+                    "post_id": "1arklbb",
+                    "timestamp": 1708997141
+                },
+                {
+                    "comment_id": "ksb1557",
+                    "partner": "acceptable-panda8130",
+                    "post_id": "1authvu",
+                    "timestamp": 1709055436
                 }
             ]
         },
@@ -9698,6 +10160,24 @@
                     "partner": "kinkyfunpear",
                     "post_id": "1arklbb",
                     "timestamp": 1708819224
+                },
+                {
+                    "comment_id": "ksb23kx",
+                    "partner": "masterzanteka",
+                    "post_id": "1arklbb",
+                    "timestamp": 1708997141
+                },
+                {
+                    "comment_id": "ksbbi4w",
+                    "partner": "3dwardt3ach",
+                    "post_id": "1anicpu",
+                    "timestamp": 1709035376
+                },
+                {
+                    "comment_id": "ksg7gf9",
+                    "partner": "chocobearv93",
+                    "post_id": "1ax6il9",
+                    "timestamp": 1709079399
                 }
             ]
         },
@@ -10241,7 +10721,14 @@
         },
         "mrcrunchabunch": {
             "legacy_count": 10,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ksy8p12",
+                    "partner": "natural_confection29",
+                    "post_id": "1b1eb5d",
+                    "timestamp": 1709350755
+                }
+            ]
         },
         "mrhammock13": {
             "legacy_count": 2,
@@ -10877,6 +11364,12 @@
                     "partner": "cali_cactus_hunter",
                     "post_id": "1acgplg",
                     "timestamp": 1708020318
+                },
+                {
+                    "comment_id": "ksb99oq",
+                    "partner": "equal-teaching-9675",
+                    "post_id": "1auov87",
+                    "timestamp": 1708998833
                 }
             ]
         },
@@ -10973,6 +11466,42 @@
                     "partner": "beezycoc",
                     "post_id": "17rpwbz",
                     "timestamp": 1707938743
+                },
+                {
+                    "comment_id": "ksbj9me",
+                    "partner": "imdavesbud",
+                    "post_id": "1azf3x0",
+                    "timestamp": 1709002463
+                },
+                {
+                    "comment_id": "ksy5vsz",
+                    "partner": "joshnorsworthy",
+                    "post_id": "1av7hdz",
+                    "timestamp": 1709348100
+                },
+                {
+                    "comment_id": "ksy8klw",
+                    "partner": "sillib",
+                    "post_id": "1avidqi",
+                    "timestamp": 1709348402
+                },
+                {
+                    "comment_id": "ksy9ynr",
+                    "partner": "kactus_kidd",
+                    "post_id": "1b1e2oz",
+                    "timestamp": 1709348998
+                },
+                {
+                    "comment_id": "ksy8sm9",
+                    "partner": "losttagclothing",
+                    "post_id": "1b2c2yj",
+                    "timestamp": 1709350106
+                },
+                {
+                    "comment_id": "ksy8p12",
+                    "partner": "mrcrunchabunch",
+                    "post_id": "1b1eb5d",
+                    "timestamp": 1709350755
                 }
             ]
         },
@@ -11093,7 +11622,14 @@
         },
         "nixcacti": {
             "legacy_count": 10,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ksvosac",
+                    "partner": "saddletramp13",
+                    "post_id": "1azv5kl",
+                    "timestamp": 1709320976
+                }
+            ]
         },
         "no-bs-gardening": {
             "transactions": [
@@ -11928,6 +12464,12 @@
                     "partner": "hotcowpie",
                     "post_id": "19e2ota",
                     "timestamp": 1706546943
+                },
+                {
+                    "comment_id": "ksg0ww7",
+                    "partner": "bridgefirelight",
+                    "post_id": "1auz0ua",
+                    "timestamp": 1709135875
                 }
             ]
         },
@@ -12125,6 +12667,12 @@
                     "partner": "diligenttraining2",
                     "post_id": "16ttrqt",
                     "timestamp": 1707497759
+                },
+                {
+                    "comment_id": "ksc33qe",
+                    "partner": "skskskgrl",
+                    "post_id": "17lny2v",
+                    "timestamp": 1709011279
                 }
             ]
         },
@@ -12335,6 +12883,16 @@
             "legacy_count": 2,
             "transactions": []
         },
+        "pretend_ad_7422": {
+            "transactions": [
+                {
+                    "comment_id": "ksb7b40",
+                    "partner": "imdavesbud",
+                    "post_id": "1avuz69",
+                    "timestamp": 1708999521
+                }
+            ]
+        },
         "pricklypatchnursery": {
             "legacy_count": 10,
             "transactions": [
@@ -12425,6 +12983,12 @@
                     "partner": "hectomaner",
                     "post_id": "1acj0a8",
                     "timestamp": 1707442705
+                },
+                {
+                    "comment_id": "ksl65x2",
+                    "partner": "ckriley59",
+                    "post_id": "1ayb11h",
+                    "timestamp": 1709161948
                 }
             ]
         },
@@ -12836,6 +13400,30 @@
                     "partner": "exact-perspective-75",
                     "post_id": "15zkhkv",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ksbmgr7",
+                    "partner": "billeats",
+                    "post_id": "1awk5yn",
+                    "timestamp": 1709033943
+                },
+                {
+                    "comment_id": "ksguvzh",
+                    "partner": "starseedcreator",
+                    "post_id": "1b1px87",
+                    "timestamp": 1709085508
+                },
+                {
+                    "comment_id": "kshat8o",
+                    "partner": "ckriley59",
+                    "post_id": "1b1018i",
+                    "timestamp": 1709090579
+                },
+                {
+                    "comment_id": "ksm758d",
+                    "partner": "ckriley59",
+                    "post_id": "1axqfcy",
+                    "timestamp": 1709165790
                 }
             ]
         },
@@ -12910,6 +13498,16 @@
         "responsible_bat3053": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "responsible_lettuce1": {
+            "transactions": [
+                {
+                    "comment_id": "ksb1svx",
+                    "partner": "imdavesbud",
+                    "post_id": "1avuz69",
+                    "timestamp": 1708995882
+                }
+            ]
         },
         "restorebotanicals": {
             "legacy_count": 7,
@@ -13093,6 +13691,12 @@
                     "partner": "metoliuschase",
                     "post_id": "1917qi3",
                     "timestamp": 1704852043
+                },
+                {
+                    "comment_id": "ksvosac",
+                    "partner": "nixcacti",
+                    "post_id": "1azv5kl",
+                    "timestamp": 1709320976
                 }
             ]
         },
@@ -13205,6 +13809,12 @@
                     "partner": "oneunknownone",
                     "post_id": "1952rxp",
                     "timestamp": 1707607699
+                },
+                {
+                    "comment_id": "kssrvwx",
+                    "partner": "gizzonyourface",
+                    "post_id": "1952rxp",
+                    "timestamp": 1709262962
                 }
             ]
         },
@@ -13381,6 +13991,12 @@
                     "partner": "big-beat-1443",
                     "post_id": "1amb9tt",
                     "timestamp": 1708321801
+                },
+                {
+                    "comment_id": "ksssu6z",
+                    "partner": "gizzonyourface",
+                    "post_id": "1b2dvz9",
+                    "timestamp": 1709272886
                 }
             ]
         },
@@ -13423,6 +14039,22 @@
             "legacy_count": 10,
             "transactions": []
         },
+        "shittykitty2x4": {
+            "transactions": [
+                {
+                    "comment_id": "ksi4owh",
+                    "partner": "empty-recognition887",
+                    "post_id": "1aydnbp",
+                    "timestamp": 1709110083
+                },
+                {
+                    "comment_id": "ksm17mg",
+                    "partner": "ckriley59",
+                    "post_id": "1ayboju",
+                    "timestamp": 1709161859
+                }
+            ]
+        },
         "shroomqs": {
             "legacy_count": 1,
             "transactions": []
@@ -13431,6 +14063,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "significant-tone-178": {
+            "transactions": [
+                {
+                    "comment_id": "ksatuh4",
+                    "partner": "ckriley59",
+                    "post_id": "1aua8ok",
+                    "timestamp": 1708999208
+                }
+            ]
+        },
         "significant_win_345": {
             "transactions": [
                 {
@@ -13438,6 +14080,12 @@
                     "partner": "sanpedrofarm",
                     "post_id": "18cc5aq",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ksbb0o2",
+                    "partner": "bridgefirelight",
+                    "post_id": "1arqoor",
+                    "timestamp": 1709258450
                 }
             ]
         },
@@ -13479,6 +14127,12 @@
                     "partner": "big-beat-1443",
                     "post_id": "1aurarv",
                     "timestamp": 1708732244
+                },
+                {
+                    "comment_id": "ksy8klw",
+                    "partner": "natural_confection29",
+                    "post_id": "1avidqi",
+                    "timestamp": 1709348402
                 }
             ]
         },
@@ -13562,6 +14216,12 @@
                     "partner": "thick_paint",
                     "post_id": "1arxmuj",
                     "timestamp": 1708722663
+                },
+                {
+                    "comment_id": "ksap0ew",
+                    "partner": "big-beat-1443",
+                    "post_id": "1awidk8",
+                    "timestamp": 1708991078
                 }
             ]
         },
@@ -13578,6 +14238,16 @@
         "skinnyd007": {
             "legacy_count": 10,
             "transactions": []
+        },
+        "skskskgrl": {
+            "transactions": [
+                {
+                    "comment_id": "ksc33qe",
+                    "partner": "post-squid",
+                    "post_id": "17lny2v",
+                    "timestamp": 1709011279
+                }
+            ]
         },
         "skymotion": {
             "legacy_count": 5,
@@ -13735,6 +14405,12 @@
                     "partner": "hippiecamper313",
                     "post_id": "1avv06q",
                     "timestamp": 1708468859
+                },
+                {
+                    "comment_id": "kslz75n",
+                    "partner": "hereforpix3",
+                    "post_id": "1au1w11",
+                    "timestamp": 1709161114
                 }
             ]
         },
@@ -13939,6 +14615,18 @@
                     "partner": "hippycactus",
                     "post_id": "1aqdn08",
                     "timestamp": 1708737088
+                },
+                {
+                    "comment_id": "ksmfic1",
+                    "partner": "geneticgrool",
+                    "post_id": "1aychzg",
+                    "timestamp": 1709167263
+                },
+                {
+                    "comment_id": "ks9wzmo",
+                    "partner": "geneticgrool",
+                    "post_id": "1aynt1c",
+                    "timestamp": 1709344883
                 }
             ]
         },
@@ -14141,6 +14829,12 @@
                     "partner": "ckriley59",
                     "post_id": "197vk0l",
                     "timestamp": 1705439943
+                },
+                {
+                    "comment_id": "ksm7ezx",
+                    "partner": "ckriley59",
+                    "post_id": "1au1ej4",
+                    "timestamp": 1709167764
                 }
             ]
         },
@@ -14152,6 +14846,24 @@
                     "partner": "peyoteromescalito",
                     "post_id": "18yzgft",
                     "timestamp": 1706680023
+                },
+                {
+                    "comment_id": "ksguvzh",
+                    "partner": "redtailhawknest",
+                    "post_id": "1b1px87",
+                    "timestamp": 1709085508
+                },
+                {
+                    "comment_id": "kslwtph",
+                    "partner": "kinkyfunpear",
+                    "post_id": "1asrbye",
+                    "timestamp": 1709171742
+                },
+                {
+                    "comment_id": "ksysa4u",
+                    "partner": "haidukenshiruken",
+                    "post_id": "1ary92c",
+                    "timestamp": 1709358182
                 }
             ]
         },
@@ -14166,6 +14878,16 @@
         "stopstalkingmecunt": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "stormystorm1": {
+            "transactions": [
+                {
+                    "comment_id": "ksg1g4a",
+                    "partner": "bridgefirelight",
+                    "post_id": "1arr91h",
+                    "timestamp": 1709280092
+                }
+            ]
         },
         "strych9sneakattack": {
             "legacy_count": 1,
@@ -14462,6 +15184,12 @@
                     "partner": "chicagocactuscompany",
                     "post_id": "1ar74nd",
                     "timestamp": 1708729691
+                },
+                {
+                    "comment_id": "krqlds5",
+                    "partner": "billeats",
+                    "post_id": "1ar95x1",
+                    "timestamp": 1709042441
                 }
             ]
         },
@@ -14556,6 +15284,12 @@
                     "partner": "empty-recognition887",
                     "post_id": "192mxwr",
                     "timestamp": 1705802470
+                },
+                {
+                    "comment_id": "kslhwwm",
+                    "partner": "turd8urgler",
+                    "post_id": "1avsj55",
+                    "timestamp": 1709158920
                 }
             ]
         },
@@ -14792,6 +15526,12 @@
                     "partner": "desert-rat-2002",
                     "post_id": "1apfffc",
                     "timestamp": 1708761656
+                },
+                {
+                    "comment_id": "ks9trcb",
+                    "partner": "ckriley59",
+                    "post_id": "1awfs5d",
+                    "timestamp": 1708980420
                 }
             ]
         },
@@ -15243,6 +15983,18 @@
                     "partner": "growingseq",
                     "post_id": "19cn79a",
                     "timestamp": 1708661187
+                },
+                {
+                    "comment_id": "kslhwwm",
+                    "partner": "thelmeister",
+                    "post_id": "1avsj55",
+                    "timestamp": 1709158920
+                },
+                {
+                    "comment_id": "ksli32t",
+                    "partner": "growingseq",
+                    "post_id": "19cmzm0",
+                    "timestamp": 1709170871
                 }
             ]
         },
@@ -15756,6 +16508,18 @@
                     "partner": "overall-fault5702",
                     "post_id": "1asigv5",
                     "timestamp": 1708808818
+                },
+                {
+                    "comment_id": "kss5g7q",
+                    "partner": "hereforpix3",
+                    "post_id": "1az3io7",
+                    "timestamp": 1709257833
+                },
+                {
+                    "comment_id": "ksy7no8",
+                    "partner": "dreamextraction",
+                    "post_id": "1aty8x4",
+                    "timestamp": 1709348380
                 }
             ]
         },
@@ -15796,6 +16560,12 @@
                     "partner": "junescactus",
                     "post_id": "19a9s1g",
                     "timestamp": 1706860874
+                },
+                {
+                    "comment_id": "ksbcyx1",
+                    "partner": "billeats",
+                    "post_id": "1awk03e",
+                    "timestamp": 1709033859
                 }
             ]
         },
@@ -16119,6 +16889,12 @@
                     "partner": "prawna420",
                     "post_id": "197rolu",
                     "timestamp": 1708094686
+                },
+                {
+                    "comment_id": "krs2nc2",
+                    "partner": "billeats",
+                    "post_id": "1aswbmv",
+                    "timestamp": 1709042469
                 }
             ]
         },

@@ -141,7 +141,14 @@
         },
         "mztredecim": {
             "legacy_count": 3,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ksqa1l9",
+                    "partner": "secret_agent89",
+                    "post_id": "1angqn3",
+                    "timestamp": 1709230749
+                }
+            ]
         },
         "n0shot9": {
             "legacy_count": 1,
@@ -165,7 +172,14 @@
         },
         "pokemonpenguin": {
             "legacy_count": 2,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kshjm0i",
+                    "partner": "stevethepigeon",
+                    "post_id": "1aoef3d",
+                    "timestamp": 1709117497
+                }
+            ]
         },
         "prize_source118": {
             "legacy_count": 1,
@@ -227,6 +241,12 @@
                     "partner": "rebatwa2",
                     "post_id": "1at30cu",
                     "timestamp": 1708881365
+                },
+                {
+                    "comment_id": "ksqa1l9",
+                    "partner": "mztredecim",
+                    "post_id": "1angqn3",
+                    "timestamp": 1709230749
                 }
             ]
         },
@@ -236,7 +256,14 @@
         },
         "stevethepigeon": {
             "legacy_count": 10,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kshjm0i",
+                    "partner": "pokemonpenguin",
+                    "post_id": "1aoef3d",
+                    "timestamp": 1709117497
+                }
+            ]
         },
         "swizzle213": {
             "legacy_count": 17,

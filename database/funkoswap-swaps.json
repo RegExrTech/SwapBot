@@ -32690,6 +32690,12 @@
                     "partner": "swampgas_1",
                     "post_id": "12xmcyh",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ksowhoz",
+                    "partner": "lionsfan06",
+                    "post_id": "1aikwsh",
+                    "timestamp": 1709213230
                 }
             ]
         },
@@ -38866,6 +38872,12 @@
                     "partner": "itsthatmexican",
                     "post_id": "18ilugx",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ksb9cmv",
+                    "partner": "whoosh001",
+                    "post_id": "1au923s",
+                    "timestamp": 1709046173
                 }
             ]
         },
@@ -51685,6 +51697,12 @@
                     "partner": "kingofthenoodle",
                     "post_id": "16zdcgo",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ksowhoz",
+                    "partner": "ginodom21",
+                    "post_id": "1aikwsh",
+                    "timestamp": 1709213230
                 }
             ]
         },
@@ -96754,6 +96772,16 @@
         "whooliaboolia": {
             "legacy_count": 3,
             "transactions": []
+        },
+        "whoosh001": {
+            "transactions": [
+                {
+                    "comment_id": "ksb9cmv",
+                    "partner": "imaginary-panic-7237",
+                    "post_id": "1au923s",
+                    "timestamp": 1709046173
+                }
+            ]
         },
         "whoreheyy": {
             "legacy_count": 1,

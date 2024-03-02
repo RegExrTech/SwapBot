@@ -85,6 +85,18 @@
                     "partner": "jackdonaghyswingman",
                     "post_id": "19bfjjk",
                     "timestamp": 1707527708
+                },
+                {
+                    "comment_id": "ksscxrs",
+                    "partner": "elfsmirk",
+                    "post_id": "1auycnc",
+                    "timestamp": 1709336970
+                },
+                {
+                    "comment_id": "ksggo1n",
+                    "partner": "quietly_lost",
+                    "post_id": "1auycnc",
+                    "timestamp": 1709366465
                 }
             ]
         },
@@ -1097,6 +1109,16 @@
         "brassfox": {
             "legacy_count": 6,
             "transactions": []
+        },
+        "brawlstarsog7": {
+            "transactions": [
+                {
+                    "comment_id": "ksjghyx",
+                    "partner": "slammyplants",
+                    "post_id": "1acitat",
+                    "timestamp": 1709131796
+                }
+            ]
         },
         "brianeharmonjr": {
             "legacy_count": 25,
@@ -2303,6 +2325,12 @@
                     "partner": "choice_cry8178",
                     "post_id": "195adwm",
                     "timestamp": 1706078308
+                },
+                {
+                    "comment_id": "ksscxrs",
+                    "partner": "315retro",
+                    "post_id": "1auycnc",
+                    "timestamp": 1709336970
                 }
             ]
         },
@@ -6492,6 +6520,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "quietly_lost": {
+            "transactions": [
+                {
+                    "comment_id": "ksggo1n",
+                    "partner": "315retro",
+                    "post_id": "1auycnc",
+                    "timestamp": 1709366465
+                }
+            ]
+        },
         "qwertyuxcv": {
             "legacy_count": 1,
             "transactions": []
@@ -7358,6 +7396,16 @@
                     "partner": "mrfiendish",
                     "post_id": "yauyle",
                     "timestamp": 0
+                }
+            ]
+        },
+        "slammyplants": {
+            "transactions": [
+                {
+                    "comment_id": "ksjghyx",
+                    "partner": "brawlstarsog7",
+                    "post_id": "1acitat",
+                    "timestamp": 1709131796
                 }
             ]
         },

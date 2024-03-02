@@ -22310,6 +22310,12 @@
                     "partner": "slewig",
                     "post_id": "pt3s5o",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ksuu21d",
+                    "partner": "professionalhelp8866",
+                    "post_id": "1b3vs58",
+                    "timestamp": 1709326545
                 }
             ]
         },
@@ -33190,6 +33196,16 @@
         "prof_g": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "professionalhelp8866": {
+            "transactions": [
+                {
+                    "comment_id": "ksuu21d",
+                    "partner": "kwan245",
+                    "post_id": "1b3vs58",
+                    "timestamp": 1709326545
+                }
+            ]
         },
         "professionalhyena22": {
             "transactions": [
