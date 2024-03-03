@@ -4568,6 +4568,12 @@
                     "partner": "asdfer1235",
                     "post_id": "18zmh9k",
                     "timestamp": 1704944682
+                },
+                {
+                    "comment_id": "kt0srq5",
+                    "partner": "seversum",
+                    "post_id": "1b0hoj7",
+                    "timestamp": 1709405725
                 }
             ]
         },
@@ -4911,6 +4917,12 @@
                     "partner": "raduest",
                     "post_id": "18cnc76",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kt3aqhe",
+                    "partner": "ttt2k",
+                    "post_id": "1ap597e",
+                    "timestamp": 1709442935
                 }
             ]
         },
@@ -7874,6 +7886,16 @@
                 }
             ]
         },
+        "seversum": {
+            "transactions": [
+                {
+                    "comment_id": "kt0srq5",
+                    "partner": "jdosman",
+                    "post_id": "1b0hoj7",
+                    "timestamp": 1709405725
+                }
+            ]
+        },
         "sexinacanoe": {
             "transactions": [
                 {
@@ -9506,6 +9528,12 @@
                     "partner": "bigeater123",
                     "post_id": "1aruoxh",
                     "timestamp": 1708379687
+                },
+                {
+                    "comment_id": "kt3aqhe",
+                    "partner": "klutzy_grocery6498",
+                    "post_id": "1ap597e",
+                    "timestamp": 1709442935
                 }
             ]
         },
