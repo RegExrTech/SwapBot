@@ -105,7 +105,14 @@
         },
         "kightsbridge": {
             "legacy_count": 3,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ktot1yx",
+                    "partner": "yueske",
+                    "post_id": "1b5g6zo",
+                    "timestamp": 1709776831
+                }
+            ]
         },
         "kn1g47": {
             "legacy_count": 1,
@@ -247,6 +254,12 @@
                     "partner": "mztredecim",
                     "post_id": "1angqn3",
                     "timestamp": 1709230749
+                },
+                {
+                    "comment_id": "ktsw075",
+                    "partner": "t629r",
+                    "post_id": "1b1tfz4",
+                    "timestamp": 1709848691
                 }
             ]
         },
@@ -268,6 +281,16 @@
         "swizzle213": {
             "legacy_count": 17,
             "transactions": []
+        },
+        "t629r": {
+            "transactions": [
+                {
+                    "comment_id": "ktsw075",
+                    "partner": "secret_agent89",
+                    "post_id": "1b1tfz4",
+                    "timestamp": 1709848691
+                }
+            ]
         },
         "takinator7175": {
             "legacy_count": 1,
@@ -300,6 +323,16 @@
         "xxanon00xx": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "yueske": {
+            "transactions": [
+                {
+                    "comment_id": "ktot1yx",
+                    "partner": "kightsbridge",
+                    "post_id": "1b5g6zo",
+                    "timestamp": 1709776831
+                }
+            ]
         },
         "zarkz": {
             "legacy_count": 2,

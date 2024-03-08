@@ -186,6 +186,16 @@
                 }
             ]
         },
+        "drewkid": {
+            "transactions": [
+                {
+                    "comment_id": "kte35fj",
+                    "partner": "massive_gerbil",
+                    "post_id": "1ah63pw",
+                    "timestamp": 1709627442
+                }
+            ]
+        },
         "edmrxx": {
             "transactions": [
                 {
@@ -499,6 +509,16 @@
                     "partner": "bodefosho",
                     "post_id": "18w35c8",
                     "timestamp": 1704403185
+                }
+            ]
+        },
+        "massive_gerbil": {
+            "transactions": [
+                {
+                    "comment_id": "kte35fj",
+                    "partner": "drewkid",
+                    "post_id": "1ah63pw",
+                    "timestamp": 1709627442
                 }
             ]
         },

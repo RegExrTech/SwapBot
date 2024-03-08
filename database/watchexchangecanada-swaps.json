@@ -353,6 +353,12 @@
                     "partner": "clue2099",
                     "post_id": "14si1q9",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kt79cen",
+                    "partner": "marinoni",
+                    "post_id": "1b47zvy",
+                    "timestamp": 1709863253
                 }
             ]
         },
@@ -1834,6 +1840,16 @@
                 }
             ]
         },
+        "choco314159": {
+            "transactions": [
+                {
+                    "comment_id": "ktv5ff6",
+                    "partner": "renart",
+                    "post_id": "1b6cfzb",
+                    "timestamp": 1709867994
+                }
+            ]
+        },
         "choose____username": {
             "transactions": [
                 {
@@ -2801,6 +2817,12 @@
                     "partner": "browntigerdx",
                     "post_id": "18bje09",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kt8hyj4",
+                    "partner": "mike019d",
+                    "post_id": "1b5mc3k",
+                    "timestamp": 1709517621
                 }
             ]
         },
@@ -2999,6 +3021,12 @@
                     "partner": "rivlyn",
                     "post_id": "18jjjm7",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ktnpcta",
+                    "partner": "rivlyn",
+                    "post_id": "1b2ldnw",
+                    "timestamp": 1709759812
                 }
             ]
         },
@@ -5590,6 +5618,16 @@
                 }
             ]
         },
+        "marinoni": {
+            "transactions": [
+                {
+                    "comment_id": "kt79cen",
+                    "partner": "afarewelltothings",
+                    "post_id": "1b47zvy",
+                    "timestamp": 1709863253
+                }
+            ]
+        },
         "mariokartwiiii": {
             "transactions": [
                 {
@@ -5803,6 +5841,12 @@
                     "partner": "moscato",
                     "post_id": "18eqq9d",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kt8hyj4",
+                    "partner": "durrelli-1319",
+                    "post_id": "1b5mc3k",
+                    "timestamp": 1709517621
                 }
             ]
         },
@@ -6328,6 +6372,16 @@
                 }
             ]
         },
+        "notfrankzappatoday": {
+            "transactions": [
+                {
+                    "comment_id": "kstmzs9",
+                    "partner": "ohmaigulai",
+                    "post_id": "1alxh5d",
+                    "timestamp": 1709604035
+                }
+            ]
+        },
         "notyourmothersdildo": {
             "transactions": [
                 {
@@ -6487,6 +6541,16 @@
                     "partner": "onlyrockdesigner",
                     "post_id": "17hupx9",
                     "timestamp": 0
+                }
+            ]
+        },
+        "ohmaigulai": {
+            "transactions": [
+                {
+                    "comment_id": "kstmzs9",
+                    "partner": "notfrankzappatoday",
+                    "post_id": "1alxh5d",
+                    "timestamp": 1709604035
                 }
             ]
         },
@@ -7354,6 +7418,12 @@
                     "partner": "testerwoot",
                     "post_id": "1adgd1x",
                     "timestamp": 1707336966
+                },
+                {
+                    "comment_id": "ktv5ff6",
+                    "partner": "choco314159",
+                    "post_id": "1b6cfzb",
+                    "timestamp": 1709867994
                 }
             ]
         },
@@ -7406,6 +7476,12 @@
                     "partner": "estateclockworks",
                     "post_id": "18jjjm7",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ktnpcta",
+                    "partner": "estateclockworks",
+                    "post_id": "1b2ldnw",
+                    "timestamp": 1709759812
                 }
             ]
         },

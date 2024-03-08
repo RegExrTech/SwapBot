@@ -549,6 +549,16 @@
                 }
             ]
         },
+        "_chucktaylor": {
+            "transactions": [
+                {
+                    "comment_id": "kt3an4u",
+                    "partner": "miniatureapples",
+                    "post_id": "1aj5gqb",
+                    "timestamp": 1709539269
+                }
+            ]
+        },
         "_damien_x": {
             "legacy_count": 1,
             "transactions": []
@@ -2161,6 +2171,12 @@
                     "partner": "imsoaddicted",
                     "post_id": "13lwlfr",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ktqqgy0",
+                    "partner": "i_write_ok",
+                    "post_id": "1b8q0qd",
+                    "timestamp": 1709805309
                 }
             ]
         },
@@ -9109,6 +9125,16 @@
                     "partner": "mohsenayadi",
                     "post_id": "183l6wv",
                     "timestamp": 1705111264
+                }
+            ]
+        },
+        "cruxiie": {
+            "transactions": [
+                {
+                    "comment_id": "ktqngje",
+                    "partner": "mosif89",
+                    "post_id": "1b6osiq",
+                    "timestamp": 1709844535
                 }
             ]
         },
@@ -16320,6 +16346,16 @@
                 }
             ]
         },
+        "hip-h0p-opotamus": {
+            "transactions": [
+                {
+                    "comment_id": "ktek8k0",
+                    "partner": "whattfisthisshit",
+                    "post_id": "1b6vn4m",
+                    "timestamp": 1709624660
+                }
+            ]
+        },
         "hippocampus22": {
             "legacy_count": 1,
             "transactions": []
@@ -17086,6 +17122,16 @@
         "i_will_eat_all_of_u": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "i_write_ok": {
+            "transactions": [
+                {
+                    "comment_id": "ktqqgy0",
+                    "partner": "anadoru",
+                    "post_id": "1b8q0qd",
+                    "timestamp": 1709805309
+                }
+            ]
         },
         "iamdrunk05": {
             "legacy_count": 1,
@@ -26724,6 +26770,16 @@
                 }
             ]
         },
+        "miniatureapples": {
+            "transactions": [
+                {
+                    "comment_id": "kt3an4u",
+                    "partner": "_chucktaylor",
+                    "post_id": "1aj5gqb",
+                    "timestamp": 1709539269
+                }
+            ]
+        },
         "minilurkette": {
             "legacy_count": 1,
             "transactions": []
@@ -27954,6 +28010,12 @@
                     "partner": "ryonac",
                     "post_id": "16klvxq",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ktqngje",
+                    "partner": "cruxiie",
+                    "post_id": "1b6osiq",
+                    "timestamp": 1709844535
                 }
             ]
         },
@@ -44381,6 +44443,12 @@
                     "partner": "maybebatshit",
                     "post_id": "1aqs77m",
                     "timestamp": 1707932416
+                },
+                {
+                    "comment_id": "ktek8k0",
+                    "partner": "hip-h0p-opotamus",
+                    "post_id": "1b6vn4m",
+                    "timestamp": 1709624660
                 }
             ]
         },

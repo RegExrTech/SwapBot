@@ -1765,7 +1765,14 @@
         },
         "crobertt2": {
             "legacy_count": 15,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kt7dxv7",
+                    "partner": "ostrocyte",
+                    "post_id": "1azzfe7",
+                    "timestamp": 1709565630
+                }
+            ]
         },
         "crowbar_bob": {
             "legacy_count": 1,
@@ -6186,6 +6193,12 @@
                     "partner": "raptoronii",
                     "post_id": "1aromg7",
                     "timestamp": 1708665165
+                },
+                {
+                    "comment_id": "kt7dxv7",
+                    "partner": "crobertt2",
+                    "post_id": "1azzfe7",
+                    "timestamp": 1709565630
                 }
             ]
         },

@@ -38878,6 +38878,12 @@
                     "partner": "whoosh001",
                     "post_id": "1au923s",
                     "timestamp": 1709046173
+                },
+                {
+                    "comment_id": "kte3e8n",
+                    "partner": "rapresity90",
+                    "post_id": "1b0ztgy",
+                    "timestamp": 1709610520
                 }
             ]
         },
@@ -71161,6 +71167,16 @@
         "rapac28": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "rapresity90": {
+            "transactions": [
+                {
+                    "comment_id": "kte3e8n",
+                    "partner": "imaginary-panic-7237",
+                    "post_id": "1b0ztgy",
+                    "timestamp": 1709610520
+                }
+            ]
         },
         "raptorsiii": {
             "legacy_count": 7,

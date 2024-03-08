@@ -6167,6 +6167,18 @@
                     "partner": "skimmilkthatlies",
                     "post_id": "14qkvbm",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kthw6qk",
+                    "partner": "paragonpatriot",
+                    "post_id": "1ay5pok",
+                    "timestamp": 1709668357
+                },
+                {
+                    "comment_id": "kthws2v",
+                    "partner": "loveysteeze",
+                    "post_id": "1avolo6",
+                    "timestamp": 1709711888
                 }
             ]
         },
@@ -7127,6 +7139,12 @@
                     "partner": "inkyletters",
                     "post_id": "12y429p",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kthjg4o",
+                    "partner": "paragonpatriot",
+                    "post_id": "1azf336",
+                    "timestamp": 1709666275
                 }
             ]
         },
@@ -10958,6 +10976,16 @@
                 }
             ]
         },
+        "loveysteeze": {
+            "transactions": [
+                {
+                    "comment_id": "kthws2v",
+                    "partner": "friskykillface",
+                    "post_id": "1avolo6",
+                    "timestamp": 1709711888
+                }
+            ]
+        },
         "lucksm8": {
             "transactions": [
                 {
@@ -13477,6 +13505,18 @@
                     "partner": "rathersleepin",
                     "post_id": "1ap706r",
                     "timestamp": 1708528077
+                },
+                {
+                    "comment_id": "kthjg4o",
+                    "partner": "i-bystander",
+                    "post_id": "1azf336",
+                    "timestamp": 1709666275
+                },
+                {
+                    "comment_id": "kthw6qk",
+                    "partner": "friskykillface",
+                    "post_id": "1ay5pok",
+                    "timestamp": 1709668357
                 }
             ]
         },
