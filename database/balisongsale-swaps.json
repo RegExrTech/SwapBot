@@ -1087,6 +1087,12 @@
                     "partner": "zypheryx",
                     "post_id": "1aicvcs",
                     "timestamp": 1708243249
+                },
+                {
+                    "comment_id": "ktd8x78",
+                    "partner": "kakashi7509",
+                    "post_id": "1b566y5",
+                    "timestamp": 1709949662
                 }
             ]
         },
@@ -5273,6 +5279,16 @@
                     "partner": "grossflips",
                     "post_id": "1aqstah",
                     "timestamp": 1708718469
+                }
+            ]
+        },
+        "kakashi7509": {
+            "transactions": [
+                {
+                    "comment_id": "ktd8x78",
+                    "partner": "balisharp",
+                    "post_id": "1b566y5",
+                    "timestamp": 1709949662
                 }
             ]
         },

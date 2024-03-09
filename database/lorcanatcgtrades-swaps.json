@@ -111,6 +111,12 @@
                     "partner": "yueske",
                     "post_id": "1b5g6zo",
                     "timestamp": 1709776831
+                },
+                {
+                    "comment_id": "ktyw56q",
+                    "partner": "uhohthrowaway216",
+                    "post_id": "1b5g6zo",
+                    "timestamp": 1709933059
                 }
             ]
         },
@@ -319,6 +325,16 @@
         "turtletreejumper": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "uhohthrowaway216": {
+            "transactions": [
+                {
+                    "comment_id": "ktyw56q",
+                    "partner": "kightsbridge",
+                    "post_id": "1b5g6zo",
+                    "timestamp": 1709933059
+                }
+            ]
         },
         "xxanon00xx": {
             "legacy_count": 1,

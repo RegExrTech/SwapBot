@@ -2265,6 +2265,16 @@
                 }
             ]
         },
+        "andius773": {
+            "transactions": [
+                {
+                    "comment_id": "ktxuxvk",
+                    "partner": "gobbluth9",
+                    "post_id": "1b5z1c9",
+                    "timestamp": 1709919106
+                }
+            ]
+        },
         "andrewjpf": {
             "transactions": [
                 {
@@ -14152,6 +14162,12 @@
                     "partner": "darthmingi92",
                     "post_id": "1axkz1u",
                     "timestamp": 1709610690
+                },
+                {
+                    "comment_id": "kty11vp",
+                    "partner": "snakekitty",
+                    "post_id": "1b54tm1",
+                    "timestamp": 1709919592
                 }
             ]
         },
@@ -20771,6 +20787,12 @@
                     "partner": "theorin331",
                     "post_id": "12u85qr",
                     "timestamp": 1708057565
+                },
+                {
+                    "comment_id": "ktxuxvk",
+                    "partner": "andius773",
+                    "post_id": "1b5z1c9",
+                    "timestamp": 1709919106
                 }
             ]
         },
@@ -28100,6 +28122,16 @@
                     "partner": "citadel712",
                     "post_id": "1awfvht",
                     "timestamp": 1709695558
+                }
+            ]
+        },
+        "jrpaperstax": {
+            "transactions": [
+                {
+                    "comment_id": "ktsv9nr",
+                    "partner": "uuselessplasticc",
+                    "post_id": "1b1i5h0",
+                    "timestamp": 1709928058
                 }
             ]
         },
@@ -51090,6 +51122,12 @@
                     "partner": "sixsphantom",
                     "post_id": "1atpyzm",
                     "timestamp": 1709430609
+                },
+                {
+                    "comment_id": "kty11vp",
+                    "partner": "difficult_explorer81",
+                    "post_id": "1b54tm1",
+                    "timestamp": 1709919592
                 }
             ]
         },
@@ -59477,6 +59515,12 @@
                     "partner": "arcanetheory",
                     "post_id": "1b1i5h0",
                     "timestamp": 1709868556
+                },
+                {
+                    "comment_id": "ktsv9nr",
+                    "partner": "jrpaperstax",
+                    "post_id": "1b1i5h0",
+                    "timestamp": 1709928058
                 }
             ]
         },
