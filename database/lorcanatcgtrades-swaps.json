@@ -43,7 +43,14 @@
         },
         "chewdizzle12": {
             "legacy_count": 10,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kufkajf",
+                    "partner": "pkmntcgtradeguy",
+                    "post_id": "1aynrr2",
+                    "timestamp": 1710194291
+                }
+            ]
         },
         "chinaronald": {
             "legacy_count": 1,
@@ -68,6 +75,16 @@
         "fardo805": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "furiouslybating": {
+            "transactions": [
+                {
+                    "comment_id": "kug94lh",
+                    "partner": "rebatwa2",
+                    "post_id": "1b6ia9z",
+                    "timestamp": 1710203534
+                }
+            ]
         },
         "fuzzypurplething": {
             "legacy_count": 1,
@@ -134,7 +151,14 @@
         },
         "lildill20": {
             "legacy_count": 6,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kue8xmy",
+                    "partner": "secret_agent89",
+                    "post_id": "1b9p43p",
+                    "timestamp": 1710295220
+                }
+            ]
         },
         "lorelorcana": {
             "legacy_count": 1,
@@ -151,6 +175,16 @@
         "mmil223": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "mrkboss": {
+            "transactions": [
+                {
+                    "comment_id": "ku44cmc",
+                    "partner": "pkmntcgtradeguy",
+                    "post_id": "1b5hqxe",
+                    "timestamp": 1710016734
+                }
+            ]
         },
         "mztredecim": {
             "legacy_count": 3,
@@ -182,6 +216,22 @@
         "phdextreme": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "pkmntcgtradeguy": {
+            "transactions": [
+                {
+                    "comment_id": "ku44cmc",
+                    "partner": "mrkboss",
+                    "post_id": "1b5hqxe",
+                    "timestamp": 1710016734
+                },
+                {
+                    "comment_id": "kufkajf",
+                    "partner": "chewdizzle12",
+                    "post_id": "1aynrr2",
+                    "timestamp": 1710194291
+                }
+            ]
         },
         "pokemonpenguin": {
             "legacy_count": 2,
@@ -219,6 +269,12 @@
                     "partner": "secret_agent89",
                     "post_id": "1at30cu",
                     "timestamp": 1708881365
+                },
+                {
+                    "comment_id": "kug94lh",
+                    "partner": "furiouslybating",
+                    "post_id": "1b6ia9z",
+                    "timestamp": 1710203534
                 }
             ]
         },
@@ -266,6 +322,12 @@
                     "partner": "t629r",
                     "post_id": "1b1tfz4",
                     "timestamp": 1709848691
+                },
+                {
+                    "comment_id": "kue8xmy",
+                    "partner": "lildill20",
+                    "post_id": "1b9p43p",
+                    "timestamp": 1710295220
                 }
             ]
         },

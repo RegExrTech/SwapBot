@@ -535,6 +535,12 @@
                     "partner": "minimal-camera",
                     "post_id": "19b40us",
                     "timestamp": 1706198643
+                },
+                {
+                    "comment_id": "kti4qwk",
+                    "partner": "shropshire-slasher",
+                    "post_id": "1b5utii",
+                    "timestamp": 1710160432
                 }
             ]
         },
@@ -1119,6 +1125,12 @@
                     "partner": "adequatebeats",
                     "post_id": "1ant40y",
                     "timestamp": 1708726997
+                },
+                {
+                    "comment_id": "ktyo7qg",
+                    "partner": "popular_act9968",
+                    "post_id": "1b5wnvk",
+                    "timestamp": 1710057671
                 }
             ]
         },
@@ -2509,6 +2521,16 @@
                     "partner": "dubteka",
                     "post_id": "1127d1n",
                     "timestamp": 0
+                }
+            ]
+        },
+        "eptronic": {
+            "transactions": [
+                {
+                    "comment_id": "ktip7cw",
+                    "partner": "shropshire-slasher",
+                    "post_id": "1b5umci",
+                    "timestamp": 1710209226
                 }
             ]
         },
@@ -5616,6 +5638,16 @@
                 }
             ]
         },
+        "popular_act9968": {
+            "transactions": [
+                {
+                    "comment_id": "ktyo7qg",
+                    "partner": "bladexngt",
+                    "post_id": "1b5wnvk",
+                    "timestamp": 1710057671
+                }
+            ]
+        },
         "porschedriver37": {
             "transactions": [
                 {
@@ -6497,6 +6529,22 @@
                     "partner": "imnotclumsy",
                     "post_id": "zxwrpt",
                     "timestamp": 0
+                }
+            ]
+        },
+        "shropshire-slasher": {
+            "transactions": [
+                {
+                    "comment_id": "kti4qwk",
+                    "partner": "almightyler",
+                    "post_id": "1b5utii",
+                    "timestamp": 1710160432
+                },
+                {
+                    "comment_id": "ktip7cw",
+                    "partner": "eptronic",
+                    "post_id": "1b5umci",
+                    "timestamp": 1710209226
                 }
             ]
         },
