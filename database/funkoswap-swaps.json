@@ -61279,6 +61279,12 @@
                     "partner": "slickfromwi",
                     "post_id": "1ac4bit",
                     "timestamp": 1706832212
+                },
+                {
+                    "comment_id": "kuwnrwc",
+                    "partner": "zachseatdriver",
+                    "post_id": "1b916b0",
+                    "timestamp": 1710457369
                 }
             ]
         },
@@ -99891,6 +99897,16 @@
         "zach1394": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "zachseatdriver": {
+            "transactions": [
+                {
+                    "comment_id": "kuwnrwc",
+                    "partner": "naru_the_narcissist",
+                    "post_id": "1b916b0",
+                    "timestamp": 1710457369
+                }
+            ]
         },
         "zachymalicious": {
             "legacy_count": 4,

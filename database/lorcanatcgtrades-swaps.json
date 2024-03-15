@@ -241,6 +241,12 @@
                     "partner": "stevethepigeon",
                     "post_id": "1aoef3d",
                     "timestamp": 1709117497
+                },
+                {
+                    "comment_id": "kupsf90",
+                    "partner": "scrub40ktactics",
+                    "post_id": "1azwi9b",
+                    "timestamp": 1710356534
                 }
             ]
         },
@@ -289,6 +295,16 @@
         "scotthall2ez": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "scrub40ktactics": {
+            "transactions": [
+                {
+                    "comment_id": "kupsf90",
+                    "partner": "pokemonpenguin",
+                    "post_id": "1azwi9b",
+                    "timestamp": 1710356534
+                }
+            ]
         },
         "secret_agent89": {
             "legacy_count": 15,

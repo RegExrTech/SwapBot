@@ -9137,6 +9137,12 @@
                     "partner": "mohsenayadi",
                     "post_id": "183l6wv",
                     "timestamp": 1705111264
+                },
+                {
+                    "comment_id": "kuv1bsn",
+                    "partner": "emlf",
+                    "post_id": "1beqcr4",
+                    "timestamp": 1710443872
                 }
             ]
         },
@@ -12471,6 +12477,16 @@
         "emirhan87": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "emlf": {
+            "transactions": [
+                {
+                    "comment_id": "kuv1bsn",
+                    "partner": "crunchyteatime",
+                    "post_id": "1beqcr4",
+                    "timestamp": 1710443872
+                }
+            ]
         },
         "emlily91": {
             "legacy_count": 1,
