@@ -1373,6 +1373,18 @@
                     "partner": "civil-seaweed-69",
                     "post_id": "18z8h4p",
                     "timestamp": 1704833985
+                },
+                {
+                    "comment_id": "kv6wzyv",
+                    "partner": "sg6128",
+                    "post_id": "1bcme5u",
+                    "timestamp": 1710623850
+                },
+                {
+                    "comment_id": "kvclazl",
+                    "partner": "techsqueeze",
+                    "post_id": "1bg9p7c",
+                    "timestamp": 1710717211
                 }
             ]
         },
@@ -1637,6 +1649,16 @@
                     "partner": "thesheldor96",
                     "post_id": "14lu9yw",
                     "timestamp": 0
+                }
+            ]
+        },
+        "butterfly_coupe": {
+            "transactions": [
+                {
+                    "comment_id": "kvah431",
+                    "partner": "techsqueeze",
+                    "post_id": "1bg9xix",
+                    "timestamp": 1710691326
                 }
             ]
         },
@@ -4219,6 +4241,12 @@
                     "partner": "techsqueeze",
                     "post_id": "19euybj",
                     "timestamp": 1706142126
+                },
+                {
+                    "comment_id": "kvfxc4x",
+                    "partner": "techsqueeze",
+                    "post_id": "1axr8wx",
+                    "timestamp": 1710777702
                 }
             ]
         },
@@ -5649,6 +5677,12 @@
                     "partner": "relationill7507",
                     "post_id": "196n6ku",
                     "timestamp": 1705510772
+                },
+                {
+                    "comment_id": "kvfyhly",
+                    "partner": "techsqueeze",
+                    "post_id": "1bc5hln",
+                    "timestamp": 1710778332
                 }
             ]
         },
@@ -8038,6 +8072,16 @@
                 }
             ]
         },
+        "sg6128": {
+            "transactions": [
+                {
+                    "comment_id": "kv6wzyv",
+                    "partner": "blakedezormo",
+                    "post_id": "1bcme5u",
+                    "timestamp": 1710623850
+                }
+            ]
+        },
         "shazoocow": {
             "transactions": [
                 {
@@ -9075,6 +9119,30 @@
                     "partner": "tungamy1234",
                     "post_id": "1bb2bky",
                     "timestamp": 1710109817
+                },
+                {
+                    "comment_id": "kvah431",
+                    "partner": "butterfly_coupe",
+                    "post_id": "1bg9xix",
+                    "timestamp": 1710691326
+                },
+                {
+                    "comment_id": "kvclazl",
+                    "partner": "blakedezormo",
+                    "post_id": "1bg9p7c",
+                    "timestamp": 1710717211
+                },
+                {
+                    "comment_id": "kvfxc4x",
+                    "partner": "illegalavocado",
+                    "post_id": "1axr8wx",
+                    "timestamp": 1710777702
+                },
+                {
+                    "comment_id": "kvfyhly",
+                    "partner": "many_distribution_21",
+                    "post_id": "1bc5hln",
+                    "timestamp": 1710778332
                 }
             ]
         },

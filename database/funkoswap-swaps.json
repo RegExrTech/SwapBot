@@ -25428,6 +25428,16 @@
             "legacy_count": 2,
             "transactions": []
         },
+        "dubsali": {
+            "transactions": [
+                {
+                    "comment_id": "kv2a7oz",
+                    "partner": "udondraper",
+                    "post_id": "1b1nf9b",
+                    "timestamp": 1710543501
+                }
+            ]
+        },
         "duckquacks": {
             "transactions": [
                 {
@@ -28953,6 +28963,12 @@
                     "partner": "goodluck-on-that-ace",
                     "post_id": "10ew5jz",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kv2ufpv",
+                    "partner": "sentientsickness",
+                    "post_id": "1b2o45i",
+                    "timestamp": 1710551449
                 }
             ]
         },
@@ -77896,6 +77912,16 @@
                 }
             ]
         },
+        "sentientsickness": {
+            "transactions": [
+                {
+                    "comment_id": "kv2ufpv",
+                    "partner": "felixthecat15",
+                    "post_id": "1b2o45i",
+                    "timestamp": 1710551449
+                }
+            ]
+        },
         "sentinel_ltd": {
             "transactions": [
                 {
@@ -83303,6 +83329,12 @@
                     "partner": "nightmaresreal",
                     "post_id": "i3atl8",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kv2a2lk",
+                    "partner": "udondraper",
+                    "post_id": "1b8d1ar",
+                    "timestamp": 1710543397
                 }
             ]
         },
@@ -94052,6 +94084,18 @@
                     "partner": "blublukachoo",
                     "post_id": "1amkmpp",
                     "timestamp": 1708736739
+                },
+                {
+                    "comment_id": "kv2a2lk",
+                    "partner": "stoneram13",
+                    "post_id": "1b8d1ar",
+                    "timestamp": 1710543397
+                },
+                {
+                    "comment_id": "kv2a7oz",
+                    "partner": "dubsali",
+                    "post_id": "1b1nf9b",
+                    "timestamp": 1710543501
                 }
             ]
         },
