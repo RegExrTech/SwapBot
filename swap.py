@@ -1012,7 +1012,7 @@ def main():
 			handle_manual_adjustment(message, sub_config)
 		elif message.body[0:9] == "$transfer":
 			handle_flair_transfer(message, sub_config)
-		elif message.body[0:9] == "$backfill":
+		elif message.body[0:6] == "$batch":
 			handle_legacy_add(message, sub_config)
 		else:
 			handle_swap_data_request(message, sub_config)
