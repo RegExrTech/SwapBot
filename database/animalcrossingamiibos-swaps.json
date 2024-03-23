@@ -19012,6 +19012,12 @@
                     "partner": "bwtgamer",
                     "post_id": "14n9net",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kvtfj73",
+                    "partner": "verdant00",
+                    "post_id": "1bf7y21",
+                    "timestamp": 1710980303
                 }
             ]
         },
@@ -52864,6 +52870,16 @@
                     "partner": "wingsoffire0027",
                     "post_id": "qokn1t",
                     "timestamp": 0
+                }
+            ]
+        },
+        "verdant00": {
+            "transactions": [
+                {
+                    "comment_id": "kvtfj73",
+                    "partner": "giraffepimp00",
+                    "post_id": "1bf7y21",
+                    "timestamp": 1710980303
                 }
             ]
         },

@@ -717,6 +717,16 @@
                 }
             ]
         },
+        "available-fly2280": {
+            "transactions": [
+                {
+                    "comment_id": "kw5j704",
+                    "partner": "daru-triton",
+                    "post_id": "1b9g1hr",
+                    "timestamp": 1711180447
+                }
+            ]
+        },
         "avintagedude": {
             "legacy_count": 2,
             "transactions": []
@@ -1355,6 +1365,16 @@
         "danishlad": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "daru-triton": {
+            "transactions": [
+                {
+                    "comment_id": "kw5j704",
+                    "partner": "available-fly2280",
+                    "post_id": "1b9g1hr",
+                    "timestamp": 1711180447
+                }
+            ]
         },
         "dava_bry": {
             "transactions": [
@@ -4451,6 +4471,12 @@
                     "partner": "fish_taco_pirate",
                     "post_id": "1b798sc",
                     "timestamp": 1710168746
+                },
+                {
+                    "comment_id": "kvmxahi",
+                    "partner": "sirjohnrl",
+                    "post_id": "1b798sc",
+                    "timestamp": 1710882493
                 }
             ]
         },
@@ -5052,6 +5078,16 @@
         "sinned_21": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "sirjohnrl": {
+            "transactions": [
+                {
+                    "comment_id": "kvmxahi",
+                    "partner": "psa10exodia",
+                    "post_id": "1b798sc",
+                    "timestamp": 1710882493
+                }
+            ]
         },
         "skriefal": {
             "transactions": [

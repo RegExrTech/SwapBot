@@ -4117,6 +4117,12 @@
                     "partner": "brettbretterson_44",
                     "post_id": "18ar5b1",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kvtfrf6",
+                    "partner": "thecolossal",
+                    "post_id": "1bfx11s",
+                    "timestamp": 1710980395
                 }
             ]
         },
@@ -4894,6 +4900,16 @@
                     "partner": "adelegant5073",
                     "post_id": "183x6e0",
                     "timestamp": 0
+                }
+            ]
+        },
+        "kgillll": {
+            "transactions": [
+                {
+                    "comment_id": "kvm543q",
+                    "partner": "thecolossal",
+                    "post_id": "1batygs",
+                    "timestamp": 1710874447
                 }
             ]
         },
@@ -9356,6 +9372,22 @@
                     "partner": "copilot3",
                     "post_id": "18x1v88",
                     "timestamp": 1707348855
+                }
+            ]
+        },
+        "thecolossal": {
+            "transactions": [
+                {
+                    "comment_id": "kvm543q",
+                    "partner": "kgillll",
+                    "post_id": "1batygs",
+                    "timestamp": 1710874447
+                },
+                {
+                    "comment_id": "kvtfrf6",
+                    "partner": "hoteliercanada",
+                    "post_id": "1bfx11s",
+                    "timestamp": 1710980395
                 }
             ]
         },

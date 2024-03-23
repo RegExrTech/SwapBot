@@ -12485,6 +12485,12 @@
                     "partner": "crunchyteatime",
                     "post_id": "1beqcr4",
                     "timestamp": 1710443872
+                },
+                {
+                    "comment_id": "kw2fq9p",
+                    "partner": "wellingtonfiasco",
+                    "post_id": "1bl1kdi",
+                    "timestamp": 1711132451
                 }
             ]
         },
@@ -43237,6 +43243,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "undersirableloser": {
+            "transactions": [
+                {
+                    "comment_id": "kvk4cbi",
+                    "partner": "xgiftbolzen",
+                    "post_id": "1b9vmlk",
+                    "timestamp": 1711072858
+                }
+            ]
+        },
         "unequivocally_maybe": {
             "legacy_count": 1,
             "transactions": []
@@ -44369,6 +44385,16 @@
                 }
             ]
         },
+        "wellingtonfiasco": {
+            "transactions": [
+                {
+                    "comment_id": "kw2fq9p",
+                    "partner": "emlf",
+                    "post_id": "1bl1kdi",
+                    "timestamp": 1711132451
+                }
+            ]
+        },
         "wellsdb": {
             "legacy_count": 1,
             "transactions": []
@@ -45199,6 +45225,16 @@
         "xfabinatorx": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "xgiftbolzen": {
+            "transactions": [
+                {
+                    "comment_id": "kvk4cbi",
+                    "partner": "undersirableloser",
+                    "post_id": "1b9vmlk",
+                    "timestamp": 1711072858
+                }
+            ]
         },
         "xhellcatx": {
             "legacy_count": 1,
