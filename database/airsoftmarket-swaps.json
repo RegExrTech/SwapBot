@@ -2344,6 +2344,12 @@
                     "partner": "un-golden",
                     "post_id": "1b1ge9g",
                     "timestamp": 1709263113
+                },
+                {
+                    "comment_id": "kw8qkti",
+                    "partner": "walipino",
+                    "post_id": "1bct378",
+                    "timestamp": 1711225244
                 }
             ]
         },
@@ -8683,6 +8689,12 @@
                     "partner": "idk324553",
                     "post_id": "116r3qy",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kw3shaw",
+                    "partner": "lumpy-increase-4536",
+                    "post_id": "1bhg740",
+                    "timestamp": 1711203339
                 }
             ]
         },
@@ -21497,6 +21509,12 @@
                     "partner": "moses888",
                     "post_id": "oafsit",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kvcd481",
+                    "partner": "dysfunxn",
+                    "post_id": "1bchdew",
+                    "timestamp": 1711224072
                 }
             ]
         },
@@ -22613,6 +22631,12 @@
                     "partner": "parasitisch",
                     "post_id": "1bd2vqr",
                     "timestamp": 1710716569
+                },
+                {
+                    "comment_id": "kvcd481",
+                    "partner": "drag0nloliz",
+                    "post_id": "1bchdew",
+                    "timestamp": 1711224072
                 }
             ]
         },
@@ -35140,6 +35164,12 @@
                     "partner": "oneshotsammyv2",
                     "post_id": "197lnz4",
                     "timestamp": 1705891112
+                },
+                {
+                    "comment_id": "kw4wlu3",
+                    "partner": "srirachasenpai",
+                    "post_id": "1ba9ar7",
+                    "timestamp": 1711245842
                 }
             ]
         },
@@ -41510,6 +41540,16 @@
             "legacy_count": 3,
             "transactions": []
         },
+        "lumpy-increase-4536": {
+            "transactions": [
+                {
+                    "comment_id": "kw3shaw",
+                    "partner": "bloodied_angel",
+                    "post_id": "1bhg740",
+                    "timestamp": 1711203339
+                }
+            ]
+        },
         "lunar_flight": {
             "legacy_count": 1,
             "transactions": []
@@ -43661,6 +43701,18 @@
                     "partner": "crispybrother76",
                     "post_id": "13ux1bv",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kw8vx4x",
+                    "partner": "robit92",
+                    "post_id": "1bfkk9q",
+                    "timestamp": 1711227124
+                },
+                {
+                    "comment_id": "kw8yai1",
+                    "partner": "sizablesquirrel96",
+                    "post_id": "1bfkk9q",
+                    "timestamp": 1711231409
                 }
             ]
         },
@@ -56186,6 +56238,16 @@
                 }
             ]
         },
+        "robit92": {
+            "transactions": [
+                {
+                    "comment_id": "kw8vx4x",
+                    "partner": "mikeofsiberia",
+                    "post_id": "1bfkk9q",
+                    "timestamp": 1711227124
+                }
+            ]
+        },
         "robocop613": {
             "transactions": [
                 {
@@ -60753,6 +60815,16 @@
                 }
             ]
         },
+        "sizablesquirrel96": {
+            "transactions": [
+                {
+                    "comment_id": "kw8yai1",
+                    "partner": "mikeofsiberia",
+                    "post_id": "1bfkk9q",
+                    "timestamp": 1711231409
+                }
+            ]
+        },
         "sk8fastclapass": {
             "transactions": [
                 {
@@ -63389,6 +63461,12 @@
                     "partner": "jackplaysgamesyt",
                     "post_id": "13vo6ym",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "kw4wlu3",
+                    "partner": "jetra1",
+                    "post_id": "1ba9ar7",
+                    "timestamp": 1711245842
                 }
             ]
         },
@@ -73818,6 +73896,12 @@
                     "partner": "zeppelin991",
                     "post_id": "19fhhnq",
                     "timestamp": 1707102792
+                },
+                {
+                    "comment_id": "kw8qkti",
+                    "partner": "airsoft_chay",
+                    "post_id": "1bct378",
+                    "timestamp": 1711225244
                 }
             ]
         },

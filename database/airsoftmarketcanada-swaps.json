@@ -6173,6 +6173,12 @@
                     "partner": "missfortunesrack",
                     "post_id": "1bcd0au",
                     "timestamp": 1711136771
+                },
+                {
+                    "comment_id": "kvz11aw",
+                    "partner": "paintcatcher",
+                    "post_id": "1b4w78c",
+                    "timestamp": 1711202436
                 }
             ]
         },
@@ -17916,6 +17922,16 @@
                     "partner": "sanmao333",
                     "post_id": "1bia6bt",
                     "timestamp": 1710980594
+                }
+            ]
+        },
+        "paintcatcher": {
+            "transactions": [
+                {
+                    "comment_id": "kvz11aw",
+                    "partner": "cdn_citizen",
+                    "post_id": "1b4w78c",
+                    "timestamp": 1711202436
                 }
             ]
         },
