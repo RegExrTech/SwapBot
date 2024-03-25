@@ -2877,6 +2877,12 @@
                     "partner": "sarcasticalpaca",
                     "post_id": "1atzgx9",
                     "timestamp": 1709163498
+                },
+                {
+                    "comment_id": "kw58tuf",
+                    "partner": "flipizona",
+                    "post_id": "1b3b3u5",
+                    "timestamp": 1711310426
                 }
             ]
         },
@@ -3717,6 +3723,16 @@
                     "partner": "buffalo_lanky",
                     "post_id": "1bbhyhv",
                     "timestamp": 1710360025
+                }
+            ]
+        },
+        "flipizona": {
+            "transactions": [
+                {
+                    "comment_id": "kw58tuf",
+                    "partner": "drumnbace_",
+                    "post_id": "1b3b3u5",
+                    "timestamp": 1711310426
                 }
             ]
         },

@@ -34429,6 +34429,16 @@
                 }
             ]
         },
+        "flagroller": {
+            "transactions": [
+                {
+                    "comment_id": "kwe75tx",
+                    "partner": "x6benzine",
+                    "post_id": "1av3szx",
+                    "timestamp": 1711330684
+                }
+            ]
+        },
         "flakk": {
             "transactions": [
                 {
@@ -107823,6 +107833,12 @@
                     "partner": "lestabblue",
                     "post_id": "1b8j6n4",
                     "timestamp": 1710022066
+                },
+                {
+                    "comment_id": "kwe75tx",
+                    "partner": "flagroller",
+                    "post_id": "1av3szx",
+                    "timestamp": 1711330684
                 }
             ]
         },

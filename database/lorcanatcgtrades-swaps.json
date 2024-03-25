@@ -405,6 +405,12 @@
                     "partner": "lildill20",
                     "post_id": "1b9p43p",
                     "timestamp": 1710295220
+                },
+                {
+                    "comment_id": "kw3m4bq",
+                    "partner": "theprotagonist2",
+                    "post_id": "1b9p43p",
+                    "timestamp": 1711310438
                 }
             ]
         },
@@ -447,7 +453,14 @@
         },
         "theprotagonist2": {
             "legacy_count": 3,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kw3m4bq",
+                    "partner": "secret_agent89",
+                    "post_id": "1b9p43p",
+                    "timestamp": 1711310438
+                }
+            ]
         },
         "thi0711": {
             "legacy_count": 1,
