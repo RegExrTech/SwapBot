@@ -329,7 +329,7 @@ def add_batch_swap():
 	Requested Form Params:
 	String sub_name: The name of the current subreddit
 	String platform: The platform the swaps are coming from
-	Dict user_data {username: swap_text}:
+	Dict user_data {username: {transaction_data}}:
 		String username: Username for a reddit user to update
 		List[Dict] transaction_data {post_id, comment_id, partner, timestamp}
 

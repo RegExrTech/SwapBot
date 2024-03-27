@@ -207,7 +207,7 @@ def GetUserCountsYGOFeedback(authors, ids, sub_config):
 			potential_author_two = comment.author.name.lower()
 
 #			if "+1" in body or "+2" in body:
-			d[author.lower()].append(potential_author_two.lower() + " - https://www.reddit.com" + str(submission.permalink)+str(comment.id) + "/")
+			d[author.lower()].append({'post_id': submission.id, 'comment_id': comment.id, 'partner': potential_author_two.lower(), 'timestamp': comment.created_utc})
 	return d
 
 def GetUserCountsGCXRep(authors, ids, sub_config):
@@ -264,7 +264,7 @@ def GetUserCountsGCXRep(authors, ids, sub_config):
 				if str(reply.author).lower() == potential_author_two:
 					correct_reply = reply
 			if correct_reply:
-				d[author.lower()].append(potential_author_two.lower() + " - https://www.reddit.com" + str(submission.permalink)+str(comment.id))
+				d[author.lower()].append({'post_id': submission.id, 'comment_id': comment.id, 'partner': potential_author_two.lower(), 'timestamp': correct_reply.created_utc})
 	return d
 
 
@@ -289,8 +289,8 @@ def GetUserCountsFromMegaThreads(ids, sub_config):
 			if reply:
 				author1 = str(top_level_comment.author).lower()
 				author2 = partner
-				d[author1].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': int(time.time()), 'partner': author2})
-				d[author2].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': int(time.time()), 'partner': author1})
+				d[author1].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': reply.created_utc, 'partner': author2})
+				d[author2].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': reply.created_utc, 'partner': author1})
 	return d
 
 
@@ -338,8 +338,8 @@ def GetUserCountsWatchExchangeFeedback(authors, ids, sub_config):
 #			if "+1" in comment_text:
 #				d[author].append(giver + " - https://www.reddit.com" + str(comment.permalink))
 		try:
-			d[author.lower()].append(author2.lower() + " - https://www.reddit.com" + str(submission.permalink))
-			d[author2.lower()].append(author.lower() + " - https://www.reddit.com" + str(submission.permalink))
+			d[author.lower()].append({'post_id': submission.id, 'comment_id': "", 'partner': author2.lower(), 'timestamp': submission.created_utc})
+			d[author2.lower()].append({'post_id': submission.id, 'comment_id': "", 'partner': author.lower(), 'timestamp': submission.created_utc})
 		except Exception as e:
 			print("Error encoding some text: ")
 			try:
@@ -398,8 +398,10 @@ print("feedback_sub_name: " + feedback_sub_name)
 ## Use this for backfilling from feedback subs
 #ids, authors = GetIdsFromPushshift(feedback_sub_name)
 
-if sub_name == "giftcardexchange":
-	GetUsersFromCss(sub)
+ids, authors = (set([]), [])
+
+#if sub_name == "giftcardexchange":
+#	authors = GetUsersFromCss(sub)
 
 if sub_name == "gamesale":
 	GetIdsFromUsername('CompletedTradeThread'.lower(), reddit, ids)
