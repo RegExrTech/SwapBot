@@ -1385,6 +1385,12 @@
                     "partner": "techsqueeze",
                     "post_id": "1bg9p7c",
                     "timestamp": 1710717211
+                },
+                {
+                    "comment_id": "kwttxlx",
+                    "partner": "techsqueeze",
+                    "post_id": "1bnjlar",
+                    "timestamp": 1711561037
                 }
             ]
         },
@@ -1466,7 +1472,14 @@
         },
         "brad7659": {
             "legacy_count": 1,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kwvtowu",
+                    "partner": "wallyworld1978",
+                    "post_id": "1bla364",
+                    "timestamp": 1711585517
+                }
+            ]
         },
         "bradend_5": {
             "transactions": [
@@ -9179,6 +9192,12 @@
                     "partner": "many_distribution_21",
                     "post_id": "1bc5hln",
                     "timestamp": 1710778332
+                },
+                {
+                    "comment_id": "kwttxlx",
+                    "partner": "blakedezormo",
+                    "post_id": "1bnjlar",
+                    "timestamp": 1711561037
                 }
             ]
         },
@@ -10032,6 +10051,16 @@
                     "partner": "insaini_007",
                     "post_id": "1azpsnm",
                     "timestamp": 1709042825
+                }
+            ]
+        },
+        "wallyworld1978": {
+            "transactions": [
+                {
+                    "comment_id": "kwvtowu",
+                    "partner": "brad7659",
+                    "post_id": "1bla364",
+                    "timestamp": 1711585517
                 }
             ]
         },

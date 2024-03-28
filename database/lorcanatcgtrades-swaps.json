@@ -59,6 +59,12 @@
                     "partner": "pkmntcgtradeguy",
                     "post_id": "1aynrr2",
                     "timestamp": 1710194291
+                },
+                {
+                    "comment_id": "kwwjohe",
+                    "partner": "nixongsp1992",
+                    "post_id": "1bbp41v",
+                    "timestamp": 1711597133
                 }
             ]
         },
@@ -237,7 +243,14 @@
         },
         "nixongsp1992": {
             "legacy_count": 2,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "kwwjohe",
+                    "partner": "chewdizzle12",
+                    "post_id": "1bbp41v",
+                    "timestamp": 1711597133
+                }
+            ]
         },
         "pepper2moss": {
             "legacy_count": 1,
@@ -246,6 +259,16 @@
         "phdextreme": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "pjvedder89": {
+            "transactions": [
+                {
+                    "comment_id": "kwlci6g",
+                    "partner": "rebatwa2",
+                    "post_id": "1b60bob",
+                    "timestamp": 1711424530
+                }
+            ]
         },
         "pkmntcgtradeguy": {
             "transactions": [
@@ -336,6 +359,12 @@
                     "partner": "maibd",
                     "post_id": "1b6ia9z",
                     "timestamp": 1710909433
+                },
+                {
+                    "comment_id": "kwlci6g",
+                    "partner": "pjvedder89",
+                    "post_id": "1b60bob",
+                    "timestamp": 1711424530
                 }
             ]
         },
