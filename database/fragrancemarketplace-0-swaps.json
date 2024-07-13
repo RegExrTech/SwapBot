@@ -1,0 +1,34 @@
+{
+    "reddit": {
+        "chrislovessushi": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "fragrancemarketplace",
+                    "post_id": "okyu9m",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "fragrancemarketplace": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "chrislovessushi",
+                    "post_id": "okyu9m",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "totallynotregexr": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "regexr",
+                    "post_id": "okyfk8",
+                    "timestamp": 0
+                }
+            ]
+        }
+    }
+}
