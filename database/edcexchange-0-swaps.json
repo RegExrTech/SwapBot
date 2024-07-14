@@ -21797,6 +21797,12 @@
                     "partner": "chnos09",
                     "post_id": "1dxmqvc",
                     "timestamp": 1720740108
+                },
+                {
+                    "comment_id": "ld23ycb",
+                    "partner": "seekingadvice432",
+                    "post_id": "1dxmqvc",
+                    "timestamp": 1720916912
                 }
             ]
         },
@@ -31804,6 +31810,12 @@
                     "partner": "luzzy91",
                     "post_id": "1ayibvd",
                     "timestamp": 1709362156
+                },
+                {
+                    "comment_id": "ld0mzaj",
+                    "partner": "woodyarmadillo11",
+                    "post_id": "1dyqs02",
+                    "timestamp": 1720916428
                 }
             ]
         },
@@ -61145,6 +61157,12 @@
                     "partner": "pocketpriorities",
                     "post_id": "1dqnu0t",
                     "timestamp": 1720028038
+                },
+                {
+                    "comment_id": "ld23ycb",
+                    "partner": "enjoyearth",
+                    "post_id": "1dxmqvc",
+                    "timestamp": 1720916912
                 }
             ]
         },
@@ -62347,6 +62365,16 @@
         "shinyglobes": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "shinyspokes": {
+            "transactions": [
+                {
+                    "comment_id": "lcx9u2e",
+                    "partner": "voltron_blklion",
+                    "post_id": "1dy089p",
+                    "timestamp": 1720922506
+                }
+            ]
         },
         "shirai_mikoto__": {
             "transactions": [
@@ -75818,6 +75846,12 @@
                     "partner": "calvinis",
                     "post_id": "1cd41yq",
                     "timestamp": 1717984881
+                },
+                {
+                    "comment_id": "lcx9u2e",
+                    "partner": "shinyspokes",
+                    "post_id": "1dy089p",
+                    "timestamp": 1720922506
                 }
             ]
         },
@@ -77296,6 +77330,12 @@
                     "partner": "k112l",
                     "post_id": "1dt9yij",
                     "timestamp": 1720355294
+                },
+                {
+                    "comment_id": "ld0mzaj",
+                    "partner": "imqsq",
+                    "post_id": "1dyqs02",
+                    "timestamp": 1720916428
                 }
             ]
         },

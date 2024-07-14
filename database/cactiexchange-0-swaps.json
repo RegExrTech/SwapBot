@@ -1897,6 +1897,12 @@
                     "partner": "slurs818",
                     "post_id": "1dolaxa",
                     "timestamp": 1720477145
+                },
+                {
+                    "comment_id": "ld0xz4n",
+                    "partner": "random_tandem_fandom",
+                    "post_id": "1dx62xt",
+                    "timestamp": 1720916430
                 }
             ]
         },
@@ -6104,6 +6110,16 @@
                     "partner": "midniteflounder",
                     "post_id": "1d9h90o",
                     "timestamp": 1719428530
+                }
+            ]
+        },
+        "random_tandem_fandom": {
+            "transactions": [
+                {
+                    "comment_id": "ld0xz4n",
+                    "partner": "deathed_potato",
+                    "post_id": "1dx62xt",
+                    "timestamp": 1720916430
                 }
             ]
         },
