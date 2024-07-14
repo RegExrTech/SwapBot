@@ -7503,6 +7503,12 @@
                     "partner": "necessary_initial_94",
                     "post_id": "1dxgzcp",
                     "timestamp": 1720657903
+                },
+                {
+                    "comment_id": "lczo0x3",
+                    "partner": "onthruthestorm",
+                    "post_id": "1dy867i",
+                    "timestamp": 1720902530
                 }
             ]
         },
@@ -18953,6 +18959,12 @@
                     "partner": "personwithskin",
                     "post_id": "1bvrzmt",
                     "timestamp": 1712889666
+                },
+                {
+                    "comment_id": "lcy7wz4",
+                    "partner": "kushroom562",
+                    "post_id": "1dx0bb9",
+                    "timestamp": 1720902591
                 }
             ]
         },
@@ -22076,6 +22088,18 @@
                     "partner": "cereusthingstx",
                     "post_id": "1dq3a2v",
                     "timestamp": 1719978499
+                },
+                {
+                    "comment_id": "lcy3vnc",
+                    "partner": "shavedsquirrels",
+                    "post_id": "1e1vm6c",
+                    "timestamp": 1720902647
+                },
+                {
+                    "comment_id": "lcy375c",
+                    "partner": "mycomandala",
+                    "post_id": "1e1vm6c",
+                    "timestamp": 1720902702
                 }
             ]
         },
@@ -26177,6 +26201,12 @@
                     "partner": "weedkillin",
                     "post_id": "1dolft7",
                     "timestamp": 1720797996
+                },
+                {
+                    "comment_id": "lcy7wz4",
+                    "partner": "happyharryhrdon",
+                    "post_id": "1dx0bb9",
+                    "timestamp": 1720902591
                 }
             ]
         },
@@ -31370,6 +31400,16 @@
                 }
             ]
         },
+        "mycomandala": {
+            "transactions": [
+                {
+                    "comment_id": "lcy375c",
+                    "partner": "islandcacti",
+                    "post_id": "1e1vm6c",
+                    "timestamp": 1720902702
+                }
+            ]
+        },
         "mycomania": {
             "legacy_count": 7,
             "transactions": [
@@ -34125,6 +34165,12 @@
                     "partner": "ki3verson",
                     "post_id": "1cubcyg",
                     "timestamp": 1718832970
+                },
+                {
+                    "comment_id": "lczo0x3",
+                    "partner": "cereusthingstx",
+                    "post_id": "1dy867i",
+                    "timestamp": 1720902530
                 }
             ]
         },
@@ -38123,7 +38169,14 @@
         },
         "rough-setting-7262": {
             "legacy_count": 1,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "lcwqw43",
+                    "partner": "waveonbay",
+                    "post_id": "1ds6yvk",
+                    "timestamp": 1720902464
+                }
+            ]
         },
         "roughpuppies": {
             "legacy_count": 10,
@@ -39188,6 +39241,16 @@
                     "partner": "sad-city4870",
                     "post_id": "1deg2vg",
                     "timestamp": 1719518855
+                }
+            ]
+        },
+        "shavedsquirrels": {
+            "transactions": [
+                {
+                    "comment_id": "lcy3vnc",
+                    "partner": "islandcacti",
+                    "post_id": "1e1vm6c",
+                    "timestamp": 1720902647
                 }
             ]
         },
@@ -46917,6 +46980,12 @@
                     "partner": "financeexpress7177",
                     "post_id": "1dnwbgv",
                     "timestamp": 1720399042
+                },
+                {
+                    "comment_id": "lcwqw43",
+                    "partner": "rough-setting-7262",
+                    "post_id": "1ds6yvk",
+                    "timestamp": 1720902464
                 }
             ]
         },

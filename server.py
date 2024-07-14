@@ -300,7 +300,7 @@ def check_comment():
 		comment_data[sub_name][platform]['active'].remove(comment_id)
 	if comment_id in comment_data[sub_name][platform]['archived']:
 		comment_data[sub_name][platform]['archived'].remove(comment_id)
-	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name), should_shard=True)
 	json_helper.dump(comment_data, comment_fname)
 	return jsonify(return_data)
 
@@ -415,7 +415,7 @@ def add_batch_swap():
 					continue
 				swap_data[sub_name][platform][username]['transactions'].append({'post_id': transaction_data['post_id'], 'comment_id': transaction_data['comment_id'], 'partner': transaction_data['partner'], 'timestamp': transaction_data['timestamp']})
 				return_data[username] = 'True'
-	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name), should_shard=True)
 	return jsonify(return_data)
 
 
@@ -452,7 +452,7 @@ def remove_swap():
 			swap_data[sub_name][platform][username]['legacy_count'] -= 1
 		else:
 			swap_data[sub_name][platform][username]['transactions'] = [x for x in swap_data[sub_name][platform][username]['transactions'] if not (x['post_id'] == transaction['post_id'] and x['comment_id'] == transaction['comment_id'] and x['partner'] == transaction['partner'])]
-	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name), should_shard=True)
 	return jsonify({})
 
 @app.route('/remove-user/', methods=["POST"])
@@ -480,7 +480,7 @@ def remove_user():
 		del swap_data[sub_name][platform][username]
 	else:
 		return jsonify({'status': username + ' not found'})
-	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name))
+	json_helper.dump(swap_data[sub_name], swaps_fname.format(sub_name=sub_name), should_shard=True)
 	return jsonify({'status': username + " removed from " + sub_name + " on " + platform})
 
 @app.route('/get-user-count-from-subs/', methods=["GET"])
