@@ -1,5 +1,59 @@
 {
     "reddit": {
+        "tomcatgunner1": {
+            "transactions": [
+                {
+                    "comment_id": "cnw9m1a",
+                    "partner": "3gsid",
+                    "post_id": "2htyl8",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "crbee95",
+                    "partner": "wintercharm",
+                    "post_id": "30t0vc",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "crbeeje",
+                    "partner": "wintercharm",
+                    "post_id": "30t0vc",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "crbeeo3",
+                    "partner": "wintercharm",
+                    "post_id": "30t0vc",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "tomcove6888": {
+            "transactions": [
+                {
+                    "comment_id": "cjx30dq",
+                    "partner": "mikeyjblige",
+                    "post_id": "21tggp",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "cdzgs00",
+                    "partner": "apuapuapu",
+                    "post_id": "1s95y8",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "tomcruise6000": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "zunaid332",
+                    "post_id": "r0f9n1",
+                    "timestamp": 0
+                }
+            ]
+        },
         "tomdmak": {
             "legacy_count": 2,
             "transactions": [
@@ -21173,6 +21227,12 @@
                     "partner": "tuankjd",
                     "post_id": "1dle798",
                     "timestamp": 1719591482
+                },
+                {
+                    "comment_id": "ldda13z",
+                    "partner": "romanpieces",
+                    "post_id": "1dyo5s3",
+                    "timestamp": 1721085854
                 }
             ]
         },
@@ -65134,6 +65194,12 @@
                     "partner": "ascaredturtle",
                     "post_id": "1cg49s4",
                     "timestamp": 1714761156
+                },
+                {
+                    "comment_id": "ldcsxgs",
+                    "partner": "ordinary-habit",
+                    "post_id": "1dxz9wa",
+                    "timestamp": 1721083088
                 }
             ]
         },

@@ -8617,6 +8617,12 @@
                     "partner": "skatterz",
                     "post_id": "1dg0orc",
                     "timestamp": 1719558096
+                },
+                {
+                    "comment_id": "ld2b4ie",
+                    "partner": "yammer1",
+                    "post_id": "1duw03b",
+                    "timestamp": 1721095264
                 }
             ]
         },
@@ -22339,6 +22345,16 @@
                     "partner": "wilson_fisk9",
                     "post_id": "w0chu5",
                     "timestamp": 0
+                }
+            ]
+        },
+        "yammer1": {
+            "transactions": [
+                {
+                    "comment_id": "ld2b4ie",
+                    "partner": "izelo95-",
+                    "post_id": "1duw03b",
+                    "timestamp": 1721095264
                 }
             ]
         },

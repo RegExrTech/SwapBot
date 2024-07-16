@@ -3990,6 +3990,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "charlie-122": {
+            "transactions": [
+                {
+                    "comment_id": "ldenhzh",
+                    "partner": "donttellmyteacher",
+                    "post_id": "1dtcctf",
+                    "timestamp": 1721108227
+                }
+            ]
+        },
         "charliequinn16": {
             "legacy_count": 2,
             "transactions": []
@@ -7375,6 +7385,22 @@
                     "partner": "happyplace28",
                     "post_id": "1bw8t1v",
                     "timestamp": 1713328557
+                }
+            ]
+        },
+        "donttellmyteacher": {
+            "transactions": [
+                {
+                    "comment_id": "ld7b33l",
+                    "partner": "rachelguy72",
+                    "post_id": "1dtcctf",
+                    "timestamp": 1721095300
+                },
+                {
+                    "comment_id": "ldenhzh",
+                    "partner": "charlie-122",
+                    "post_id": "1dtcctf",
+                    "timestamp": 1721108227
                 }
             ]
         },
@@ -14183,6 +14209,12 @@
                     "partner": "cheapfakesuede",
                     "post_id": "1dlxrmi",
                     "timestamp": 1720028689
+                },
+                {
+                    "comment_id": "lcpdma9",
+                    "partner": "sausageguard",
+                    "post_id": "1dlxrmi",
+                    "timestamp": 1721073679
                 }
             ]
         },
@@ -25046,6 +25078,12 @@
                     "partner": "outsideoflogic",
                     "post_id": "1dtzztb",
                     "timestamp": 1721004716
+                },
+                {
+                    "comment_id": "ld7b33l",
+                    "partner": "donttellmyteacher",
+                    "post_id": "1dtcctf",
+                    "timestamp": 1721095300
                 }
             ]
         },
@@ -27513,6 +27551,12 @@
                     "partner": "hesitantpanda",
                     "post_id": "1dhi066",
                     "timestamp": 1720383254
+                },
+                {
+                    "comment_id": "lcpdma9",
+                    "partner": "judgy_garland",
+                    "post_id": "1dlxrmi",
+                    "timestamp": 1721073679
                 }
             ]
         },

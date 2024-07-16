@@ -3042,6 +3042,12 @@
                     "partner": "fire-fuh-tor",
                     "post_id": "1dncx10",
                     "timestamp": 1720288205
+                },
+                {
+                    "comment_id": "ld5bhm0",
+                    "partner": "bot_thinks",
+                    "post_id": "1drpx5n",
+                    "timestamp": 1721073687
                 }
             ]
         },
@@ -9797,6 +9803,16 @@
                     "partner": "thigh_meister",
                     "post_id": "18jebr3",
                     "timestamp": 0
+                }
+            ]
+        },
+        "bot_thinks": {
+            "transactions": [
+                {
+                    "comment_id": "ld5bhm0",
+                    "partner": "alecrm98",
+                    "post_id": "1drpx5n",
+                    "timestamp": 1721073687
                 }
             ]
         },
@@ -55858,6 +55874,12 @@
                     "partner": "poweredbykrisp",
                     "post_id": "1dbhi3d",
                     "timestamp": 1718251916
+                },
+                {
+                    "comment_id": "lddpkoc",
+                    "partner": "poweredbykrisp",
+                    "post_id": "1e2q941",
+                    "timestamp": 1721094207
                 }
             ]
         },
@@ -55952,6 +55974,12 @@
                     "partner": "goawayitstooearly",
                     "post_id": "1dt726k",
                     "timestamp": 1720659187
+                },
+                {
+                    "comment_id": "lddpkoc",
+                    "partner": "potterkun",
+                    "post_id": "1e2q941",
+                    "timestamp": 1721094207
                 }
             ]
         },
