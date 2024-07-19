@@ -95839,6 +95839,16 @@
                 }
             ]
         },
+        "vm_rumble": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "lupeh",
+                    "post_id": "bmdb54",
+                    "timestamp": 0
+                }
+            ]
+        },
         "vn_greed": {
             "legacy_count": 1,
             "transactions": []

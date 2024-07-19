@@ -1854,6 +1854,12 @@
                     "partner": "mali1959",
                     "post_id": "1dt5jgl",
                     "timestamp": 1720836058
+                },
+                {
+                    "comment_id": "ldck7ll",
+                    "partner": "lampshadetricky",
+                    "post_id": "1dvimh9",
+                    "timestamp": 1721181686
                 }
             ]
         },
@@ -15611,6 +15617,18 @@
                     "partner": "cheapfakesuede",
                     "post_id": "1dvimh9",
                     "timestamp": 1720972303
+                },
+                {
+                    "comment_id": "ldck7ll",
+                    "partner": "askinnysnorlax",
+                    "post_id": "1dvimh9",
+                    "timestamp": 1721181686
+                },
+                {
+                    "comment_id": "ldd1jge",
+                    "partner": "mali1959",
+                    "post_id": "1dt5jgl",
+                    "timestamp": 1721181995
                 }
             ]
         },
@@ -17559,6 +17577,12 @@
                     "partner": "askinnysnorlax",
                     "post_id": "1dt5jgl",
                     "timestamp": 1720836058
+                },
+                {
+                    "comment_id": "ldd1jge",
+                    "partner": "lampshadetricky",
+                    "post_id": "1dt5jgl",
+                    "timestamp": 1721181995
                 }
             ]
         },
@@ -22107,6 +22131,12 @@
                     "partner": "rachelguy72",
                     "post_id": "1dtzztb",
                     "timestamp": 1721004716
+                },
+                {
+                    "comment_id": "ldi28yl",
+                    "partner": "tgifreyjasday",
+                    "post_id": "1dsi59h",
+                    "timestamp": 1721162000
                 }
             ]
         },
@@ -23913,6 +23943,16 @@
                     "partner": "coyotesangel",
                     "post_id": "q49b49",
                     "timestamp": 0
+                }
+            ]
+        },
+        "present_truck3305": {
+            "transactions": [
+                {
+                    "comment_id": "ldp6xxq",
+                    "partner": "soonerpgh",
+                    "post_id": "1dzqpll",
+                    "timestamp": 1721263252
                 }
             ]
         },
@@ -29926,6 +29966,16 @@
                 }
             ]
         },
+        "soonerpgh": {
+            "transactions": [
+                {
+                    "comment_id": "ldp6xxq",
+                    "partner": "present_truck3305",
+                    "post_id": "1dzqpll",
+                    "timestamp": 1721263252
+                }
+            ]
+        },
         "sooperstoked": {
             "legacy_count": 21,
             "transactions": [
@@ -31989,6 +32039,12 @@
                     "partner": "rachelguy72",
                     "post_id": "1cg4ncw",
                     "timestamp": 1715445707
+                },
+                {
+                    "comment_id": "ldi28yl",
+                    "partner": "outsideoflogic",
+                    "post_id": "1dsi59h",
+                    "timestamp": 1721162000
                 }
             ]
         },
