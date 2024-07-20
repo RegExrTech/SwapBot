@@ -18510,6 +18510,12 @@
                     "partner": "null5423",
                     "post_id": "1b7u0uz",
                     "timestamp": 1711051280
+                },
+                {
+                    "comment_id": "ldxnoqh",
+                    "partner": "therealwsquared",
+                    "post_id": "1e4avmu",
+                    "timestamp": 1721399539
                 }
             ]
         },
@@ -72823,6 +72829,16 @@
         "therealtiirz": {
             "legacy_count": 68,
             "transactions": []
+        },
+        "therealwsquared": {
+            "transactions": [
+                {
+                    "comment_id": "ldxnoqh",
+                    "partner": "crispybrother76",
+                    "post_id": "1e4avmu",
+                    "timestamp": 1721399539
+                }
+            ]
         },
         "therooster27": {
             "legacy_count": 1,

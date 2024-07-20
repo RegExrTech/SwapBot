@@ -5265,6 +5265,16 @@
                 }
             ]
         },
+        "ayelenwrites": {
+            "transactions": [
+                {
+                    "comment_id": "lduxnfi",
+                    "partner": "brown_ajah_",
+                    "post_id": "1e225ap",
+                    "timestamp": 1721419966
+                }
+            ]
+        },
         "ayrawinter": {
             "transactions": [
                 {
@@ -7349,6 +7359,12 @@
                     "partner": "partybots",
                     "post_id": "1dtpuys",
                     "timestamp": 1720663290
+                },
+                {
+                    "comment_id": "lduxnfi",
+                    "partner": "ayelenwrites",
+                    "post_id": "1e225ap",
+                    "timestamp": 1721419966
                 }
             ]
         },
