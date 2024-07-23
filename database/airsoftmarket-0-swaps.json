@@ -2005,6 +2005,16 @@
                 }
             ]
         },
+        "admirable-bread1757": {
+            "transactions": [
+                {
+                    "comment_id": "leh78b8",
+                    "partner": "airsoftsnipe",
+                    "post_id": "1e5lcvd",
+                    "timestamp": 1721698703
+                }
+            ]
+        },
         "adonvonpanzern": {
             "transactions": [
                 {
@@ -2644,6 +2654,16 @@
         "airsoftscrub": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "airsoftsnipe": {
+            "transactions": [
+                {
+                    "comment_id": "leh78b8",
+                    "partner": "admirable-bread1757",
+                    "post_id": "1e5lcvd",
+                    "timestamp": 1721698703
+                }
+            ]
         },
         "airsofttrashpanda": {
             "legacy_count": 20,
@@ -7973,6 +7993,12 @@
                     "partner": "fr0st3ythesnowman",
                     "post_id": "1cgkw8t",
                     "timestamp": 1717272024
+                },
+                {
+                    "comment_id": "lee9xp2",
+                    "partner": "special_risk_6160",
+                    "post_id": "1dxnlaj",
+                    "timestamp": 1721663419
                 }
             ]
         },
@@ -10957,6 +10983,12 @@
                     "partner": "flatboigrant",
                     "post_id": "1e1nudj",
                     "timestamp": 1721246434
+                },
+                {
+                    "comment_id": "le1b55c",
+                    "partner": "heywhatsupbigguy",
+                    "post_id": "1dwyi8k",
+                    "timestamp": 1721497677
                 }
             ]
         },
@@ -19282,6 +19314,12 @@
                     "partner": "acespitfire-",
                     "post_id": "18qa253",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lebyby1",
+                    "partner": "ottereffect",
+                    "post_id": "1dx8cnj",
+                    "timestamp": 1721638400
                 }
             ]
         },
@@ -22125,6 +22163,12 @@
                     "partner": "airsoft_chay",
                     "post_id": "1dn3fq6",
                     "timestamp": 1720145849
+                },
+                {
+                    "comment_id": "legpx97",
+                    "partner": "friedeggsinc",
+                    "post_id": "1e0yx5g",
+                    "timestamp": 1721697019
                 }
             ]
         },
@@ -28944,6 +28988,12 @@
                     "partner": "shockgames_13",
                     "post_id": "1bn1tt6",
                     "timestamp": 1711649275
+                },
+                {
+                    "comment_id": "legpx97",
+                    "partner": "dnasamurai",
+                    "post_id": "1e0yx5g",
+                    "timestamp": 1721697019
                 }
             ]
         },
@@ -32573,6 +32623,16 @@
         "heyraxa": {
             "legacy_count": 14,
             "transactions": []
+        },
+        "heywhatsupbigguy": {
+            "transactions": [
+                {
+                    "comment_id": "le1b55c",
+                    "partner": "bubbly_ant7411",
+                    "post_id": "1dwyi8k",
+                    "timestamp": 1721497677
+                }
+            ]
         },
         "hfd2340": {
             "legacy_count": 3,
@@ -39017,6 +39077,16 @@
         "kampfer777": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "kamunet": {
+            "transactions": [
+                {
+                    "comment_id": "ldz11z8",
+                    "partner": "parasitisch",
+                    "post_id": "1e2mlvh",
+                    "timestamp": 1721494645
+                }
+            ]
         },
         "kanjospirit": {
             "transactions": [
@@ -52902,6 +52972,12 @@
                     "partner": "biggest_reddit_noob",
                     "post_id": "18n7gtz",
                     "timestamp": 1713941789
+                },
+                {
+                    "comment_id": "lebyby1",
+                    "partner": "cyy8883",
+                    "post_id": "1dx8cnj",
+                    "timestamp": 1721638400
                 }
             ]
         },
@@ -53994,6 +54070,12 @@
                     "partner": "akyer_besiege",
                     "post_id": "1de2doi",
                     "timestamp": 1718726979
+                },
+                {
+                    "comment_id": "ldz11z8",
+                    "partner": "kamunet",
+                    "post_id": "1e2mlvh",
+                    "timestamp": 1721494645
                 }
             ]
         },
@@ -66624,6 +66706,16 @@
         "spearhead90": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "special_risk_6160": {
+            "transactions": [
+                {
+                    "comment_id": "lee9xp2",
+                    "partner": "bawwsicle",
+                    "post_id": "1dxnlaj",
+                    "timestamp": 1721663419
+                }
+            ]
         },
         "specopsg": {
             "transactions": [
