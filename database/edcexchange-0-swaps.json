@@ -2488,6 +2488,12 @@
                     "partner": "superlum",
                     "post_id": "1d7l88k",
                     "timestamp": 1721111901
+                },
+                {
+                    "comment_id": "lf9vleg",
+                    "partner": "fortaye",
+                    "post_id": "1d7l88k",
+                    "timestamp": 1722130436
                 }
             ]
         },
@@ -8360,6 +8366,12 @@
                     "partner": "bitter_ad_3820",
                     "post_id": "1e64k7p",
                     "timestamp": 1721689559
+                },
+                {
+                    "comment_id": "lf82hxx",
+                    "partner": "leek_queasy",
+                    "post_id": "1e64k7p",
+                    "timestamp": 1722105210
                 }
             ]
         },
@@ -9185,6 +9197,12 @@
                     "partner": "cwald56",
                     "post_id": "1ajkr17",
                     "timestamp": 1708636417
+                },
+                {
+                    "comment_id": "lf8hdfv",
+                    "partner": "superlum",
+                    "post_id": "1eaic7y",
+                    "timestamp": 1722110360
                 }
             ]
         },
@@ -9443,6 +9461,12 @@
                     "partner": "binarylogic",
                     "post_id": "1e4ulix",
                     "timestamp": 1722024784
+                },
+                {
+                    "comment_id": "lf0ya7i",
+                    "partner": "sycrae",
+                    "post_id": "1e4uu0p",
+                    "timestamp": 1722110543
                 }
             ]
         },
@@ -24364,6 +24388,12 @@
                     "partner": "whoiscaleb_",
                     "post_id": "1254835",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lf9vleg",
+                    "partner": "_incredible_bulk_",
+                    "post_id": "1d7l88k",
+                    "timestamp": 1722130436
                 }
             ]
         },
@@ -35879,6 +35909,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "jsleyva": {
+            "transactions": [
+                {
+                    "comment_id": "lfad5as",
+                    "partner": "senordevil",
+                    "post_id": "1e8yi96",
+                    "timestamp": 1722139235
+                }
+            ]
+        },
         "jstew622": {
             "legacy_count": 1,
             "transactions": []
@@ -39037,6 +39077,12 @@
                     "partner": "truthisitall",
                     "post_id": "1e1q2df",
                     "timestamp": 1721354448
+                },
+                {
+                    "comment_id": "lf82hxx",
+                    "partner": "beerlawbro",
+                    "post_id": "1e64k7p",
+                    "timestamp": 1722105210
                 }
             ]
         },
@@ -61934,6 +61980,12 @@
                     "partner": "revealthekraken",
                     "post_id": "1e8yi96",
                     "timestamp": 1722019998
+                },
+                {
+                    "comment_id": "lfad5as",
+                    "partner": "jsleyva",
+                    "post_id": "1e8yi96",
+                    "timestamp": 1722139235
                 }
             ]
         },
@@ -67322,6 +67374,12 @@
                     "partner": "illwill318",
                     "post_id": "1dxw5kc",
                     "timestamp": 1721115485
+                },
+                {
+                    "comment_id": "lf8hdfv",
+                    "partner": "biljsjehd",
+                    "post_id": "1eaic7y",
+                    "timestamp": 1722110360
                 }
             ]
         },
@@ -67722,6 +67780,12 @@
                     "partner": "raayzo",
                     "post_id": "w69b9m",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lf0ya7i",
+                    "partner": "billythekid7413",
+                    "post_id": "1e4uu0p",
+                    "timestamp": 1722110543
                 }
             ]
         },

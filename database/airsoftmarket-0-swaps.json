@@ -2018,6 +2018,12 @@
                     "partner": "airsoftsnipe",
                     "post_id": "1e5lcvd",
                     "timestamp": 1721698703
+                },
+                {
+                    "comment_id": "lf92v0c",
+                    "partner": "cap_potential",
+                    "post_id": "1eajw1q",
+                    "timestamp": 1722132448
                 }
             ]
         },
@@ -11776,6 +11782,16 @@
         "canyouseeiamdeath": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "cap_potential": {
+            "transactions": [
+                {
+                    "comment_id": "lf92v0c",
+                    "partner": "admirable-bread1757",
+                    "post_id": "1eajw1q",
+                    "timestamp": 1722132448
+                }
+            ]
         },
         "capetito": {
             "legacy_count": 2,
@@ -56236,6 +56252,12 @@
                     "partner": "jarquin31",
                     "post_id": "1deopi9",
                     "timestamp": 1721781857
+                },
+                {
+                    "comment_id": "lf94cyh",
+                    "partner": "poweredbykrisp",
+                    "post_id": "1e87cqf",
+                    "timestamp": 1722119087
                 }
             ]
         },
@@ -56348,6 +56370,18 @@
                     "partner": "jetra1",
                     "post_id": "1e4zs40",
                     "timestamp": 1721894434
+                },
+                {
+                    "comment_id": "lf94cyh",
+                    "partner": "potterkun",
+                    "post_id": "1e87cqf",
+                    "timestamp": 1722119087
+                },
+                {
+                    "comment_id": "lf8zto2",
+                    "partner": "un-golden",
+                    "post_id": "1ec6swg",
+                    "timestamp": 1722122112
                 }
             ]
         },
@@ -76526,6 +76560,12 @@
                     "partner": "koskenu",
                     "post_id": "1csqw3u",
                     "timestamp": 1716334510
+                },
+                {
+                    "comment_id": "lf8zto2",
+                    "partner": "poweredbykrisp",
+                    "post_id": "1ec6swg",
+                    "timestamp": 1722122112
                 }
             ]
         },
