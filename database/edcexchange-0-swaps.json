@@ -58284,6 +58284,12 @@
                     "partner": "mech_monster",
                     "post_id": "1d1wbzr",
                     "timestamp": 1717429078
+                },
+                {
+                    "comment_id": "lfa5whw",
+                    "partner": "sharplumens",
+                    "post_id": "1e7hdgf",
+                    "timestamp": 1722168883
                 }
             ]
         },
@@ -62760,6 +62766,16 @@
                     "partner": "sliceymcslicerson",
                     "post_id": "17rp4rk",
                     "timestamp": 0
+                }
+            ]
+        },
+        "sharplumens": {
+            "transactions": [
+                {
+                    "comment_id": "lfa5whw",
+                    "partner": "reticulated_spleen",
+                    "post_id": "1e7hdgf",
+                    "timestamp": 1722168883
                 }
             ]
         },
