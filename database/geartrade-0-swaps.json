@@ -8113,6 +8113,12 @@
                     "partner": "turdferguson45",
                     "post_id": "1du3y5k",
                     "timestamp": 1721073673
+                },
+                {
+                    "comment_id": "lfontt1",
+                    "partner": "t_as_in_t-rex",
+                    "post_id": "1du3y5k",
+                    "timestamp": 1722362382
                 }
             ]
         },
@@ -8593,6 +8599,16 @@
                     "partner": "allswedishnofinish",
                     "post_id": "1bru0z8",
                     "timestamp": 1712682504
+                }
+            ]
+        },
+        "fluffyturdbiscut": {
+            "transactions": [
+                {
+                    "comment_id": "lfp19uh",
+                    "partner": "lpushfatkids",
+                    "post_id": "1e2sl1m",
+                    "timestamp": 1722366970
                 }
             ]
         },
@@ -13419,6 +13435,12 @@
                     "partner": "liveordiefree",
                     "post_id": "1bn2sqk",
                     "timestamp": 1714278386
+                },
+                {
+                    "comment_id": "lfp19uh",
+                    "partner": "fluffyturdbiscut",
+                    "post_id": "1e2sl1m",
+                    "timestamp": 1722366970
                 }
             ]
         },
@@ -19485,6 +19507,22 @@
                     "partner": "legitimate-banana460",
                     "post_id": "1e9wgjh",
                     "timestamp": 1722303248
+                },
+                {
+                    "comment_id": "lfhimei",
+                    "partner": "same2me",
+                    "post_id": "1e9wk2r",
+                    "timestamp": 1722369657
+                }
+            ]
+        },
+        "same2me": {
+            "transactions": [
+                {
+                    "comment_id": "lfhimei",
+                    "partner": "saltywaterdog",
+                    "post_id": "1e9wk2r",
+                    "timestamp": 1722369657
                 }
             ]
         },
@@ -21931,6 +21969,12 @@
                     "partner": "tjreicks",
                     "post_id": "tdb1sa",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lfontt1",
+                    "partner": "etrinh9",
+                    "post_id": "1du3y5k",
+                    "timestamp": 1722362382
                 }
             ]
         },

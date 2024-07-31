@@ -2024,6 +2024,12 @@
                     "partner": "cap_potential",
                     "post_id": "1eajw1q",
                     "timestamp": 1722132448
+                },
+                {
+                    "comment_id": "lfr16k6",
+                    "partner": "brantec_",
+                    "post_id": "1e84wk1",
+                    "timestamp": 1722393350
                 }
             ]
         },
@@ -6209,6 +6215,16 @@
                 }
             ]
         },
+        "avilla03": {
+            "transactions": [
+                {
+                    "comment_id": "lfqle8b",
+                    "partner": "un-golden",
+                    "post_id": "1ec6swg",
+                    "timestamp": 1722385704
+                }
+            ]
+        },
         "avonyx": {
             "legacy_count": 21,
             "transactions": []
@@ -10253,6 +10269,12 @@
                     "partner": "cruxshadow338",
                     "post_id": "1ck8js4",
                     "timestamp": 1715627409
+                },
+                {
+                    "comment_id": "lfr16k6",
+                    "partner": "admirable-bread1757",
+                    "post_id": "1e84wk1",
+                    "timestamp": 1722393350
                 }
             ]
         },
@@ -37117,6 +37139,12 @@
                     "partner": "jarquin31",
                     "post_id": "1dzoaee",
                     "timestamp": 1721753800
+                },
+                {
+                    "comment_id": "lfoemhv",
+                    "partner": "mastermind22",
+                    "post_id": "1e7hqeu",
+                    "timestamp": 1722362204
                 }
             ]
         },
@@ -45237,6 +45265,12 @@
                     "partner": "davemetz84",
                     "post_id": "1cy8u0a",
                     "timestamp": 1717429480
+                },
+                {
+                    "comment_id": "lfoemhv",
+                    "partner": "jcchitty",
+                    "post_id": "1e7hqeu",
+                    "timestamp": 1722362204
                 }
             ]
         },
@@ -76594,6 +76628,12 @@
                     "partner": "poweredbykrisp",
                     "post_id": "1ec6swg",
                     "timestamp": 1722122112
+                },
+                {
+                    "comment_id": "lfqle8b",
+                    "partner": "avilla03",
+                    "post_id": "1ec6swg",
+                    "timestamp": 1722385704
                 }
             ]
         },
