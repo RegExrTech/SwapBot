@@ -19,6 +19,9 @@ class Config():
 		self.disabled = self.raw_config['disabled']
 		self.subreddit_name = self.raw_config['subreddit_name'].lower()
 		self.subreddit_display_name = self.raw_config['subreddit_name']
+		self.feedback_sub = self.raw_config['feedback_sub'].lower()
+		if not self.feedback_sub:
+			self.feedback_sub = self.subreddit_name
 		self.database_name = self.subreddit_name.lower()
 		self.client_id = self.raw_config['client_id']
 		self.client_secret = self.raw_config['client_secret']

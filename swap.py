@@ -732,6 +732,10 @@ def format_swap_count(trades_data, sub_config):
 					trade_partner = trade['partner']
 					trade_partner_count = get_swap_count(trade_partner, [sub_config.database_name], PLATFORM)
 					if trade['comment_id']:
+						if trade['timestamp'] == 0:
+							feedback_sub = sub_config.feedback_sub
+						else:
+							feedback_sub = sub_name
 						trade_url = "https://www.reddit.com/r/" + sub_name + "/comments/" + trade['post_id'] + "/-/" + trade['comment_id']
 					else:
 						trade_url = "https://redd.it/" + trade['post_id']
