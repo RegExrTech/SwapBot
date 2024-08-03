@@ -1,5 +1,93 @@
 {
     "reddit": {
+        "titaniumnipplez": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "fam_ham",
+                    "post_id": "11n6io9",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "antibacterialeast",
+                    "post_id": "1233zok",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "tron1luvcarter",
+                    "post_id": "18ajhg4",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "titanzilla": {
+            "transactions": [
+                {
+                    "comment_id": "dn569to",
+                    "partner": "arkhira",
+                    "post_id": "6jbqrp",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "fi9j7ea",
+                    "partner": "westcoaststyle",
+                    "post_id": "f0tijf",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "fv3gi4k",
+                    "partner": "westcoaststyle",
+                    "post_id": "f0tijf",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "e68qq5h",
+                    "partner": "earlybiscotti",
+                    "post_id": "8ycrt0",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "f6yeacp",
+                    "partner": "westcoaststyle",
+                    "post_id": "cpd5rm",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "g568nl1",
+                    "partner": "westcoaststyle",
+                    "post_id": "i4xsfq",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "titi_ta": {
+            "transactions": [
+                {
+                    "comment_id": "gbgj6dv",
+                    "partner": "bessmass",
+                    "post_id": "i4xsfq",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "gbu722a",
+                    "partner": "bill19xx",
+                    "post_id": "i4xsfq",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "tittiquette": {
+            "transactions": [
+                {
+                    "comment_id": "excqfuj",
+                    "partner": "alrightalright3",
+                    "post_id": "cpd5rm",
+                    "timestamp": 0
+                }
+            ]
+        },
         "titty2756": {
             "transactions": [
                 {
@@ -67547,6 +67635,12 @@
                     "partner": "fushabomber",
                     "post_id": "1e7z036",
                     "timestamp": 1722312251
+                },
+                {
+                    "comment_id": "lg5vgeg",
+                    "partner": "stunningvegetable0",
+                    "post_id": "1ect4mj",
+                    "timestamp": 1722617554
                 }
             ]
         },

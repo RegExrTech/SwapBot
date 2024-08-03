@@ -12567,6 +12567,10 @@
                 }
             ]
         },
+        "glibbleman": {
+            "legacy_count": 10,
+            "transactions": []
+        },
         "glittering-wish-5586": {
             "transactions": [
                 {
@@ -15444,6 +15448,10 @@
                     "timestamp": 1716945385
                 }
             ]
+        },
+        "jordan7831": {
+            "legacy_count": 10,
+            "transactions": []
         },
         "joryoken": {
             "transactions": [
@@ -23910,6 +23918,7 @@
             ]
         },
         "rays2c": {
+            "legacy_count": 10,
             "transactions": [
                 {
                     "comment_id": "lfix9b2",

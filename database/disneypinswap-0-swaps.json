@@ -13165,6 +13165,16 @@
                 }
             ]
         },
+        "italiandewgong": {
+            "transactions": [
+                {
+                    "comment_id": "lg6zz2h",
+                    "partner": "ziatenaj",
+                    "post_id": "1dxwhgy",
+                    "timestamp": 1722629676
+                }
+            ]
+        },
         "itsajollyholiday": {
             "legacy_count": 8,
             "transactions": [
@@ -15817,6 +15827,12 @@
                     "partner": "starjupiter93",
                     "post_id": "1e8yx5m",
                     "timestamp": 1722473657
+                },
+                {
+                    "comment_id": "lg7kqxy",
+                    "partner": "tressitt",
+                    "post_id": "1e8s85f",
+                    "timestamp": 1722638588
                 }
             ]
         },
@@ -33427,6 +33443,12 @@
                     "partner": "giggeywidit92",
                     "post_id": "18uhp6b",
                     "timestamp": 1704585547
+                },
+                {
+                    "comment_id": "lg7kqxy",
+                    "partner": "lampshadetricky",
+                    "post_id": "1e8s85f",
+                    "timestamp": 1722638588
                 }
             ]
         },
@@ -36352,6 +36374,12 @@
                     "partner": "justhereforaday0",
                     "post_id": "1ebjn5r",
                     "timestamp": 1722311286
+                },
+                {
+                    "comment_id": "lg6zz2h",
+                    "partner": "italiandewgong",
+                    "post_id": "1dxwhgy",
+                    "timestamp": 1722629676
                 }
             ]
         },

@@ -2107,6 +2107,12 @@
                     "partner": "empresspenguinone",
                     "post_id": "1e7k2lo",
                     "timestamp": 1721441690
+                },
+                {
+                    "comment_id": "lg83uol",
+                    "partner": "mrdoge4",
+                    "post_id": "1eip7jt",
+                    "timestamp": 1722643695
                 }
             ]
         },
@@ -20091,6 +20097,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "jkpatches": {
+            "transactions": [
+                {
+                    "comment_id": "lg5o7lz",
+                    "partner": "p4percr4nes",
+                    "post_id": "1eidj0f",
+                    "timestamp": 1722614117
+                }
+            ]
+        },
         "jl_adv": {
             "transactions": [
                 {
@@ -28866,6 +28882,16 @@
                 }
             ]
         },
+        "mrdoge4": {
+            "transactions": [
+                {
+                    "comment_id": "lg83uol",
+                    "partner": "amichrina",
+                    "post_id": "1eip7jt",
+                    "timestamp": 1722643695
+                }
+            ]
+        },
         "mrgibons": {
             "legacy_count": 1,
             "transactions": []
@@ -32109,6 +32135,12 @@
                     "partner": "auselessbus",
                     "post_id": "1e55c39",
                     "timestamp": 1721191357
+                },
+                {
+                    "comment_id": "lg5o7lz",
+                    "partner": "jkpatches",
+                    "post_id": "1eidj0f",
+                    "timestamp": 1722614117
                 }
             ]
         },
