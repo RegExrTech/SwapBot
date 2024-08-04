@@ -2,15 +2,15 @@
     "airsoftmarket": {
         "reddit": {
             "active": [
-                "lg5t1c3"
+                "lgc510w",
+                "lgccobh"
             ],
             "archived": [
-                "lf77vww",
-                "lf948p1",
                 "lffek5t",
                 "lfu8d7d",
                 "lfz6lpz",
-                "lg1qucm"
+                "lg1qucm",
+                "lg5t1c3"
             ]
         }
     },
@@ -18,7 +18,6 @@
         "reddit": {
             "active": [],
             "archived": [
-                "lf8tcd3",
                 "lfo1k6x",
                 "lfxui1q"
             ]
@@ -32,36 +31,28 @@
     },
     "appleswap": {
         "reddit": {
-            "active": [
+            "active": [],
+            "archived": [
                 "lg6cmek",
                 "lg6twlq"
-            ],
-            "archived": []
+            ]
         }
     },
     "avexchange": {
         "reddit": {
             "active": [
-                "lg5k0ll",
-                "lg7ul2t",
-                "lg82ykv",
-                "lg9ntdy",
-                "lg9o31n"
+                "lgai5ty",
+                "lgbntj1",
+                "lgc264e",
+                "lgcw7lp",
+                "lgcwbv3",
+                "lge9om6"
             ],
             "archived": [
-                "lf8chh8",
-                "lf99gal",
-                "lf9hhcq",
-                "lf9i4n0",
-                "lf9kb8k",
-                "lf9vqfo",
-                "lf9x5t6",
-                "lfa08ir",
                 "lfa9h9o",
                 "lfadqlt",
                 "lfeg0xn",
                 "lfib7dy",
-                "lfic95h",
                 "lfj125a",
                 "lfl4ppb",
                 "lfs6eqw",
@@ -70,16 +61,22 @@
                 "lg146n4",
                 "lg1vpwj",
                 "lg2alen",
-                "lg2llbb"
+                "lg2llbb",
+                "lg5k0ll",
+                "lg7ul2t",
+                "lg82ykv"
             ]
         }
     },
     "balisongsale": {
         "reddit": {
-            "active": [],
+            "active": [
+                "lgb8xcp",
+                "lge8lg8",
+                "lgem80w"
+            ],
             "archived": [
                 "lfclu7e",
-                "lfkwmqq",
                 "lfl73zj",
                 "lfqh8sy"
             ]
@@ -93,24 +90,21 @@
     },
     "boardgameexchange": {
         "reddit": {
-            "active": [
-                "lg74zjz",
-                "lg7amn1"
-            ],
+            "active": [],
             "archived": [
                 "lfag61w",
                 "lfhrxkj",
                 "lftn0nl",
                 "lfz1dxg",
-                "lfvbw74",
-                "lg3knk5"
+                "lg74zjz",
+                "lg7amn1"
             ]
         }
     },
     "cactiexchange": {
         "reddit": {
             "active": [
-                "lg9h178"
+                "lgcx7fe"
             ],
             "archived": [
                 "lflfd6n",
@@ -127,7 +121,7 @@
     "cash4cash": {
         "reddit": {
             "active": [
-                "lg5r0rf"
+                "lgckknb"
             ],
             "archived": [
                 "lfhyhe2",
@@ -155,14 +149,12 @@
     },
     "comicswap": {
         "reddit": {
-            "active": [
-                "lg6832w"
-            ],
+            "active": [],
             "archived": [
-                "lf9n10b",
                 "lfiyde9",
                 "lfjqpgm",
-                "lfrf60b"
+                "lfrf60b",
+                "lg6832w"
             ]
         }
     },
@@ -181,46 +173,35 @@
     "digitalcodesell": {
         "reddit": {
             "active": [
-                "lg3xk0x",
-                "lg6kfyp",
-                "lg6exie",
-                "lg6cjs3",
-                "lg6572j",
-                "lg70xuz",
-                "lg70srs",
-                "lg7hi2q",
-                "lg7hze9",
-                "lg7vbpz",
-                "lg7v9cz",
-                "lg7zwi6",
-                "lg7vkhk",
-                "lg8apga",
-                "lg8xm6m",
-                "lg8v0j7",
-                "lg93ox5",
-                "lg93d2r",
-                "lg965hg",
-                "lg9ijpg"
+                "lgad8l6",
+                "lgbs0ht",
+                "lgc5sh9",
+                "lgck1p5",
+                "lgcqbjy",
+                "lgcqiuy",
+                "lgcux2o",
+                "lgd6hhd",
+                "lgdtw6a",
+                "lgdrbd3",
+                "lgdr4wv",
+                "lgdzyl7",
+                "lgdwnn5",
+                "lgdvh0l",
+                "lgedoe1",
+                "lgecghd",
+                "lgecfxm",
+                "lgaiuzi",
+                "lge9omj",
+                "lge8sbe",
+                "lge8pce",
+                "lgejyir",
+                "lgeicd5",
+                "lgem4ee",
+                "lgemydt",
+                "lgeqe0a",
+                "lgerla4"
             ],
             "archived": [
-                "lf3d5gf",
-                "lf4621r",
-                "lf4g9wa",
-                "lf4rd8j",
-                "lf4u8ek",
-                "lf4y0f4",
-                "lf4y2av",
-                "lf4y3ju",
-                "lf5fm9j",
-                "lf7dubh",
-                "lf7ox6j",
-                "lf8m363",
-                "lf92gx3",
-                "lf95o9z",
-                "lf9fx0v",
-                "lf9hnvr",
-                "lf9wuw5",
-                "lf9yk06",
                 "lfaehfd",
                 "lfait0x",
                 "lfds6cq",
@@ -237,8 +218,6 @@
                 "lfe2o85",
                 "lfej0ip",
                 "lff1qi5",
-                "lff8an7",
-                "lffk341",
                 "lffmp7j",
                 "lfg476w",
                 "lfg4u77",
@@ -252,7 +231,6 @@
                 "lfii61g",
                 "lfikckv",
                 "lfiqijx",
-                "lfjicqj",
                 "lfk0u13",
                 "lfk1p8p",
                 "lfk4af9",
@@ -262,7 +240,6 @@
                 "lflbyad",
                 "lflqqoi",
                 "lflbd9h",
-                "lfodxxb",
                 "lfogmcj",
                 "lfoixea",
                 "lfoqnu1",
@@ -288,7 +265,6 @@
                 "lfv9pib",
                 "lfvbtxs",
                 "lfv9qh0",
-                "lfwpym3",
                 "lfvupjc",
                 "lfvslh0",
                 "lfx3b0o",
@@ -309,30 +285,33 @@
                 "lg0fn4h",
                 "lg11ryt",
                 "lg1gnlk",
-                "lg1m9p5",
                 "lg1pqmd",
                 "lg26x0x",
                 "lg2jxsn",
                 "lg2vp8h",
                 "lg35q1c",
-                "lg392lx"
+                "lg392lx",
+                "lg3xk0x",
+                "lg70srs",
+                "lg7hze9",
+                "lg7vbpz",
+                "lg7vkhk",
+                "lg8apga",
+                "lg8xm6m",
+                "lg93d2r",
+                "lg9ijpg"
             ]
         }
     },
     "discexchange": {
         "reddit": {
             "active": [
-                "lg4yd8y",
-                "lg5g1cd",
-                "lg5g0qe",
-                "lg5fzu0",
-                "lg5pgj6",
-                "lg6wqvc",
-                "lg7r4mc",
-                "lg7weap",
-                "lg8kar6",
-                "lg8u0sm",
-                "lg93aeo"
+                "lgbhdiv",
+                "lgbid5m",
+                "lgcyhpn",
+                "lgd5tn7",
+                "lgew01z",
+                "lgf0938"
             ],
             "archived": [
                 "lfenixc",
@@ -347,20 +326,26 @@
                 "lfnppf0",
                 "lfnu8re",
                 "lfqhp9s",
-                "lfrn6vj",
                 "lfu1wv4",
                 "lfx155i",
-                "lg23lsw",
-                "lg2prio"
+                "lg2prio",
+                "lg5g0qe",
+                "lg5fzu0",
+                "lg5pgj6",
+                "lg7r4mc",
+                "lg8kar6",
+                "lg8u0sm"
             ]
         }
     },
     "disneypinswap": {
         "reddit": {
             "active": [
-                "lg71v0s"
+                "lgdxhg2"
             ],
-            "archived": []
+            "archived": [
+                "lg71v0s"
+            ]
         }
     },
     "disneystorekeyswap": {
@@ -394,9 +379,7 @@
     "edcexchange": {
         "reddit": {
             "active": [],
-            "archived": [
-                "lg3n541"
-            ]
+            "archived": []
         }
     },
     "figpinswap": {
@@ -447,9 +430,7 @@
     },
     "funkoswap": {
         "reddit": {
-            "active": [
-                "lg9hltw"
-            ],
+            "active": [],
             "archived": [
                 "lfurlao"
             ]
@@ -458,20 +439,21 @@
     "gamesale": {
         "reddit": {
             "active": [
-                "lg6ecb4",
+                "lgapy2c",
+                "lgctvv7",
+                "lgcu0i6",
+                "lgdr628",
+                "lgf08yz"
+            ],
+            "archived": [
+                "lfgl9xi",
+                "lfhgu3r",
+                "lfvsdth",
+                "lfxvcj3",
+                "lg33nfl",
                 "lg7g2fq",
                 "lg80evp",
                 "lg8onar"
-            ],
-            "archived": [
-                "lf79tnu",
-                "lfgl9xi",
-                "lfhgu3r",
-                "lfr7w3b",
-                "lfumqt8",
-                "lfvsdth",
-                "lfxvcj3",
-                "lg33nfl"
             ]
         }
     },
@@ -490,31 +472,29 @@
     "geartrade": {
         "reddit": {
             "active": [
-                "lg7k9g5",
-                "lg86c1y"
+                "lga48j7"
             ],
             "archived": [
-                "lf6qza3",
-                "lfhccu2",
-                "lfhihy4",
                 "lfiottf",
                 "lfiovj4",
                 "lfip04i",
-                "lfioxdq"
+                "lfioxdq",
+                "lg7k9g5",
+                "lg86c1y"
             ]
         }
     },
     "giftcardexchange": {
         "reddit": {
             "active": [
-                "lg4hia8",
-                "lg6nu7h",
-                "lg7vk9j",
-                "lg9c59r"
+                "lgbetj7",
+                "lgdcjw6",
+                "lgdexki",
+                "lgdhvik",
+                "lgdnv2a",
+                "lgdt8m5"
             ],
             "archived": [
-                "lf57bly",
-                "lf8jqiw",
                 "lffq2le",
                 "lfhmku2",
                 "lfq9o6n",
@@ -522,40 +502,43 @@
                 "lfx6rxs",
                 "lg25z2j",
                 "lg2b8vb",
-                "lg3fkrq"
+                "lg3fkrq",
+                "lg4hia8",
+                "lg7vk9j",
+                "lg9c59r"
             ]
         }
     },
     "knife_swap": {
         "reddit": {
             "active": [
-                "lg3wx5k",
-                "lg5aapj",
-                "lg54emd",
-                "lg5hlsu",
-                "lg6dxiy",
-                "lg7idhs",
-                "lg7kvw4",
-                "lg87hj3",
-                "lg8ckjx",
-                "lg8fw3u",
-                "lg8o3gi",
-                "lg8v4rx",
-                "lg8vr4c",
-                "lg96ktf"
+                "lgau6fn",
+                "lgbauc4",
+                "lgbekpy",
+                "lgbl5z0",
+                "lgboz07",
+                "lgbxnib",
+                "lgbxsb1",
+                "lgc0h0y",
+                "lgc8l88",
+                "lgcc9yt",
+                "lgccp4h",
+                "lgckay2",
+                "lgcrcpe",
+                "lgcr7bm",
+                "lgcw1tv",
+                "lgd3etl",
+                "lgdyr77",
+                "lge7xc3",
+                "lgehk7y",
+                "lgeo0mc",
+                "lgepwux",
+                "lgeq37k",
+                "lget679",
+                "lgezjtu",
+                "lgf2ik9"
             ],
             "archived": [
-                "lf6s7pf",
-                "lf4vwj3",
-                "lf4zdcm",
-                "lf64v8i",
-                "lf6sjo3",
-                "lf8btj2",
-                "lf8pi5o",
-                "lf8uh0i",
-                "lf8z0ax",
-                "lf920xa",
-                "lf95gh8",
                 "lfacs61",
                 "lfadd7r",
                 "lfetzzj",
@@ -575,14 +558,11 @@
                 "lfrc7lc",
                 "lfu5mcc",
                 "lfuhvt5",
-                "lfv8t93",
                 "lfv6o1y",
                 "lfve7mu",
                 "lfvt0ge",
                 "lfwpqqf",
                 "lfx84z0",
-                "lfw8zei",
-                "lfwn9zu",
                 "lfwpub7",
                 "lfwg2y7",
                 "lfwfv12",
@@ -590,13 +570,14 @@
                 "lg0805b",
                 "lg09wh0",
                 "lg11qx2",
-                "lg1211j",
                 "lg1pixq",
                 "lg2qwdq",
-                "lg2vtm8",
-                "lg2uywx",
-                "lg33ds8",
-                "lg345z8"
+                "lg345z8",
+                "lg3wx5k",
+                "lg54emd",
+                "lg8o3gi",
+                "lg8v4rx",
+                "lg8vr4c"
             ]
         }
     },
@@ -610,9 +591,10 @@
     },
     "legomarket": {
         "reddit": {
-            "active": [],
+            "active": [
+                "lgad3h9"
+            ],
             "archived": [
-                "lf9i0u3",
                 "lfk0q6l",
                 "lfk59xb",
                 "lfpfe8i",
@@ -629,10 +611,12 @@
     "letstradepedals": {
         "reddit": {
             "active": [
-                "lg7rnxt"
+                "lgc16ra",
+                "lgee2bw",
+                "lgeefxz",
+                "lgesevm"
             ],
             "archived": [
-                "lf6c1bl",
                 "lfc6nkx",
                 "lfvxaup",
                 "lfze1jt",
@@ -642,23 +626,21 @@
     },
     "lorcanatcgtrades": {
         "reddit": {
-            "active": [
-                "lg8xxgn"
-            ],
+            "active": [],
             "archived": []
         }
     },
     "mangaswap": {
         "reddit": {
             "active": [
-                "lg5hsbm",
-                "lg7l8zu",
-                "lg962mv",
-                "lg97h8y",
-                "lg9eukj"
+                "lg9r5k3",
+                "lgc2zd7",
+                "lgd1ri6",
+                "lgd537y",
+                "lgdcvv9",
+                "lgdnlti"
             ],
             "archived": [
-                "lf8p00z",
                 "lfkvy7c",
                 "lfl3d7f",
                 "lfnv9nt",
@@ -668,44 +650,47 @@
                 "lfxam7x",
                 "lfxkr8u",
                 "lg2dpm7",
-                "lg2eb0o"
+                "lg2eb0o",
+                "lg5hsbm",
+                "lg962mv",
+                "lg97h8y",
+                "lg9eukj"
             ]
         }
     },
     "mediaswap": {
         "reddit": {
-            "active": [],
+            "active": [
+                "lgc31ps",
+                "lgcynim",
+                "lgelqkq",
+                "lgem8u7",
+                "lgf47mx"
+            ],
             "archived": [
                 "lfk917z",
-                "lfjd2g1",
-                "lg38iin"
+                "lfjd2g1"
             ]
         }
     },
     "mousemarket": {
         "reddit": {
             "active": [
-                "lg5ofq6",
-                "lg8hneh"
+                "lgbrb2f",
+                "lgea62f"
             ],
             "archived": [
-                "lf8ql4d",
                 "lfau033",
                 "lfdh265",
-                "lg2tehx"
+                "lg5ofq6"
             ]
         }
     },
     "photomarket": {
         "reddit": {
             "active": [
-                "lg51uzd",
-                "lg721wu",
-                "lg89r5e",
-                "lg8azkp",
-                "lg8b61d",
-                "lg8ru0e",
-                "lg9m4ia"
+                "lgbo3pj",
+                "lgcnc0c"
             ],
             "archived": [
                 "lfne1v9",
@@ -713,7 +698,9 @@
                 "lfts9we",
                 "lftsdm1",
                 "lfuz3sh",
-                "lfxd9i0"
+                "lg8b61d",
+                "lg8ru0e",
+                "lg9m4ia"
             ]
         }
     },
@@ -724,16 +711,20 @@
         },
         "reddit": {
             "active": [
-                "lg4j2py",
-                "lg6oczh",
-                "lg88ovv",
-                "lg88ege",
-                "lg8mykc",
-                "lg8spzj",
-                "lg9lzeb"
+                "lgbbjpv",
+                "lgbnhfi",
+                "lgcjaxd",
+                "lgcvpi0",
+                "lgcvm20",
+                "lgd3bqo",
+                "lgecgac",
+                "lgexaza",
+                "lgexdhp",
+                "lgf3cf7",
+                "lgf5819",
+                "lgf7np6"
             ],
             "archived": [
-                "lf67d8j",
                 "lfj5leo",
                 "lfjlpcj",
                 "lfk0uk1",
@@ -749,11 +740,16 @@
                 "lfrq3qx",
                 "lfwv9ic",
                 "lfu4vcq",
-                "lg2d9eu",
                 "lg2d46d",
                 "lg2htz9",
                 "lg2y1b6",
-                "lg3e28f"
+                "lg3e28f",
+                "lg4j2py",
+                "lg6oczh",
+                "lg88ege",
+                "lg88ovv",
+                "lg8mykc",
+                "lg9lzeb"
             ]
         }
     },
@@ -774,32 +770,27 @@
     "sanpedrocactusforsale": {
         "reddit": {
             "active": [
-                "lg5mhro",
-                "lg5xy64",
-                "lg61rbn",
-                "lg6vy77",
-                "lg82vyu",
-                "lg8p7sl",
-                "lg8y7r8",
-                "lg8yeob",
-                "lg8ya7e",
-                "lg8ygpe",
-                "lg8ypuc",
-                "lg8ytyu",
-                "lg8z5tn",
-                "lg8z3b3",
-                "lg8zcwi",
-                "lg8zkej",
-                "lg8zubv",
-                "lg8zq37"
+                "lgah0rh",
+                "lgai4w8",
+                "lgaif9z",
+                "lgajnf0",
+                "lgaycj4",
+                "lgbnf7j",
+                "lgcjxfk",
+                "lgcsn6k",
+                "lgcsjbh",
+                "lgcvltj",
+                "lgcvkvt",
+                "lgdli2v",
+                "lgdzycb",
+                "lgej4bi",
+                "lgej1r9"
             ],
             "archived": [
-                "lf57aes",
                 "lfbu89r",
                 "lfbvfpw",
                 "lfc3ff0",
                 "lfd8dxg",
-                "lff4zat",
                 "lff567m",
                 "lfh421p",
                 "lflssa5",
@@ -811,20 +802,27 @@
                 "lfrjfyv",
                 "lfu4wp5",
                 "lfupykn",
-                "lfwqk3c",
-                "lfwqt9o",
                 "lfx3iop",
                 "lfzsfi2",
                 "lfzupzt",
                 "lg1x72x",
-                "lg22gfe",
                 "lg2j7vh",
                 "lg2j9c5",
-                "lg2kl7e",
                 "lg2unkf",
                 "lg308rj",
                 "lg38eq5",
-                "lg3qtch"
+                "lg5xy64",
+                "lg61rbn",
+                "lg82vyu",
+                "lg8lgkv",
+                "lg8p7sl",
+                "lg8y7r8",
+                "lg8ygpe",
+                "lg8ytyu",
+                "lg8z3b3",
+                "lg8z5tn",
+                "lg8zcwi",
+                "lg8zubv"
             ]
         }
     },
@@ -844,14 +842,15 @@
         "reddit": {
             "active": [],
             "archived": [
-                "lfnmpwb",
                 "lfvn1o0"
             ]
         }
     },
     "synths4sale": {
         "reddit": {
-            "active": [],
+            "active": [
+                "lgcrp9x"
+            ],
             "archived": []
         }
     },
@@ -955,7 +954,9 @@
             "archived": []
         },
         "reddit": {
-            "active": [],
+            "active": [
+                "lgded2f"
+            ],
             "archived": []
         }
     },
@@ -968,73 +969,69 @@
     "ulgeartrade": {
         "reddit": {
             "active": [
-                "lg763rd",
-                "lg85ss9"
+                "lgequit"
             ],
             "archived": [
                 "lfmu9jy",
                 "lfv9y88",
                 "lg293u7",
-                "l7be0sr"
+                "lg763rd",
+                "lg85ss9"
             ]
         }
     },
     "uvtrade": {
         "reddit": {
-            "active": [
+            "active": [],
+            "archived": [
                 "lg8u562"
-            ],
-            "archived": []
+            ]
         }
     },
     "vinylcollectors": {
         "reddit": {
             "active": [
-                "lg6u1gq",
-                "lg7jxn8",
-                "lg7jv3g",
-                "lg87j0b",
-                "lg9g4z0"
+                "lgevqxf"
             ],
             "archived": [
-                "lf86k4a",
-                "lf86ta8",
                 "lfc5psl",
                 "lfmz7se",
                 "lfmzdt8",
-                "lg94v81"
+                "lg6u1gq",
+                "lg7jv3g",
+                "lg7jxn8",
+                "lg87j0b",
+                "lg9g4z0"
             ]
         }
     },
     "watchexchange": {
         "reddit": {
             "active": [
-                "lg46tms",
-                "lg4da9f",
-                "lg55s4m",
-                "lg5dmb8",
-                "lg5f1wy",
-                "lg60jwd",
-                "lg6njjt",
-                "lg6npd2",
-                "lg71j2s",
-                "lg73mo3",
-                "lg7miog",
-                "lg7r9qt",
-                "lg7uqtv",
-                "lg80yib",
-                "lg83fcg",
-                "lg83nn1",
-                "lg8e1qv",
-                "lg8k1b5",
-                "lg8n3ku",
-                "lg8s1j2",
-                "lg8s83g",
-                "lg8z7vw"
+                "lgaulmu",
+                "lgau6ti",
+                "lgaz98j",
+                "lgb1qo8",
+                "lgbe648",
+                "lgbujvx",
+                "lgcfjc5",
+                "lgcjyo5",
+                "lgcvsgt",
+                "lgczl8r",
+                "lgd15j5",
+                "lgd13nj",
+                "lgd2b4b",
+                "lgd4tx9",
+                "lgd5qfo",
+                "lgdi76a",
+                "lgdnrrj",
+                "lgdrsab",
+                "lgdx9g5",
+                "lgerxu1",
+                "lgevsbt",
+                "lgf3ab6"
             ],
             "archived": [
-                "lf7crll",
-                "lf7ickv",
                 "lfaee9o",
                 "lfbnpps",
                 "lfdxhe6",
@@ -1059,38 +1056,49 @@
                 "lfvtikf",
                 "lfy7rns",
                 "lfy8vxy",
-                "lg05e8m",
-                "lg14inq",
                 "lg1wwf0",
                 "lg1zmg1",
                 "lg267wl",
                 "lg7abys",
                 "lg5enkg",
-                "lg2pd5h",
-                "lg3cd8h"
+                "lg3cd8h",
+                "lg46tms",
+                "lg4da9f",
+                "lg5dmb8",
+                "lg5f1wy",
+                "lg60jwd",
+                "lg6npd2",
+                "lg7miog",
+                "lg7uqtv",
+                "lg80yib",
+                "lg83fcg",
+                "lg8e1qv",
+                "lg8k1b5",
+                "lg8s1j2",
+                "lg8s83g"
             ]
         }
     },
     "watchexchangecanada": {
         "reddit": {
             "active": [],
-            "archived": [
-                "lf53zs0"
-            ]
+            "archived": []
         }
     },
     "ygomarketplace": {
         "reddit": {
             "active": [
-                "lg7p0hh",
-                "lg8c5kt",
-                "lg8cyk4"
+                "lgc7m25",
+                "lgcxg1l",
+                "lgdgi9p"
             ],
             "archived": [
                 "lfib1kd",
                 "lfkkbhk",
                 "lg0bpx7",
-                "lg28p0y"
+                "lg28p0y",
+                "lg7p0hh",
+                "lg8cyk4"
             ]
         }
     }

@@ -37800,6 +37800,12 @@
                     "partner": "vucc-got-the-drip",
                     "post_id": "1ecwv91",
                     "timestamp": 1722461875
+                },
+                {
+                    "comment_id": "lgcmpcc",
+                    "partner": "tardykestrel1",
+                    "post_id": "1ec4zsp",
+                    "timestamp": 1722721557
                 }
             ]
         },
@@ -46517,6 +46523,16 @@
         "tanuki-bomb": {
             "legacy_count": 14,
             "transactions": []
+        },
+        "tardykestrel1": {
+            "transactions": [
+                {
+                    "comment_id": "lgcmpcc",
+                    "partner": "proudowlz",
+                    "post_id": "1ec4zsp",
+                    "timestamp": 1722721557
+                }
+            ]
         },
         "tassadarelric": {
             "legacy_count": 1,
