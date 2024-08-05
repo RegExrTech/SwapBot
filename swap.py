@@ -997,6 +997,14 @@ def handle_swap_removal(message, sub_config):
 		response_text = "Failed to remove swap with URL " + url + ". Please send this URL to u/RegExr for assistance."
 		return reply_to_message(message, reply_text, sub_config)
 
+	# Send a notification if someone other than RegExr uses this feature.
+	if requesting_mod != 'regexr':
+		try:
+			sub_config.subreddit_object.message(subject="[Notification] Manual Swap Removal", message="u/" + message.author.name + " has manually removed a swap from u/" + author + " and u/" + partner + " from:\n\n" + url)
+		except Exception as e:
+			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " when manually removing swap.")
+
+	# Update flairs
 	update_flair(comment_obj.author, sub_config.reddit_object.redditor(partner), sub_config)
 
 	reply_text = "I have successfully removed the confirmation from \n\n" + url + "\n\nfor u/" + author + " and u/" + partner
