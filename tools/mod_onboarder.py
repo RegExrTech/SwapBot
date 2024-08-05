@@ -52,7 +52,7 @@ for subname in subnames:
 			time.sleep(60)
 		logger.log("Found a new mod! User is u/" + mod_name + " from r/" + subname)
 		already_sent.add(mod_name)
-		swap.update_flair(mod_name, None, sub_config)
+		swap.update_flair(sub_config.reddit_object.redditor(mod_name), None, sub_config)
 		# Do this every time we find a new mod, rather than at the end, so overlapping scripts don't send the same message twice.
 		f = open(f_path, 'w')
 		already_sent = list(already_sent)
@@ -60,3 +60,4 @@ for subname in subnames:
 		f.write("\n".join(already_sent))
 		f.close()
 		already_sent = set(already_sent)
+
