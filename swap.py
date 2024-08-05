@@ -955,6 +955,54 @@ def handle_legacy_add(message, sub_config):
 
 	return reply_to_message(message, "Success!", sub_config)
 
+def handle_swap_removal(message, sub_config):
+	error_text = "\n\nPlease send a message in the form of `$remove https://www.reddit.com/r/" + sub_config.subreddit_display_name + "/comments/<post_id>/-/<comment_id>` by clicking the share button on a comment where the bot was tagged to start the confirmation process and try again."
+
+	# Check requester is allowed
+	requesting_mod = message.author.name.lower()
+	if requesting_mod not in sub_config.admins:
+		reply_text = "Error: You are not authorized to execute this command." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Check we get expected number of args
+	items = message.body.split(" ")
+	if len(items) < 2:
+		response_text = "Error: Invalid Format." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Split the URL into post and comment IDs
+	url = items[1]
+	url_parts = url.split("/")
+	if len(url_parts) < 9:
+		response_text = "Error: Malformed URL." + error_text
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Get info from the comment ID
+	post_id = url_parts[6]
+	comment_id = url_parts[8]
+	try:
+		comment_obj = sub_config.reddit_object.comment(comment_id)
+		comment_text = get_comment_text(comment_obj)
+		author = comment_obj.author.name.lower()
+		partner = get_username_from_text(comment_text, [sub_config.bot_username, author])[2:].lower()
+	except Exception as e:
+		reply_text = "Failed to parse comment ID from URL " + url + " with error " + str(e) + "\n\nPlease copy and paste this message to u/RegExr for assistance."
+		return reply_to_message(message, reply_text, sub_config)
+
+	# Remove the transaction
+	try:
+		requests.post(request_url + "/remove-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'username': author, 'transaction_data': [{'post_id': post_id, 'comment_id': comment_id, 'partner': partner}]})
+		requests.post(request_url + "/remove-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'username': partner, 'transaction_data': [{'post_id': post_id, 'comment_id': comment_id, 'partner': author}]})
+	except:
+		response_text = "Failed to remove swap with URL " + url + ". Please send this URL to u/RegExr for assistance."
+		return reply_to_message(message, reply_text, sub_config)
+
+	update_flair(comment_obj.author, sub_config.reddit_object.redditor(partner), sub_config)
+
+	reply_text = "I have successfully removed the confirmation from \n\n" + url + "\n\nfor u/" + author + " and u/" + partner
+	return reply_to_message(message, reply_text, sub_config)
+
+
 def get_count_from_summary(trades_data):
 	trade_count = 0
 	for sub in trades_data:
@@ -1074,12 +1122,14 @@ def main():
 
 	# This is for if anyone sends us a message requesting swap data
 	for message in messages:
-		if message.body[0:4] == "$add":
+		if message.body.startswith("$add"):
 			handle_manual_adjustment(message, sub_config)
-		elif message.body[0:9] == "$transfer":
+		elif message.body.startswith("$transfer"):
 			handle_flair_transfer(message, sub_config)
-		elif message.body[0:6] == "$batch":
+		elif message.body.startswith("$batch"):
 			handle_legacy_add(message, sub_config)
+		elif message.body.startswith("$remove"):
+			handle_swap_removal(message, sub_config)
 		else:
 			handle_swap_data_request(message, sub_config)
 
