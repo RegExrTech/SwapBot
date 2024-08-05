@@ -45,11 +45,11 @@ for subname in subnames:
 			continue
 		if 'bot' == mod_name[-3:]:
 			continue
-#		try:
-#			mod.message(subject=title, message=body)
-#		except Exception as e:
-#			logger.log("  Unable to send message to u/" + mod_name + " on sub r/" + subname + " with error " + str(e))
-#			time.sleep(60)
+		try:
+			mod.message(subject=title, message=body)
+		except Exception as e:
+			logger.log("  Unable to send message to u/" + mod_name + " on sub r/" + subname + " with error " + str(e))
+			time.sleep(60)
 		logger.log("Found a new mod! User is u/" + mod_name + " from r/" + subname)
 		already_sent.add(mod_name)
 		swap.update_flair(mod_name, None, sub_config)
