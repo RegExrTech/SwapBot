@@ -916,6 +916,12 @@
                     "partner": "lampshadetricky",
                     "post_id": "1e3lfe5",
                     "timestamp": 1721862208
+                },
+                {
+                    "comment_id": "lgp75i3",
+                    "partner": "kreeperkarl",
+                    "post_id": "1e3lfe5",
+                    "timestamp": 1722907957
                 }
             ]
         },
@@ -4071,6 +4077,12 @@
                     "partner": "noble_beasts",
                     "post_id": "1e4zyp2",
                     "timestamp": 1721847666
+                },
+                {
+                    "comment_id": "lgnng6e",
+                    "partner": "lac38",
+                    "post_id": "1e4zyp2",
+                    "timestamp": 1722886792
                 }
             ]
         },
@@ -9399,6 +9411,16 @@
         "flipflop924": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "flippingbirds_": {
+            "transactions": [
+                {
+                    "comment_id": "lgjpivs",
+                    "partner": "kreeperkarl",
+                    "post_id": "1ehwjsk",
+                    "timestamp": 1722824923
+                }
+            ]
         },
         "floridafancy": {
             "transactions": [
@@ -15457,6 +15479,18 @@
                     "partner": "starjupiter93",
                     "post_id": "1e8yx5m",
                     "timestamp": 1722739078
+                },
+                {
+                    "comment_id": "lgjpivs",
+                    "partner": "flippingbirds_",
+                    "post_id": "1ehwjsk",
+                    "timestamp": 1722824923
+                },
+                {
+                    "comment_id": "lgp75i3",
+                    "partner": "alive-paper-1512",
+                    "post_id": "1e3lfe5",
+                    "timestamp": 1722907957
                 }
             ]
         },
@@ -15501,6 +15535,16 @@
         "kytteez": {
             "legacy_count": 11,
             "transactions": []
+        },
+        "lac38": {
+            "transactions": [
+                {
+                    "comment_id": "lgnng6e",
+                    "partner": "cheapfakesuede",
+                    "post_id": "1e4zyp2",
+                    "timestamp": 1722886792
+                }
+            ]
         },
         "lacerrar": {
             "transactions": [

@@ -4944,6 +4944,16 @@
                 }
             ]
         },
+        "rysdan": {
+            "transactions": [
+                {
+                    "comment_id": "lgded2f",
+                    "partner": "stuntedjet",
+                    "post_id": "1ecagdz",
+                    "timestamp": 1722779097
+                }
+            ]
+        },
         "ryzusa": {
             "legacy_count": 1,
             "transactions": []
@@ -5545,6 +5555,12 @@
                     "partner": "admiralzex",
                     "post_id": "189zrv6",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lgded2f",
+                    "partner": "rysdan",
+                    "post_id": "1ecagdz",
+                    "timestamp": 1722779097
                 }
             ]
         },
