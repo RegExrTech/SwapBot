@@ -4394,6 +4394,12 @@
                     "partner": "a_commisso77",
                     "post_id": "1c1qkip",
                     "timestamp": 1714464085
+                },
+                {
+                    "comment_id": "lgtc4iq",
+                    "partner": "stiggypalgrave",
+                    "post_id": "1efbmpc",
+                    "timestamp": 1722978233
                 }
             ]
         },
@@ -9801,6 +9807,16 @@
                     "partner": "coffeenated",
                     "post_id": "17rhd73",
                     "timestamp": 0
+                }
+            ]
+        },
+        "stiggypalgrave": {
+            "transactions": [
+                {
+                    "comment_id": "lgtc4iq",
+                    "partner": "future_molasses_8844",
+                    "post_id": "1efbmpc",
+                    "timestamp": 1722978233
                 }
             ]
         },
