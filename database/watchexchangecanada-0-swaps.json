@@ -1909,6 +1909,16 @@
                 }
             ]
         },
+        "calgaryjim": {
+            "transactions": [
+                {
+                    "comment_id": "lh4nfn3",
+                    "partner": "darkhelmetlive",
+                    "post_id": "1ef8864",
+                    "timestamp": 1723136828
+                }
+            ]
+        },
         "canadian123987": {
             "transactions": [
                 {
@@ -1957,6 +1967,16 @@
                 }
             ]
         },
+        "canlawyer1337": {
+            "transactions": [
+                {
+                    "comment_id": "lgs2otz",
+                    "partner": "jdosman",
+                    "post_id": "1eljq6i",
+                    "timestamp": 1723060835
+                }
+            ]
+        },
         "canzilla23": {
             "legacy_count": 2,
             "transactions": []
@@ -1968,6 +1988,16 @@
                     "partner": "bglover29",
                     "post_id": "xg2yhs",
                     "timestamp": 0
+                }
+            ]
+        },
+        "captain_canuk": {
+            "transactions": [
+                {
+                    "comment_id": "lgoxnv3",
+                    "partner": "techsqueeze",
+                    "post_id": "1ej83wy",
+                    "timestamp": 1723147235
                 }
             ]
         },
@@ -2856,6 +2886,16 @@
                     "partner": "spicydadjokes",
                     "post_id": "1d6oc9n",
                     "timestamp": 1718163809
+                }
+            ]
+        },
+        "darkhelmetlive": {
+            "transactions": [
+                {
+                    "comment_id": "lh4nfn3",
+                    "partner": "calgaryjim",
+                    "post_id": "1ef8864",
+                    "timestamp": 1723136828
                 }
             ]
         },
@@ -4839,6 +4879,9 @@
                 }
             ]
         },
+        "humble_edge_816": {
+            "transactions": []
+        },
         "hungry_footballer": {
             "transactions": [
                 {
@@ -5431,6 +5474,12 @@
                     "partner": "wuhleed",
                     "post_id": "1bxcj2v",
                     "timestamp": 1713470450
+                },
+                {
+                    "comment_id": "lgs2otz",
+                    "partner": "canlawyer1337",
+                    "post_id": "1eljq6i",
+                    "timestamp": 1723060835
                 }
             ]
         },
@@ -6739,6 +6788,16 @@
                     "partner": "attackdolphins",
                     "post_id": "11qk41h",
                     "timestamp": 0
+                }
+            ]
+        },
+        "maxman124": {
+            "transactions": [
+                {
+                    "comment_id": "lgsxiwa",
+                    "partner": "techsqueeze",
+                    "post_id": "1eln6s4",
+                    "timestamp": 1723212060
                 }
             ]
         },
@@ -10038,6 +10097,16 @@
                 }
             ]
         },
+        "switchpot": {
+            "transactions": [
+                {
+                    "comment_id": "lh7pcrc",
+                    "partner": "wristrolls",
+                    "post_id": "1egwvo6",
+                    "timestamp": 1723173310
+                }
+            ]
+        },
         "tacomaster3211": {
             "transactions": [
                 {
@@ -10819,6 +10888,18 @@
                     "partner": "mutakingprime",
                     "post_id": "1eg7oz9",
                     "timestamp": 1722449199
+                },
+                {
+                    "comment_id": "lgoxnv3",
+                    "partner": "captain_canuk",
+                    "post_id": "1ej83wy",
+                    "timestamp": 1723147235
+                },
+                {
+                    "comment_id": "lgsxiwa",
+                    "partner": "maxman124",
+                    "post_id": "1eln6s4",
+                    "timestamp": 1723212060
                 }
             ]
         },
@@ -12092,6 +12173,12 @@
                     "partner": "toomanyrobs",
                     "post_id": "1ec05qh",
                     "timestamp": 1722477831
+                },
+                {
+                    "comment_id": "lh7pcrc",
+                    "partner": "switchpot",
+                    "post_id": "1egwvo6",
+                    "timestamp": 1723173310
                 }
             ]
         },

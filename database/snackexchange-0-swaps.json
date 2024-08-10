@@ -21562,6 +21562,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "kathykiwi812": {
+            "transactions": [
+                {
+                    "comment_id": "lh696jd",
+                    "partner": "ptarmiganrunner",
+                    "post_id": "1endsyc",
+                    "timestamp": 1723152786
+                }
+            ]
+        },
         "kathynightingale": {
             "legacy_count": 1,
             "transactions": []
@@ -34357,6 +34367,16 @@
         "psycosack": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "ptarmiganrunner": {
+            "transactions": [
+                {
+                    "comment_id": "lh696jd",
+                    "partner": "kathykiwi812",
+                    "post_id": "1endsyc",
+                    "timestamp": 1723152786
+                }
+            ]
         },
         "pterofrog": {
             "legacy_count": 1,
