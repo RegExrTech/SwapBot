@@ -429,6 +429,12 @@
                     "partner": "heytherebod",
                     "post_id": "1c226tu",
                     "timestamp": 1713640617
+                },
+                {
+                    "comment_id": "lhjiuv4",
+                    "partner": "pooknife",
+                    "post_id": "1egzf5y",
+                    "timestamp": 1723359950
                 }
             ]
         },
@@ -3155,6 +3161,16 @@
                     "partner": "batyliit",
                     "post_id": "12de2xe",
                     "timestamp": 0
+                }
+            ]
+        },
+        "default_flipper": {
+            "transactions": [
+                {
+                    "comment_id": "lge8lg8",
+                    "partner": "kamasuo",
+                    "post_id": "1ej8zc0",
+                    "timestamp": 1723341643
                 }
             ]
         },
@@ -6541,6 +6557,12 @@
                     "partner": "papisime",
                     "post_id": "1e3g4t1",
                     "timestamp": 1721322953
+                },
+                {
+                    "comment_id": "lge8lg8",
+                    "partner": "default_flipper",
+                    "post_id": "1ej8zc0",
+                    "timestamp": 1723341643
                 }
             ]
         },
@@ -9155,6 +9177,12 @@
                     "partner": "kowereta",
                     "post_id": "1ehbiud",
                     "timestamp": 1723103557
+                },
+                {
+                    "comment_id": "lhjiuv4",
+                    "partner": "agentevening6599",
+                    "post_id": "1egzf5y",
+                    "timestamp": 1723359950
                 }
             ]
         },
