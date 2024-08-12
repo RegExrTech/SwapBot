@@ -23574,6 +23574,16 @@
             "legacy_count": 5,
             "transactions": []
         },
+        "itschugg0": {
+            "transactions": [
+                {
+                    "comment_id": "lhmgkgn",
+                    "partner": "kordelski83",
+                    "post_id": "1ejvrv5",
+                    "timestamp": 1723401481
+                }
+            ]
+        },
         "itsjinvy": {
             "legacy_count": 6,
             "transactions": []
@@ -27991,6 +28001,12 @@
                     "partner": "capnmrly",
                     "post_id": "1deflew",
                     "timestamp": 1718759531
+                },
+                {
+                    "comment_id": "lhmgkgn",
+                    "partner": "itschugg0",
+                    "post_id": "1ejvrv5",
+                    "timestamp": 1723401481
                 }
             ]
         },

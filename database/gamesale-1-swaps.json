@@ -1,5 +1,71 @@
 {
     "reddit": {
+        "thunderkai": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "ichosenoname",
+                    "post_id": "t7k90x",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "mar10_0",
+                    "post_id": "t1rmec",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "brotchicken",
+                    "post_id": "t4i8g2",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "makaphin",
+                    "post_id": "t1rmec",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "nhockhon2008",
+                    "post_id": "t1rmec",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "out_liars",
+                    "post_id": "t1rmec",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "wizardofgames",
+                    "post_id": "t1rmec",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "thunderlungs": {
+            "transactions": [
+                {
+                    "comment_id": "cgtua2b",
+                    "partner": "qu1nlan",
+                    "post_id": "21tfu8",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "thundermaus": {
+            "transactions": [
+                {
+                    "comment_id": "cxr0xmd",
+                    "partner": "leafless1019",
+                    "post_id": "3mqb7x",
+                    "timestamp": 0
+                }
+            ]
+        },
         "thunduhbuddy": {
             "transactions": [
                 {
@@ -2969,6 +3035,12 @@
                     "partner": "skorba71",
                     "post_id": "1e23wbk",
                     "timestamp": 1721409940
+                },
+                {
+                    "comment_id": "lhk3li4",
+                    "partner": "transistornetwork",
+                    "post_id": "1ej9qyp",
+                    "timestamp": 1723386748
                 }
             ]
         },
@@ -10355,6 +10427,12 @@
                     "partner": "eatdogs49",
                     "post_id": "1ejg34w",
                     "timestamp": 1723311144
+                },
+                {
+                    "comment_id": "lhk3li4",
+                    "partner": "tmac2015",
+                    "post_id": "1ej9qyp",
+                    "timestamp": 1723386748
                 }
             ]
         },
@@ -36186,6 +36264,12 @@
                     "partner": "moonmarooned",
                     "post_id": "1ellgv1",
                     "timestamp": 1723331904
+                },
+                {
+                    "comment_id": "lhhzgjb",
+                    "partner": "gamephotos",
+                    "post_id": "1ekszmt",
+                    "timestamp": 1723394088
                 }
             ]
         },
@@ -40482,6 +40566,16 @@
                     "partner": "btgreenone",
                     "post_id": "27atjl",
                     "timestamp": 0
+                }
+            ]
+        },
+        "wartooth21": {
+            "transactions": [
+                {
+                    "comment_id": "lhn5e5w",
+                    "partner": "neogeofan",
+                    "post_id": "1ek5cp6",
+                    "timestamp": 1723422584
                 }
             ]
         },
@@ -52992,6 +53086,12 @@
                     "partner": "clustahz",
                     "post_id": "1dvydam",
                     "timestamp": 1720474577
+                },
+                {
+                    "comment_id": "lhohn9i",
+                    "partner": "kitefrog",
+                    "post_id": "1eehyq6",
+                    "timestamp": 1723444476
                 }
             ]
         },
