@@ -1182,6 +1182,16 @@
                 }
             ]
         },
+        "chocolateidol": {
+            "transactions": [
+                {
+                    "comment_id": "lhr53n5",
+                    "partner": "tidalwade",
+                    "post_id": "1dsfbib",
+                    "timestamp": 1723506541
+                }
+            ]
+        },
         "chrisoupublic999": {
             "legacy_count": 1,
             "transactions": []
@@ -5949,6 +5959,16 @@
         "thyperson": {
             "legacy_count": 2,
             "transactions": []
+        },
+        "tidalwade": {
+            "transactions": [
+                {
+                    "comment_id": "lhr53n5",
+                    "partner": "chocolateidol",
+                    "post_id": "1dsfbib",
+                    "timestamp": 1723506541
+                }
+            ]
         },
         "tie_flighter": {
             "transactions": [
