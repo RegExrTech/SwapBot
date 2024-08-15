@@ -317,6 +317,12 @@
                     "partner": "used-preparation-676",
                     "post_id": "1ec0h1g",
                     "timestamp": 1723269714
+                },
+                {
+                    "comment_id": "lhxk7yw",
+                    "partner": "bishlater",
+                    "post_id": "1ec0h1g",
+                    "timestamp": 1723665673
                 }
             ]
         },
@@ -1377,6 +1383,16 @@
                     "partner": "earlyspirit",
                     "post_id": "459ihe",
                     "timestamp": 0
+                }
+            ]
+        },
+        "bishlater": {
+            "transactions": [
+                {
+                    "comment_id": "lhxk7yw",
+                    "partner": "_islander",
+                    "post_id": "1ec0h1g",
+                    "timestamp": 1723665673
                 }
             ]
         },

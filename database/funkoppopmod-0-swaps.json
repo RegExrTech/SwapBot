@@ -2,7 +2,14 @@
     "reddit": {
         "regexr": {
             "legacy_count": 0,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "li37tr9",
+                    "partner": "totallynotregexr",
+                    "post_id": "1es4vc6",
+                    "timestamp": 1723650067
+                }
+            ]
         },
         "totallynotregexr": {
             "legacy_count": 10,
@@ -72,6 +79,12 @@
                     "partner": "regexr",
                     "post_id": "15545s3",
                     "timestamp": 1707517244
+                },
+                {
+                    "comment_id": "li37tr9",
+                    "partner": "regexr",
+                    "post_id": "1es4vc6",
+                    "timestamp": 1723650067
                 }
             ]
         }
