@@ -739,8 +739,12 @@ def format_swap_count(trades_data, sub_config):
 						trade_url = "https://www.reddit.com/r/" + sub_name + "/comments/" + trade['post_id'] + "/-/" + trade['comment_id']
 					else:
 						trade_url = "https://redd.it/" + trade['post_id']
-					time_string = datetime.datetime.utcfromtimestamp(trade['timestamp']).strftime("%Y-%m-%d")
-					final_text += "*  [" + sub_name + "/" + trade['post_id']  + "](" + trade_url  + ") - " + time_string + " - u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
+					# Avoid adding a timestring if the time is 0 (which is the default and not a real date)
+					if trade['timestamp']:
+						time_string = datetime.datetime.utcfromtimestamp(trade['timestamp']).strftime("%Y-%m-%d") + " - "
+					else:
+						time_string = ""
+					final_text += "*  [" + sub_name + "/" + trade['post_id']  + "](" + trade_url  + ") - " + time_string + "u/" + trade_partner + " (Has " + str(trade_partner_count) + " " + sub_config.flair_word + ")" + "\n\n"
 				elif platform == 'discord':
 					trade_url = "https://www.discord.com/channels/" + str(sub_config.discord_config.server_id) + "/" + trade['post_id'] + "/" + trade['comment_id']
 					final_text += "* [Discord " + sub_config.flair_word[:-1] + "](" +  trade_url + ")\n\n"
