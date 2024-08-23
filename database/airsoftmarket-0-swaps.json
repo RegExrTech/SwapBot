@@ -6692,6 +6692,12 @@
                     "partner": "kerberoswraith",
                     "post_id": "1eou9ws",
                     "timestamp": 1724203692
+                },
+                {
+                    "comment_id": "ljfzt6u",
+                    "partner": "crtaylor517",
+                    "post_id": "1ek05fr",
+                    "timestamp": 1724361436
                 }
             ]
         },
@@ -18953,7 +18959,14 @@
         },
         "crtaylor517": {
             "legacy_count": 4,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ljfzt6u",
+                    "partner": "aznriptide859",
+                    "post_id": "1ek05fr",
+                    "timestamp": 1724361436
+                }
+            ]
         },
         "crunchy_justice": {
             "legacy_count": 2,

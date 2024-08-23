@@ -14636,6 +14636,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "freya_folkvangr": {
+            "transactions": [
+                {
+                    "comment_id": "ljaoxmt",
+                    "partner": "pinkkittenfur",
+                    "post_id": "1ex7fob",
+                    "timestamp": 1724350749
+                }
+            ]
+        },
         "fribby": {
             "legacy_count": 1,
             "transactions": []
@@ -33338,6 +33348,12 @@
                     "partner": "hunnybugbee",
                     "post_id": "15rtj5d",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ljaoxmt",
+                    "partner": "freya_folkvangr",
+                    "post_id": "1ex7fob",
+                    "timestamp": 1724350749
                 }
             ]
         },

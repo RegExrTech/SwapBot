@@ -10268,6 +10268,16 @@
             "legacy_count": 10,
             "transactions": []
         },
+        "ecodelta": {
+            "transactions": [
+                {
+                    "comment_id": "ljbsg04",
+                    "partner": "onii-chan_itaii",
+                    "post_id": "1epm79v",
+                    "timestamp": 1724331898
+                }
+            ]
+        },
         "eddiechesnuts": {
             "transactions": [
                 {
@@ -10417,6 +10427,12 @@
                     "partner": "p-potatovich",
                     "post_id": "1euufue",
                     "timestamp": 1724106231
+                },
+                {
+                    "comment_id": "ljgap9j",
+                    "partner": "starterpai",
+                    "post_id": "1euufue",
+                    "timestamp": 1724366132
                 }
             ]
         },
@@ -22013,6 +22029,12 @@
                     "partner": "metcarfre",
                     "post_id": "1dd8tw7",
                     "timestamp": 1719669158
+                },
+                {
+                    "comment_id": "ljbsg04",
+                    "partner": "ecodelta",
+                    "post_id": "1epm79v",
+                    "timestamp": 1724331898
                 }
             ]
         },
@@ -25660,6 +25682,12 @@
                     "partner": "kyokogg",
                     "post_id": "1ede2z7",
                     "timestamp": 1723945303
+                },
+                {
+                    "comment_id": "ljgol6s",
+                    "partner": "wuunniii",
+                    "post_id": "1evs3wn",
+                    "timestamp": 1724394423
                 }
             ]
         },
@@ -28054,6 +28082,12 @@
                     "partner": "adless5832",
                     "post_id": "1e1x1ir",
                     "timestamp": 1722281766
+                },
+                {
+                    "comment_id": "ljgap9j",
+                    "partner": "eddy_talon",
+                    "post_id": "1euufue",
+                    "timestamp": 1724366132
                 }
             ]
         },
@@ -31933,6 +31967,12 @@
                     "partner": "howardyee2002",
                     "post_id": "1edxtwz",
                     "timestamp": 1722931268
+                },
+                {
+                    "comment_id": "ljgol6s",
+                    "partner": "sanmao333",
+                    "post_id": "1evs3wn",
+                    "timestamp": 1724394423
                 }
             ]
         },
