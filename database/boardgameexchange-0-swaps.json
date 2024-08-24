@@ -2897,6 +2897,16 @@
                 }
             ]
         },
+        "anonamo0se": {
+            "transactions": [
+                {
+                    "comment_id": "ljm689j",
+                    "partner": "theholyfork",
+                    "post_id": "1evot4o",
+                    "timestamp": 1724452710
+                }
+            ]
+        },
         "anonex9": {
             "transactions": [
                 {
@@ -4031,6 +4041,16 @@
                     "partner": "bigdeal74",
                     "post_id": "wc11dj",
                     "timestamp": 0
+                }
+            ]
+        },
+        "asynithistos": {
+            "transactions": [
+                {
+                    "comment_id": "ljmdfvh",
+                    "partner": "ricoslims",
+                    "post_id": "1eqsee3",
+                    "timestamp": 1724453872
                 }
             ]
         },
@@ -14842,6 +14862,12 @@
                     "partner": "aiasthetall",
                     "post_id": "1bt0i1b",
                     "timestamp": 1712950294
+                },
+                {
+                    "comment_id": "ljm59hn",
+                    "partner": "nanorii",
+                    "post_id": "1evbe9o",
+                    "timestamp": 1724450080
                 }
             ]
         },
@@ -16421,6 +16447,12 @@
                     "partner": "spidey555",
                     "post_id": "1eluy38",
                     "timestamp": 1723838043
+                },
+                {
+                    "comment_id": "ljn12bv",
+                    "partner": "shert73",
+                    "post_id": "1eluy38",
+                    "timestamp": 1724470436
                 }
             ]
         },
@@ -42194,6 +42226,12 @@
                     "partner": "geekdadroo",
                     "post_id": "1egy95s",
                     "timestamp": 1722981344
+                },
+                {
+                    "comment_id": "ljm59hn",
+                    "partner": "ddlytng",
+                    "post_id": "1evbe9o",
+                    "timestamp": 1724450080
                 }
             ]
         },
@@ -50340,6 +50378,18 @@
                     "partner": "classic-sprinkles-92",
                     "post_id": "1bvuaew",
                     "timestamp": 1712995260
+                },
+                {
+                    "comment_id": "ljmdfvh",
+                    "partner": "asynithistos",
+                    "post_id": "1eqsee3",
+                    "timestamp": 1724453872
+                },
+                {
+                    "comment_id": "ljmd0eq",
+                    "partner": "snakekitty",
+                    "post_id": "1emz3ou",
+                    "timestamp": 1724454281
                 }
             ]
         },
@@ -54253,6 +54303,16 @@
                 }
             ]
         },
+        "shert73": {
+            "transactions": [
+                {
+                    "comment_id": "ljn12bv",
+                    "partner": "dodekaedron",
+                    "post_id": "1eluy38",
+                    "timestamp": 1724470436
+                }
+            ]
+        },
         "shiftplus1": {
             "legacy_count": 1,
             "transactions": []
@@ -56759,6 +56819,12 @@
                     "partner": "practical_plant",
                     "post_id": "1dpiaab",
                     "timestamp": 1720375920
+                },
+                {
+                    "comment_id": "ljmd0eq",
+                    "partner": "ricoslims",
+                    "post_id": "1emz3ou",
+                    "timestamp": 1724454281
                 }
             ]
         },
@@ -62494,6 +62560,12 @@
                     "partner": "wandersquash",
                     "post_id": "16bq9ln",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ljm689j",
+                    "partner": "anonamo0se",
+                    "post_id": "1evot4o",
+                    "timestamp": 1724452710
                 }
             ]
         },

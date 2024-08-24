@@ -5753,6 +5753,12 @@
                     "partner": "killstring",
                     "post_id": "12purka",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ljht4fj",
+                    "partner": "nu1ndustry",
+                    "post_id": "1es2zyo",
+                    "timestamp": 1724414954
                 }
             ]
         },
@@ -6521,6 +6527,18 @@
                     "partner": "slujj-vohaul",
                     "post_id": "459ihe",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ljht4fj",
+                    "partner": "media0ffline",
+                    "post_id": "1es2zyo",
+                    "timestamp": 1724414954
+                },
+                {
+                    "comment_id": "ljjade1",
+                    "partner": "tangurena",
+                    "post_id": "1es2zyo",
+                    "timestamp": 1724418525
                 }
             ]
         },
@@ -8707,6 +8725,16 @@
                     "partner": "visceraeyes88",
                     "post_id": "1c61kxb",
                     "timestamp": 1714212302
+                }
+            ]
+        },
+        "tangurena": {
+            "transactions": [
+                {
+                    "comment_id": "ljjade1",
+                    "partner": "nu1ndustry",
+                    "post_id": "1es2zyo",
+                    "timestamp": 1724418525
                 }
             ]
         },

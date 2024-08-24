@@ -3871,6 +3871,12 @@
                     "partner": "parodelia12501",
                     "post_id": "1cw1845",
                     "timestamp": 1717812631
+                },
+                {
+                    "comment_id": "ljlxnz3",
+                    "partner": "taitosoku",
+                    "post_id": "1etadjg",
+                    "timestamp": 1724452429
                 }
             ]
         },
@@ -7846,6 +7852,16 @@
                     "partner": "chipndalencats",
                     "post_id": "dwf614",
                     "timestamp": 0
+                }
+            ]
+        },
+        "dronedee": {
+            "transactions": [
+                {
+                    "comment_id": "ljhr6ta",
+                    "partner": "kreeperkarl",
+                    "post_id": "1eqt3vf",
+                    "timestamp": 1724400639
                 }
             ]
         },
@@ -15997,6 +16013,12 @@
                     "partner": "dph_5",
                     "post_id": "1etfebl",
                     "timestamp": 1724386636
+                },
+                {
+                    "comment_id": "ljhr6ta",
+                    "partner": "dronedee",
+                    "post_id": "1eqt3vf",
+                    "timestamp": 1724400639
                 }
             ]
         },
@@ -32375,6 +32397,16 @@
         "tagruato_corporation": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "taitosoku": {
+            "transactions": [
+                {
+                    "comment_id": "ljlxnz3",
+                    "partner": "bubblypeaches",
+                    "post_id": "1etadjg",
+                    "timestamp": 1724452429
+                }
+            ]
         },
         "tangledmermaid": {
             "legacy_count": 7,

@@ -4783,6 +4783,12 @@
                     "partner": "kool-aid-man2",
                     "post_id": "1aty2x1",
                     "timestamp": 1708751817
+                },
+                {
+                    "comment_id": "ljgv2wb",
+                    "partner": "superlum",
+                    "post_id": "1euuyb1",
+                    "timestamp": 1724435317
                 }
             ]
         },
@@ -26178,7 +26184,14 @@
         },
         "gendekker": {
             "legacy_count": 1,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "ljgj19t",
+                    "partner": "jjwayfitness",
+                    "post_id": "1euso5n",
+                    "timestamp": 1724464889
+                }
+            ]
         },
         "gentelmanjackno7": {
             "transactions": [
@@ -35401,6 +35414,12 @@
                     "partner": "barsoomianambassador",
                     "post_id": "188n7yt",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ljgj19t",
+                    "partner": "gendekker",
+                    "post_id": "1euso5n",
+                    "timestamp": 1724464889
                 }
             ]
         },
@@ -68537,6 +68556,12 @@
                     "partner": "phreakinpher",
                     "post_id": "1ec2rgq",
                     "timestamp": 1722369355
+                },
+                {
+                    "comment_id": "ljgv2wb",
+                    "partner": "aloofpavillion",
+                    "post_id": "1euuyb1",
+                    "timestamp": 1724435317
                 }
             ]
         },

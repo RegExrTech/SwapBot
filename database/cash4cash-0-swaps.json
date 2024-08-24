@@ -35933,6 +35933,12 @@
                     "partner": "ducksreddit",
                     "post_id": "1evcbel",
                     "timestamp": 1724043423
+                },
+                {
+                    "comment_id": "ljn52o6",
+                    "partner": "indydino",
+                    "post_id": "1ezs99s",
+                    "timestamp": 1724464550
                 }
             ]
         },
@@ -52549,6 +52555,12 @@
                     "partner": "saxmandan01",
                     "post_id": "1ea0mfj",
                     "timestamp": 1723060781
+                },
+                {
+                    "comment_id": "ljn52o6",
+                    "partner": "euphemizedrotmg",
+                    "post_id": "1ezs99s",
+                    "timestamp": 1724464550
                 }
             ]
         },
@@ -61863,6 +61875,12 @@
                     "partner": "qponrocks",
                     "post_id": "1evantg",
                     "timestamp": 1724007994
+                },
+                {
+                    "comment_id": "ljlle8r",
+                    "partner": "qponrocks",
+                    "post_id": "1ezhi36",
+                    "timestamp": 1724444061
                 }
             ]
         },
@@ -81696,6 +81714,12 @@
                     "partner": "floyd04",
                     "post_id": "1eqr95x",
                     "timestamp": 1724381402
+                },
+                {
+                    "comment_id": "ljo5hog",
+                    "partner": "zoro_cxx",
+                    "post_id": "1ezkk4m",
+                    "timestamp": 1724482493
                 }
             ]
         },
@@ -91114,6 +91138,12 @@
                     "partner": "gardasil9sucks",
                     "post_id": "1et9hoc",
                     "timestamp": 1724376808
+                },
+                {
+                    "comment_id": "ljlle8r",
+                    "partner": "leo_baboza",
+                    "post_id": "1ezhi36",
+                    "timestamp": 1724444061
                 }
             ]
         },
@@ -108577,6 +108607,16 @@
                 }
             ]
         },
+        "spot-hollow336": {
+            "transactions": [
+                {
+                    "comment_id": "ljmi696",
+                    "partner": "zoro_cxx",
+                    "post_id": "1ezkk4m",
+                    "timestamp": 1724454918
+                }
+            ]
+        },
         "squazher": {
             "transactions": [
                 {
@@ -124432,6 +124472,22 @@
                     "partner": "drevilsauce",
                     "post_id": "qnlwro",
                     "timestamp": 0
+                }
+            ]
+        },
+        "zoro_cxx": {
+            "transactions": [
+                {
+                    "comment_id": "ljmi696",
+                    "partner": "spot-hollow336",
+                    "post_id": "1ezkk4m",
+                    "timestamp": 1724454918
+                },
+                {
+                    "comment_id": "ljo5hog",
+                    "partner": "ok_promotion_980",
+                    "post_id": "1ezkk4m",
+                    "timestamp": 1724482493
                 }
             ]
         },
