@@ -6719,6 +6719,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "careless_ad2168": {
+            "transactions": [
+                {
+                    "comment_id": "ljpk7rf",
+                    "partner": "meetformal",
+                    "post_id": "1ezcy82",
+                    "timestamp": 1724513485
+                }
+            ]
+        },
         "carliface": {
             "legacy_count": 1,
             "transactions": []
@@ -19496,6 +19506,12 @@
                     "partner": "anarchergal",
                     "post_id": "mrk53d",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "ljnqlm7",
+                    "partner": "wide_comment3081",
+                    "post_id": "1ezwuxp",
+                    "timestamp": 1724509044
                 }
             ]
         },
@@ -20140,6 +20156,16 @@
                     "partner": "littlecranberry5652",
                     "post_id": "10k27u2",
                     "timestamp": 0
+                }
+            ]
+        },
+        "jjpolonium": {
+            "transactions": [
+                {
+                    "comment_id": "ljolr3v",
+                    "partner": "zenkitty999",
+                    "post_id": "1f01qd8",
+                    "timestamp": 1724503526
                 }
             ]
         },
@@ -26875,6 +26901,16 @@
         "meep86": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "meetformal": {
+            "transactions": [
+                {
+                    "comment_id": "ljpk7rf",
+                    "partner": "careless_ad2168",
+                    "post_id": "1ezcy82",
+                    "timestamp": 1724513485
+                }
+            ]
         },
         "meg0412": {
             "transactions": [
@@ -45835,6 +45871,12 @@
                     "partner": "crunchyteatime",
                     "post_id": "1d37biq",
                     "timestamp": 1717207272
+                },
+                {
+                    "comment_id": "ljnqlm7",
+                    "partner": "janeyfromtheblock",
+                    "post_id": "1ezwuxp",
+                    "timestamp": 1724509044
                 }
             ]
         },
@@ -47390,6 +47432,12 @@
                     "partner": "alternativebeep",
                     "post_id": "1ej7hbs",
                     "timestamp": 1722727622
+                },
+                {
+                    "comment_id": "ljolr3v",
+                    "partner": "jjpolonium",
+                    "post_id": "1f01qd8",
+                    "timestamp": 1724503526
                 }
             ]
         },
