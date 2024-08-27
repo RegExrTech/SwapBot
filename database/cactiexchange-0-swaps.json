@@ -1448,6 +1448,16 @@
                 }
             ]
         },
+        "clearlysam": {
+            "transactions": [
+                {
+                    "comment_id": "lk2jnd8",
+                    "partner": "impressive_friend175",
+                    "post_id": "1eva1ho",
+                    "timestamp": 1724704597
+                }
+            ]
+        },
         "cluckyay": {
             "transactions": [
                 {
@@ -1529,6 +1539,12 @@
                     "partner": "baconanime",
                     "post_id": "1etc9in",
                     "timestamp": 1724366372
+                },
+                {
+                    "comment_id": "lk3ikee",
+                    "partner": "n0t-again",
+                    "post_id": "1eznn08",
+                    "timestamp": 1724718476
                 }
             ]
         },
@@ -2633,6 +2649,16 @@
                     "partner": "fartkart32",
                     "post_id": "1dn3z4w",
                     "timestamp": 1719868644
+                }
+            ]
+        },
+        "dr_mcstuffins": {
+            "transactions": [
+                {
+                    "comment_id": "ljms976",
+                    "partner": "midniteflounder",
+                    "post_id": "1eup5bq",
+                    "timestamp": 1724702488
                 }
             ]
         },
@@ -4608,6 +4634,12 @@
                     "partner": "beardymcreddit",
                     "post_id": "1eva1ho",
                     "timestamp": 1724572887
+                },
+                {
+                    "comment_id": "lk2jnd8",
+                    "partner": "clearlysam",
+                    "post_id": "1eva1ho",
+                    "timestamp": 1724704597
                 }
             ]
         },
@@ -6711,6 +6743,12 @@
                     "partner": "jsterling1620",
                     "post_id": "1ewa4m7",
                     "timestamp": 1724361497
+                },
+                {
+                    "comment_id": "ljms976",
+                    "partner": "dr_mcstuffins",
+                    "post_id": "1eup5bq",
+                    "timestamp": 1724702488
                 }
             ]
         },
@@ -7037,6 +7075,12 @@
                     "partner": "gotwellsoowie",
                     "post_id": "1eqan5j",
                     "timestamp": 1723852630
+                },
+                {
+                    "comment_id": "lk3ikee",
+                    "partner": "codyjh123",
+                    "post_id": "1eznn08",
+                    "timestamp": 1724718476
                 }
             ]
         },
