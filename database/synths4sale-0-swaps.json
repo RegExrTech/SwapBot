@@ -944,6 +944,16 @@
                 }
             ]
         },
+        "araz_reddit": {
+            "transactions": [
+                {
+                    "comment_id": "lk7qr1v",
+                    "partner": "jshg0411",
+                    "post_id": "1eo2q75",
+                    "timestamp": 1724783430
+                }
+            ]
+        },
         "armorplatedguardrail": {
             "transactions": [
                 {
@@ -4815,6 +4825,12 @@
                     "partner": "espyou",
                     "post_id": "1eo2q75",
                     "timestamp": 1723817710
+                },
+                {
+                    "comment_id": "lk7qr1v",
+                    "partner": "araz_reddit",
+                    "post_id": "1eo2q75",
+                    "timestamp": 1724783430
                 }
             ]
         },
