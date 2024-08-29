@@ -1638,6 +1638,12 @@
                     "partner": "zenstefani",
                     "post_id": "1eogqia",
                     "timestamp": 1724107214
+                },
+                {
+                    "comment_id": "lkd0kfz",
+                    "partner": "silvia0240",
+                    "post_id": "1eu5z0c",
+                    "timestamp": 1724868200
                 }
             ]
         },
@@ -8291,6 +8297,18 @@
                     "partner": "foofier",
                     "post_id": "1epsbmn",
                     "timestamp": 1723915728
+                },
+                {
+                    "comment_id": "lke7axf",
+                    "partner": "ubersuperduper",
+                    "post_id": "1ewq0dt",
+                    "timestamp": 1724896858
+                },
+                {
+                    "comment_id": "lke7es6",
+                    "partner": "dandydanhazard",
+                    "post_id": "1epsbmn",
+                    "timestamp": 1724918442
                 }
             ]
         },
@@ -16698,6 +16716,16 @@
                 }
             ]
         },
+        "cookiekillr": {
+            "transactions": [
+                {
+                    "comment_id": "lka2n8e",
+                    "partner": "mirict",
+                    "post_id": "1eyr7fc",
+                    "timestamp": 1724837587
+                }
+            ]
+        },
         "cookinmyfuckinassoff": {
             "legacy_count": 1,
             "transactions": []
@@ -18100,6 +18128,16 @@
         "danc828": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "dandydanhazard": {
+            "transactions": [
+                {
+                    "comment_id": "lke7es6",
+                    "partner": "beamshot",
+                    "post_id": "1epsbmn",
+                    "timestamp": 1724918442
+                }
+            ]
         },
         "dangittravis": {
             "transactions": [
@@ -46009,6 +46047,12 @@
                     "partner": "wheres_my_bike",
                     "post_id": "y0jjdi",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lka2n8e",
+                    "partner": "cookiekillr",
+                    "post_id": "1eyr7fc",
+                    "timestamp": 1724837587
                 }
             ]
         },
@@ -64692,6 +64736,12 @@
                     "partner": "squidfingers",
                     "post_id": "1eoz8u1",
                     "timestamp": 1723739053
+                },
+                {
+                    "comment_id": "lkd0kfz",
+                    "partner": "50wwaayyss",
+                    "post_id": "1eu5z0c",
+                    "timestamp": 1724868200
                 }
             ]
         },
@@ -76634,6 +76684,12 @@
                     "partner": "parceljockey",
                     "post_id": "14hzz49",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lke7axf",
+                    "partner": "beamshot",
+                    "post_id": "1ewq0dt",
+                    "timestamp": 1724896858
                 }
             ]
         },

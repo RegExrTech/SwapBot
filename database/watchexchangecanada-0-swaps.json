@@ -6123,6 +6123,16 @@
                 }
             ]
         },
+        "klutchable": {
+            "transactions": [
+                {
+                    "comment_id": "ljvij2p",
+                    "partner": "sudden-lack",
+                    "post_id": "1f0yvcx",
+                    "timestamp": 1724875282
+                }
+            ]
+        },
         "klutzy_grocery6498": {
             "legacy_count": 1,
             "transactions": [
@@ -8966,6 +8976,16 @@
                 }
             ]
         },
+        "ptensioned63": {
+            "transactions": [
+                {
+                    "comment_id": "lkaf6rt",
+                    "partner": "sublime213",
+                    "post_id": "1eyf2f1",
+                    "timestamp": 1724839015
+                }
+            ]
+        },
         "public_positive8415": {
             "transactions": [
                 {
@@ -10391,6 +10411,16 @@
                 }
             ]
         },
+        "sublime213": {
+            "transactions": [
+                {
+                    "comment_id": "lkaf6rt",
+                    "partner": "ptensioned63",
+                    "post_id": "1eyf2f1",
+                    "timestamp": 1724839015
+                }
+            ]
+        },
         "sudden-lack": {
             "transactions": [
                 {
@@ -10398,6 +10428,12 @@
                     "partner": "6_2_6_4",
                     "post_id": "1en53j3",
                     "timestamp": 1723579627
+                },
+                {
+                    "comment_id": "ljvij2p",
+                    "partner": "klutchable",
+                    "post_id": "1f0yvcx",
+                    "timestamp": 1724875282
                 }
             ]
         },
