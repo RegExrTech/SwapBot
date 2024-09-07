@@ -655,7 +655,7 @@ def handle_not_op(comment, op_author, incorrect_name):
 	reply(comment, reply_text)
 
 def handle_comment_by_filtered_user(comment):
-	reply_text = "Thank you for tagging the Confirmation Bot. Unfortunately, you are not allowed to participate in the sub at this time. As such, we cannot confirm transactions between you and your partner. Please try participating again once you meet this sub's participation requirements."
+	reply_text = "Thank you for tagging the Confirmation Bot. Unfortunately, your comment has been removed. As such, we cannot confirm transactions between you and your partner. Comments are usually removed either by the reddit spam filter or by automod for not meeting the sub's participation requirements. Please wait some time and try again, or try again once you meet this sub's participation requirements."
 	reply(comment, reply_text)
 
 def handle_reply_by_filtered_user(comment):
@@ -732,10 +732,6 @@ def format_swap_count(trades_data, sub_config):
 					trade_partner = trade['partner']
 					trade_partner_count = get_swap_count(trade_partner, [sub_config.database_name], PLATFORM)
 					if trade['comment_id']:
-						if trade['timestamp'] == 0:
-							feedback_sub = sub_config.feedback_sub
-						else:
-							feedback_sub = sub_name
 						trade_url = "https://www.reddit.com/r/" + sub_name + "/comments/" + trade['post_id'] + "/-/" + trade['comment_id']
 					else:
 						trade_url = "https://redd.it/" + trade['post_id']
