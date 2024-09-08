@@ -42743,6 +42743,12 @@
                     "partner": "ballnflip",
                     "post_id": "1ephw41",
                     "timestamp": 1724247416
+                },
+                {
+                    "comment_id": "llzs4jb",
+                    "partner": "reasonable-tooth-113",
+                    "post_id": "1f7duzi",
+                    "timestamp": 1725734772
                 }
             ]
         },
@@ -59877,6 +59883,12 @@
                     "partner": "codenamejunior",
                     "post_id": "upur27",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "llzs4jb",
+                    "partner": "l337quaker",
+                    "post_id": "1f7duzi",
+                    "timestamp": 1725734772
                 }
             ]
         },
@@ -79930,6 +79942,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "w4rden1": {
+            "transactions": [
+                {
+                    "comment_id": "lm0p1zp",
+                    "partner": "walrhus",
+                    "post_id": "1f4aa6b",
+                    "timestamp": 1725747891
+                }
+            ]
+        },
         "wackzhitney": {
             "legacy_count": 2,
             "transactions": [
@@ -80242,6 +80264,12 @@
                     "partner": "p00pch00te",
                     "post_id": "1f2qbzy",
                     "timestamp": 1725579014
+                },
+                {
+                    "comment_id": "lm0p1zp",
+                    "partner": "w4rden1",
+                    "post_id": "1f4aa6b",
+                    "timestamp": 1725747891
                 }
             ]
         },
