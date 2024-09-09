@@ -4577,6 +4577,12 @@
                     "partner": "poweredbykrisp",
                     "post_id": "1et2hc7",
                     "timestamp": 1724819408
+                },
+                {
+                    "comment_id": "lm7nwsj",
+                    "partner": "fr0st3ythesnowman",
+                    "post_id": "1f192v4",
+                    "timestamp": 1725846768
                 }
             ]
         },
@@ -17741,6 +17747,16 @@
                 }
             ]
         },
+        "confusedritzcracker": {
+            "transactions": [
+                {
+                    "comment_id": "llwy605",
+                    "partner": "worldsworstcanadian",
+                    "post_id": "1f46830",
+                    "timestamp": 1725782438
+                }
+            ]
+        },
         "confusingcrux": {
             "legacy_count": 1,
             "transactions": []
@@ -29490,6 +29506,18 @@
                     "partner": "ilya19k25",
                     "post_id": "1f192v4",
                     "timestamp": 1724994989
+                },
+                {
+                    "comment_id": "lm66q2m",
+                    "partner": "ianwoodyyy",
+                    "post_id": "1f7mivp",
+                    "timestamp": 1725828702
+                },
+                {
+                    "comment_id": "lm7nwsj",
+                    "partner": "annthaknee",
+                    "post_id": "1f192v4",
+                    "timestamp": 1725846768
                 }
             ]
         },
@@ -35000,6 +35028,16 @@
         "iansab": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "ianwoodyyy": {
+            "transactions": [
+                {
+                    "comment_id": "lm66q2m",
+                    "partner": "fr0st3ythesnowman",
+                    "post_id": "1f7mivp",
+                    "timestamp": 1725828702
+                }
+            ]
         },
         "ibejewfro": {
             "legacy_count": 21,
@@ -81713,6 +81751,16 @@
                     "partner": "thetenshi",
                     "post_id": "kyb302",
                     "timestamp": 0
+                }
+            ]
+        },
+        "worldsworstcanadian": {
+            "transactions": [
+                {
+                    "comment_id": "llwy605",
+                    "partner": "confusedritzcracker",
+                    "post_id": "1f46830",
+                    "timestamp": 1725782438
                 }
             ]
         },
