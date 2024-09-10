@@ -7038,6 +7038,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "ruknight31": {
+            "transactions": [
+                {
+                    "comment_id": "lmd59u2",
+                    "partner": "thunderfoot85",
+                    "post_id": "1f9b4b1",
+                    "timestamp": 1725929690
+                }
+            ]
+        },
         "rulerofreddit": {
             "legacy_count": 5,
             "transactions": []
@@ -8813,6 +8823,12 @@
                     "partner": "frankthepug",
                     "post_id": "13zogq3",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lmd59u2",
+                    "partner": "ruknight31",
+                    "post_id": "1f9b4b1",
+                    "timestamp": 1725929690
                 }
             ]
         },
