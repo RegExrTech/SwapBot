@@ -25736,6 +25736,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "ennvie": {
+            "transactions": [
+                {
+                    "comment_id": "lmo7mub",
+                    "partner": "lubenthrust",
+                    "post_id": "1fbe0ds",
+                    "timestamp": 1726094153
+                }
+            ]
+        },
         "enomarsan": {
             "transactions": [
                 {
@@ -30595,6 +30605,12 @@
                     "partner": "okpreparation7171",
                     "post_id": "18ifku3",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lmpur1x",
+                    "partner": "potterkun",
+                    "post_id": "1farj0o",
+                    "timestamp": 1726114716
                 }
             ]
         },
@@ -31518,6 +31534,16 @@
                     "partner": "insanityclown",
                     "post_id": "plys5x",
                     "timestamp": 0
+                }
+            ]
+        },
+        "gqpenguin": {
+            "transactions": [
+                {
+                    "comment_id": "lmpn7zv",
+                    "partner": "patmywong",
+                    "post_id": "1fati0i",
+                    "timestamp": 1726111226
                 }
             ]
         },
@@ -41805,6 +41831,12 @@
                     "partner": "the_joker80",
                     "post_id": "1ebf9i1",
                     "timestamp": 1722794382
+                },
+                {
+                    "comment_id": "lmpj5ip",
+                    "partner": "ohwellboomer",
+                    "post_id": "1f8b3cs",
+                    "timestamp": 1726109856
                 }
             ]
         },
@@ -44825,6 +44857,16 @@
                     "partner": "connectexit1681",
                     "post_id": "1cr59ym",
                     "timestamp": 1715733418
+                }
+            ]
+        },
+        "lubenthrust": {
+            "transactions": [
+                {
+                    "comment_id": "lmo7mub",
+                    "partner": "ennvie",
+                    "post_id": "1fbe0ds",
+                    "timestamp": 1726094153
                 }
             ]
         },
@@ -53379,6 +53421,12 @@
                     "partner": "sa12_gecko",
                     "post_id": "wx6ms0",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lmpj5ip",
+                    "partner": "koskenu",
+                    "post_id": "1f8b3cs",
+                    "timestamp": 1726109856
                 }
             ]
         },
@@ -55368,7 +55416,20 @@
         },
         "patmywong": {
             "legacy_count": 3,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "lmpn7zv",
+                    "partner": "gqpenguin",
+                    "post_id": "1fati0i",
+                    "timestamp": 1726111226
+                },
+                {
+                    "comment_id": "lmpyvgg",
+                    "partner": "teowned",
+                    "post_id": "1fati0i",
+                    "timestamp": 1726123751
+                }
+            ]
         },
         "patrike12": {
             "legacy_count": 43,
@@ -57399,6 +57460,12 @@
                     "partner": "bkm_ferrer",
                     "post_id": "1edsiqu",
                     "timestamp": 1723173202
+                },
+                {
+                    "comment_id": "lmpur1x",
+                    "partner": "gentlekimchee",
+                    "post_id": "1farj0o",
+                    "timestamp": 1726114716
                 }
             ]
         },
@@ -64290,6 +64357,12 @@
                     "partner": "id-a-v-i-s",
                     "post_id": "107rp8z",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lmn6nvb",
+                    "partner": "tactic00l_dad",
+                    "post_id": "1f982mi",
+                    "timestamp": 1726086373
                 }
             ]
         },
@@ -70670,6 +70743,12 @@
                     "partner": "kyddosan0325",
                     "post_id": "14j83f7",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lmn6nvb",
+                    "partner": "separate-ad-3231",
+                    "post_id": "1f982mi",
+                    "timestamp": 1726086373
                 }
             ]
         },
@@ -71557,6 +71636,16 @@
                     "partner": "audioisland",
                     "post_id": "n22009",
                     "timestamp": 0
+                }
+            ]
+        },
+        "teowned": {
+            "transactions": [
+                {
+                    "comment_id": "lmpyvgg",
+                    "partner": "patmywong",
+                    "post_id": "1fati0i",
+                    "timestamp": 1726123751
                 }
             ]
         },
