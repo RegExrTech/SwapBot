@@ -1620,6 +1620,16 @@
                 }
             ]
         },
+        "pkmntraderash": {
+            "transactions": [
+                {
+                    "comment_id": "ln0v3qa",
+                    "partner": "strikerxvi",
+                    "post_id": "1fca95u",
+                    "timestamp": 1726324911
+                }
+            ]
+        },
         "pokemonpenguin": {
             "legacy_count": 2,
             "transactions": [
@@ -1742,6 +1752,12 @@
                     "partner": "artordrakan",
                     "post_id": "1crltm2",
                     "timestamp": 1723341638
+                },
+                {
+                    "comment_id": "ln5lbkf",
+                    "partner": "strikerxvi",
+                    "post_id": "1fc6h1u",
+                    "timestamp": 1726425358
                 }
             ]
         },
@@ -2619,6 +2635,22 @@
                     "partner": "scatthav",
                     "post_id": "1et9aig",
                     "timestamp": 1725176520
+                }
+            ]
+        },
+        "strikerxvi": {
+            "transactions": [
+                {
+                    "comment_id": "ln0v3qa",
+                    "partner": "pkmntraderash",
+                    "post_id": "1fca95u",
+                    "timestamp": 1726324911
+                },
+                {
+                    "comment_id": "ln5lbkf",
+                    "partner": "pokemonpenguin",
+                    "post_id": "1fc6h1u",
+                    "timestamp": 1726425358
                 }
             ]
         },
