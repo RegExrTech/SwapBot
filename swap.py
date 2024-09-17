@@ -603,9 +603,10 @@ def reply(comment, reply_text, lock=True, try_parent=True):
 		else:
 			print(reply_text + "\n==========")
 	except Exception as e:
-		parent = comment.parent()
-		if try_parent and parent:
-			reply(parent, reply_text, lock=lock, try_parent=False)
+		if try_parent:
+			parent = comment.parent()
+			if parent:
+				reply(parent, reply_text, lock=lock, try_parent=False)
 		else:
 			logger.log("Unable to reply to comment " + comment.id + " with text:\n" + reply_text, e, traceback.format_exc())
 
@@ -1077,12 +1078,13 @@ def main():
 	sub = sub_config.subreddit_object
 	sub_config.sister_subs[sub_config.subreddit_name] = {'reddit': reddit, 'sub': sub, 'config': sub_config}
 
-	wiki_helper.run_config_checker(sub_config)
-
 	comments = []  # Stores comments from both sources of Ids
 	messages = []  # Want to catch everything else for replying
 	new_ids = []  # Want to know which IDs are from comments we're just finding for the first time
 	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages, new_ids, sub_config)
+
+	# Do this after `set_active_comments_and_messages` so we ensure we accept mod invite before modifying wiki pages
+	wiki_helper.run_config_checker(sub_config)
 
 	# Process comments
 	if debug:
