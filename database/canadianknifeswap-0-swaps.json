@@ -2392,6 +2392,16 @@
                 }
             ]
         },
+        "crowley_is_king": {
+            "transactions": [
+                {
+                    "comment_id": "lmsvf0j",
+                    "partner": "gpccigerettes",
+                    "post_id": "1fejey0",
+                    "timestamp": 1726516842
+                }
+            ]
+        },
         "crrassh": {
             "legacy_count": 1,
             "transactions": [
@@ -4360,6 +4370,12 @@
                     "partner": "sufficientgreen244",
                     "post_id": "1fd4isj",
                     "timestamp": 1726156067
+                },
+                {
+                    "comment_id": "lnflwyk",
+                    "partner": "vomitorypepper",
+                    "post_id": "1fa6bc3",
+                    "timestamp": 1726505354
                 }
             ]
         },
@@ -5036,6 +5052,12 @@
                     "partner": "_mr_mcgibblets_",
                     "post_id": "1fejey0",
                     "timestamp": 1726300852
+                },
+                {
+                    "comment_id": "lmsvf0j",
+                    "partner": "crowley_is_king",
+                    "post_id": "1fejey0",
+                    "timestamp": 1726516842
                 }
             ]
         },
@@ -10839,6 +10861,12 @@
                     "partner": "s1michaelwestens7",
                     "post_id": "1bouc1s",
                     "timestamp": 1712784519
+                },
+                {
+                    "comment_id": "lnf15c9",
+                    "partner": "vomitorypepper",
+                    "post_id": "1fa6bc3",
+                    "timestamp": 1726503908
                 }
             ]
         },
@@ -12646,6 +12674,18 @@
                     "partner": "ares927",
                     "post_id": "1fa6bc3",
                     "timestamp": 1726452071
+                },
+                {
+                    "comment_id": "lnf15c9",
+                    "partner": "someguitarguy",
+                    "post_id": "1fa6bc3",
+                    "timestamp": 1726503908
+                },
+                {
+                    "comment_id": "lnflwyk",
+                    "partner": "express_dog5473",
+                    "post_id": "1fa6bc3",
+                    "timestamp": 1726505354
                 }
             ]
         },
