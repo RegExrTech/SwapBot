@@ -4516,6 +4516,16 @@
             "legacy_count": 4,
             "transactions": []
         },
+        "kamper2323": {
+            "transactions": [
+                {
+                    "comment_id": "lnnyjpb",
+                    "partner": "quirky-ad-5235",
+                    "post_id": "1ezrcux",
+                    "timestamp": 1726625673
+                }
+            ]
+        },
         "karmajuj": {
             "legacy_count": 3,
             "transactions": []
@@ -6337,7 +6347,14 @@
         },
         "oso26": {
             "legacy_count": 10,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "lmnofus",
+                    "partner": "thunderfoot85",
+                    "post_id": "1fc43mx",
+                    "timestamp": 1726624877
+                }
+            ]
         },
         "ostrocyte": {
             "transactions": [
@@ -6705,6 +6722,22 @@
                     "partner": "wooddogstudios",
                     "post_id": "1bshh9a",
                     "timestamp": 1712671213
+                }
+            ]
+        },
+        "quirky-ad-5235": {
+            "transactions": [
+                {
+                    "comment_id": "lnnxhtr",
+                    "partner": "velociderp",
+                    "post_id": "1ezrcux",
+                    "timestamp": 1726621688
+                },
+                {
+                    "comment_id": "lnnyjpb",
+                    "partner": "kamper2323",
+                    "post_id": "1ezrcux",
+                    "timestamp": 1726625673
                 }
             ]
         },
@@ -8905,6 +8938,12 @@
                     "partner": "maastrictian",
                     "post_id": "1f975s9",
                     "timestamp": 1726430484
+                },
+                {
+                    "comment_id": "lmnofus",
+                    "partner": "oso26",
+                    "post_id": "1fc43mx",
+                    "timestamp": 1726624877
                 }
             ]
         },
@@ -9314,6 +9353,16 @@
         "vanroma": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "velociderp": {
+            "transactions": [
+                {
+                    "comment_id": "lnnxhtr",
+                    "partner": "quirky-ad-5235",
+                    "post_id": "1ezrcux",
+                    "timestamp": 1726621688
+                }
+            ]
         },
         "venividivintage": {
             "legacy_count": 20,

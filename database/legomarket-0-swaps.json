@@ -14231,6 +14231,16 @@
             "legacy_count": 2,
             "transactions": []
         },
+        "devinbeatyou": {
+            "transactions": [
+                {
+                    "comment_id": "lnndbmm",
+                    "partner": "marvelsquash",
+                    "post_id": "1fg38t9",
+                    "timestamp": 1726614248
+                }
+            ]
+        },
         "devins94": {
             "legacy_count": 1,
             "transactions": [
@@ -16320,6 +16330,12 @@
                     "partner": "proudowlz",
                     "post_id": "152yybi",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lnkw04j",
+                    "partner": "weebus",
+                    "post_id": "1f9n6q4",
+                    "timestamp": 1726585378
                 }
             ]
         },
@@ -31396,6 +31412,12 @@
                     "partner": "perfectandreal",
                     "post_id": "1bsgu3b",
                     "timestamp": 1713711798
+                },
+                {
+                    "comment_id": "lnndbmm",
+                    "partner": "devinbeatyou",
+                    "post_id": "1fg38t9",
+                    "timestamp": 1726614248
                 }
             ]
         },
@@ -37692,6 +37714,12 @@
                     "partner": "ars265",
                     "post_id": "1fbbynq",
                     "timestamp": 1726091991
+                },
+                {
+                    "comment_id": "lnkwc4h",
+                    "partner": "weebus",
+                    "post_id": "1fbbynq",
+                    "timestamp": 1726588876
                 }
             ]
         },
@@ -52993,6 +53021,22 @@
                     "partner": "blasphemousgus",
                     "post_id": "13n2nfu",
                     "timestamp": 0
+                }
+            ]
+        },
+        "weebus": {
+            "transactions": [
+                {
+                    "comment_id": "lnkw04j",
+                    "partner": "duckfigg",
+                    "post_id": "1f9n6q4",
+                    "timestamp": 1726585378
+                },
+                {
+                    "comment_id": "lnkwc4h",
+                    "partner": "phroz3n",
+                    "post_id": "1fbbynq",
+                    "timestamp": 1726588876
                 }
             ]
         },
