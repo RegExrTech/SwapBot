@@ -5391,6 +5391,12 @@
                     "partner": "lumpy-crew-6702",
                     "post_id": "1f68ari",
                     "timestamp": 1726232371
+                },
+                {
+                    "comment_id": "lnr4147",
+                    "partner": "twoeyedboy00",
+                    "post_id": "1fedrd8",
+                    "timestamp": 1726690576
                 }
             ]
         },
@@ -9116,7 +9122,14 @@
         },
         "bassman1976": {
             "legacy_count": 1,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "lnqgukr",
+                    "partner": "louiscarentan",
+                    "post_id": "1f5tt4j",
+                    "timestamp": 1726669021
+                }
+            ]
         },
         "bassmaster_gen": {
             "transactions": [
@@ -14329,6 +14342,12 @@
                     "partner": "archer-613",
                     "post_id": "1cpovaz",
                     "timestamp": 1719582275
+                },
+                {
+                    "comment_id": "ln62nym",
+                    "partner": "inspktor_grzl-waffle",
+                    "post_id": "1fbmeer",
+                    "timestamp": 1726711300
                 }
             ]
         },
@@ -23882,6 +23901,12 @@
                     "partner": "line6isunderrated",
                     "post_id": "1eqyeyb",
                     "timestamp": 1725028485
+                },
+                {
+                    "comment_id": "lnsg2t9",
+                    "partner": "jameslabrie",
+                    "post_id": "1f3zz9g",
+                    "timestamp": 1726690812
                 }
             ]
         },
@@ -35367,6 +35392,12 @@
                     "partner": "useful-assistant4857",
                     "post_id": "1ch39p4",
                     "timestamp": 1716053014
+                },
+                {
+                    "comment_id": "ln62nym",
+                    "partner": "bssnva",
+                    "post_id": "1fbmeer",
+                    "timestamp": 1726711300
                 }
             ]
         },
@@ -37201,6 +37232,16 @@
         "jaklcide": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "jameslabrie": {
+            "transactions": [
+                {
+                    "comment_id": "lnsg2t9",
+                    "partner": "drseafood",
+                    "post_id": "1f3zz9g",
+                    "timestamp": 1726690812
+                }
+            ]
         },
         "jamesptomcat": {
             "legacy_count": 19,
@@ -45709,6 +45750,12 @@
                     "partner": "deuteronymous_bosch",
                     "post_id": "1fcvkhe",
                     "timestamp": 1726361931
+                },
+                {
+                    "comment_id": "lnqgukr",
+                    "partner": "bassman1976",
+                    "post_id": "1f5tt4j",
+                    "timestamp": 1726669021
                 }
             ]
         },
@@ -61523,6 +61570,12 @@
                     "partner": "pimplezoo",
                     "post_id": "1eoj0ov",
                     "timestamp": 1724380382
+                },
+                {
+                    "comment_id": "lnr3pop",
+                    "partner": "twoeyedboy00",
+                    "post_id": "1fedrd8",
+                    "timestamp": 1726675693
                 }
             ]
         },
@@ -75941,6 +75994,12 @@
                     "partner": "rubicon000000",
                     "post_id": "1f6d3ui",
                     "timestamp": 1725644833
+                },
+                {
+                    "comment_id": "lnuk8q3",
+                    "partner": "wheatshocker7",
+                    "post_id": "1esgm4t",
+                    "timestamp": 1726720232
                 }
             ]
         },
@@ -79526,6 +79585,18 @@
                     "partner": "archer-613",
                     "post_id": "1e38j13",
                     "timestamp": 1721767576
+                },
+                {
+                    "comment_id": "lnr3pop",
+                    "partner": "positiveprune5600",
+                    "post_id": "1fedrd8",
+                    "timestamp": 1726675693
+                },
+                {
+                    "comment_id": "lnr4147",
+                    "partner": "any-wedding1538",
+                    "post_id": "1fedrd8",
+                    "timestamp": 1726690576
                 }
             ]
         },
@@ -83302,6 +83373,12 @@
                     "partner": "neverender89",
                     "post_id": "1f9363v",
                     "timestamp": 1725937969
+                },
+                {
+                    "comment_id": "lnuk8q3",
+                    "partner": "theonlythingissufjan",
+                    "post_id": "1esgm4t",
+                    "timestamp": 1726720232
                 }
             ]
         },

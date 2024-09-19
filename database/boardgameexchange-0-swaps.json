@@ -14749,6 +14749,16 @@
                 }
             ]
         },
+        "darrenterp": {
+            "transactions": [
+                {
+                    "comment_id": "lnsqfdw",
+                    "partner": "lund0829",
+                    "post_id": "1feu0ek",
+                    "timestamp": 1726713329
+                }
+            ]
+        },
         "darthcthulhu": {
             "legacy_count": 2,
             "transactions": [
@@ -36463,6 +36473,12 @@
                     "partner": "bartonastone",
                     "post_id": "1fada4s",
                     "timestamp": 1726070039
+                },
+                {
+                    "comment_id": "lnsqfdw",
+                    "partner": "darrenterp",
+                    "post_id": "1feu0ek",
+                    "timestamp": 1726713329
                 }
             ]
         },
@@ -39283,6 +39299,16 @@
                     "partner": "invigor8d",
                     "post_id": "vhmglj",
                     "timestamp": 0
+                }
+            ]
+        },
+        "mike_lubb": {
+            "transactions": [
+                {
+                    "comment_id": "lnrmgy5",
+                    "partner": "ryan3740",
+                    "post_id": "1f81wae",
+                    "timestamp": 1726690750
                 }
             ]
         },
@@ -52188,6 +52214,16 @@
                     "partner": "smallvillechess",
                     "post_id": "pbi8ov",
                     "timestamp": 0
+                }
+            ]
+        },
+        "ryan3740": {
+            "transactions": [
+                {
+                    "comment_id": "lnrmgy5",
+                    "partner": "mike_lubb",
+                    "post_id": "1f81wae",
+                    "timestamp": 1726690750
                 }
             ]
         },
