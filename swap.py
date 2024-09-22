@@ -568,10 +568,10 @@ def check_booster_count(username, sub_config):
 		user_flair_text = "ON THIS SUB ONLY "
 	else:
 		user_flair_text = ""
-	message = "**u/" + username + "** has confirmed " + str(len(valid_recent_transactions)) + " " + sub_config.flair_word + " within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score of **" + str(sub_transaction_count) + "** " + user_flair_text + "is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
+	message = "**u/" + username + "** has confirmed [" + str(len(valid_recent_transactions)) + " " + sub_config.flair_word + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/wiki/confirmations/" + transaction['partner'] + ") within the last " + str(sub_config.booster_check_hours_threshold) + " hours which is above your threshold of " + str(sub_config.booster_check_count_threshold) + " confirmations in that time period because their flair score of **" + str(sub_transaction_count) + "** " + user_flair_text + "is below " + str(sub_config.booster_check_max_score) + " confirmations.\n\nTheir recent confirmations are as follows:\n\n"
 	for transaction in valid_recent_transactions:
 		if transaction['platform'] == 'reddit':
-			message += "* u/" + transaction['partner'] + " (" + str(transaction['partner_count']) + " " + sub_config.flair_word + ") - [" + transaction['sub_name'] + " " + sub_config.flair_word[:-1] + " - " + transaction['post_id'] + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + ")\n"
+			message += "* u/" + transaction['partner'] + " ([" + str(transaction['partner_count']) + " " + sub_config.flair_word + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/wiki/confirmations/" + transaction['partner'] + ")) - [" + transaction['sub_name'] + " " + sub_config.flair_word[:-1] + " - " + transaction['post_id'] + "](https://www.reddit.com/r/" + transaction['sub_name'] + "/comments/" + transaction['post_id'] + "/-/" + transaction['comment_id'] + ")\n"
 		elif transaction['platform'] == 'discord':
 			message += "* " + transaction['partner'] + " - Discord transaction from " + transaction['sub_name'] + " - " + transaction['post_id'] + " - " + transaction['comment_id'] + "\n"
 		else:
