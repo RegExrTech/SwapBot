@@ -11,5 +11,6 @@ edefinition.txt
 Discord/config
 Discord/config/*
 logger/tokens.py
-database
 database/*
+
+!database/subreddits.txt
