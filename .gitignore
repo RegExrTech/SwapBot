@@ -1,0 +1,15 @@
+*.pyc
+config.txt
+config
+config/*
+archived_config
+archived_config/*
+explore_db.py
+backup
+backup/*
+edefinition.txt
+Discord/config
+Discord/config/*
+logger/tokens.py
+database
+database/*
