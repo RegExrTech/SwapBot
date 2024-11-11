@@ -1,0 +1,85 @@
+{
+    "reddit": {
+        "regexr": {
+            "legacy_count": 0,
+            "transactions": []
+        },
+        "totallynotregexr": {
+            "legacy_count": 10,
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "regexrbot",
+                    "post_id": "15545s3",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "kgx47rt",
+                    "partner": "regexr",
+                    "post_id": "1903drd",
+                    "timestamp": 1704734384
+                },
+                {
+                    "comment_id": "kgx4898",
+                    "partner": "regexr",
+                    "post_id": "1903e91",
+                    "timestamp": 1704734496
+                },
+                {
+                    "comment_id": "kgx492k",
+                    "partner": "regexr",
+                    "post_id": "1903eiq",
+                    "timestamp": 1704734534
+                },
+                {
+                    "comment_id": "kgx8162",
+                    "partner": "regexr",
+                    "post_id": "191qrhv",
+                    "timestamp": 1704735550
+                },
+                {
+                    "comment_id": "kgx851g",
+                    "partner": "regexr",
+                    "post_id": "191qs6u",
+                    "timestamp": 1704735585
+                },
+                {
+                    "comment_id": "kgx83vi",
+                    "partner": "regexr",
+                    "post_id": "191qrww",
+                    "timestamp": 1704735592
+                },
+                {
+                    "comment_id": "kgx8x1u",
+                    "partner": "regexr",
+                    "post_id": "191qw72",
+                    "timestamp": 1704735783
+                },
+                {
+                    "comment_id": "kgx8y3g",
+                    "partner": "regexr",
+                    "post_id": "191qwbg",
+                    "timestamp": 1704735820
+                },
+                {
+                    "comment_id": "kgx8z2c",
+                    "partner": "regexr",
+                    "post_id": "191qwg9",
+                    "timestamp": 1704735828
+                },
+                {
+                    "comment_id": "kpp89ww",
+                    "partner": "regexr",
+                    "post_id": "15545s3",
+                    "timestamp": 1707517244
+                },
+                {
+                    "comment_id": "li37tr9",
+                    "partner": "regexr",
+                    "post_id": "1es4vc6",
+                    "timestamp": 1723650067
+                }
+            ]
+        }
+    }
+}
