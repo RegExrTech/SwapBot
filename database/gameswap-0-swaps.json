@@ -7158,6 +7158,16 @@
                 }
             ]
         },
+        "gouki_cookie": {
+            "transactions": [
+                {
+                    "comment_id": "lx3v4rs",
+                    "partner": "wheelndealr88",
+                    "post_id": "1gdqf8y",
+                    "timestamp": 1731602380
+                }
+            ]
+        },
         "grantrules": {
             "transactions": [
                 {
@@ -21973,6 +21983,12 @@
                     "partner": "gold_seaweed",
                     "post_id": "1afoatp",
                     "timestamp": 1707712061
+                },
+                {
+                    "comment_id": "lx3v4rs",
+                    "partner": "gouki_cookie",
+                    "post_id": "1gdqf8y",
+                    "timestamp": 1731602380
                 }
             ]
         },
