@@ -9670,6 +9670,12 @@
                     "partner": "fseubreakifix",
                     "post_id": "1fccv6n",
                     "timestamp": 1726243889
+                },
+                {
+                    "comment_id": "lxce7hg",
+                    "partner": "why_farer",
+                    "post_id": "1go4y3j",
+                    "timestamp": 1731725698
                 }
             ]
         },
@@ -37271,6 +37277,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "jmgrey": {
+            "transactions": [
+                {
+                    "comment_id": "lxc2h7x",
+                    "partner": "proper-initiative834",
+                    "post_id": "1gl44tr",
+                    "timestamp": 1731707319
+                }
+            ]
+        },
         "jmgruber": {
             "transactions": [
                 {
@@ -52653,6 +52669,12 @@
                     "partner": "wrx12",
                     "post_id": "1fhejnp",
                     "timestamp": 1726846166
+                },
+                {
+                    "comment_id": "lxc2nb7",
+                    "partner": "prtnrsncrm",
+                    "post_id": "1gp59ld",
+                    "timestamp": 1731712567
                 }
             ]
         },
@@ -59310,6 +59332,12 @@
                     "partner": "hurricanesam",
                     "post_id": "1ggiv61",
                     "timestamp": 1731023957
+                },
+                {
+                    "comment_id": "lxc2h7x",
+                    "partner": "jmgrey",
+                    "post_id": "1gl44tr",
+                    "timestamp": 1731707319
                 }
             ]
         },
@@ -59367,6 +59395,16 @@
                     "partner": "last-wealth2377",
                     "post_id": "16oxull",
                     "timestamp": 0
+                }
+            ]
+        },
+        "prtnrsncrm": {
+            "transactions": [
+                {
+                    "comment_id": "lxc2nb7",
+                    "partner": "nortie-tortie",
+                    "post_id": "1gp59ld",
+                    "timestamp": 1731712567
                 }
             ]
         },
@@ -82868,6 +82906,16 @@
                     "partner": "rubberslippers",
                     "post_id": "1cirxmk",
                     "timestamp": 1716280647
+                }
+            ]
+        },
+        "why_farer": {
+            "transactions": [
+                {
+                    "comment_id": "lxce7hg",
+                    "partner": "bigtickenerge",
+                    "post_id": "1go4y3j",
+                    "timestamp": 1731725698
                 }
             ]
         },
