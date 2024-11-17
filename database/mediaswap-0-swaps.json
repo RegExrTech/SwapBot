@@ -7669,6 +7669,12 @@
                     "partner": "dyrmaker83",
                     "post_id": "1glg6ue",
                     "timestamp": 1731624309
+                },
+                {
+                    "comment_id": "lxiklfd",
+                    "partner": "seanofthedead1313",
+                    "post_id": "1glg6ue",
+                    "timestamp": 1731802662
                 }
             ]
         },
@@ -8687,6 +8693,16 @@
                     "partner": "due_door_6910",
                     "post_id": "16msncp",
                     "timestamp": 0
+                }
+            ]
+        },
+        "depression-et-al": {
+            "transactions": [
+                {
+                    "comment_id": "lxjp2jr",
+                    "partner": "the_real_egg",
+                    "post_id": "1goh7qx",
+                    "timestamp": 1731821678
                 }
             ]
         },
@@ -9895,6 +9911,24 @@
                     "partner": "kaustymoo",
                     "post_id": "1gjwdxt",
                     "timestamp": 1731540367
+                },
+                {
+                    "comment_id": "lxehonh",
+                    "partner": "dyrmaker83",
+                    "post_id": "1goutte",
+                    "timestamp": 1731744698
+                },
+                {
+                    "comment_id": "lxehkmz",
+                    "partner": "ferro821",
+                    "post_id": "1gmqxsj",
+                    "timestamp": 1731783884
+                },
+                {
+                    "comment_id": "lxgq9af",
+                    "partner": "milluyt",
+                    "post_id": "1gmqxsj",
+                    "timestamp": 1731784170
                 }
             ]
         },
@@ -11031,6 +11065,12 @@
                     "partner": "_spacecakes_",
                     "post_id": "1gkgw0i",
                     "timestamp": 1731722857
+                },
+                {
+                    "comment_id": "lxehonh",
+                    "partner": "doc-hauliday",
+                    "post_id": "1goutte",
+                    "timestamp": 1731744698
                 }
             ]
         },
@@ -12041,6 +12081,12 @@
                     "partner": "doc-hauliday",
                     "post_id": "1g4wnuy",
                     "timestamp": 1729385625
+                },
+                {
+                    "comment_id": "lxehkmz",
+                    "partner": "doc-hauliday",
+                    "post_id": "1gmqxsj",
+                    "timestamp": 1731783884
                 }
             ]
         },
@@ -24528,6 +24574,16 @@
                 }
             ]
         },
+        "milluyt": {
+            "transactions": [
+                {
+                    "comment_id": "lxgq9af",
+                    "partner": "doc-hauliday",
+                    "post_id": "1gmqxsj",
+                    "timestamp": 1731784170
+                }
+            ]
+        },
         "mindshank": {
             "transactions": [
                 {
@@ -25785,6 +25841,12 @@
                     "partner": "dirkweathers",
                     "post_id": "1e08el1",
                     "timestamp": 1731700850
+                },
+                {
+                    "comment_id": "lxg2hl5",
+                    "partner": "trevordsnt",
+                    "post_id": "1gdtc61",
+                    "timestamp": 1731780176
                 }
             ]
         },
@@ -27409,6 +27471,12 @@
                     "partner": "bluet-rexnbakedpotat",
                     "post_id": "1gnh7vy",
                     "timestamp": 1731540219
+                },
+                {
+                    "comment_id": "lxh3vez",
+                    "partner": "vangoghsmailman",
+                    "post_id": "1gps18q",
+                    "timestamp": 1731784493
                 }
             ]
         },
@@ -28055,6 +28123,12 @@
                     "partner": "neagle16",
                     "post_id": "1fzhxnl",
                     "timestamp": 1731531136
+                },
+                {
+                    "comment_id": "lxihu77",
+                    "partner": "thinandcrispy84",
+                    "post_id": "1gnicof",
+                    "timestamp": 1731801362
                 }
             ]
         },
@@ -32921,6 +32995,12 @@
                     "partner": "doc-hauliday",
                     "post_id": "1g19iep",
                     "timestamp": 1729269171
+                },
+                {
+                    "comment_id": "lxiklfd",
+                    "partner": "cylars",
+                    "post_id": "1glg6ue",
+                    "timestamp": 1731802662
                 }
             ]
         },
@@ -37553,6 +37633,12 @@
                     "partner": "njhoudini",
                     "post_id": "1e8wm3r",
                     "timestamp": 1722719148
+                },
+                {
+                    "comment_id": "lxjp2jr",
+                    "partner": "depression-et-al",
+                    "post_id": "1goh7qx",
+                    "timestamp": 1731821678
                 }
             ]
         },
@@ -38703,6 +38789,12 @@
                     "partner": "dorgonelgand",
                     "post_id": "1gjqzch",
                     "timestamp": 1731627393
+                },
+                {
+                    "comment_id": "lxihu77",
+                    "partner": "other-ad-8510",
+                    "post_id": "1gnicof",
+                    "timestamp": 1731801362
                 }
             ]
         },
@@ -39573,6 +39665,12 @@
                     "partner": "starlord1992",
                     "post_id": "1dhjekk",
                     "timestamp": 1719548015
+                },
+                {
+                    "comment_id": "lxg2hl5",
+                    "partner": "neagle16",
+                    "post_id": "1gdtc61",
+                    "timestamp": 1731780176
                 }
             ]
         },
@@ -40245,6 +40343,16 @@
                     "partner": "fishodour",
                     "post_id": "13r5bi0",
                     "timestamp": 0
+                }
+            ]
+        },
+        "vangoghsmailman": {
+            "transactions": [
+                {
+                    "comment_id": "lxh3vez",
+                    "partner": "olsbaby",
+                    "post_id": "1gps18q",
+                    "timestamp": 1731784493
                 }
             ]
         },

@@ -2300,6 +2300,12 @@
                     "partner": "realbilljoebobsteve",
                     "post_id": "161btd7",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lxhh5wq",
+                    "partner": "surrendergetout",
+                    "post_id": "1gpqnk8",
+                    "timestamp": 1731791672
                 }
             ]
         },
@@ -8227,6 +8233,12 @@
                     "partner": "mlttpp",
                     "post_id": "1exwk9d",
                     "timestamp": 1725002229
+                },
+                {
+                    "comment_id": "lxihyuu",
+                    "partner": "biged_el_smokie04",
+                    "post_id": "1gql3kc",
+                    "timestamp": 1731803875
                 }
             ]
         },
@@ -9203,6 +9215,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "biged_el_smokie04": {
+            "transactions": [
+                {
+                    "comment_id": "lxihyuu",
+                    "partner": "bas3dmonk3",
+                    "post_id": "1gql3kc",
+                    "timestamp": 1731803875
+                }
+            ]
+        },
         "biggest_reddit_noob": {
             "transactions": [
                 {
@@ -9419,6 +9441,16 @@
         "birb_from_botd": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "birbztime": {
+            "transactions": [
+                {
+                    "comment_id": "lxhx7yb",
+                    "partner": "vwr32dbp",
+                    "post_id": "1gocjqb",
+                    "timestamp": 1731794554
+                }
+            ]
         },
         "bird05": {
             "legacy_count": 1,
@@ -72491,6 +72523,12 @@
                     "partner": "time-distribution568",
                     "post_id": "1fxgfxm",
                     "timestamp": 1728570144
+                },
+                {
+                    "comment_id": "lxhh5wq",
+                    "partner": "adworth6475",
+                    "post_id": "1gpqnk8",
+                    "timestamp": 1731791672
                 }
             ]
         },
@@ -82443,6 +82481,16 @@
                     "partner": "whattheflippityflop",
                     "post_id": "rb7cda",
                     "timestamp": 0
+                }
+            ]
+        },
+        "vwr32dbp": {
+            "transactions": [
+                {
+                    "comment_id": "lxhx7yb",
+                    "partner": "birbztime",
+                    "post_id": "1gocjqb",
+                    "timestamp": 1731794554
                 }
             ]
         },
