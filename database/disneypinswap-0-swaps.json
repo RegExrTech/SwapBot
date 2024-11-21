@@ -24860,6 +24860,16 @@
             "legacy_count": 2,
             "transactions": []
         },
+        "nickplaysps99": {
+            "transactions": [
+                {
+                    "comment_id": "ly416rd",
+                    "partner": "unjaded03",
+                    "post_id": "1ghmuiu",
+                    "timestamp": 1732120646
+                }
+            ]
+        },
         "nicoco10": {
             "transactions": [
                 {
@@ -38688,6 +38698,12 @@
                     "partner": "savageburrito",
                     "post_id": "1ctot1v",
                     "timestamp": 1732028241
+                },
+                {
+                    "comment_id": "ly416rd",
+                    "partner": "nickplaysps99",
+                    "post_id": "1ghmuiu",
+                    "timestamp": 1732120646
                 }
             ]
         },

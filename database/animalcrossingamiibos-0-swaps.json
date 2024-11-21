@@ -16955,6 +16955,16 @@
                 }
             ]
         },
+        "fleeting_light": {
+            "transactions": [
+                {
+                    "comment_id": "ly48jz4",
+                    "partner": "junpei_999",
+                    "post_id": "1gly1kv",
+                    "timestamp": 1732121631
+                }
+            ]
+        },
         "flockpaperwalls": {
             "legacy_count": 1,
             "transactions": [
@@ -26579,6 +26589,12 @@
                     "partner": "claypot1",
                     "post_id": "1gly1kv",
                     "timestamp": 1731948468
+                },
+                {
+                    "comment_id": "ly48jz4",
+                    "partner": "fleeting_light",
+                    "post_id": "1gly1kv",
+                    "timestamp": 1732121631
                 }
             ]
         },
