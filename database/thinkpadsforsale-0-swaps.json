@@ -4454,6 +4454,16 @@
                 }
             ]
         },
+        "notawesome4th": {
+            "transactions": [
+                {
+                    "comment_id": "lykequf",
+                    "partner": "zero00shadow",
+                    "post_id": "1glqz5n",
+                    "timestamp": 1732398076
+                }
+            ]
+        },
         "notice_me_senapi": {
             "legacy_count": 1,
             "transactions": []
@@ -6842,6 +6852,12 @@
                     "partner": "gvanburen",
                     "post_id": "1glqz5n",
                     "timestamp": 1732089679
+                },
+                {
+                    "comment_id": "lykequf",
+                    "partner": "notawesome4th",
+                    "post_id": "1glqz5n",
+                    "timestamp": 1732398076
                 }
             ]
         },

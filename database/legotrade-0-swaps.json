@@ -49,7 +49,14 @@
         },
         "10sekki": {
             "legacy_count": 13,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "lyb9myd",
+                    "partner": "similar-advantage732",
+                    "post_id": "1gly5qt",
+                    "timestamp": 1732225825
+                }
+            ]
         },
         "19styx6": {
             "legacy_count": 13,
@@ -7606,6 +7613,16 @@
         "simballah": {
             "legacy_count": 6,
             "transactions": []
+        },
+        "similar-advantage732": {
+            "transactions": [
+                {
+                    "comment_id": "lyb9myd",
+                    "partner": "10sekki",
+                    "post_id": "1gly5qt",
+                    "timestamp": 1732225825
+                }
+            ]
         },
         "similarscene": {
             "legacy_count": 3,
