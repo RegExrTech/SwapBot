@@ -19242,6 +19242,12 @@
                     "partner": "lumpy-crew-6702",
                     "post_id": "1gsm2zt",
                     "timestamp": 1732370999
+                },
+                {
+                    "comment_id": "lz047fc",
+                    "partner": "funwidow",
+                    "post_id": "1gt2ubl",
+                    "timestamp": 1732584225
                 }
             ]
         },
@@ -27623,6 +27629,12 @@
                     "partner": "purenoise",
                     "post_id": "1gjq179",
                     "timestamp": 1731895241
+                },
+                {
+                    "comment_id": "lyzkc3m",
+                    "partner": "ollie1313",
+                    "post_id": "1gtl65d",
+                    "timestamp": 1732577808
                 }
             ]
         },
@@ -30501,6 +30513,12 @@
                     "partner": "mkedwrds",
                     "post_id": "12p6kqe",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "lz047fc",
+                    "partner": "compuwizard",
+                    "post_id": "1gt2ubl",
+                    "timestamp": 1732584225
                 }
             ]
         },
@@ -42328,6 +42346,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "josephryanevans": {
+            "transactions": [
+                {
+                    "comment_id": "lyrxvcy",
+                    "partner": "robear65",
+                    "post_id": "1go26sl",
+                    "timestamp": 1732586501
+                }
+            ]
+        },
         "josh-pm": {
             "legacy_count": 3,
             "transactions": []
@@ -48929,6 +48957,12 @@
                     "partner": "compuwizard",
                     "post_id": "1gsm2zt",
                     "timestamp": 1732370999
+                },
+                {
+                    "comment_id": "lz060rr",
+                    "partner": "paperyears",
+                    "post_id": "1gsm2zt",
+                    "timestamp": 1732588615
                 }
             ]
         },
@@ -61302,6 +61336,12 @@
                     "partner": "inkblacksea",
                     "post_id": "1f8h94t",
                     "timestamp": 1726849367
+                },
+                {
+                    "comment_id": "lyzkc3m",
+                    "partner": "ericsinsideout",
+                    "post_id": "1gtl65d",
+                    "timestamp": 1732577808
                 }
             ]
         },
@@ -62373,6 +62413,12 @@
                     "partner": "howisbabymade",
                     "post_id": "1f7777b",
                     "timestamp": 1726081848
+                },
+                {
+                    "comment_id": "lz060rr",
+                    "partner": "lumpy-crew-6702",
+                    "post_id": "1gsm2zt",
+                    "timestamp": 1732588615
                 }
             ]
         },
@@ -68781,6 +68827,12 @@
                     "partner": "synthfuzzmantra",
                     "post_id": "1g2c0pl",
                     "timestamp": 1731109742
+                },
+                {
+                    "comment_id": "lyrxvcy",
+                    "partner": "josephryanevans",
+                    "post_id": "1go26sl",
+                    "timestamp": 1732586501
                 }
             ]
         },
