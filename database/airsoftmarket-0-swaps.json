@@ -609,6 +609,12 @@
                     "partner": "cykacolaquantum",
                     "post_id": "1gumuhb",
                     "timestamp": 1732584616
+                },
+                {
+                    "comment_id": "lz0a16d",
+                    "partner": "time4sumpunch",
+                    "post_id": "1gumuhb",
+                    "timestamp": 1732612603
                 }
             ]
         },
@@ -7472,6 +7478,12 @@
                     "partner": "rc_5213",
                     "post_id": "1flf9qq",
                     "timestamp": 1727831792
+                },
+                {
+                    "comment_id": "lz342tz",
+                    "partner": "rawrimbumblebee",
+                    "post_id": "1gttho4",
+                    "timestamp": 1732634706
                 }
             ]
         },
@@ -61828,7 +61840,14 @@
         },
         "rawrimbumblebee": {
             "legacy_count": 1,
-            "transactions": []
+            "transactions": [
+                {
+                    "comment_id": "lz342tz",
+                    "partner": "azrael97",
+                    "post_id": "1gttho4",
+                    "timestamp": 1732634706
+                }
+            ]
         },
         "raygl": {
             "transactions": [
@@ -78850,6 +78869,12 @@
                     "partner": "cloak-c3",
                     "post_id": "1bx7zs1",
                     "timestamp": 1713468361
+                },
+                {
+                    "comment_id": "lz0a16d",
+                    "partner": "402006090",
+                    "post_id": "1gumuhb",
+                    "timestamp": 1732612603
                 }
             ]
         },
