@@ -5073,6 +5073,18 @@
                     "partner": "aloofpavillion",
                     "post_id": "1gyww44",
                     "timestamp": 1733091549
+                },
+                {
+                    "comment_id": "m04fbx8",
+                    "partner": "cdk3891",
+                    "post_id": "1gyww44",
+                    "timestamp": 1733190740
+                },
+                {
+                    "comment_id": "m05197o",
+                    "partner": "careddit1",
+                    "post_id": "1gyww44",
+                    "timestamp": 1733193928
                 }
             ]
         },
@@ -5718,6 +5730,22 @@
                 }
             ]
         },
+        "careddit1": {
+            "transactions": [
+                {
+                    "comment_id": "m05197o",
+                    "partner": "broad_worldliness_16",
+                    "post_id": "1gyww44",
+                    "timestamp": 1733193928
+                },
+                {
+                    "comment_id": "m05h9yp",
+                    "partner": "northhiker1",
+                    "post_id": "1f0c68q",
+                    "timestamp": 1733200101
+                }
+            ]
+        },
         "carpeplacenta": {
             "transactions": [
                 {
@@ -5949,6 +5977,16 @@
                     "partner": "wcmotel",
                     "post_id": "1eg1re0",
                     "timestamp": 1722973104
+                }
+            ]
+        },
+        "cdk3891": {
+            "transactions": [
+                {
+                    "comment_id": "m04fbx8",
+                    "partner": "broad_worldliness_16",
+                    "post_id": "1gyww44",
+                    "timestamp": 1733190740
                 }
             ]
         },
@@ -7266,6 +7304,16 @@
                     "partner": "adventuringalong",
                     "post_id": "185khjy",
                     "timestamp": 0
+                }
+            ]
+        },
+        "cumalchemist": {
+            "transactions": [
+                {
+                    "comment_id": "m03isey",
+                    "partner": "this-debate",
+                    "post_id": "1h191xj",
+                    "timestamp": 1733197266
                 }
             ]
         },
@@ -11734,6 +11782,12 @@
                     "partner": "grasswillbegreener23",
                     "post_id": "1ckf72f",
                     "timestamp": 1717056033
+                },
+                {
+                    "comment_id": "m02pva5",
+                    "partner": "loud_contract6170",
+                    "post_id": "1go7rd1",
+                    "timestamp": 1733165245
                 }
             ]
         },
@@ -16244,6 +16298,12 @@
                     "partner": "wrbhawkeye",
                     "post_id": "1ea9z4g",
                     "timestamp": 1722798848
+                },
+                {
+                    "comment_id": "m02pva5",
+                    "partner": "gravensteinzz",
+                    "post_id": "1go7rd1",
+                    "timestamp": 1733165245
                 }
             ]
         },
@@ -19350,6 +19410,12 @@
                     "partner": "rosin95",
                     "post_id": "1fvc7l3",
                     "timestamp": 1728416928
+                },
+                {
+                    "comment_id": "m05h9yp",
+                    "partner": "careddit1",
+                    "post_id": "1f0c68q",
+                    "timestamp": 1733200101
                 }
             ]
         },
@@ -27298,6 +27364,16 @@
                     "partner": "philodox",
                     "post_id": "17eq4rm",
                     "timestamp": 0
+                }
+            ]
+        },
+        "this-debate": {
+            "transactions": [
+                {
+                    "comment_id": "m03isey",
+                    "partner": "cumalchemist",
+                    "post_id": "1h191xj",
+                    "timestamp": 1733197266
                 }
             ]
         },

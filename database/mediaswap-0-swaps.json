@@ -502,6 +502,16 @@
                 }
             ]
         },
+        "adburgan": {
+            "transactions": [
+                {
+                    "comment_id": "m021edp",
+                    "partner": "fragdelta",
+                    "post_id": "1h27kgj",
+                    "timestamp": 1733157502
+                }
+            ]
+        },
         "additional-ad-7659": {
             "transactions": [
                 {
@@ -7840,6 +7850,16 @@
                 }
             ]
         },
+        "cythric": {
+            "transactions": [
+                {
+                    "comment_id": "m03fe4l",
+                    "partner": "doc-hauliday",
+                    "post_id": "1gzncs5",
+                    "timestamp": 1733176892
+                }
+            ]
+        },
         "dallinkroon": {
             "transactions": [
                 {
@@ -10153,6 +10173,24 @@
                     "partner": "parocarillo",
                     "post_id": "1gzncs5",
                     "timestamp": 1733054577
+                },
+                {
+                    "comment_id": "m03fe4l",
+                    "partner": "cythric",
+                    "post_id": "1gzncs5",
+                    "timestamp": 1733176892
+                },
+                {
+                    "comment_id": "m03rez7",
+                    "partner": "phibbyrizo",
+                    "post_id": "1gzncs5",
+                    "timestamp": 1733179426
+                },
+                {
+                    "comment_id": "m04juxg",
+                    "partner": "veryintocardboard",
+                    "post_id": "1gzncs5",
+                    "timestamp": 1733186995
                 }
             ]
         },
@@ -14975,6 +15013,18 @@
                     "partner": "dorsworth",
                     "post_id": "1gen1gf",
                     "timestamp": 1732126148
+                },
+                {
+                    "comment_id": "m021edp",
+                    "partner": "adburgan",
+                    "post_id": "1h27kgj",
+                    "timestamp": 1733157502
+                },
+                {
+                    "comment_id": "m05zeqe",
+                    "partner": "smithlgreg",
+                    "post_id": "1h27kgj",
+                    "timestamp": 1733208800
                 }
             ]
         },
@@ -17093,6 +17143,12 @@
                     "partner": "known_yesterday_1408",
                     "post_id": "1gm2505",
                     "timestamp": 1731549852
+                },
+                {
+                    "comment_id": "m06079v",
+                    "partner": "smithlgreg",
+                    "post_id": "1gz10im",
+                    "timestamp": 1733212211
                 }
             ]
         },
@@ -29494,6 +29550,16 @@
                 }
             ]
         },
+        "phibbyrizo": {
+            "transactions": [
+                {
+                    "comment_id": "m03rez7",
+                    "partner": "doc-hauliday",
+                    "post_id": "1gzncs5",
+                    "timestamp": 1733179426
+                }
+            ]
+        },
         "phoenixfilms": {
             "transactions": [
                 {
@@ -35563,6 +35629,18 @@
                     "partner": "stepuncle",
                     "post_id": "1gzugkw",
                     "timestamp": 1733039131
+                },
+                {
+                    "comment_id": "m05zeqe",
+                    "partner": "fragdelta",
+                    "post_id": "1h27kgj",
+                    "timestamp": 1733208800
+                },
+                {
+                    "comment_id": "m06079v",
+                    "partner": "gruesomesonofabitch",
+                    "post_id": "1gz10im",
+                    "timestamp": 1733212211
                 }
             ]
         },
@@ -41441,6 +41519,12 @@
                     "partner": "flyyoufools2001",
                     "post_id": "1gobzu2",
                     "timestamp": 1732460704
+                },
+                {
+                    "comment_id": "m04juxg",
+                    "partner": "doc-hauliday",
+                    "post_id": "1gzncs5",
+                    "timestamp": 1733186995
                 }
             ]
         },

@@ -25725,6 +25725,16 @@
             "legacy_count": 1,
             "transactions": []
         },
+        "flight_rt": {
+            "transactions": [
+                {
+                    "comment_id": "lzz930v",
+                    "partner": "phreakinpher",
+                    "post_id": "1gwgrvd",
+                    "timestamp": 1733133706
+                }
+            ]
+        },
         "flip-to-side-b": {
             "legacy_count": 1,
             "transactions": []
@@ -57560,6 +57570,12 @@
                     "partner": "crownofwisdomteeth",
                     "post_id": "1gwgrvd",
                     "timestamp": 1732557326
+                },
+                {
+                    "comment_id": "lzz930v",
+                    "partner": "flight_rt",
+                    "post_id": "1gwgrvd",
+                    "timestamp": 1733133706
                 }
             ]
         },
