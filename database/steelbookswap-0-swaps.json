@@ -8131,6 +8131,16 @@
                 }
             ]
         },
+        "direct-weird-5974": {
+            "transactions": [
+                {
+                    "comment_id": "m0go6pp",
+                    "partner": "ripleyfromalien",
+                    "post_id": "1gyx3cq",
+                    "timestamp": 1733359682
+                }
+            ]
+        },
         "discipline-lonely": {
             "transactions": [
                 {
@@ -27270,6 +27280,18 @@
                     "partner": "oseoul",
                     "post_id": "1gwy628",
                     "timestamp": 1732923914
+                },
+                {
+                    "comment_id": "m0bd6rq",
+                    "partner": "wittymuffin247",
+                    "post_id": "1h1d3zv",
+                    "timestamp": 1733284035
+                },
+                {
+                    "comment_id": "m0go6pp",
+                    "partner": "direct-weird-5974",
+                    "post_id": "1gyx3cq",
+                    "timestamp": 1733359682
                 }
             ]
         },
@@ -35443,6 +35465,16 @@
                     "partner": "deity_elysian",
                     "post_id": "1bv2dod",
                     "timestamp": 1712621685
+                }
+            ]
+        },
+        "wittymuffin247": {
+            "transactions": [
+                {
+                    "comment_id": "m0bd6rq",
+                    "partner": "ripleyfromalien",
+                    "post_id": "1h1d3zv",
+                    "timestamp": 1733284035
                 }
             ]
         },
