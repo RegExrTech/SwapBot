@@ -50541,6 +50541,12 @@
                     "partner": "wallysmith127",
                     "post_id": "1gjj5p0",
                     "timestamp": 1731258076
+                },
+                {
+                    "comment_id": "m0yvg0y",
+                    "partner": "redrocketredglare",
+                    "post_id": "1h79y5i",
+                    "timestamp": 1733625095
                 }
             ]
         },
@@ -52266,6 +52272,16 @@
         "redridingbear": {
             "legacy_count": 1,
             "transactions": []
+        },
+        "redrocketredglare": {
+            "transactions": [
+                {
+                    "comment_id": "m0yvg0y",
+                    "partner": "practical_plant",
+                    "post_id": "1h79y5i",
+                    "timestamp": 1733625095
+                }
+            ]
         },
         "redsix66": {
             "legacy_count": 1,

@@ -7443,6 +7443,12 @@
                     "partner": "candid_juggernaut_13",
                     "post_id": "xxnl7i",
                     "timestamp": 0
+                },
+                {
+                    "comment_id": "m0u71vd",
+                    "partner": "papa-somniferum",
+                    "post_id": "1gyg80h",
+                    "timestamp": 1733575958
                 }
             ]
         },
@@ -10511,6 +10517,16 @@
                     "partner": "normie_cleansing",
                     "post_id": "1cltxfk",
                     "timestamp": 1715792024
+                }
+            ]
+        },
+        "papa-somniferum": {
+            "transactions": [
+                {
+                    "comment_id": "m0u71vd",
+                    "partner": "jormungandr1101",
+                    "post_id": "1gyg80h",
+                    "timestamp": 1733575958
                 }
             ]
         },
