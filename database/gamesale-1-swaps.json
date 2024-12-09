@@ -1,5 +1,105 @@
 {
     "reddit": {
+        "the_garbage_people": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "uterm4tt",
+                    "post_id": "10wfi1h",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "hopchow",
+                    "post_id": "15xq1ew",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "crazyabtmonkeys",
+                    "post_id": "169f9zn",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "kingkronos34",
+                    "post_id": "168fme9",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "lt25xjo",
+                    "partner": "40inmn4",
+                    "post_id": "1g51p2d",
+                    "timestamp": 1729541371
+                },
+                {
+                    "comment_id": "lt26ded",
+                    "partner": "fruit-flies113",
+                    "post_id": "1g4gzxw",
+                    "timestamp": 1729548144
+                },
+                {
+                    "comment_id": "lt7f9to",
+                    "partner": "davidpfarrell",
+                    "post_id": "1g5jh40",
+                    "timestamp": 1729635625
+                }
+            ]
+        },
+        "the_gief": {
+            "transactions": [
+                {
+                    "comment_id": "cq24kr4",
+                    "partner": "ketoiskool",
+                    "post_id": "30t0vc",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "the_golden_ages": {
+            "transactions": [
+                {
+                    "comment_id": "",
+                    "partner": "insane_party_hats",
+                    "post_id": "tulz7z",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "veganforpeace",
+                    "post_id": "utxd6x",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "im_thabes",
+                    "post_id": "v1e7f8",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "key-movie-8330",
+                    "post_id": "v98ttn",
+                    "timestamp": 0
+                },
+                {
+                    "comment_id": "",
+                    "partner": "1337gambit",
+                    "post_id": "vgosgk",
+                    "timestamp": 0
+                }
+            ]
+        },
+        "the_great_leviathan_": {
+            "transactions": [
+                {
+                    "comment_id": "kyk7v8b",
+                    "partner": "katazo",
+                    "post_id": "1bufcqt",
+                    "timestamp": 1712542942
+                }
+            ]
+        },
         "the_herpalizer": {
             "transactions": [
                 {

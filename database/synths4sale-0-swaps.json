@@ -5784,6 +5784,16 @@
                 }
             ]
         },
+        "justaguy_and_his_dog": {
+            "transactions": [
+                {
+                    "comment_id": "m12dxrw",
+                    "partner": "koriwhoredoms",
+                    "post_id": "1h3l1zm",
+                    "timestamp": 1733683463
+                }
+            ]
+        },
         "justinclayallison": {
             "transactions": [
                 {
@@ -6057,6 +6067,12 @@
                     "partner": "adequatebeats",
                     "post_id": "1gsmiyh",
                     "timestamp": 1732169941
+                },
+                {
+                    "comment_id": "m12dxrw",
+                    "partner": "justaguy_and_his_dog",
+                    "post_id": "1h3l1zm",
+                    "timestamp": 1733683463
                 }
             ]
         },
