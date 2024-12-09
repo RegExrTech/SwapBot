@@ -49,7 +49,7 @@ def run_config_checker(config):
 		config_content = get_config_content(content)
 	except:
 		# Unable to parse the config
-		invalidate_config(content, config_page)
+		invalidate_config(content, config_page, config)
 		inform_config_invalid(config_page)
 		return
 	if "flair_word" in config_content:
@@ -133,7 +133,7 @@ def create_wiki_page(config, page):
 		validate_wiki_content(config, page)
 		permlevel=2
 	else:
-		edit_wiki_page(page, "")
+		edit_wiki_page(page, "", config)
 		permlevel=1
 	page.mod.update(listed=False, permlevel=permlevel)
 
@@ -156,7 +156,7 @@ def validate_wiki_content(config, config_page):
 #	if config.discord_roles:
 	content_lines.append("bot_timestamp: " + str(time.time()))  # Must ALWAYS be last
 	content = "\n\n".join(content_lines)
-	edit_wiki_page(config_page, content)
+	edit_wiki_page(config_page, content, config)
 
 def get_config_content(content):
 	config_content = {}
@@ -166,7 +166,7 @@ def get_config_content(content):
 		config_content[key] = value
 	return config_content
 
-def edit_wiki_page(page, content):
+def edit_wiki_page(page, content, config):
 	try:
 		page.edit(content=content)
 	except:
@@ -174,7 +174,7 @@ def edit_wiki_page(page, content):
 		try:
 			page.edit(content=content)
 		except Exception as e:
-			logger.log("Failed to update wiki page " + page.name, e)
+			logger.log("Failed to update wiki page https://www.reddit.com/r/" + config.subreddit_name + "/wiki/" + page.name, e)
 			time.sleep(60)
 
 def update_confirmation_page(username, content, overview_content, sub_config):
@@ -183,7 +183,7 @@ def update_confirmation_page(username, content, overview_content, sub_config):
 		if page is not None:
 			# Makes page if one does not exist
 			get_wiki_page_content(page, sub_config)
-			edit_wiki_page(page, content)
+			edit_wiki_page(page, content, sub_config)
 	if overview_content:
 		# Update the overview page
 		logger_config = Config("logger")
@@ -201,11 +201,11 @@ def update_confirmation_page(username, content, overview_content, sub_config):
 			new_content = "\n".join(overview_lines)
 			# Only make a network call if we're actually making update.
 			if new_content != old_overview_content:
-				edit_wiki_page(page, new_content)
+				edit_wiki_page(page, new_content, sub_config)
 
-def invalidate_config(content, config_page):
+def invalidate_config(content, config_page, sub_config):
 	content = "\n\n".join(content.split("\n\n")[1:] + ["bot_timestamp:" + str(time.time())])
-	edit_wiki_page(config_page, content)
+	edit_wiki_page(config_page, content, sub_config)
 
 def inform_config_invalid(config_pag):
 	message = "I'm sorry but I was unable to parse the config you set in the " + CONFIG_WIKI_PAGE_NAME + " wiki page. Please review the [config guide](https://www.universalscammerlist.com/config_guide.html) and try again."
@@ -243,7 +243,7 @@ if __name__ == "__main__":
 		if config.subreddit_name in ["animalcrossingamiibos", "discexchange", "ulgeartrade", "canadianknifeswap", "ygomarketplace", "fragrancemarketplace", "airsoftmarketcanada", "photomarket", "disneywishables", "synths4sale", "boardgameexchange"]:
 			content += "\n\n---\n\n"
 			content += 'author:\n    account_age: "<7 days"\n    comment_karma: "<10"\n    is_contributor: false\n    satisfy_any_threshold: true\n    \naction: remove\naction_reason: new account removal\nmessage_subject: PLEASE READ THE ENTIRE MESSAGE from r/' + config.subreddit_name + '\nmessage: |    \n    {{author}} - Your most recent post on /r/' + config.subreddit_name + ' has been removed because we require that our users have an established reddit account **AND** that they are **active** reddit participants. Either your account is too young **or** you do not make posts/comments often enough on reddit **as a whole** (*not just on r/' + config.subreddit_name + '*). We understand this can be frustrating but it is for the overall good of the community. Please consider participating more in reddit as a whole before posting in our community again. This is an automated process so once you participate more on reddit, you will automatically be able to post here. Thanks for your understanding. Please try commenting or posting again in r/' + config.subreddit_name + ' later to see if you meet the requirements.'
-			edit_wiki_page(page, content)
+			edit_wiki_page(page, content, config)
 		if config.subreddit_name in ["coffee_exchange", "watchexchangecanada", "animalcrossingamiibos", "discexchange", "ulgeartrade", "canadianknifeswap", "ygomarketplace", "fragrancemarketplace", "airsoftmarketcanada", "photomarket", "disneywishables", "synths4sale", "boardgameexchange"]:
 			# send message
 			message = "Hello r/" + config.subreddit_name + " mods. This is a brief message to let you know that your automod rules have been automatically updated. Specifically, a rule has been added to introduce an age and karma filter to your community.\n\nThere has been an increase in scammers using low-requirement communities like yours to boost their flair score with brand new accounts, then using that 'feedback' to convince folks to send them money via unsafe methods. Because of the flair sharing feature, some subs are seeing users with artifically boosters scores appearing in their own subs due to the lack of restrictions in your sub. Other subs are just seeing scammers point to flair on subs like yours as a reference.\n\nWhile this change was added without input from the mod team, it is now entirely in your hands to modify or remove it. You can view your automod config [here](https://www.reddit.com/r/" + config.subreddit_name + "/wiki/config/automoderator/) and find the rule at the very bottom of the config page. If you wish to remove the rule, simply delete everything after the `---` characters at the bottom of the wiki page. If you wish to change the age and karma filter, simply adjust the numbers to your liking.\n\nIf you wish to keep the rule but allow users to participate in your community who do not meet the requirements, you can add them as approved submitters. You can do this via mod mail by clicking 'Approve User' under their name in a message they send you. This will allow you to keep the filter while still allowing good-faith members to participate.\n\nI'll be monitoring this message thread, so please let me know if you have any questions!\n\nBest,\n\nu/RegExr"
