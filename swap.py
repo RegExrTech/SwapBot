@@ -677,6 +677,7 @@ def inform_comment_tracked(comment, desired_author2_string, parent_post, sub_nam
 
 def inform_credit_already_given(comment):
 	reply(comment, CREDIT_ALREADY_GIVEN_TEXT)
+	return
 
 def inform_partner_interaction_too_recent(comment, author1, author2):
 	reply_text = "Sorry, but you and your partner, u/" + author1 + ", have confirmed a transaction together too recently. As such, I cannot count this transaction. Remember that you are only allowed ONE confirmation **per transaction**, *not* per item. Even if the transaction included multiple items from multiple posts, you only get one confirmation per transaction."
@@ -817,15 +818,24 @@ def handle_flair_transfer(message, sub_config):
 			copy_data.append({'post_id': "LEGACY TRADE"})
 	copy_data += return_data['transactions']
 	return_data = requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'user_data': {username2: copy_data}}).json()
+	remove_return_data = requests.post(request_url + "/remove-user/", json={'sub_name': sub_config.subreddit_name, 'platform': 'reddit', 'username': username1}).json()
 
 	# Send a notification if someone other than RegExr uses this feature.
 	if requesting_mod != 'regexr':
 		try:
-			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Transfer", message="u/" + message.author.name + " has manually transferred flair from u/" + username1 + " to u/" + username2 + ".")
+			if return_data[username2]:
+				username2_status = "Success"
+			else:
+				username2_status = "Failed"
+			reply_text = "u/" + message.author.name + " has manually transferred flair from u/" + username1 + " to u/" + username2 + "."
+			reply_text += "\n\n* u/" + username2 + " status: " + username2_status +
+			reply_text += "\n\n* u/" + username1 + " status: " + remove_return_data['status']
+			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Transfer", message=reply_text)
 		except Exception as e:
 			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " when manually transferring flair.")
 
 	update_flair(sub_config.reddit_object.redditor(username2), None, sub_config)
+	update_flair(sub_config.reddit_object.redditor(username1), None, sub_config)
 
 	if return_data[username2] == 'False':
 		reply_text = "Duplicate transactions were found in the database. Was this user already copied over? I copied all non-duplicate transactions and have updated the user flair accordingly. Please reach out to u/RegExr if you require more assistance."

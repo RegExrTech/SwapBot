@@ -40,8 +40,10 @@ def main():
 			new_data += db[sub_name][platform][old_username]['transactions']
 			swap_text = ",".join(db[sub_name][platform][old_username])
 			requests.post(request_url + "/add-batch-swap/", json={'sub_name': sub_name, 'platform': platform, 'user_data': {new_username: new_data}})
+			requests.post(request_url + "/remove-user/", json={'sub_name': sub_name, 'platform': platform, 'username': old_username})
 			sub_config, reddit, sub = swap.create_reddit_and_sub(sub_name)
 			swap.update_flair(reddit.redditor(new_username), None, sub_config)
+			swap.update_flair(reddit.redditor(old_username), None, sub_config)
 
 if __name__ == "__main__":
 	main()
