@@ -469,9 +469,9 @@ def remove_user():
 	"""
 
 	global swap_data
-	sub_name = request.form["sub_name"]
-	username = request.form['username']
-	platform = request.form['platform']
+	sub_name = request.get_json()["sub_name"]
+	username = request.get_json()['username']
+	platform = request.get_json()['platform']
 	if sub_name not in swap_data:
 		return jsonify({'status': sub_name + ' not found'})
 	if platform not in swap_data[sub_name]:
