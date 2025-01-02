@@ -126,8 +126,8 @@ def update_flair(author1, author2, sub_config, post_id="", comment_id=""):
 		try:
 			age = datetime.timedelta(seconds=(time.time() - author.created_utc)).days
 		except Exception as e:
-			print("Unable to get age for " + str(author) + " with error " + str(e) + ". As such, I am unable to update their flair.")
-			continue
+			print("Unable to get age for " + str(author) + " with error " + str(e) + ". Using a default value instead.")
+			age = 1
 		author_string = str(author).lower()
 		updates = []
 		for sub_name in [sub_config.subreddit_name] + sub_config.gives_flair_to:
@@ -828,7 +828,7 @@ def handle_flair_transfer(message, sub_config):
 			else:
 				username2_status = "Failed"
 			reply_text = "u/" + message.author.name + " has manually transferred flair from u/" + username1 + " to u/" + username2 + "."
-			reply_text += "\n\n* u/" + username2 + " status: " + username2_status +
+			reply_text += "\n\n* u/" + username2 + " status: " + username2_status
 			reply_text += "\n\n* u/" + username1 + " status: " + remove_return_data['status']
 			sub_config.subreddit_object.message(subject="[Notification] Manual Flair Transfer", message=reply_text)
 		except Exception as e:
