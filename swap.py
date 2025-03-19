@@ -447,11 +447,12 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
 	# Remove comment if the post title contains a blacklisted word
-	if any([x.lower() in parent_post.title.lower() for x in sub_config.title_black_list]):
-		type = ""
-		for word in sub_config.title_black_list:
-			if word.lower() in parent_post.title.lower():
-				type = word
+	title_and_flair = parent_post.title.lower()
+	if parent_post.link_flair_text:
+		title_and_flair += " - flair=" + parent_post.link_flair_text.lower()
+	violated_words = [x if x.lower() in title_and_flair for x in sub_config.title_black_list]
+	if any(violated_words):
+		type = violated_words[0]
 		log(parent_post, comment, "Comment was made on a blacklisted post of type " + type)
 		handle_comment_on_blacklisted_post(comment, type)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
@@ -636,7 +637,7 @@ def handle_edefinition(comment):
 	reply(comment, reply_text)
 
 def handle_comment_on_blacklisted_post(comment, type):
-	reply_text = "Sorry, but I am not allowed to confirm transactions on " + type + " posts. Please try again on another post. Thanks!"
+	reply_text = "Sorry, but I am not allowed to confirm transactions on " + type + " posts. Thanks!"
 	reply(comment, reply_text)
 
 def handle_comment_made_too_early(comment):
