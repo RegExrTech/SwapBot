@@ -10,7 +10,7 @@ subreddit_name = args.subreddit_name.lower()
 
 def main():
 	while True:
+		time.sleep(random.randint(30, 120))
 		os.system('python3 swap.py ' + subreddit_name)
-		time.sleep(random.randint(30, 60))
 
 main()
