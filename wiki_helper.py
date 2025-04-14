@@ -1,3 +1,4 @@
+import re
 from Config import Config
 from prawcore.exceptions import NotFound
 import time
@@ -52,6 +53,7 @@ def run_config_checker(config):
 		invalidate_config(content, config_page, config)
 		inform_config_invalid(config_page)
 		return
+	config_valid = True
 	if "flair_word" in config_content:
 		config.flair_word = config_content["flair_word"]
 		config.raw_config["flair_word"] = config_content["flair_word"]
@@ -121,10 +123,21 @@ def run_config_checker(config):
 			config.raw_config['booster_check_max_score'] = config.booster_check_max_score
 		except:
 			pass
+	if "comment_validator" in config_content:
+		try:
+			re.compile(config_content['comment_validator'])
+			config.comment_validator = config_content['comment_validator']
+			config.raw_config['comment_validator'] = config_content['comment_validator']
+		except re.error:
+			config_valid = False
+
 	# Dump the new config to the file
 	config.dump()
 	# Inform parsing successful
-	inform_config_valid(config_page)
+	if config_valid:
+		inform_config_valid(config_page)
+	else:
+		inform_config_invalid(config_page)
 	# Validate Wiki Page
 	validate_wiki_content(config, config_page)
 
@@ -153,6 +166,7 @@ def validate_wiki_content(config, config_page):
 	content_lines.append("booster_check_count_threshold: " + str(config.booster_check_count_threshold))
 	content_lines.append("booster_check_hours_threshold: " + str(config.booster_check_hours_threshold))
 	content_lines.append("booster_check_max_score: " + str(config.booster_check_max_score))
+	content_lines.append("comment_validator: " + config.comment_validator)
 #	if config.discord_roles:
 	content_lines.append("bot_timestamp: " + str(time.time()))  # Must ALWAYS be last
 	content = "\n\n".join(content_lines)
@@ -204,11 +218,11 @@ def update_confirmation_page(username, content, overview_content, sub_config):
 				edit_wiki_page(page, new_content, sub_config)
 
 def invalidate_config(content, config_page, sub_config):
-	content = "\n\n".join(content.split("\n\n")[1:] + ["bot_timestamp:" + str(time.time())])
+	content = "\n\n".join(content.split("\n\n")[:-1] + ["bot_timestamp: " + str(time.time())])
 	edit_wiki_page(config_page, content, sub_config)
 
-def inform_config_invalid(config_pag):
-	message = "I'm sorry but I was unable to parse the config you set in the " + CONFIG_WIKI_PAGE_NAME + " wiki page. Please review the [config guide](https://www.universalscammerlist.com/config_guide.html) and try again."
+def inform_config_invalid(config_page):
+	message = "I'm sorry but I was unable to parse the config you set in the " + CONFIG_WIKI_PAGE_NAME + " wiki page. Please review the [config guide](https://www.reddit.com/r/RegExrSwapBot/comments/yixgoa/swap_bot_config_guide/) and try again."
 	send_update_message(config_page, message)
 
 def inform_config_valid(config_page):
@@ -226,9 +240,15 @@ if __name__ == "__main__":
 	for fname in os.listdir('config'):
 		if 'ecigclassifieds' in fname:
 			continue
+		sub_config = Config(fname.split(".")[0])
+		if not sub_config.bot_username or sub_config.disabled:
+			continue
 		print("=== " + fname + " ===")
-		config = Config(fname.split(".")[0])
-#		validate_wiki_content(config, get_wiki_page(config, CONFIG_WIKI_PAGE_NAME))
+		validate_wiki_content(sub_config, get_wiki_page(sub_config, CONFIG_WIKI_PAGE_NAME))
+#		sub_config.dump()
+
+def _modify_automod():
+	for fname in os.listdir('config'):
 		page = get_wiki_page(config, 'config/automoderator')
 		content = get_wiki_page_content(page, config)
 		for rule in content.split("---"):

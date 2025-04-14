@@ -450,13 +450,19 @@ def handle_comment(comment, bot_username, sub, reddit, is_new_comment, sub_confi
 	title_and_flair = parent_post.title.lower()
 	if parent_post.link_flair_text:
 		title_and_flair += " - flair=" + parent_post.link_flair_text.lower()
-	violated_words = [x if x.lower() in title_and_flair for x in sub_config.title_black_list]
+	violated_words = [x for x in sub_config.title_black_list if x.lower() in title_and_flair]
 	if any(violated_words):
 		type = violated_words[0]
 		log(parent_post, comment, "Comment was made on a blacklisted post of type " + type)
 		handle_comment_on_blacklisted_post(comment, type)
 		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
 		return True
+	# Remove comments that do not pass comment text validation
+	if sub_config.comment_validator:
+		if not re.search(sub_config.comment_validator, comment_text):
+			handle_comment_failing_text_validation(comment)
+			requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+			return True
 
 	correct_reply = find_correct_reply(comment, author1, desired_author2_string, parent_post)
 	if correct_reply:
@@ -670,6 +676,10 @@ def handle_no_redditor(comment, tagged_username):
 
 def handle_suspended_redditor(comment):
 	reply_text = "The person you tagged has had their reddit account suspended by the Reddit site-wide Admins. As such, this person will not be able to confirm a transaction with you. If their account is unsuspended, you will need to make a new comment to confirm a transaction with them as **this comment will no longer be tracked**."
+	reply(comment, reply_text)
+
+def handle_comment_failing_text_validation(comment):
+	reply_text = "This comment is missing some information or is not formatted properly. Please refer to the sub rules for more information."
 	reply(comment, reply_text)
 
 def inform_comment_tracked(comment, desired_author2_string, parent_post, sub_name, tagging_user):

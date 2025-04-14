@@ -35,6 +35,7 @@ class Config():
 		self.mod_flair_word = self.raw_config['mod_flair_word']
 		self.display_mod_count = self.raw_config['display_mod_count']
 		self.flair_templates = self.raw_config['flair_templates']
+		self.comment_validator = self.raw_config['comment_validator'].lower()
 		self.confirmation_text = self.raw_config['confirmation_text']
 		if not self.confirmation_text:
 			self.confirmation_text = "Added"
