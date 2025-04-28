@@ -130,9 +130,22 @@ def main(config):
 		reply_text = ""
 		# If we were able to find a reddit username in the message
 		if reddit_username is not None and reddit_username:
+			redditor = reddit.redditor(reddit_username)
+			is_invalid_username = False
+			is_suspended = False
+			try:
+				redditor.id
+			except NotFound:
+				is_invalid_username = True
+			except AttributeError:
+				is_suspended = True
 			# If the reddit username in question has already been paired:
 			if reddit_username in paired_usernames['reddit']:
 				reply_text = "Sorry, this Reddit account was already used to pair with a different discord account. Specifically, it is paired to <@" + str(paired_usernames['reddit'][reddit_username]['discord'] + ">.")
+			elif is_invalid_username:
+				reply_text = "Sorry, but u/" + reddit_username + " was not found. Please check your spelling and try again."
+			elif is_suspended:
+				reply_text = "Sorry, but u/" + reddit_username + " has been suspended by reddit. I am unable to verify suspended reddit accounts."
 			else:
 				# Try to send a PM via reddit
 				try:
