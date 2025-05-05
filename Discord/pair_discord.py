@@ -8,6 +8,7 @@ import argparse
 import sys
 sys.path.insert(0, '.')
 import Config
+from prawcore.exceptions import NotFound
 
 parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)
