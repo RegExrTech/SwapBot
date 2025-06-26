@@ -1058,7 +1058,7 @@ def format_swap_count_summary(sub_config, username, character_limit):
 	for sister_sub in sub_config.gets_flair_from:
 		sister_sub_count = get_swap_count(username, [sister_sub], PLATFORM)
 		if sister_sub_count > 0:
-			sister_sub_text += "\n\nThis user also has " + str(sister_sub_count) + " " + sub_config.flair_word + " on r/" + sister_sub
+			sister_sub_text += "\n\nThis user also has [" + str(sister_sub_count) + " " + sub_config.flair_word + "](https://www.reddit.com/r/" + sister_sub + "/wiki/confirmations/" + username + ") on r/" + sister_sub
 	# Truncate if too large
 	if len(reply_header+swap_count_text+sister_sub_text+kofi_text) > character_limit:
 		truncated_text = "* And more..."
