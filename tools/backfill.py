@@ -12,8 +12,8 @@ import re
 import requests
 
 # modify here
-ids = set([])
-authors = set([x.lower() for x in ["wronginreterosect"]])
+ids = set(["gdknvr"])
+authors = set([x.lower() for x in ["hbacorn"]])
 
 request_url = "http://0.0.0.0:8000"
 
@@ -236,7 +236,7 @@ def GetUserCountsGCXRep(authors, ids, sub_config):
 				continue
 			potential_author_two = swap.get_username_from_text(body, [author])
 			if potential_author_two:
-				potential_author_two = potential_author_two.split("/")[1]
+				potential_author_two = potential_author_two.split("/")[1].lower()
 			else:
 				continue
 			replies = comment.replies
@@ -250,10 +250,11 @@ def GetUserCountsGCXRep(authors, ids, sub_config):
 				except:
 					found_author_name = ""
 					print(str(submission.permalink) + " found a comment without an author, so skipping it...")
-				if str(reply.author).lower() == potential_author_two:
+				if found_author_name == potential_author_two:
 					correct_reply = reply
+					break
 			if correct_reply:
-				d[author.lower()].append({'post_id': submission.id, 'comment_id': comment.id, 'partner': potential_author_two.lower(), 'timestamp': correct_reply.created_utc})
+				d[author].append({'post_id': submission.id, 'comment_id': comment.id, 'partner': potential_author_two, 'timestamp': correct_reply.created_utc})
 	return d
 
 
@@ -279,6 +280,45 @@ def GetUserCountsFromMegaThreads(ids, sub_config):
 			if reply:
 				author1 = str(top_level_comment.author).lower()
 				author2 = partner
+				d[author1].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': reply.created_utc, 'partner': author2})
+				d[author2].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': reply.created_utc, 'partner': author1})
+	return d
+
+
+def GetUserCountsFromLabubu(ids, sub_config):
+	reddit = sub_config.reddit_object
+	d = defaultdict(lambda: [])
+	count = 0
+	for id in ids:
+		count += 1
+		print("Parsing thread number " + str(count) + " out of " + str(len(ids)))
+		time.sleep(0.5)
+		try:
+			submission = reddit.submission(id=id)
+		except Exception as e:
+			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
+			time.sleep(20)
+			submission = reddit.submission(id=id)
+#		submission.comments.replace_more(limit=None)
+#		for top_level_comment in submission.comments:
+		for top_level_comment in [reddit.comment(id=id) for id in ['mt4fjtn']]:
+			text = swap.get_comment_text(top_level_comment)
+			if not top_level_comment.author:
+				continue
+			author1 = top_level_comment.author.name.lower()
+			comment_author_name = text.lower().strip().split("u/")[-1].split('@')[-1]
+#			if comment_author_name != author1:
+#				continue
+			try:
+				top_level_comment.refresh()
+			except:
+				time.sleep(10)
+				top_level_comment.refresh()
+			top_level_comment.replies.replace_more(limit=None)
+			for reply in top_level_comment.replies:
+				if not reply.author:
+					continue
+				author2 = reply.author.name.lower()
 				d[author1].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': reply.created_utc, 'partner': author2})
 				d[author2].append({'post_id': id, 'comment_id': top_level_comment.id, 'timestamp': reply.created_utc, 'partner': author1})
 	return d
@@ -365,19 +405,41 @@ def UpdateFlairs(sub, sub_config, users):
 		user = reddit.redditor(user)
 		try:
 			swap.update_flair(user, None, sub_config)
-#			swap.update_single_user_flair(sub, sub_config, str(user), swap_count, [], 0)
 		except Exception as e:
 			print("Found exception " + str(e) + "\n    Sleeping for 20 seconds...")
 			time.sleep(20)
 			try:
-#				swap.update_flair(user, None, sub_config)
-				swap.update_single_user_flair(sub, sub_config, str(user), swap_count, [], 0)
+				swap.update_flair(user, None, sub_config)
 			except Exception as e:
 				print("Unable to assign flair to " + str(user) + ":\n    " + str(e))
 		time.sleep(0.5)
 		count += 1
 		if count % 25 == 0:
 			print("Finished assigning flair for " + str(count) + " users out of " + str(len(users)) + " users.")
+
+def GetUsersFromTempFile(reddit):
+	d = {}
+	f = open("temp.txt", "r")
+	lines = f.read().splitlines()
+	f.close()
+	for line in lines:
+		items = line.split(" ")
+		user = items[0].lower().split("/")[1]
+		confirms = items[1:]
+		for confirm in confirms:
+			post_id = confirm.split("/")[6]
+			post = reddit.submission(id=post_id)
+			if not post.author:
+				continue
+			user_2 = post.author.name.lower()
+			timestamp = post.created_utc
+			if user not in d:
+				d[user] = []
+			if user_2 not in d:
+				d[user_2] = []
+			d[user].append({'post_id': post_id, 'comment_id': "", 'timestamp': post.created_utc, 'partner': user_2})
+			d[user_2].append({'post_id': post_id, 'comment_id': "", 'timestamp': post.created_utc, 'partner': user})
+	return d
 
 
 def main():
@@ -407,7 +469,7 @@ def main():
 	print("sub_name: " + sub_name)
 	print("feedback_sub_name: " + feedback_sub_name)
 
-	GetUsersFromCss(sub)
+#	GetUsersFromCss(sub)
 
 	## Use this for backfilling from feedback subs
 	#ids, authors = GetIdsFromPushshift(feedback_sub_name)
@@ -422,7 +484,7 @@ def main():
 
 	if sub_name == "watchexchange":
 		users_to_confirmations = GetUserCountsWatchExchangeFeedback(authors, ids, sub_config)
-	elif sub_name == "giftcardexchange":
+	elif sub_name in ["giftcardexchange", "cash4cash"]:
 		users_to_confirmations = GetUserCountsGCXRep(authors, ids, sub_config)
 	elif sub_name == "ygomarketplace":
 		users_to_confirmations = GetUserCountsYGOFeedback(authors, ids, sub_config)
@@ -430,6 +492,12 @@ def main():
 		users_to_confirmations = GetUserCountsFromMegaThreads(ids, sub_config)
 	elif sub_name in ["snackexchange", "airsoftmarketcanada", "watchexchangecanada", "legomarket", "legotrade", "mangaswap", "comblocmarket2", "lorcanatcgtrades"]:
 		users_to_confirmations = GetUsersFromCss(sub)
+	elif sub_name == 'indiathriftcorner':
+		users_to_confirmations = GetUsersFromTempFile(reddit)
+	elif sub_name == "labubuswap":
+		users_to_confirmations = GetUserCountsFromLabubu(['1kaw6ty'], sub_config)
+	else:
+		users_to_confirmations = {}
 
 	print(users_to_confirmations)
 
