@@ -364,6 +364,9 @@ def main(sub_config):
 			reply("<@!" + user_to_check + "> has not confirmed any transactions yet.", message['id'], sub_config.discord_config.feedbackUrl, sub_config)
 			continue
 		formatted_replies = create_embedded_feedback_check_reply(message['id'], author_id, username, transactions, sub_config)
+		if not formatted_replies:
+			reply("<@!" + user_to_check + "> has not confirmed any transactions yet.", message['id'], sub_config.discord_config.feedbackUrl, sub_config)
+			continue
 		for formatted_reply in formatted_replies:
 			send_request(POST, sub_config.discord_config.feedbackUrl, sub_config.discord_config.headers, data=formatted_reply, should_retry=True, is_embed=True)
 
