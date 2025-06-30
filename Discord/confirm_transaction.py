@@ -176,9 +176,15 @@ def get_mentioned_roles(message):
 	return list(set(x['id'] for x in message['mention_roles']))
 
 def get_mentioned_posts(text, invalids):
+	found = re.findall(re.compile("([0-9]{18,19}/[0-9]{18,19}/[0-9]{18,19})"), text)
+	if found:
+		found = list(set(x for x in found if not any([invalid in x for invalid in invalids])))
+		found = [(x.split('/')[2], x.split('/')[1]) for x in found][0]
+		return found
 	pattern = re.compile("([0-9]{18,19})")
 	found = re.findall(pattern, text)
-	return list(set([x for x in found if x not in invalids]))
+	found = list(set([x for x in found if x not in invalids]))
+	return [(id, '') for id in list(set([x for x in found if x not in invalids]))][0]
 
 def get_url(text):
 	pattern = re.compile("(https://.*)")
@@ -190,8 +196,7 @@ def get_url(text):
 		return None
 	return found[0]
 
-def get_correct_channel_id(post_id, sub_config):
-	bst_channel_ids = sub_config.discord_config.bst_channels
+def get_correct_channel_id(post_id, sub_config, bst_channel_ids):
 	for bst_channel_id in bst_channel_ids:
 		r = send_request(GET, sub_config.discord_config.bst_channel_url.format(bst_channel_id, post_id), sub_config.discord_config.headers)
 		if r.ok:
@@ -259,10 +264,14 @@ def main(sub_config):
 			continue
 
 		author2_id = mentioned_users[0]
-		original_post_id = mentioned_posts[0]
-		channel_id, original_post_data = get_correct_channel_id(original_post_id, sub_config)
-		if not channel_id:
-			reply("I could not find " + str(original_post_id) + " in any of the BST channels. Please try again with a correct message ID.", confirmation_message_id, sub_config.discord_config.baseUrl, sub_config)
+		original_comment_id = mentioned_posts[0]
+		channel_id = mentioned_posts[1]
+		if channel_id:
+			_, original_post_data = get_correct_channel_id(original_comment_id, sub_config, [channel_id])
+		else:
+			channel_id, original_post_data = get_correct_channel_id(original_comment_id, sub_config, sub_config.discord_config.bst_channels)
+		if not original_post_data:
+			reply("I could not find " + str(original_comment_id) + " in any of the BST channels. Please try again with a correct message ID.", confirmation_message_id, sub_config.discord_config.baseUrl, sub_config)
 			continue
 
 		desired_author_id = original_post_data['author']['id']
@@ -270,7 +279,7 @@ def main(sub_config):
 			reply("Neither you nor the person you tagged are the OP of the message you referenced.", confirmation_message_id, sub_config.discord_config.baseUrl, sub_config)
 			continue
 
-		full_original_post_url = "https://www.discord.com/channels/" + sub_config.discord_config.server_id + "/" + channel_id + "/" + original_post_id
+		full_original_post_url = "https://www.discord.com/channels/" + sub_config.discord_config.server_id + "/" + channel_id + "/" + original_comment_id
 		reply_message = "<@"+author2_id+">, if you have **COMPLETED** a transaction with <@"+author1_id+"> from the following post, please **REPLY TO THIS MESSAGE** indicating as such:\n\n" + full_original_post_url + "\n\nIf you did NOT complete such a transaction, please DO NOT REPLY to this message" + sub_config.discord_mod_contact_text + "."
 		reply(reply_message, confirmation_message_id, sub_config.discord_config.baseUrl, sub_config)
 
