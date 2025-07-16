@@ -16,11 +16,11 @@ def get_wiki_page(config, wiki_page_name):
 	try:
 		return config.subreddit_object.wiki[wiki_page_name]
 	except Exception as e:
-		print(e)
+		print("Found error when trying to get wiki page for " + wiki_page_name + " - " + str(e))
 		# Transient error, assume no changes have been made
 		return None
 
-def get_wiki_page_content(config_page, config):
+def get_wiki_page_content(config_page, config, page_name):
 	# If the config page does not exist, make it
 	try:
 		return config_page.content_md
@@ -29,17 +29,17 @@ def get_wiki_page_content(config_page, config):
 			create_wiki_page(config, config_page)
 			return config_page.content_md
 		except NotFound as e:
-			print(e)
+			print("Found error when trying to create wiki page " + page_name + " - " + str(e))
 			# We likely don't have permissions, so just silently return
 			return ""
 	except Exception as e:
-		print(e)
+		print("Found error when trying to get wiki page - " + page_name + " + str(e))
 		# Transient error, assume no changes have been made
 		return ""
 
 def run_config_checker(config):
 	config_page = get_wiki_page(config, CONFIG_WIKI_PAGE_NAME)
-	content = get_wiki_page_content(config_page, config)
+	content = get_wiki_page_content(config_page, config, CONFIG_WIKI_PAGE_NAME)
 	if content == "":
 		return
 	# If the bot was the last person to update the config, break out early
@@ -196,14 +196,14 @@ def update_confirmation_page(username, content, overview_content, sub_config):
 		page = get_wiki_page(sub_config, CONFIRMATIONS_WIKI_PAGE_NAME.format(username))
 		if page is not None:
 			# Makes page if one does not exist
-			get_wiki_page_content(page, sub_config)
+			get_wiki_page_content(page, sub_config, CONFIRMATIONS_WIKI_PAGE_NAME.format(username))
 			edit_wiki_page(page, content, sub_config)
 	if overview_content:
 		# Update the overview page
 		logger_config = Config("logger")
 		page = get_wiki_page(logger_config, CONFIRMATIONS_WIKI_PAGE_NAME.format(username))
 		if page is not None:
-			old_overview_content = get_wiki_page_content(page, logger_config)
+			old_overview_content = get_wiki_page_content(page, logger_config, CONFIRMATIONS_WIKI_PAGE_NAME.format(username))
 			old_overview_lines = old_overview_content.split("\n")
 			# Replace the old content with the new if there is any overlap.
 			overview_lines = [overview_content] + [x for x in old_overview_lines if not x.endswith("r/" + sub_config.subreddit_name)]
@@ -250,7 +250,7 @@ if __name__ == "__main__":
 def _modify_automod():
 	for fname in os.listdir('config'):
 		page = get_wiki_page(config, 'config/automoderator')
-		content = get_wiki_page_content(page, config)
+		content = get_wiki_page_content(page, config, 'config/automoderator')
 		for rule in content.split("---"):
 			if 'account_age:' in rule or 'karma:' in rule:
 				lines = rule.splitlines()
