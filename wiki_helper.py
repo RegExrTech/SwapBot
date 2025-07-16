@@ -33,7 +33,7 @@ def get_wiki_page_content(config_page, config, page_name):
 			# We likely don't have permissions, so just silently return
 			return ""
 	except Exception as e:
-		print("Found error when trying to get wiki page - " + page_name + " + str(e))
+		print("Found error when trying to get wiki page - " + page_name + " - " + str(e))
 		# Transient error, assume no changes have been made
 		return ""
 
