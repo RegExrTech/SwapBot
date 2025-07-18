@@ -184,7 +184,9 @@ def get_mentioned_posts(text, invalids):
 	pattern = re.compile("([0-9]{18,19})")
 	found = re.findall(pattern, text)
 	found = list(set([x for x in found if x not in invalids]))
-	return [(id, '') for id in list(set([x for x in found if x not in invalids]))][0]
+	if found:
+		return [(id, '') for id in list(set([x for x in found if x not in invalids]))][0]
+	return []
 
 def get_url(text):
 	pattern = re.compile("(https://.*)")
@@ -205,7 +207,8 @@ def get_correct_channel_id(post_id, sub_config, bst_channel_ids):
 
 def reply(message, reply_id, url, sub_config):
 	message += kofi_text
-	message_data = {'content': message, 'message_reference': {'message_id': reply_id}}
+	message_data = get_embedded_messaged_template(description=message)
+	message_data['message_reference'] = {'message_id': reply_id}
 	if not debug:
 		send_request(POST, url, sub_config.discord_config.headers, json.dumps(message_data))
 	else:
