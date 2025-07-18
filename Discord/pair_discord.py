@@ -54,15 +54,13 @@ def get_username_from_text(text, usernames_to_ignore=[]):
 		if found_username not in [x.lower() for x in usernames_to_ignore]:
 			username = found_username
 			break
-	return username
+	return username.lower()
 
 def get_reddit_messages(reddit):
 	messages = []
 	to_mark_as_read = []
 	try:
 		for message in reddit.inbox.unread():
-			if reddit_message_subject not in str(message.subject):
-				continue
 			to_mark_as_read.append(message)
 			if not message.was_comment:
 				messages.append(message)
@@ -80,16 +78,8 @@ def get_reddit_messages(reddit):
 
 def send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id):
 	reddit.redditor(reddit_username).message(subject=reddit_message_subject, message="A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
-	reddit_message_id = None
-	for reddit_message in reddit.inbox.sent(limit=None):
-		if str(reddit_message.subject) == reddit_message_subject:
-			reddit_message_id = reddit_message.id
-			break
-	if not reddit_message_id:
-		return "Sorry, but I was unable to send you a message on reddit. Please try again."
-	reply_text = "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
-	requests.post(request_url + "/add-account-pairing-request/", data={"discord_user_id": discord_user_id, "reddit_username": reddit_username, "request_timestamp": time.time(), 'reddit_message_id': reddit_message_id, 'discord_message_id': discord_message_id})
-	return reply_text
+	requests.post(request_url + "/add-account-pairing-request/", data={"discord_user_id": discord_user_id, "reddit_username": reddit_username, "request_timestamp": time.time(), 'discord_message_id': discord_message_id})
+	return "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
 
 def main(config):
 	# Only run if we specify a pairing channel
@@ -191,12 +181,12 @@ def main(config):
 	reddit_messages = get_reddit_messages(reddit)
 	for reddit_message in reddit_messages:
 		try:
-			reddit_message_id = reddit_message.parent_id.split("_")[-1]
+			reddit_username = reddit_message.author.name.lower()
 		except:
 			print("Unable to parse reddit message. Skipping...")
 			continue
 		for discord_user_id, data in pending_requests.items():
-			if not reddit_message_id == data['reddit_message_id']:
+			if reddit_username != data['reddit_username'].lower():
 				continue
 			requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_user_id, 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
 			try:
