@@ -291,20 +291,26 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 				print("Unable to mark message as read. Leaving it as is.")
 				unmarked.append(message.id)
 	try:
-		for message in reddit.inbox.unread():
-			if message.id in unmarked:
-				continue
-			if message in comments:
-				if not debug:
-					comments.remove(message)
-					requests.post(request_url + "/blacklist-comment/", {'comment_id': message.id, 'platform': PLATFORM})
-					requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': message.id, 'platform': PLATFORM})
-					inform_comment_blacklisted(message)
-				logger.log(bot_name + " blacklisted comment " + message.id)
-			if message.id in new_ids:
-				new_ids.remove(message.id)
+		messages = [x for x in reddit.inbox.unread()]
 	except Exception as e:
-		logger.log("Failed to perform the blacklisting operations", e, traceback.format_exc())
+		logger.log("u/" + bot_name + " was unable to get unread messages when performing blacklisting operation.", e)
+		return
+
+	for message in messages:
+		if message.id in unmarked:
+			continue
+		if message in comments:
+			if not debug:
+				comments.remove(message)
+				requests.post(request_url + "/blacklist-comment/", {'comment_id': message.id, 'platform': PLATFORM})
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': message.id, 'platform': PLATFORM})
+				try:
+					inform_comment_blacklisted(message)
+				except Exception as e:
+					logger.log("u/" + bot_name + " was unable to inform a comment " + message.id + " was blacklisted.", e)
+			logger.log(bot_name + " blacklisted comment " + message.id)
+		if message.id in new_ids:
+			new_ids.remove(message.id)
 
 def set_archived_comments(reddit, comments, sub_config):
 	ids = ",".join([comment.id for comment in comments])
