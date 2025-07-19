@@ -154,7 +154,7 @@ def main(config):
 							reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
 						except Exception as e:
 							print(e)
-							reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again."
+							reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again. If you spelled the name correct, it is possible you have chat messages disabled. Please visit https://www.reddit.com/settings/privacy and set `Who can send you chat requests` to `everybody`."
 					else:
 						print(e)
 						reply_text = "Sorry, <@" + str(discord_user_id) + ">, I was unable to send a message to that username. Please check your spelling and try again."
