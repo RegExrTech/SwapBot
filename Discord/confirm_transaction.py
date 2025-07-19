@@ -304,7 +304,7 @@ def main(sub_config):
 			reply("Sorry, but you cannot confirm a transaction with yourself.", message['id'], sub_config.discord_config.baseUrl, sub_config)
 			continue
 
-		full_original_post_url = get_url(bot_message['content'])
+		full_original_post_url = get_url(bot_message['embeds'][0]['description'])
 		if not full_original_post_url:
 			reply("Please only reply to messages that I tag you in. Thank you!", message['id'], sub_config.discord_config.baseUrl, sub_config)
 			continue
