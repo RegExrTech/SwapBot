@@ -270,7 +270,10 @@ def main(sub_config):
 		original_comment_id = mentioned_posts[0]
 		channel_id = mentioned_posts[1]
 		if channel_id:
-			_, original_post_data = get_correct_channel_id(original_comment_id, sub_config, [channel_id])
+			if channel_id in sub_config.discord_config.bst_channels:
+				_, original_post_data = get_correct_channel_id(original_comment_id, sub_config, [channel_id])
+			else:
+				original_post_data = None
 		else:
 			channel_id, original_post_data = get_correct_channel_id(original_comment_id, sub_config, sub_config.discord_config.bst_channels)
 		if not original_post_data:
