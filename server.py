@@ -593,6 +593,7 @@ def add_account_pairing_request():
 	String reddit_username
 	float request_timestamp
 	String discord_message_id
+	String server_id
 
 	Return JSON {}
 	"""
@@ -601,8 +602,9 @@ def add_account_pairing_request():
 	reddit_username = request.form["reddit_username"]
 	request_timestamp = request.form["request_timestamp"]
 	discord_message_id = request.form["discord_message_id"]
+	server_id = request.form["server_id"]
 
-	pending_requests[discord_user_id] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'discord_message_id': discord_message_id}
+	pending_requests[discord_user_id] = {"reddit_username": reddit_username, "request_timestamp": time.time(), 'discord_message_id': discord_message_id, 'server_id': server_id}
 
 	json_helper.dump(pending_requests, pending_requests_fname)
 	return jsonify({})

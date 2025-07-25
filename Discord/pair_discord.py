@@ -10,7 +10,7 @@ import sys
 sys.path.insert(0, '.')
 import Config
 from prawcore.exceptions import NotFound
-sys.path.insert("logger")
+sys.path.insert(0, "logger")
 import logger
 
 parser = argparse.ArgumentParser()
@@ -62,27 +62,21 @@ def get_username_from_text(text, usernames_to_ignore=[]):
 
 def get_reddit_messages(reddit):
 	messages = []
-	to_mark_as_read = []
 	try:
 		for message in reddit.inbox.unread():
-			to_mark_as_read.append(message)
 			if not message.was_comment:
 				messages.append(message)
+			else:
+				message.mark_read()
 	except Exception as e:
 		print(e)
 		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
 
-	for message in to_mark_as_read:
-		try:
-			message.mark_read()
-		except Exception as e:
-			print(e)
-			print("Unable to mark message as read. Leaving it as is.")
 	return messages
 
-def send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id):
+def send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id, server_id):
 	reddit.redditor(reddit_username).message(subject=reddit_message_subject, message="A request has been sent from " + discord_username + " on discord to link that account with your Reddit account. If you authorized this request, please reply to this message.\n\n##If you did **NOT** authorize this request, please **ignore this message.**\n\nThanks!")
-	requests.post(request_url + "/add-account-pairing-request/", data={"discord_user_id": discord_user_id, "reddit_username": reddit_username, "request_timestamp": time.time(), 'discord_message_id': discord_message_id})
+	requests.post(request_url + "/add-account-pairing-request/", data={"discord_user_id": discord_user_id, "reddit_username": reddit_username, "request_timestamp": time.time(), 'discord_message_id': discord_message_id, 'server_id': server_id})
 	return "Sending a message to u/" + reddit_username + " on Reddit. Please respond to the bot via Reddit to confirm your identity. If you do not reply within " + str(time_limit_minutes) + " minutes, you will need to restart this process."
 
 def main(config):
@@ -144,7 +138,7 @@ def main(config):
 			else:
 				# Try to send a PM via reddit
 				try:
-					reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
+					reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id, config.discord_config.server_id)
 				# If we fail, tell them to try again later
 				except Exception as e:
 					error_text = str(e)
@@ -192,6 +186,9 @@ def main(config):
 		for discord_user_id, data in pending_requests.items():
 			if reddit_username != data['reddit_username'].lower():
 				continue
+			if config.discord_config.server_id != data['server_id']:
+				continue
+			reddit_message.mark_read()
 			requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_user_id, 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
 			try:
 				reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
@@ -201,6 +198,7 @@ def main(config):
 			message_data = {'content': "<@"+discord_user_id+"> -> "+data['reddit_username']}
 			requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
 			requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
+			break
 
 
 try:
