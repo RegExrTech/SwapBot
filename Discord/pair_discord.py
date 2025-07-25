@@ -5,14 +5,18 @@ import re
 import json
 import praw
 import argparse
+import traceback
 import sys
 sys.path.insert(0, '.')
 import Config
 from prawcore.exceptions import NotFound
+sys.path.insert("logger")
+import logger
 
 parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)
 args = parser.parse_args()
+arg_sub_name = args.sub_name.lower()
 
 time_limit_minutes = 30
 time_limit = time_limit_minutes * 60 # Seconds
@@ -20,7 +24,7 @@ time_limit = time_limit_minutes * 60 # Seconds
 request_url = "http://0.0.0.0:8000"
 
 bot_username = "Swap Bot#0749"
-config = Config.Config(args.sub_name.lower())
+config = Config.Config(arg_sub_name)
 
 reddit = praw.Reddit(client_id=config.discord_config.reddit_pairing_config['client_id'], client_secret=config.discord_config.reddit_pairing_config['client_secret'], user_agent='Swap Bot for Account Linking v1.0 (by u/RegExr)', refresh_token=config.discord_config.reddit_pairing_config['refresh_token'])
 
@@ -199,4 +203,7 @@ def main(config):
 			requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
 
 
-main(config)
+try:
+	main(config)
+except Exception as e:
+	logger.log("Failed to run Discord/pair_discord.py for " + arg_sub_name, e, traceback.format_exc())
