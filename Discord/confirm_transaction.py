@@ -9,10 +9,12 @@ import argparse
 import sys
 sys.path.insert(0, ".")
 sys.path.insert(0, "Discord")
+sys.path.insert(0, "logger")
 import json_helper
 from assign_role import assign_role
 from Config import Config
 import swap
+import logger
 import time
 
 request_url = "http://0.0.0.0:8000"
@@ -205,6 +207,12 @@ def get_correct_channel_id(post_id, sub_config, bst_channel_ids):
 			return bst_channel_id, r.json()
 	return None, {}
 
+def get_parent_channel_id(channel_id):
+	r = send_request(GET, "https://discordapp.com/api/channels/{}".format(channel_id), sub_config.discord_config.headers)
+	if r.ok and r.json() and 'parent_id' in r.json():
+		return r.json()['parent_id']
+	return ""
+
 def reply(message, reply_id, url, sub_config):
 	message += kofi_text
 	message_data = get_embedded_messaged_template(description=message)
@@ -270,7 +278,8 @@ def main(sub_config):
 		original_comment_id = mentioned_posts[0]
 		channel_id = mentioned_posts[1]
 		if channel_id:
-			if channel_id in sub_config.discord_config.bst_channels:
+			parent_id = get_parent_channel_id(channel_id)
+			if any([x in sub_config.discord_config.bst_channels for x in [channel_id, parent_id]]):
 				_, original_post_data = get_correct_channel_id(original_comment_id, sub_config, [channel_id])
 			else:
 				original_post_data = None
@@ -343,7 +352,11 @@ def main(sub_config):
 
 	# REPLY TO REQUESTS FOR FEEDBACK
 
-	messages = send_request(GET, sub_config.discord_config.feedbackUrl, sub_config.discord_config.headers).json()
+	try:
+		messages = send_request(GET, sub_config.discord_config.feedbackUrl, sub_config.discord_config.headers).json()
+	except Exception as e:
+		logger.log("Unable to get feedback requests for discord server " + sub_config.subreddit_name, e)
+		messages = []
 	invocations = []
 	messages_to_ignore = []
 	for message in messages:
