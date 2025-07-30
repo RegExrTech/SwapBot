@@ -85,7 +85,11 @@ def main(config):
 		return
 
 	r = requests.get(baseURL, headers = headers)
-	messages = r.json()
+	try:
+		messages = r.json()
+	except Exception as e:
+		logger.log("Unable to get discord messages for community " + config.subreddit_name + " with returned status " + str(r) + " and text " + r.text, e)
+		messages = []
 
 	pending_requests = requests.get(request_url + "/get-pending-account-pairing-requests/").json()
 	paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
