@@ -56,7 +56,11 @@ def send_request(type, url, headers, data="{}", should_retry=True, is_embed=Fals
 			time.sleep((status_data['retry_after']/1000.0) + 0.1) # Add some buffer to the sleep
 			return send_request(type, url, headers, data, False, is_embed)
 		else:
-			print("Discord Failure - status: " + str(r.status_code) + " - text: " + r.text + "\nData: " + str(data) + "\nURL: " + url + "\nType: " + type)
+			if should_retry:
+				time.sleep(5)
+				return send_request(type, url, headers, data, False, is_embed)
+			else:
+				print("Discord Failure - status: " + str(r.status_code) + " - text: " + r.text + "\nData: " + str(data) + "\nURL: " + url + "\nType: " + type)
 	return r
 
 def get_embedded_messaged_template(content="", title="", url="", description=""):
@@ -229,7 +233,11 @@ def update_database(author1, author2, listing_url):
 	return return_data
 
 def main(sub_config):
-	messages = send_request(GET, sub_config.discord_config.baseUrl, sub_config.discord_config.headers).json()
+	try:
+		messages = send_request(GET, sub_config.discord_config.baseUrl, sub_config.discord_config.headers).json()
+	except Exception as e:
+		logger.log("Unable to get confirmation messages for discord community " + sub_config.subreddit_name, e)
+		messages = []
 
 	confirmation_invocations = []
 	confirmation_replies = []

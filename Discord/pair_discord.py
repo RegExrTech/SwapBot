@@ -12,6 +12,9 @@ import Config
 from prawcore.exceptions import NotFound
 sys.path.insert(0, "logger")
 import logger
+sys.path.insert(0, "Discord")
+import confirm_transaction
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('sub_name', metavar='C', type=str)
@@ -84,7 +87,7 @@ def main(config):
 	if not config.discord_config or not config.discord_config.pairing_channel:
 		return
 
-	r = requests.get(baseURL, headers = headers)
+	r = confirm_transaction.send_request(confirm_transaction.GET, baseURL, headers)
 	try:
 		messages = r.json()
 	except Exception as e:
