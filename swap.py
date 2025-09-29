@@ -276,6 +276,9 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 				comment = ids_to_comments[comment_id]
 			else:
 				comment = reddit.comment(comment_id)
+			if comment.author.username.lower() in ['automoderator', bot_name.lower()]:
+				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment_id, 'platform': PLATFORM})
+				continue
 			comments.append(comment)
 		except Exception as e:  # If we fail, the user deleted their comment or account, so skip
 			print("Failed to turn comment id " + comment_id + " into a comment object with bot " + bot_name + " with error " + str(e))
