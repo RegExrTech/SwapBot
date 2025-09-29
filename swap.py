@@ -593,6 +593,7 @@ def check_booster_count(username, sub_config):
 	sub_config.subreddit_object.message(subject="Potential Flair Booster Found", message=message)
 
 def get_username_from_text(text, usernames_to_ignore=[]):
+	text = text.lower()
 	text = text.replace("/user/", "/u/")
 	pattern = re.compile("u\/([A-Za-z0-9_-]+)")
 	found = re.findall(pattern, text)
@@ -601,7 +602,7 @@ def get_username_from_text(text, usernames_to_ignore=[]):
 		if found_username not in [x.lower() for x in usernames_to_ignore] + ['digitalcodesellbot', 'uvtrade_bot', 'airsoftmarketbot', 'airsoftswapbot', 'c4c_bot', 'acamiibobot']:
 			username = "u/" + found_username
 			break
-	return username.lower()
+	return username
 
 def reply(comment, reply_text, lock=True, try_parent=True):
 	try:
