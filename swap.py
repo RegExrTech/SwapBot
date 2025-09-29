@@ -222,7 +222,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 	try:
 		for message in reddit.inbox.unread():
 			to_mark_as_read.append(message)
-			if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() == "automoderator"):
+			if message.was_comment and message.subject == "username mention" and (not str(message.author).lower() in ["automoderator", bot_name.lower()]):
 				try:
 					ids.append(message.id)
 					ids_to_comments[id] = message
@@ -1109,7 +1109,7 @@ def main():
 	comments = []  # Stores comments from both sources of Ids
 	messages = []  # Want to catch everything else for replying
 	new_ids = []  # Want to know which IDs are from comments we're just finding for the first time
-	set_active_comments_and_messages(reddit, sub, sub_config.bot_username, comments, messages, new_ids, sub_config)
+	set_active_comments_and_messages(reddit, sub, sub_config.bot_username.lower(), comments, messages, new_ids, sub_config)
 
 	# Do this after `set_active_comments_and_messages` so we ensure we accept mod invite before modifying wiki pages
 	wiki_helper.run_config_checker(sub_config)
