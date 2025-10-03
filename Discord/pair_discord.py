@@ -9,6 +9,7 @@ import traceback
 import sys
 sys.path.insert(0, '.')
 import Config
+import swap
 from prawcore.exceptions import NotFound
 sys.path.insert(0, "logger")
 import logger
@@ -166,8 +167,15 @@ def main(config):
 		elif reddit_username is not None and not reddit_username:
 			reply_text = "Sorry, I was unable to detect a reddit username in your message. Please send another message, ensuring that the reddit usernames begin with u/. Thanks!"
 		else:
-			reply_text = "Your account has already been verified so I've added the relevant role to your account. Thanks!"
-			requests.put(roleURL.format(discord_user_id, config.discord_config.role_id), headers=headers)
+			if discord_user_id in paired_usernames['discord'] and body.strip().lower() in ["remove", "unpair", "delete"] and 'reddit' in paired_usernames['discord'][discord_user_id]:
+				reddit_username = paired_usernames['discord'][discord_user_id]['reddit']
+				requests.post(request_url + "/remove-username-pairing/", data={'platform1': 'discord', 'platform2': 'reddit', 'username1': discord_user_id, 'username2': reddit_username})
+				redditor = config.reddit_object.redditor(reddit_username)
+				swap.update_flair(redditor, None, config)
+				reply_text = "I have successfully unpaired u/" + reddit_username + " from your discord account. You are now free to redo the pairing process with a new reddit account."
+			else:
+				reply_text = "Your account has already been verified so I've added the relevant role to your account. Thanks!"
+				requests.put(roleURL.format(discord_user_id, config.discord_config.role_id), headers=headers)
 
 		reply_data = {'content': reply_text, 'message_reference': {'message_id': discord_message_id}}
 		requests.post(baseURL, headers=headers, data=json.dumps(reply_data))
@@ -201,7 +209,9 @@ def main(config):
 				reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
 			except:
 				pass
-			requests.put(roleURL.format(discord_user_id, config.discord_config.role_id), headers=headers)
+#			requests.put(roleURL.format(discord_user_id, config.discord_config.role_id), headers=headers)
+			redditor = config.reddit_object.redditor(reddit_username)
+			swap.update_flair(redditor, None, config)
 			message_data = {'content': "<@"+discord_user_id+"> -> "+data['reddit_username']}
 			requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
 			requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
