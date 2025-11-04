@@ -56,6 +56,10 @@ def log(message, error=None, trace=''):
 	"""
 	message = "------------------\n\n<@333321993036365826>\n" + message
 
+	# Skip logging on 500 errors from reddit
+	if error and '500 HTTP' in str(error):
+		return
+
 	if error:
 		message += "\n\nError: " + str(error)
 	if trace:
