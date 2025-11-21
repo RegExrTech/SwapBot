@@ -73,8 +73,7 @@ def get_reddit_messages(reddit):
 			else:
 				message.mark_read()
 	except Exception as e:
-		print(e)
-		print("Failed to get next message from unreads. Ignoring all unread messages and will try again next time.")
+		pass
 
 	return messages
 
@@ -159,10 +158,10 @@ def main(config):
 						try:
 							reply_text = send_reddit_message(reddit_username, discord_username, reddit, time_limit_minutes, pending_requests, discord_user_id, discord_message_id)
 						except Exception as e:
-							print(e)
+							logger.log("Unable to send a message to u/" + reddit_username + " for discord user " + str(discord_username) + " on community " + config.subreddit_name, e)
 							reply_text = "Sorry, I was unable to send a message to that username. Please check your spelling and try again. If you spelled the name correct, it is possible you have chat messages disabled. Please visit https://www.reddit.com/settings/privacy and set `Who can send you chat requests` to `everybody`."
 					else:
-						print(e)
+						logger.log("Unable to send a message to u/" + reddit_username + " for discord user " + str(discord_username) + " on community " + config.subreddit_name, e)
 						reply_text = "Sorry, <@" + str(discord_user_id) + ">, I was unable to send a message to that username. Please check your spelling and try again."
 		elif reddit_username is not None and not reddit_username:
 			reply_text = "Sorry, I was unable to detect a reddit username in your message. Please send another message, ensuring that the reddit usernames begin with u/. Thanks!"
@@ -207,15 +206,13 @@ def main(config):
 			requests.post(request_url + "/add-username-pairing/", data={'platform1': 'discord', 'username1': discord_user_id, 'platform2': 'reddit', 'username2': data['reddit_username']}).json()
 			try:
 				reddit_message.reply("Thank you for confirming your identity. Your discord account is now linked to your reddit account.")
-			except:
-				pass
-#			requests.put(roleURL.format(discord_user_id, config.discord_config.role_id), headers=headers)
+			except Exception as e:
+				discord.log("After confirming discord/reddit pair identity, I was unable to reply to u/" + data['reddit_username'] + " after they confirmed their identity.", e)
 			redditor = config.reddit_object.redditor(reddit_username)
 			swap.update_flair(redditor, None, config)
 			message_data = {'content': "<@"+discord_user_id+"> -> "+data['reddit_username']}
 			requests.post(logBaseURL, headers=headers, data=json.dumps(message_data))
 			requests.post(request_url + "/remove-account-pairing-request/", data={"discord_user_id": discord_user_id})
-			break
 
 
 try:

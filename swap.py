@@ -157,7 +157,15 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	Updates a user's flair.
 	Returns the flair text of the user.
 	"""
-	# No username means no real reddit config
+	# Handle Discord Updates
+	discord_role_id = get_discord_role(sub_config.discord_roles, int(swap_count))
+	if not debug:
+		if sub_config.discord_config and discord_role_id:
+			paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
+			if author in paired_usernames['reddit']:
+				discord_user_id = paired_usernames['reddit'][author]['discord']
+				assign_role(sub_config.discord_config.server_id, discord_user_id, discord_role_id, sub_config.discord_config.token)
+	# Handle Reddit Updates
 	if not sub_config.bot_username:
 		return ""
 	try:
@@ -173,7 +181,6 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 	template = get_flair_template(sub_config.flair_templates, int(swap_count))
 	title = get_flair_template(sub_config.titles, int(swap_count))
 	age_title = get_age_title(sub_config.age_titles, age)
-	discord_role_id = get_discord_role(sub_config.discord_roles, int(swap_count))
 	flair_text = ""
 	if not debug:
 		# Only non-mods and mods when display count is enabled get counts in their flair
@@ -200,11 +207,6 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 				sub.flair.set(redditor=author, text=flair_text, css_class=swap_count)
 		except Exception as e:
 			print("Error assigning flair to " + str(author) + " on sub " + sub_config.subreddit_name + " with error " + str(e) + ". Please update flair manually.")
-		if sub_config.discord_config and discord_role_id:
-			paired_usernames = requests.get(request_url + "/get-paired-usernames/").json()
-			if author in paired_usernames['reddit']:
-				discord_user_id = paired_usernames['reddit'][author]['discord']
-				assign_role(sub_config.discord_config.server_id, discord_user_id, discord_role_id, sub_config.discord_config.token)
 		content = format_swap_count_summary(sub_config, author, 200000) # Wiki pages are limited to 524288 bytes
 		overview_content = format_swap_count_overview_summary(content, sub_config, author)
 		wiki_helper.update_confirmation_page(author, content, overview_content, sub_config)
@@ -253,10 +255,6 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 	try:
 		new_comments = sub.comments(limit=20)
 		for new_comment in new_comments:
-			try:
-				new_comment.refresh()
-			except: # if we can't refresh a comment, ignore it.
-				continue
 			# If this comment is tagging the bot, we haven't seen it yet, and the bot has not already replied to it, we want to track it.
 			if "u/"+bot_name.lower() in get_comment_text(new_comment).lower() and new_comment.id not in ids and not str(new_comment.author).lower() == "automoderator":
 				bot_reply = find_correct_reply(new_comment, str(new_comment.author), "u/"+bot_name.lower(), None)
@@ -778,6 +776,14 @@ def format_swap_count(trades_data, sub_config):
 
 
 def find_correct_reply(comment, author1, desired_author2_string, parent_post):
+	try:
+		comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
+	except praw.exceptions.ClientException as e:
+		print("Could not 'refresh' comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
+#		requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
+#		or archive
+		return None
+
 	replies = comment.replies
 	try:
 		replies.replace_more(limit=None)
@@ -1121,12 +1127,6 @@ def main():
 	if debug:
 		print("Looking through active comments...")
 	for comment in comments:
-		try:
-			comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
-		except: # if we can't refresh a comment, archive it so we don't waste time on it.
-			print("Could not 'refresh' comment: " + str(comment))
-			requests.post(request_url + "/archive-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
-			continue
 		handeled = handle_comment(comment, sub_config.bot_username, sub, reddit, comment.id in new_ids, sub_config)
 		time_made = comment.created
 		# if this comment is more than a day old and we didn't find a correct looking reply
@@ -1145,15 +1145,6 @@ def main():
 		comments = []
 		set_archived_comments(reddit, comments, sub_config)
 		for comment in comments:
-			try:
-				comment.refresh()  # Don't know why this is required but it doesnt work without it so dont touch it
-			except praw.exceptions.ClientException as e:
-				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e) + "\n    Removing comment...")
-				requests.post(request_url + "/remove-comment/", {'sub_name': sub_config.subreddit_name, 'comment_id': comment.id, 'platform': PLATFORM})
-				continue
-			except Exception as e:
-				print("Could not 'refresh' archived comment: " + str(comment)+ " with exception: \n    " + str(type(e).__name__) + " - " + str(e))
-				continue
 			time_made = comment.created
 			if time.time() - time_made > 7 * 24 * 60 * 60:  # if this comment is more than seven days old
 				inform_comment_deleted(comment)
