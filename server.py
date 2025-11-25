@@ -1,3 +1,4 @@
+import copy
 import os
 from flask import Flask, request, render_template, redirect
 import json
@@ -326,6 +327,43 @@ def get_summary_from_subs():
 			continue
 		data[sub_name] = get_user_summary(swap_data[sub_name], username, current_platform)
 	return jsonify({'data': data})
+
+@app.route('/get-transaction-data/', methods=["GET"])
+def get_transaction_data():
+	"""
+	Returns the transaction data, given the post and comment ID
+
+	Requested Form Parms:
+	String post_id
+	String comment_id
+	String sub_name: The expected subreddit name (so mods can't remove swaps from other subreddits)
+
+	Return JSON{
+		"author": "",
+		"comment_id": "",
+		"partner": "",
+		"post_id": "",
+		"timestamp": 0
+	}
+	"""
+	post_id = request.form["post_id"]
+	comment_id = request.form["comment_id"]
+	sub_name = request.form["sub_name"]
+
+	if sub_name not in swap_data:
+		return jsonify({'error': "r/" + sub_name + " was not found in the database"})
+
+	for platform in swap_data[sub_name]:
+		for username in swap_data[sub_name][platform]:
+			transaction_data = swap_data[sub_name][platform][username]
+			if 'transactions' not in transaction_data:
+				continue
+			for transaction in transaction_data['transactions']:
+				if transaction['post_id'] == post_id and transaction['comment_id'] == comment_id:
+					transaction = copy.deepcopy(transaction)
+					transaction["author"] = username
+					return jsonify(transaction)
+	return jsonify({'error': "Unable to find transaction in database for r/" + sub_name})
 
 @app.route('/archive-comment/', methods=['POST'])
 def archive_comment():

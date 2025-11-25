@@ -1019,14 +1019,12 @@ def handle_swap_removal(message, sub_config):
 	# Get info from the comment ID
 	post_id = url_parts[6]
 	comment_id = url_parts[8]
-	try:
-		comment_obj = sub_config.reddit_object.comment(comment_id)
-		comment_text = get_comment_text(comment_obj)
-		author = comment_obj.author.name.lower()
-		partner = get_username_from_text(comment_text, [sub_config.bot_username, author])[2:].lower()
-	except Exception as e:
-		reply_text = "Failed to parse comment ID from URL " + url + " with error " + str(e) + "\n\nPlease copy and paste this message to u/RegExr for assistance."
+	resp_data = requests.get(request_url + "/get-transaction-data/", data={"post_id": post_id, "comment_id": comment_id, "sub_name": sub_config.subreddit_name}).json()
+	if 'error' in resp_data:
+		reply_text = resp_data['error']
 		return reply_to_message(message, reply_text, sub_config)
+	author = resp_data['author']
+	partner = resp_data['partner']
 
 	# Remove the transaction
 	try:
@@ -1044,11 +1042,10 @@ def handle_swap_removal(message, sub_config):
 			print("Unable to send mod mail message to r/" + sub_config.subreddit_display_name + " when manually removing swap.")
 
 	# Update flairs
-	update_flair(comment_obj.author, sub_config.reddit_object.redditor(partner), sub_config)
+	update_flair(sub_config.reddit_object.redditor(author), sub_config.reddit_object.redditor(partner), sub_config)
 
 	reply_text = "I have successfully removed the confirmation from \n\n" + url + "\n\nfor u/" + author + " and u/" + partner
 	return reply_to_message(message, reply_text, sub_config)
-
 
 def get_count_from_summary(trades_data):
 	trade_count = 0
