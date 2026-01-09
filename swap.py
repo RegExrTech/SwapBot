@@ -309,7 +309,7 @@ def set_active_comments_and_messages(reddit, sub, bot_name, comments, messages, 
 					inform_comment_blacklisted(message)
 				except Exception as e:
 					logger.log("u/" + bot_name + " was unable to inform a comment " + message.id + " was blacklisted.", e)
-			logger.log(bot_name + " blacklisted comment " + message.id)
+#			logger.log(bot_name + " blacklisted comment " + message.id)
 		if message.id in new_ids:
 			new_ids.remove(message.id)
 
