@@ -54,10 +54,22 @@ def log(message, error=None, trace=''):
 	Given a text message, a potential Python Error, and a potential stack trace, sends nicely formatted text
 	to Discord for review by Admins.
 	"""
+	# Skip logging these errors as they're all transient.
+	if error:
+		if 'Expecting value' in str(e):
+			return
+		if 'Remote end closed connection without response' in str(e):
+			return
+		if 'Read timed out' in str(e):
+			return
+		if 'InvalidChunkLength' in str(e):
+			return
+
+
 	message = "------------------\n\n<@333321993036365826>\n" + message
 
-	# Skip logging on 500 errors from reddit
-	if error and '500 HTTP' in str(error):
+	# Skip logging on some errors
+	if error and any(x in str(error) for x in ['Connection reset by peer', '500 HTTP', '503 HTTP']):
 		return
 
 	if error:
