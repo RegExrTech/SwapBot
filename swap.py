@@ -172,7 +172,7 @@ def update_single_user_flair(sub, sub_config, author, swap_count, non_updated_us
 		mods = [str(x).lower() for x in sub.moderator()]
 	except Exception as e:
 		print("Unable to get mod list from " + sub_config.subreddit_name + " with error " + str(e))
-		return ""
+		mods = []
 	if author.lower() in sub_config.black_list:
 		return "" # Silently return
 	if int(swap_count) < sub_config.flair_threshold:
